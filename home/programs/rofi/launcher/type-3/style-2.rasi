@@ -16,8 +16,18 @@ configuration {
 }
 
 /*****----- Global Properties -----*****/
-@import                          "shared/colors.rasi"
-@import                          "shared/fonts.rasi"
+* {
+    background:     #1E2127FF;
+    background-alt: #282B31FF;
+    foreground:     #FFFFFFFF;
+    selected:       #61AFEFFF;
+    active:         #98C379FF;
+    urgent:         #E06C75FF;
+}
+
+* {
+    font: "JetBrains Mono Nerd Font 9.5";
+}
 
 /*****----- Main Window -----*****/
 window {

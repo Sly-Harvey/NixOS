@@ -111,19 +111,29 @@
     }
 
     animations {
-        enabled = yes
-        bezier = wind, 0.05, 0.9, 0.1, 1.05
-        bezier = winIn, 0.1, 1.1, 0.1, 1.1
-        bezier = winOut, 0.3, -0.3, 0, 1
-        bezier = liner, 1, 1, 1, 1
-        animation = windows, 1, 6, wind, slide
-        animation = windowsIn, 1, 6, winIn, slide
-        animation = windowsOut, 1, 5, winOut, slide
-        animation = windowsMove, 1, 5, wind, slide
-        animation = border, 1, 1, liner
-        animation = borderangle, 1, 30, liner, loop
-        animation = fade, 1, 10, default
-        animation = workspaces, 1, 5, wind
+      enabled = true
+      # Animation curves
+      
+      bezier = linear, 0, 0, 1, 1
+      bezier = md3_standard, 0.2, 0, 0, 1
+      bezier = md3_decel, 0.05, 0.7, 0.1, 1
+      bezier = md3_accel, 0.3, 0, 0.8, 0.15
+      bezier = overshot, 0.05, 0.9, 0.1, 1.1
+      bezier = crazyshot, 0.1, 1.5, 0.76, 0.92 
+      bezier = hyprnostretch, 0.05, 0.9, 0.1, 1.0
+      bezier = fluent_decel, 0.1, 1, 0, 1
+      bezier = easeInOutCirc, 0.85, 0, 0.15, 1
+      bezier = easeOutCirc, 0, 0.55, 0.45, 1
+      bezier = easeOutExpo, 0.16, 1, 0.3, 1
+      # Animation configs
+      animation = windows, 1, 3, md3_decel, popin 60%
+      animation = border, 1, 10, default
+      animation = fade, 1, 2.5, md3_decel
+      # animation = workspaces, 1, 3.5, md3_decel, slide
+      animation = workspaces, 1, 3.5, easeOutExpo, slide
+      # animation = workspaces, 1, 7, fluent_decel, slidefade 15%
+      # animation = specialWorkspace, 1, 3, md3_decel, slidefadevert 15%
+      animation = specialWorkspace, 1, 3, md3_decel, slidevert
     }
 
     decoration {
@@ -169,6 +179,7 @@
     # Example windowrule v2
     # windowrulev2 = float,class:^(kitty)$,title:^(kitty)$
 
+    #windowrulev2 = noanim, class:^(Rofi)$
     windowrulev2 = opacity 0.80 0.80,class:^(alacritty)$
     windowrulev2 = tile,title:(.*)(Godot)(.*)$
     windowrulev2 = workspace 1, class:^(firefox)$
@@ -189,7 +200,7 @@
     #windowrulev2 = immediate, class:^(steam_app_2)$
     #windowrulev2 = immediate, class:^(.*)(.exe)$
 
-    windowrulev2 = opacity 0.90 0.90,class:^(firefox)$
+    windowrulev2 = opacity 1.00 1.00,class:^(firefox)$
     windowrulev2 = opacity 0.90 0.90,class:^(Brave-browser)$
     windowrulev2 = opacity 0.80 0.80,class:^(Steam)$
     windowrulev2 = opacity 0.80 0.80,class:^(steam)$
