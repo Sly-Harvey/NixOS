@@ -59,6 +59,8 @@
     exec-once = waybar
     exec-once = hyprctl setcursor Bibata-Modern-Classic 20
     exec-once = dunst
+    exec-once = polkit-agent-helper-1
+    exec-once = systemctl start --user polkit-gnome-authentication-agent-1
 
     source = /home/harvey/.config/hypr/colors
 

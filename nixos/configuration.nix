@@ -63,7 +63,25 @@
 
   xdg.portal.enable = true;
   xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+
+  # Setup auth agent and keyring
   services.gnome.gnome-keyring.enable = true;
+  systemd = {
+    user.services.polkit-gnome-authentication-agent-1 = {
+      description = "polkit-gnome-authentication-agent-1";
+      wantedBy = [ "graphical-session.target" ];
+      wants = [ "graphical-session.target" ];
+      after = [ "graphical-session.target" ];
+      serviceConfig = {
+          Type = "simple";
+          ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+          Restart = "on-failure";
+          RestartSec = 1;
+          TimeoutStopSec = 10;
+      };
+    };
+  };
+
 
   # Configure keymap in X11
   services.xserver = {
@@ -119,6 +137,9 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+      # System
+      polkit_gnome
+
       # Terminal
       btop
       cava
@@ -127,16 +148,31 @@
       fd
       glib
       git
+      gh
       htop
       jq
       neofetch
+      ripgrep
       spotify
+      tldr
       unzip
+
+      # Applications
+      gimp
+      gparted
+      krita
+      lutris
+      mangohud
+      steam
 
       # Development
       github-desktop
-      rocmPackages.llvm.clang
+      gnumake
       libgcc
+      ninja
+      #python3Full
+      #python.pkgs.pip
+      rocmPackages.llvm.clang
       rustup
       vscode
       zig
