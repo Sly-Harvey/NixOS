@@ -5,8 +5,8 @@
     ./hypr
     #./kitty
     ./nvim
-    #./rofi
-    ./rofi-test
+    ./rofi
+    #./rofi-old
     ./swaylock
     ./waybar
     ./wlogout
