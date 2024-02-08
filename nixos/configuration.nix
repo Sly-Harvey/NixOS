@@ -63,11 +63,7 @@
 
   xdg.portal.enable = true;
   xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-
-  hardware = {
-    opengl.enable = true;
-    nvidia.modesetting.enable = true;
-  };
+  services.gnome.gnome-keyring.enable = true;
 
   # Configure keymap in X11
   services.xserver = {
@@ -100,8 +96,6 @@
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
-
-  
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.harvey = {
@@ -178,6 +172,10 @@
   nix = {                                   # Nix Package Manager Settings
     settings ={
       auto-optimise-store = true;
+      experimental-features = [ "nix-command" "flakes" ];
+      warn-dirty = false;
+      keep-outputs = true;
+      keep-derivations = true;
     };
     gc = {                                  # Garbage Collection
       automatic = true;
@@ -185,11 +183,6 @@
       options = "--delete-older-than 3d";
     };
     package = pkgs.nixFlakes;
-    extraOptions = ''
-      experimental-features = nix-command flakes
-      keep-outputs          = true
-      keep-derivations      = true
-    '';
   };
 
 }
