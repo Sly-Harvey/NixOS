@@ -42,8 +42,8 @@
     monitor=HDMI-A-1,1920x1080@60.0,0x0,1.0
 
     # Fix slow startup
-    exec systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
-    exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP 
+    exec-once systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP QT_QPA_PLATFORMTHEME
+    exec-once dbus-update-activation-environment --systemd --all
 
     # Autostart
     exec-once = pamixer --set-volume 40
@@ -60,7 +60,7 @@
     exec-once = hyprctl setcursor Bibata-Modern-Classic 20
     exec-once = dunst
     exec-once = polkit-agent-helper-1
-    exec-once = systemctl start --user polkit-gnome-authentication-agent-1
+    #exec-once = systemctl start --user polkit-kde-authentication-agent-1
 
     source = /home/harvey/.config/hypr/colors
 
