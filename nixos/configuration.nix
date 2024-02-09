@@ -13,6 +13,7 @@
   # Bootloader.
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot";
+  boot.loader.timeout = null; # Display bootloader indefinitely until user selects OS
   boot.loader.grub.enable = true;
   boot.loader.grub.device = "nodev";
   boot.loader.grub.efiSupport = true;
