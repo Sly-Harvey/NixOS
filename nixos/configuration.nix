@@ -62,10 +62,12 @@
   services.xserver.enable = true;
 
   # Enable the KDE Plasma Desktop Environment.
-  services.xserver.displayManager.sddm.enable = true;
-  services.xserver.desktopManager.plasma5.enable = true;
+  #services.xserver.displayManager.sddm.enable = true;
+  #services.xserver.desktopManager.plasma5.enable = true;
   
   # Enable the Hyprland Window Manager
+  services.xserver.displayManager.sddm.enable = true;
+  services.xserver.displayManager.sddm.theme = "astronaut";
   programs.hyprland = {
     enable = true;
     enableNvidiaPatches = true;
@@ -149,12 +151,17 @@
   # Default shell
   programs.zsh.enable = true;
   users.defaultUserShell = pkgs.zsh;
-
+  
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = with pkgs; let sddm-themes = pkgs.callPackage ../home/themes/sddm/themes.nix {}; in [
       # System
+      libsForQt5.qt5.qtgraphicaleffects # For sddm to function properly
+      nix-prefetch-scripts
       polkit_gnome
+      sddm-themes.sugar-dark
+      sddm-themes.astronaut
+      sddm-themes.tokyo-night
 
       # Terminal
       btop
