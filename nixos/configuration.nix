@@ -68,6 +68,7 @@
   # Enable the Hyprland Window Manager
   services.xserver.displayManager.sddm.enable = true;
   services.xserver.displayManager.sddm.theme = "astronaut";
+  services.xserver.displayManager.sddm.settings.Theme.CursorTheme = "Bibata-Modern-Classic";
   programs.hyprland = {
     enable = true;
     enableNvidiaPatches = true;
@@ -85,14 +86,14 @@
   # Setup auth agent and keyring
   services.gnome.gnome-keyring.enable = true;
   systemd = {
-    user.services.polkit-gnome-authentication-agent-1 = {
-      description = "polkit-gnome-authentication-agent-1";
+    user.services.polkit-kde-authentication-agent-1 = {
+      description = "polkit-kde-authentication-agent-1";
       wantedBy = [ "graphical-session.target" ];
       wants = [ "graphical-session.target" ];
       after = [ "graphical-session.target" ];
       serviceConfig = {
           Type = "simple";
-          ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+          ExecStart = "${pkgs.libsForQt5.polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1";
           Restart = "on-failure";
           RestartSec = 1;
           TimeoutStopSec = 10;
@@ -151,14 +152,19 @@
   # Default shell
   programs.zsh.enable = true;
   users.defaultUserShell = pkgs.zsh;
+
+  qt.style = "adwaita-dark";
   
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; let sddm-themes = pkgs.callPackage ../home/themes/sddm/themes.nix {}; in [
       # System
+      adwaita-qt
+      bibata-cursors
       libsForQt5.qt5.qtgraphicaleffects # For sddm to function properly
       nix-prefetch-scripts
-      polkit_gnome
+      polkit
+      libsForQt5.polkit-kde-agent
       sddm-themes.sugar-dark
       sddm-themes.astronaut
       sddm-themes.tokyo-night
