@@ -2,6 +2,7 @@
   imports = [
     ./alacritty
     ./dunst
+    ./firefox
     ./hypr
     #./kitty
     ./nvim
