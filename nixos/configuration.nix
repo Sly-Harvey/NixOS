@@ -204,7 +204,7 @@
       #python.pkgs.pip
       rocmPackages.llvm.clang
       rustup
-      vscode
+      #vscode
       zig
   ];
 

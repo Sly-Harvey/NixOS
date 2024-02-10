@@ -9,6 +9,7 @@
     ./rofi
     #./rofi-old
     ./swaylock
+    ./vscode
     ./waybar
     ./wlogout
     ./zsh
