@@ -1,260 +1,341 @@
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
+  let
+    lock-false = {
+      Value = false;
+      Status = "locked";
+    };
+    lock-true = {
+      Value = true;
+      Status = "locked";
+    };
+  in
 {
-	programs.firefox = {
-		enable = true;
-		package = pkgs.wrapFirefox pkgs.firefox-unwrapped {
-# package = pkgs.wrapFirefox pkgs.firefox-esr-unwrapped {
-# forceWayland = true;
-# nixExtensions = [
-#     (pkgs.fetchFirefoxAddon{
-#       name = "Adblock Plus";
-#       url = "https://addons.mozilla.org/firefox/downloads/file/3995494/adblock_plus-3.14.2.xpi";
-#       sha256 = "sha256-ms63QPWaEPP7nA0b+euLfFfKPpJ2QghbPy3znEs2xw0=";
-#     })
-#     (pkgs.fetchFirefoxAddon{
-#       name = "AdBlock for Firefox";
-#       url = "https://addons.mozilla.org/firefox/downloads/file/4014431/adblock_for_firefox-5.2.0.xpi";
-#       sha256 = "sha256-DaatU30g8yf1Ek3E8UNvMvEilokCLlg0H6wJKlZU7g8=";
-#     })
-#     (pkgs.fetchFirefoxAddon{
-#       name = "AdGuard AdBlocker";
-#       url = "https://addons.mozilla.org/firefox/downloads/file/4012057/adguard_adblocker-4.1.37.xpi";
-#       sha256 = "sha256-T81ntGhm38SlJIaUXdXTniADV2Q8fSlFuyrPa3/737M=";
-#     })
-#     (pkgs.fetchFirefoxAddon{
-#       name = "Content Farm Terminator";
-#       url = "https://addons.mozilla.org/firefox/downloads/file/4017713/content_farm_terminator-5.9.2.xpi";
-#       sha256 = "sha256-LQ6h46hR+pOlMzRujghZOPI4ev+X9jPfiuDgboaU4GA=";
-#     })
-#     (pkgs.fetchFirefoxAddon{
-#       name = "Custom New Tab Page";
-#       url = "https://addons.mozilla.org/firefox/downloads/file/3669474/custom_new_tab_page-1.0.0.xpi";
-#       sha256 = "sha256-C5GBsK9RYo8cjk8MKL8fNCseDR5d4Fweeqqzu0dPSBQ=";
-#     })
-#     (pkgs.fetchFirefoxAddon{
-#       name = "Enhancer for YouTube";
-#       url = "https://addons.mozilla.org/firefox/downloads/file/3964540/enhancer_for_youtube-2.0.115.xpi";
-#       sha256 = "sha256-oHKFhK0rNrEK7J6Ff+xHfLzYT5DlKmB3Hrd/j5jjsdc=";
-#     })
-#     (pkgs.fetchFirefoxAddon{
-#       name = "ImageAssistant Batch Image Downloader";
-#       url = "https://addons.mozilla.org/firefox/downloads/file/3976583/ia_batch_image_downloader-1.66.6.xpi";
-#       sha256 = "sha256-Ks401nYN/E8jxYoeZAOL8AK5tVrqVZrMsy4dAwdlgZs=";
-#     })
-#     (pkgs.fetchFirefoxAddon{
-#       name = "Octotree";
-#       url = "https://addons.mozilla.org/firefox/downloads/file/3999843/octotree-7.6.1.xpi";
-#       sha256 = "sha256-E1tWPPafiIc5RpklXR6CfooVc2RU2qcoAijxE8OPNo0=";
-#     })
-#     (pkgs.fetchFirefoxAddon{
-#       name = "Saladict";
-#       url = "https://addons.mozilla.org/firefox/downloads/file/3854859/ext_saladict-7.20.0.xpi";
-#       sha256 = "sha256-k2CdheMm3oqhMggQjHTHVeXbm0Xc2770cvKMtIcEebY=";
-#     })
-#     (pkgs.fetchFirefoxAddon{
-#       name = "Stylus";
-#       url = "https://addons.mozilla.org/firefox/downloads/file/3995806/styl_us-1.5.26.xpi";
-#       sha256 = "sha256-swsU6cT6DI1JDVfmt9iv5sxx4vRZuXS1xvor+jIhApQ=";
-#     })
-#     (pkgs.fetchFirefoxAddon{
-#       name = "FireShot";
-#       url = "https://addons.mozilla.org/firefox/downloads/file/4002435/fireshot-1.11.18.xpi";
-#       sha256 = "sha256-Ohoy1iotD7ZwVawIZLrMMSlea/p4aofWnk8gmTave6I=";
-#     })
-#     (pkgs.fetchFirefoxAddon{
-#       name = "Tampermonkey";
-#       url = "https://addons.mozilla.org/firefox/downloads/file/4009746/tampermonkey-4.18.0.xpi";
-#       sha256 = "sha256-CLFSYZtPcV0hety3fLsej89GEOSGIrgNECO998WoeEg=";
-#     })
-#     (pkgs.fetchFirefoxAddon{
-#       name = "Tree Style Tab";
-#       url = "https://addons.mozilla.org/firefox/downloads/file/4017073/tree_style_tab-3.9.7.xpi";
-#       sha256 = "sha256-JzNN4vW9iQFJd1ujso+N3EXpcfHUl0ZuCu3u7F+25qw=";
-#     })
-#     (pkgs.fetchFirefoxAddon{
-#       name = "TST Indent Line";
-#       url = "https://addons.mozilla.org/firefox/downloads/file/4003179/tst_indent_line-1.2.1.xpi";
-#       sha256 = "sha256-MdDzDw6l1/m6sXeEE8I+/yU2VEAsn8iAfg29W3OJQGI=";
-#     })
-#     (pkgs.fetchFirefoxAddon{
-#       name = "TST Mouse Wheel and Double Click";
-#       url = "https://addons.mozilla.org/firefox/downloads/file/3473925/tree_style_tab_mouse_wheel-1.5.xpi";
-#       sha256 = "sha256-ybrVH86xjnMjRl/SXdgd98bLP126+Hjcb4ToljxJK7U=";
-#     })
-#     (pkgs.fetchFirefoxAddon{
-#       name = "TWP";
-#       url = "https://addons.mozilla.org/firefox/downloads/file/4011167/traduzir_paginas_web-9.6.1.xpi";
-#       sha256 = "sha256-PMDBB/aLPEg8fyzxqda3NPy+4nYpEeBTHD7pr9ZDWcE=";
-#     })
-#     (pkgs.fetchFirefoxAddon{
-#       name = "uBlacklist";
-#       url = "https://addons.mozilla.org/firefox/downloads/file/4003811/ublacklist-8.0.2.xpi";
-#       sha256 = "sha256-FnxO29qYP6F+BIIHcEdCEite6uhIfOsF4eMFJ03qUmo=";
-#     })
-#     (pkgs.fetchFirefoxAddon{
-#       name = "uBlock Origin";
-#       url = "https://addons.mozilla.org/firefox/downloads/file/4003969/ublock_origin-1.44.4.xpi";
-#       sha256 = "sha256-C+VQyaJ8BA0ErXGVTdnppJZ6J9SP+izf6RFxdS4VJoU=";
-#     })
-#     (pkgs.fetchFirefoxAddon{
-#       name = "User-Agent Switcher and Manager";
-#       url = "https://addons.mozilla.org/firefox/downloads/file/3952467/user_agent_string_switcher-0.4.8.xpi";
-#       sha256 = "sha256-cjoYRvFlVEuCqX5pAA8l/76d4xLwqTLB9sNeVCQKA+4=";
-#     })
-#     (pkgs.fetchFirefoxAddon{
-#       name = "Vim Vixen";
-#       url = "https://addons.mozilla.org/firefox/downloads/file/3845233/vim_vixen-1.2.3.xpi";
-#       sha256 = "sha256-j4bHesjmXf0/GjJpC1bOkjGsdobVqGv4Xj1cxaOp6bU=";
-#     })
-#   ];
-	extraPolicies = {
-		DisplayBookmarksToolbar = true;
-		Preferences = {
-			"browser.toolbars.bookmarks.visibility" = "never";
-			"toolkit.legacyUserProfileCustomizations.stylesheets" = true;
+  programs = {
+    firefox = {
+      enable = true;
+      package = pkgs.wrapFirefox pkgs.firefox-unwrapped {
+        extraPolicies = {
+          DisableTelemetry = true;
+          # add policies here...
+
+          /* ---- EXTENSIONS ---- */
+          ExtensionSettings = {
+            "*".installation_mode = "blocked"; # blocks all addons except the ones specified below
+            # uBlock Origin:
+            "uBlock0@raymondhill.net" = {
+              install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
+              installation_mode = "force_installed";
+            };
+			"queryamoid@kaply.com" = {
+			  install_url = "https://github.com/mkaply/queryamoid/releases/download/v0.1/query_amo_addon_id-0.1-fx.xpi";
+			  installation_mode = "force_installed";
+			};
+            # add extensions here...
+          };
+  
+          /* ---- PREFERENCES ---- */
+          # Set preferences shared by all profiles.
+          Preferences = { 
+            "browser.contentblocking.category" = { Value = "strict"; Status = "locked"; };
+            "extensions.pocket.enabled" = lock-false;
+            "extensions.screenshots.disabled" = lock-true;
+            # add global preferences here...
+          };
+        };
+      };
+
+      /* ---- PROFILES ---- */
+      # Switch profiles via about:profiles page.
+      # For options that are available in Home-Manager see
+      # https://nix-community.github.io/home-manager/options.html#opt-programs.firefox.profiles
+      profiles ={
+        default = {           # choose a profile name; directory is /home/<user>/.mozilla/firefox/profile_0
+          id = 0;               # 0 is the default profile; see also option "isDefault"
+          name = "default";   # name as listed in about:profiles
+          isDefault = true;     # can be omitted; true if profile ID is 0
+		  extensions = with inputs.firefox-addons.packages.${pkgs.system}; [
+			ublock-origin
+			privacy-badger
+			darkreader
+			profile-switcher
+            vimium
+		  ];
+		  bookmarks = [
+			{
+				name = "Youtube";
+				url = "https://www.youtube.com/";
+			}
+			{
+				name = "Github";
+				url = "https://github.com/";
+			}
+			{
+				name = "Firefox addons";
+				url = "https://gitlab.com/rycee/nur-expressions/-/blob/master/pkgs/firefox-addons/addons.json";
+			}
+      	  ];
+		  search = {
+            force = true;
+            default = "Google";
+            order = [ "Google" "Startpage" "Searx" ];
+            engines = {
+			  "Startpage" = {
+                urls = [{
+                  template = "https://www.startpage.com/sp/search?query={searchTerms}&prfe=dea8b8a2e1126185da987128a196ee5c47cdf324dce146f96b3b9157ab1f9e7166ae05d134c935eccc20f54e46222c8f1bb60faece00557b02e7a4e1fe397bc0f6750fbd3f7f580b241188&abp=-1";
+                }];
+                icon = "''${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+                definedAliases = [ "@startpage" ];
+              };
+              "Nix Packages" = {
+                urls = [{
+                  template = "https://search.nixos.org/packages";
+                  params = [
+                    { name = "type"; value = "packages"; }
+                    { name = "query"; value = "{searchTerms}"; }
+                  ];
+                }];
+                icon = "''${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+                definedAliases = [ "@np" ];
+              };
+              "NixOS Wiki" = {
+                urls = [{ template = "https://nixos.wiki/index.php?search={searchTerms}"; }];
+                iconUpdateURL = "https://nixos.wiki/favicon.png";
+                updateInterval = 24 * 60 * 60 * 1000; # every day
+                definedAliases = [ "@nw" ];
+              };
+              "Searx" = {
+                urls = [{ template = "https://searx.aicampground.com/?q={searchTerms}"; }];
+                iconUpdateURL = "https://nixos.wiki/favicon.png";
+                updateInterval = 24 * 60 * 60 * 1000; # every day
+                definedAliases = [ "@searx" ];
+              };
+              "Bing".metaData.hidden = true;
+              "Google".metaData.alias = "@g"; # builtin engines only support specifying one additional alias
+            };
+          };
+          settings = {
+			# Performance settings
+			"gfx.webrender.all" = true; # Force enable GPU acceleration
 			"media.ffmpeg.vaapi.enabled" = true;
-		};
-	};
-};
-profiles.default = {
-	settings = {
-		"browser.startup.homepage" = "file://${./homepage.html}";
-	};
-	userChrome = ''
-		/*================== SIDEBAR ==================*/
-#sidebar-box,
-		.sidebar-panel[lwt-sidebar-brighttext] {
-			background-color: var(--base_color1) !important;
-		}
+			"widget.dmabuf.force-enabled" = true; # Required in recent Firefoxes
 
+			# Re-bind ctrl to super (would interfere with tridactyl otherwise)
+			"ui.key.accelKey" = 91;
 
-	/* The default sidebar width. */
-	/* #sidebar-box { */
-	/*   overflow: hidden!important; */
-	/*   position: relative!important; */
-	/*   transition: all 300ms!important; */
-	/*   min-width: 60px !important; */
-	/*   max-width: 60px !important; */
-	/* } */
+			# Keep the reader button enabled at all times; really don't
+			# care if it doesn't work 20% of the time, most websites are
+			# crap and unreadable without this
+			"reader.parse-on-load.force-enabled" = true;
 
-	/* The sidebar width when hovered. */
-	/* #sidebar-box #sidebar,#sidebar-box:hover { */
-	/*   transition: all 300ms!important; */
-	/*   min-width: 60px !important; */
-	/*   max-width: 200px !important; */
-	/* } */
+			# Hide the "sharing indicator", it's especially annoying
+			# with tiling WMs on wayland
+			"privacy.webrtc.legacyGlobalIndicator" = false;
 
+			# Actual settings
+			"app.update.auto" = false;
+			"browser.startup.homepage" = "";
+			"browser.bookmarks.restore_default_bookmarks" = false;
+			"browser.ctrlTab.recentlyUsedOrder" = false;
+			"browser.discovery.enabled" = false;
+			"browser.laterrun.enabled" = false;
+			"browser.newtabpage.activity-stream.asrouter.userprefs.cfr.addons" = false;
+			"browser.newtabpage.activity-stream.asrouter.userprefs.cfr.features" = false;
+			"browser.newtabpage.activity-stream.feeds.snippets" = false;
+			"browser.newtabpage.activity-stream.improvesearch.topSiteSearchShortcuts.havePinned" = "";
+			"browser.newtabpage.activity-stream.improvesearch.topSiteSearchShortcuts.searchEngines" = "";
+			"browser.newtabpage.activity-stream.section.highlights.includePocket" = false;
+			
+			"browser.newtabpage.pinned" = false;
+			"browser.protections_panel.infoMessage.seen" = true;
+			"browser.quitShortcut.disabled" = true;
+			
+			"browser.ssb.enabled" = true;
+			"browser.toolbars.bookmarks.visibility" = "newtab";
+			#"browser.urlbar.placeholderName" = "Google";
+			"browser.urlbar.suggest.openpage" = false;
+			"datareporting.policy.dataSubmissionEnable" = false;
+			"datareporting.policy.dataSubmissionPolicyAcceptedVersion" = 2;
+			
+			"extensions.getAddons.showPane" = false;
+			"extensions.htmlaboutaddons.recommendations.enabled" = false;
+			"extensions.extensions.activeThemeID" = "firefox-alpenglow@mozilla.org";
+			"extensions.update.enabled" = false;
+			"extensions.webcompat.enable_picture_in_picture_overrides" = true;
+			"extensions.webcompat.enable_shims" = true;
+			"extensions.webcompat.perform_injections" = true;
+			"extensions.webcompat.perform_ua_overrides" = true;
 
-	/* only remove TST headers */
-#sidebar-box[sidebarcommand="treestyletab_piro_sakura_ne_jp-sidebar-action"] #sidebar-header {
-display: none; /* remove sidebar header */
-	 border-color: var(--base_color2) !important;
-}
+			"network.trr.mode" = 2;
+			"network.trr.custom_uri" = "1.1.1.1";
+			"network.trr.uri" = "1.1.1.1";
 
-/*******************/
-.sidebar-splitter {
-	/* display: none;  remove sidebar split line */
-	min-width: 1px !important;
-	max-width: 1px !important;
-	border-color: var(--base_color2) !important;
-}
+			"signon.rememberSignons" = false;
+			"browser.startup.page" = 3;
+			"browser.newtabpage.activity-stream.showSponsored" = false;
+			"browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
+			"app.shield.optoutstudies.enabled" = false;
+			"browser.contentblocking.category" = "strict";
+			"browser.shell.checkDefaultBrowser" = false;
+			"dom.security.https_only_mode" = true;
+			"dom.security.https_only_mode_ever_enabled" = true;
+			"identity.fxaccounts.enabled" = false;
+			"privacy.trackingprotection.enabled" = true;
+			"privacy.trackingprotection.socialtracking.enabled" = true;
+			"privacy.donottrackheader.enabled" = true;
+		  };
+		  extraConfig = ''
+		    lockPref("extensions.autoDisableScopes", 0);
+		  '';
+        };
+        private = {
+          id = 1;
+          name = "private";
+          isDefault = false;
+		  extensions = with inputs.firefox-addons.packages.${pkgs.system}; [
+			ublock-origin
+			privacy-badger
+			darkreader
+			profile-switcher
+            vimium
+		  ];
+		  bookmarks = [
+			{
+				name = "Youtube";
+				url = "https://www.youtube.com/";
+			}
+			{
+				name = "Twitch";
+				url = "https://www.twitch.tv/";
+			}
+			{
+				name = "Kick";
+				url = "https://www.kick.com/";
+			}
+			{
+				name = "Github";
+				url = "https://github.com/";
+			}
+			{
+				name = "Firefox addons";
+				url = "https://gitlab.com/rycee/nur-expressions/-/blob/master/pkgs/firefox-addons/addons.json";
+			}
+      	  ];
+		  search = {
+            force = true;
+            default = "Startpage";
+            order = [ "Starpage" "Searx" "Google" ];
+            engines = {
+			  "Startpage" = {
+                urls = [{
+                  template = "https://www.startpage.com/sp/search?query={searchTerms}&prfe=dea8b8a2e1126185da987128a196ee5c47cdf324dce146f96b3b9157ab1f9e7166ae05d134c935eccc20f54e46222c8f1bb60faece00557b02e7a4e1fe397bc0f6750fbd3f7f580b241188&abp=-1";
+                }];
+                icon = "''${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+                definedAliases = [ "@startpage" ];
+              };
+              "Nix Packages" = {
+                urls = [{
+                  template = "https://search.nixos.org/packages";
+                  params = [
+                    { name = "type"; value = "packages"; }
+                    { name = "query"; value = "{searchTerms}"; }
+                  ];
+                }];
+                icon = "''${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+                definedAliases = [ "@np" ];
+              };
+              "NixOS Wiki" = {
+                urls = [{ template = "https://nixos.wiki/index.php?search={searchTerms}"; }];
+                iconUpdateURL = "https://nixos.wiki/favicon.png";
+                updateInterval = 24 * 60 * 60 * 1000; # every day
+                definedAliases = [ "@nw" ];
+              };
+              "Searx" = {
+                urls = [{ template = "https://searx.aicampground.com/?q={searchTerms}"; }];
+                iconUpdateURL = "https://nixos.wiki/favicon.png";
+                updateInterval = 24 * 60 * 60 * 1000; # every day
+                definedAliases = [ "@searx" ];
+              };
+              "Bing".metaData.hidden = true;
+              "Google".metaData.alias = "@g"; # builtin engines only support specifying one additional alias
+            };
+          };
+          settings = {
+			# Performance settings
+			"gfx.webrender.all" = true; # Force enable GPU acceleration
+			"media.ffmpeg.vaapi.enabled" = true;
+			"widget.dmabuf.force-enabled" = true; # Required in recent Firefoxes
 
-/* remove top tabbar */ 
-#titlebar { visibility: collapse !important; }
+			# Re-bind ctrl to super (would interfere with tridactyl otherwise)
+			"ui.key.accelKey" = 91;
 
+			# Keep the reader button enabled at all times; really don't
+			# care if it doesn't work 20% of the time, most websites are
+			# crap and unreadable without this
+			"reader.parse-on-load.force-enabled" = true;
 
-/*================== URL BAR ==================*/
-#urlbar .urlbar-input-box {
-	text-align: center !important;
-}
+			# Hide the "sharing indicator", it's especially annoying
+			# with tiling WMs on wayland
+			"privacy.webrtc.legacyGlobalIndicator" = false;
 
+			# Actual settings
+			"app.update.auto" = false;
+			"browser.startup.homepage" = "";
+			"browser.bookmarks.restore_default_bookmarks" = false;
+			"browser.ctrlTab.recentlyUsedOrder" = false;
+			"browser.discovery.enabled" = false;
+			"browser.laterrun.enabled" = false;
+			"browser.newtabpage.activity-stream.asrouter.userprefs.cfr.addons" = false;
+			"browser.newtabpage.activity-stream.asrouter.userprefs.cfr.features" = false;
+			"browser.newtabpage.activity-stream.feeds.snippets" = false;
+			"browser.newtabpage.activity-stream.improvesearch.topSiteSearchShortcuts.havePinned" = "";
+			"browser.newtabpage.activity-stream.improvesearch.topSiteSearchShortcuts.searchEngines" = "";
+			"browser.newtabpage.activity-stream.section.highlights.includePocket" = false;
+			
+			"browser.newtabpage.pinned" = false;
+			"browser.protections_panel.infoMessage.seen" = true;
+			"browser.quitShortcut.disabled" = true;
+			
+			"browser.ssb.enabled" = true;
+			"browser.toolbars.bookmarks.visibility" = "never";
+			#"browser.urlbar.placeholderName" = "Startpage";
+			"browser.urlbar.suggest.openpage" = false;
+			"datareporting.policy.dataSubmissionEnable" = false;
+			"datareporting.policy.dataSubmissionPolicyAcceptedVersion" = 2;
+			
+			"extensions.getAddons.showPane" = false;
+			"extensions.htmlaboutaddons.recommendations.enabled" = false;
+			"extensions.extensions.activeThemeID" = "firefox-alpenglow@mozilla.org";
+			"extensions.update.enabled" = false;
+			"extensions.webcompat.enable_picture_in_picture_overrides" = true;
+			"extensions.webcompat.enable_shims" = true;
+			"extensions.webcompat.perform_injections" = true;
+			"extensions.webcompat.perform_ua_overrides" = true;
 
-* {
-	font-family: JetBrainsMono Nerd Font Mono !important;
-	font-size: 12pt !important;
-}
+			"network.trr.mode" = 2;
+			"network.trr.custom_uri" = "1.1.1.1";
+			"network.trr.uri" = "1.1.1.1";
 
-/* #nav-bar { visibility: collapse !important; } */
-/* hide horizontal tabs at the top of the window */
-#TabsToolbar > * {
-visibility: collapse;
-}
-
-/* hide navigation bar when it is not focused; use Ctrl+L to get focus */
-#main-window:not([customizing]) #navigator-toolbox:not(:focus-within):not(:hover) {
-	margin-top: -45px;
-}
-#navigator-toolbox {
-transition: 0.2s margin-top ease-out;
-}
-'';
-userContent = ''
-/*hide all scroll bars*/
-/* *{ scrollbar-width: none !important } */
-
-
-* {
-	font-family: JetBrainsMono Nerd Font Mono;
-}
-
-@-moz-document url-prefix("about:") {
-	:root {
-		--in-content-page-background: #1E1E2E !important;
-	}
-}
-
-
-@-moz-document url-prefix(about:home), url-prefix(about:newtab){
-
-	/* show nightly logo instead of default firefox logo in newtabpage */
-	.search-wrapper .logo-and-wordmark .logo {
-background: url("${./logo.png}") no-repeat center !important;
-	    background-size: auto !important;
-	    background-size: 82px !important;
-display: inline-block !important;
-height: 82px !important;
-width: 82px !important;
-	}
-
-	body {
-		background-color: #000000 !important;
-background: url("${./bg.png}") no-repeat fixed !important;
-	    background-size: cover !important;
-	    --newtab-background-color: #000000 !important;
-	    --newtab-background-color-secondary: #101010 !important;
-	}
-
-	body[lwt-newtab-brighttext] {
-		--newtab-background-color: #000000 !important;
-		--newtab-background-color-secondary: #101010 !important;
-
-	}
-
-	.top-site-outer .top-site-icon {
-		background-color: transparent !important;
-
-	}
-
-	.top-site-outer .tile {
-		background-color: rgba(49, 49, 49, 0.4) !important;
-	}
-
-	.top-sites-list:not(.dnd-active) .top-site-outer:is(.active, :focus, :hover) {
-background: rgba(49, 49, 49, 0.3) !important;
-	}
-
-	.top-site-outer .context-menu-button:is(:active, :focus) {
-		background-color: transparent !important;
-	}
-
-	.search-wrapper .search-handoff-button{
-		border-radius: 40px !important;
-		background-color: rgba(49, 49, 49, 0.4) !important;
-	}
-}
-'';
-};
-};
-
+			"signon.rememberSignons" = false;
+			"browser.startup.page" = 0;
+			"browser.newtabpage.activity-stream.showSponsored" = false;
+			"browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
+			"app.shield.optoutstudies.enabled" = false;
+			"browser.contentblocking.category" = "strict";
+			"browser.shell.checkDefaultBrowser" = false;
+			"dom.security.https_only_mode" = true;
+			"dom.security.https_only_mode_ever_enabled" = true;
+			"identity.fxaccounts.enabled" = false;
+			"privacy.trackingprotection.enabled" = true;
+			"privacy.trackingprotection.socialtracking.enabled" = true;
+			"privacy.donottrackheader.enabled" = true;
+		  };
+		  extraConfig = ''
+		    lockPref("extensions.autoDisableScopes", 0);
+		  '';
+        };
+      # add profiles here...
+      };
+    };
+  };
 }
