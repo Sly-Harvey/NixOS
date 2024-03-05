@@ -196,6 +196,7 @@
       krita
       lutris
       mpv
+      mpvScripts.mpris
       mangohud
       steam
 
