@@ -11,6 +11,7 @@
     ];
 
   # Bootloader.
+  boot.supportedFilesystems = [ "ntfs" "exfat" "ext4" "fat32" "btrfs" ];
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot";
   boot.loader.timeout = null; # Display bootloader indefinitely until user selects OS
@@ -196,11 +197,11 @@
       krita
       lutris
       mpv
-      mpvScripts.mpris
       mangohud
       steam
 
       # Development
+      shellify
       github-desktop
       gnumake
       libgcc
@@ -208,9 +209,9 @@
       #python3Full
       #python.pkgs.pip
       rocmPackages.llvm.clang
-      rustup
+      # rustup
       #vscode
-      zig
+      # zig
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
