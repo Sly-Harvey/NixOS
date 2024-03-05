@@ -8,6 +8,7 @@
   home.packages = with pkgs; [ 
     # blueman
     cliphist
+    libnotify
     networkmanagerapplet
     pamixer
     pavucontrol
@@ -20,6 +21,10 @@
 
   home.file.".config/hypr/scripts" = {
     source = ./scripts;
+    recursive = true;
+  };
+  home.file.".config/hypr/icons" = {
+    source = ./icons;
     recursive = true;
   };
 
