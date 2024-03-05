@@ -195,6 +195,7 @@
       gparted
       krita
       lutris
+      mpv
       mangohud
       steam
 
