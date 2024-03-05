@@ -155,6 +155,9 @@
   users.defaultUserShell = pkgs.zsh;
 
   qt.style = "adwaita-dark";
+
+  programs.direnv.enable = true;
+  programs.direnv.nix-direnv.enable = true;
   
   # List packages installed in system profile. To search, run:
   # $ nix search wget

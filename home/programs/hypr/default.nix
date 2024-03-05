@@ -6,28 +6,22 @@
   ];
 
   home.packages = with pkgs; [ 
+    # blueman
+    cliphist
+    networkmanagerapplet
     pamixer
     pavucontrol
     swww
+    swaynotificationcenter
     waybar
+    wlsunset
+    # wl-clipboard
   ];
 
   home.file.".config/hypr/scripts" = {
     source = ./scripts;
     recursive = true;
   };
-  home.file.".config/hypr/theme.ctl".text = ''
-    1|Catppuccin-Mocha|Catppuccin.catppuccin-vsc~Catppuccin Mocha|~/.config/hypr/wallpaper.png
-    0|Catppuccin-Latte|Catppuccin.catppuccin-vsc~Catppuccin Latte|~/.config/hypr/wallpaper.png
-    0|Decay-Green|decaycs.decay~Decayce|~/.config/hypr/wallpaper.png
-    0|Rose-Pine|mvllow.rose-pine~Rosé Pine|~/.config/hypr/wallpaper.png
-    0|Tokyo-Night|enkia.tokyo-night~Tokyo Night Storm|~/.config/hypr/wallpaper.png
-    0|Material-Sakura|mvllow.rose-pine~Rosé Pine Dawn|~/.config/hypr/wallpaper.png
-    0|Graphite-Mono|StepanVanzuriak.mono~mono dark|~/.config/hypr/wallpaper.png
-    0|Cyberpunk-Edge|JWSandeman.cyberpunk2077-theme~cyberpunk2077|~/.config/hypr/wallpaper.png
-    0|Frosted-Glass|msnilshartmann.blue-light~Blue Light Theme|~/.config/hypr/wallpaper.png
-    0|Gruvbox-Retro|jdinhlife.gruvbox~Gruvbox Dark Medium|~/.config/hypr/wallpaper.png
-  '';
 
   #test later systemd.user.targets.hyprland-session.Unit.Wants = [ "xdg-desktop-autostart.target" ];
   wayland.windowManager.hyprland = {
@@ -35,6 +29,8 @@
     systemd.enable= true;
     enableNvidiaPatches = true;
     extraConfig = ''
+    $scriptsDir = $HOME/.local/bin
+    $hyprScriptsDir = $HOME/.config/hypr/scripts
 
     # Monitor
     monitor=HDMI-A-2,1920x1080@60.0,1920x0,1.0
@@ -49,16 +45,24 @@
     exec-once = pamixer --set-volume 40
     exec-once = [workspace 1 silent] firefox
     exec-once = [workspace 2 silent] alacritty
-    exec-once = [workspace 5 silent] spotify
+    #exec-once = [workspace 5 silent] spotify
     #exec-once = [workspace special silent] firefox --new-instance -P private
     #exec-once = [workspace special silent] alacritty
     #exec-once = [workspace 8 silent] alacritty -e cava
     #exec-once = [workspace 9 silent] alacritty -e cava
 
+    #exec-once = hyprctl setcursor Bibata-Modern-Classic 20
     exec-once = ~/.config/hypr/scripts/wallpaper.sh
-    exec-once = waybar
-    exec-once = hyprctl setcursor Bibata-Modern-Classic 20
-    exec-once = dunst
+    exec-once = waybar &
+    exec-once = swaync &
+    # exec-once = dunst
+    # exec-once = blueman-applet
+    exec-once = nm-applet --indicator
+    exec-once = wl-clipboard-history -t
+    exec-once = wl-paste --type text --watch cliphist store # clipboard store text data
+    exec-once = wl-paste --type image --watch cliphist store # clipboard store image data
+    exec-once = rm "$HOME/.cache/cliphist/db" # Clear clipboard
+    exec-once = $hyprScriptsDir/batterynotify.sh # battery notification
     exec-once = polkit-agent-helper-1
     #exec-once = systemctl start --user polkit-kde-authentication-agent-1
 
@@ -84,6 +88,17 @@
         force_no_accel = 1
     }
 
+    gestures {
+        workspace_swipe = true
+        workspace_swipe_fingers = 3
+    }
+
+    binds {
+        workspace_back_and_forth=1
+        #allow_workspace_cycles=1
+        #pass_mouse_when_bound=0
+    }
+
     general {
         gaps_in = 3
         gaps_out = 8
@@ -91,7 +106,7 @@
         col.active_border = rgba(ca9ee6ff) rgba(f2d5cfff) 45deg
         col.inactive_border = rgba(b4befecc) rgba(6c7086cc) 45deg
         resize_on_border = true
-        layout = dwindle
+        layout = master # dwindle or master
         #allow_tearing = true
     }
 
@@ -160,6 +175,8 @@
 
     master {
         new_is_master = yes
+        new_on_top=1
+        mfact = 0.5
     }
 
     gestures {
@@ -252,37 +269,49 @@
     windowrulev2 = float,class:^(org.kde.polkit-kde-authentication-agent-1)$
 
     $mainMod = SUPER
+    $launcher = pkill rofi || rofi -show drun -modi drun,filebrowser,run,window -theme ~/.config/rofi/launchers/type-2/style-2.rasi
     $term = alacritty
-    $editor = code --disable-gpu
+    $editor = code
     $file = alacritty -e lf
     $browser = firefox
+
+    # Night Mode (lower value means warmer temp)
+    bind = $mainMod, F9, exec, wlsunset -t 3700
+    bind = $mainMod, F10, exec, pkill wlsunset
 
     # Window/Session actions
     bind = $mainMod, Q, exec, ~/.config/hypr/scripts/dontkillsteam.sh # killactive, kill the window on focus
     bind = ALT, F4, exec, ~/.config/hypr/scripts/dontkillsteam.sh # killactive, kill the window on focus
-    bind = $mainMod, delete, exit, # kill hyperland session
-    bind = $mainMod, W, togglefloating, # toggle the window on focus to float
-    bind = $mainMod, G, togglegroup, # toggle the window on focus to float
-    bind = ALT, return, fullscreen, # toggle the window on focus to fullscreen
-    #bind = $mainMod, L, exec, swaylock # lock screen
-    bind = $mainMod, P, exec, wlogout # logout menu
+    bind = $mainMod, delete, exit # kill hyperland session
+    bind = $mainMod, W, togglefloating # toggle the window on focus to float
+    bind = $mainMod SHIFT, G, togglegroup # toggle the window on focus to float
+    bind = ALT, return, fullscreen # toggle the window on focus to fullscreen
+    #bind = $mainMod ALT, L, exec, swaylock # lock screen
     bind = $mainMod, backspace, exec, wlogout # logout menu
     bind = $CONTROL, ESCAPE, exec, killall waybar || waybar # toggle waybar
 
+    bind = $mainMod, Return, exec, $term
     bind = $mainMod, T, exec, $term
     bind = $mainMod, E, exec, $file
     bind = $mainMod, C, exec, $editor
     bind = $mainMod, F, exec, $browser
     bind = $CONTROL ALT, DELETE, exec, $term -e btop
 
-    bind = $mainMod, A, exec, pkill -x rofi || rofi -show drun # launch desktop applications
+    bind = $mainMod, A, exec, pkill -x rofi || $launcher # launch desktop applications
     #bind = $mainMod, tab, exec, pkill -x rofi || ~/.config/hypr/scripts/rofilaunch.sh w # switch between desktop applications
     bind = $mainMod, R, exec, pkill -x rofi || ~/.config/hypr/scripts/rofilaunch.sh f # browse system files
+    bind = $mainMod SHIFT, W, exec, $hyprScriptsDir/WallpaperSelect.sh # Select wallpaper to apply
+    bind = $mainMod, K, exec, $hyprScriptsDir/keyboardswitch.sh # change keyboard layout
+    bind = $mainMod SHIFT, N, exec, swaync-client -t -sw # swayNC panel
+    bind = $mainMod, G, exec, $hyprScriptsDir/gamelauncher.sh # game launcher
+    bind = $mainMod ALT, G, exec, $hyprScriptsDir/gamemode.sh # disable hypr effects for gamemode
+    bind = $mainMod, V, exec, $hyprScriptsDir/ClipManager.sh # Clipboard Manager
+    bind = $mainMod SHIFT, M, exec, $hyprScriptsDir/rofimusic.sh # online music
 
-    bind = ALT, return, fullscreen
-
-    # Switch Keyboard Layouts
-    bind = $mainMod, SPACE, exec, hyprctl switchxkblayout teclado-gamer-husky-blizzard next
+    # Waybar
+    bind = $mainMod, B, exec, killall -SIGUSR1 waybar # Toggle hide/show waybar 
+    bind = $mainMod CTRL, B, exec, $hyprScriptsDir/WaybarStyles.sh # Waybar Styles Menu
+    bind = $mainMod ALT, B, exec, $hyprScriptsDir/WaybarLayout.sh # Waybar Layout Menu
 
     bind = , Print, exec, grim -g "$(slurp)" - | wl-copy
     bind = SHIFT, Print, exec, grim -g "$(slurp)"
@@ -300,12 +329,6 @@
     # to switch between windows in a floating workspace
     bind = SUPER,Tab,cyclenext,
     bind = SUPER,Tab,bringactivetotop,
-
-    # Move focus with mainMod + arrow keys
-    bind = $mainMod, left, movefocus, l
-    bind = $mainMod, right, movefocus, r
-    bind = $mainMod, up, movefocus, u
-    bind = $mainMod, down, movefocus, d
 
     # Switch workspaces with mainMod + [0-9]
     bind = $mainMod, 1, workspace, 1
@@ -326,6 +349,19 @@
 
     # move to the first empty workspace instantly with mainMod + CTRL + [↓]
     bind = $mainMod CTRL, down, workspace, empty 
+
+    # Move focus with mainMod + arrow keys
+    bind = $mainMod, left, movefocus, l
+    bind = $mainMod, right, movefocus, r
+    bind = $mainMod, up, movefocus, u
+    bind = $mainMod, down, movefocus, d
+    bind = ALT, Tab, movefocus, d
+
+    # Move focus with mainMod + HJKL keys
+    bind = $mainMod, h, movefocus, l
+    bind = $mainMod, l, movefocus, r
+    bind = $mainMod, k, movefocus, u
+    bind = $mainMod, j, movefocus, d
 
     # Resize windows
     binde = $mainMod SHIFT, right, resizeactive, 30 0

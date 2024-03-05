@@ -4,7 +4,7 @@
 ScrDir=`dirname "$(realpath "$0")"`
 source $ScrDir/globalcontrol.sh
 ThemeSet="${XDG_CONFIG_HOME:-$HOME/.config}/hypr/themes/theme.conf"
-RofiConf="${XDG_CONFIG_HOME:-$HOME/.config}/rofi/steam/gamelauncher_${1}.rasi"
+RofiConf="${XDG_CONFIG_HOME:-$HOME/.config}/rofi/launchers/type-2/style-12.rasi"
 
 
 # set steam library
@@ -47,13 +47,13 @@ do
     appid=`echo $acf | cut -d '|' -f 2`
     game=`echo $acf | cut -d '|' -f 1`
     echo -en "$game\x00icon\x1f${SteamThumb}/${appid}_library_600x900.jpg\n"
-done | rofi -dmenu -theme-str "${r_override}" -config $RofiConf)
+done | rofi -dmenu -theme-str "${r_override}" -theme $RofiConf)
 
 
 # launch game
 if [ ! -z "$RofiSel" ] ; then
     launchid=`echo "$GameList" | grep "$RofiSel" | cut -d '|' -f 2`
-    steam -applaunch "${launchid} [gamemoderun %command%]" &
-    dunstify "t1" -a "Launching ${RofiSel}..." -i ${SteamThumb}/${launchid}_header.jpg -r 91190 -t 2200
+    steam -silent -applaunch "${launchid} [gamemoderun %command%]" &
+    dunstify -a "Launching ${RofiSel}..." -i ${SteamThumb}/${launchid}_header.jpg -r 91190 -t 2200
 fi
 
