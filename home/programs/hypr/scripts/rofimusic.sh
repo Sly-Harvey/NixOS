@@ -8,15 +8,21 @@ iDIR="$HOME/.config/hypr/icons"
 
 # Define menu options as an associative array
 declare -A menu_options=(
+  ["Korean Drama OST 📻🎶"]="https://youtube.com/playlist?list=PLUge_o9AIFp4HuA-A3e3ZqENh63LuRRlQ"
+  ["Pop 📻🎶"]="https://youtube.com/playlist?list=PLMC9KNkIncKtPzgY-5rmhvj7fax8fdxoj"
+  ["Classics UK 🎻🎶"]="http://stream3.hippynet.co.uk:8008/stream.mp3"
+  ["Kiss UK ☕️🎶"]="http://live-kiss.sharp-stream.com/kissnational.mp3?aw_0_1st.skey=1709633813"
+  ["Dance 📻🎶"]="https://dancewave.online:443/dance.mp3"
   ["Lofi Radio ☕️🎶"]="https://play.streamafrica.net/lofiradio"
   ["96.3 Easy Rock 📻🎶"]="https://radio-stations-philippines.com/easy-rock"
+  ["Rock 📻🎶"]="https://www.youtube.com/playlist?list=PL6Lt9p1lIRZ311J9ZHuzkR5A3xesae2pk"
   ["Ghibli Music 🎻🎶"]="https://youtube.com/playlist?list=PLNi74S754EXbrzw-IzVhpeAaMISNrzfUy&si=rqnXCZU5xoFhxfOl"
   ["Top Youtube Music 2023 ☕️🎶"]="https://youtube.com/playlist?list=PLDIoUOhQQPlXr63I_vwF9GD8sAKh77dWU&si=y7qNeEVFNgA-XxKy"
   ["Chillhop ☕️🎶"]="http://stream.zeno.fm/fyn8eh3h5f8uv"
   ["SmoothChill ☕️🎶"]="https://media-ssl.musicradio.com/SmoothChill"
+  ["Smooth UK ☕️🎶"]="https://icecast.thisisdax.com/SmoothUKMP3"
   ["Relaxing Music ☕️🎶"]="https://youtube.com/playlist?list=PLMIbmfP_9vb8BCxRoraJpoo4q1yMFg4CE"
   ["Youtube Remix 📻🎶"]="https://youtube.com/playlist?list=PLeqTkIUlrZXlSNn3tcXAa-zbo95j0iN-0"
-  ["Korean Drama OST 📻🎶"]="https://youtube.com/playlist?list=PLUge_o9AIFp4HuA-A3e3ZqENh63LuRRlQ"
 )
 
 # Function for displaying notifications
@@ -26,7 +32,7 @@ notification() {
 
 # Main function
 main() {
-  choice=$(printf "%s\n" "${!menu_options[@]}" | rofi -dmenu -theme ~/.config/rofi/launchers/type-1/style-2.rasi -i -p "")
+  choice=$(printf "%s\n" "${!menu_options[@]}" | rofi -dmenu -theme ~/.config/rofi/launchers/type-4/style-3.rasi -i -p "") # type-1, style-2
 
   if [ -z "$choice" ]; then
     exit 1
