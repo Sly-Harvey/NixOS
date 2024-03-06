@@ -30,7 +30,10 @@
       fsType = "auto";
       options = [
         "X-mount.mkdir"
-        "defaults"
+        "async"
+        "user"
+        "rw"
+        "exec"
         "nofail"
         "x-gvfs-show"
         "x-systemd.automount"
@@ -44,6 +47,7 @@
       options = [
         "X-mount.mkdir"
         "nofail"
+        "async"
         "rw"
         "exec"
         "user"
@@ -54,6 +58,25 @@
         "x-systemd.mount-timeout=5"
       ];
     };
+
+  virtualisation.vmVariant = {
+    # following configuration is added only when building VM with build-vm
+    virtualisation = {
+      memorySize = 8192; # Use 8GB memory.
+      # memorySize = 4096; # Use 4GB memory.
+      # memorySize = 2048; # Use 2GB memory.
+      cores = 3;         
+    };
+  };
+  virtualisation.vmVariantWithBootLoader = {
+    # following configuration is added only when building VM with build-vm
+    virtualisation = {
+      memorySize = 8192; # Use 8GB memory.
+      # memorySize = 4096; # Use 4GB memory.
+      # memorySize = 2048; # Use 2GB memory.
+      cores = 3;         
+    };
+  };
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
