@@ -25,6 +25,36 @@
 
   swapDevices = [ ];
 
+  fileSystems."/mnt/seagate" =
+    { device = "/dev/disk/by-uuid/E212-7894";
+      fsType = "auto";
+      options = [
+        "X-mount.mkdir"
+        "defaults"
+        "nofail"
+        "x-gvfs-show"
+        "x-systemd.automount"
+        "x-systemd.mount-timeout=5"
+      ];
+    };
+
+  fileSystems."/mnt/games" =
+    { device = "/dev/disk/by-uuid/01DA12C1CBDE9100";
+      fsType = "lowntfs-3g";
+      options = [
+        "X-mount.mkdir"
+        "nofail"
+        "rw"
+        "exec"
+        "user"
+        "uid=1000"
+        "gid=100"
+        "umask=000"
+        "x-gvfs-show"
+        "x-systemd.mount-timeout=5"
+      ];
+    };
+
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
   # still possible to use this option, but it's recommended to use it in conjunction
