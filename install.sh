@@ -60,7 +60,9 @@ if [ "$replaceHardwareConfig" == "Y" ]; then
     # mv /etc/nixos/nixos/hardware-configuration.nix $backupdir/new
     cp $(find $backupdir/old -iname 'hardware-configuration.nix') /etc/nixos/nixos/hosts/
     echo "{ imports = [ ./hardware-configuration.nix ]; }" >> /etc/nixos/nixos/hosts/default.nix
-    git -C /etc/nixos add *
 fi
+
+nix run --experimental-features "nix-command flakes" nixpkgs#git -C /etc/nixos add *
+# git -C /etc/nixos add *
 
 sudo nix shell --experimental-features "nix-command flakes" nixpkgs#git --command sudo nixos-rebuild switch --flake /etc/nixos#nixos

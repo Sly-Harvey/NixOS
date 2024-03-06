@@ -14,44 +14,13 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/6b5439b5-0871-4686-988b-76893318f00a";
-      fsType = "btrfs";
-      options = [ "subvol=@" ];
+    { device = "/dev/disk/by-uuid/3f16af9d-fd62-438e-ad46-199867cddbf1";
+      fsType = "ext4";
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/1B65-97AD";
+    { device = "/dev/disk/by-uuid/3104-778E";
       fsType = "vfat";
-    };
-
-  fileSystems."/mnt/seagate" =
-    { device = "/dev/disk/by-uuid/E212-7894";
-      fsType = "auto";
-      options = [
-        "X-mount.mkdir"
-        "defaults"
-        "nofail"
-        "x-gvfs-show"
-        "x-systemd.automount"
-        "x-systemd.mount-timeout=5"
-      ];
-    };
-
-  fileSystems."/mnt/games" =
-    { device = "/dev/disk/by-uuid/01DA12C1CBDE9100";
-      fsType = "lowntfs-3g";
-      options = [
-        "X-mount.mkdir"
-        "nofail"
-        "rw"
-        "exec"
-        "user"
-        "uid=1000"
-        "gid=100"
-        "umask=000"
-        "x-gvfs-show"
-        "x-systemd.mount-timeout=5"
-      ];
     };
 
   swapDevices = [ ];
