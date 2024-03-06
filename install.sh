@@ -46,9 +46,7 @@ mkdir -p $backupdir &> /dev/null
 # mv /etc/nixos/* $backupdir &> /dev/null
 mv $(find /etc/nixos -iname 'configuration.nix') $backupdir &> /dev/null 
 mv $(find /etc/nixos -iname 'hardware-configuration.nix') $backupdir &> /dev/null
-if [ ! -f $backupdir/hardware-configuration.nix ]; then
-    mv $(find /etc/nixos -iname 'home-pc.nix') $backupdir/hardware-configuration.nix &> /dev/null
-fi
+mv $(find /etc/nixos -iname 'home-pc.nix') $backupdir &> /dev/null
 rm -rf /etc/nixos/* &> /dev/null
 rm -rf /etc/nixos/.* &> /dev/null
 
@@ -62,12 +60,23 @@ ask_yes_no "Do you want to use current hardware-configuration.nix? (Recommended)
 
 if [ "$replaceHardwareConfig" == "Y" ]; then
     rm /etc/nixos/nixos/hosts/default.nix &> /dev/null
-    cp $(find $backupdir -iname 'hardware-configuration.nix') /etc/nixos/nixos/hosts/
-    echo "{ imports = [ ./hardware-configuration.nix ]; }" >> /etc/nixos/nixos/hosts/default.nix
+    if [ -f $backupdir/hardware-configuration.nix ]; then
+      cp $(find $backupdir -iname 'hardware-configuration.nix') /etc/nixos/nixos/hosts/
+      echo "{ imports = [ ./hardware-configuration.nix ]; }" >> /etc/nixos/nixos/hosts/default.nix
+    elif [ -f $backupdir/home-pc.nix ]; then
+      cp $(find $backupdir -iname 'home-pc.nix') /etc/nixos/nixos/hosts/
+      echo "{ imports = [ ./home-pc.nix ]; }" >> /etc/nixos/nixos/hosts/default.nix
+    else
+      rm -rf /tmp/nixos-generated-config &> /dev/null
+      mkdir -p /tmp/nixos-generated-config
+      nixos-generate-config --dir /tmp/nixos-generated-config
+      mv /tmp/nixos-generated-config/hardware-configuration.nix /etc/nixos/nixos/hosts/
+      rm -rf /tmp/nixos-generated-config
+      echo "{ imports = [ ./hardware-configuration.nix ]; }" >> /etc/nixos/nixos/hosts/default.nix
+    fi
 fi
 
 nix-shell --command "git -C /etc/nixos add *"
-# nix shell --experimental-features "nix-command flakes" nixpkgs#git --command git -C /etc/nixos add *
 
 clear
 nix-shell --command "echo BUILDING! | figlet -cklnoW | lolcat -F 0.3 -p 2.5 -S 300"
