@@ -10,8 +10,13 @@
       ./hardware-configuration.nix
     ];
 
-  # Bootloader.
+  # Filesystems support
   boot.supportedFilesystems = [ "ntfs" "exfat" "ext4" "fat32" "btrfs" ];
+  services.devmon.enable = true;
+  services.gvfs.enable = true;
+  services.udisks2.enable = true;
+
+  # Bootloader.
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot";
   boot.loader.timeout = null; # Display bootloader indefinitely until user selects OS
