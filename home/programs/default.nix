@@ -4,10 +4,10 @@
     ./dunst
     ./firefox
     ./hypr
-    #./kitty
+    # ./kitty
+    ./lf
     ./nvim
     ./rofi
-    #./rofi-old
     ./swaylock
     ./vscode
     ./waybar
