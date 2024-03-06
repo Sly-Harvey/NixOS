@@ -66,7 +66,7 @@ nix-shell --command "git -C /etc/nixos add *"
 # nix shell --experimental-features "nix-command flakes" nixpkgs#git --command git -C /etc/nixos add *
 
 clear
-nix-shell --command "echo BUILDING | figlet -cklnoW | lolcat -F 0.3 -p 2.5 -S 300"
+nix-shell --command "echo BUILDING! | figlet -cklnoW | lolcat -F 0.3 -p 2.5 -S 300"
 
 nix-shell --command "sudo nixos-rebuild switch --flake /etc/nixos#nixos"
 # sudo nix shell --experimental-features "nix-command flakes" nixpkgs#git --command sudo nixos-rebuild switch --flake /etc/nixos#nixos
