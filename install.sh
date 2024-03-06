@@ -51,7 +51,7 @@ rm -rf /etc/nixos/* &> /dev/null
 rm -rf /etc/nixos/.* &> /dev/null
 
 # Clone github repo to /etc/nixos
-nix-shell --command "git clone --branch hosts https://github.com/Sly-Harvey/NixOS.git /etc/nixos"
+nix-shell --command "git clone https://github.com/Sly-Harvey/NixOS.git /etc/nixos"
 mv $backupdir /etc/nixos/backup
 backupdir="/etc/nixos/backup"
 
