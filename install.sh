@@ -34,6 +34,10 @@ ask_yes_no() {
     done
 }
 
+# Delete dirs that conflict with home-manager
+rm -rf ~/.gtkrc-*
+rm -rf ~/.config/gtk-*
+
 # Make backup dirs
 rm -rf $backupdir &> /dev/null
 mkdir -p $backupdir &> /dev/null
