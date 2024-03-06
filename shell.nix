@@ -1,7 +1,10 @@
 { pkgs ? import <nixpkgs> {} }:
 
 pkgs.mkShell {
-  buildInputs = with pkgs; [
-    pkgs.git
+  nativeBuildInputs = with pkgs; [
+    nix
+    home-manager
+    git
   ];
+  NIX_CONFIG = "extra-experimental-features = nix-command flakes";
 }
