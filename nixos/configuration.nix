@@ -190,6 +190,7 @@
       gh
       htop
       jq
+      lf
       neofetch
       ripgrep
       spotify
