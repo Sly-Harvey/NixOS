@@ -8,10 +8,13 @@
   home.packages = with pkgs; [ 
     # blueman
     cliphist
+    grimblast
     libnotify
     networkmanagerapplet
     pamixer
     pavucontrol
+    slurp
+    swappy
     swww
     swaynotificationcenter
     waybar
@@ -318,8 +321,12 @@
     bind = $mainMod CTRL, B, exec, $hyprScriptsDir/WaybarStyles.sh # Waybar Styles Menu
     bind = $mainMod ALT, B, exec, $hyprScriptsDir/WaybarLayout.sh # Waybar Layout Menu
 
-    bind = , Print, exec, grim -g "$(slurp)" - | wl-copy
-    bind = SHIFT, Print, exec, grim -g "$(slurp)"
+    
+    # Screenshot/Screencapture
+    bind = $mainMod, P, exec, $hyprScriptsDir/screenshot.sh s # drag to snip an area / click on a window to print it
+    bind = $mainMod CTRL, P, exec, $hyprScriptsDir/screenshot.sh sf # frozen screen, drag to snip an area / click on a window to print it
+    bind = ,print, exec, $hyprScriptsDir/screenshot.sh m # print focused monitor
+    bind = $mainMod ALT, P, exec, $hyprScriptsDir/screenshot.sh p  # print all monitor outputs
 
     # Functional keybinds
     bind =,XF86AudioMicMute,exec,pamixer --default-source -t
