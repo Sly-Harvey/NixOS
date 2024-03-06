@@ -152,6 +152,11 @@
     #  thunderbird
     ];
   };
+  # Default user when using: sudo nixos-rebuild build-vm
+  users.users.nixosvmtest.isNormalUser = true ;
+  users.users.nixosvmtest.initialPassword = "vm";
+  users.users.nixosvmtest.group = "nixosvmtest";
+  users.groups.nixosvmtest = {};
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
