@@ -41,12 +41,16 @@ rm -rf ~/.config/gtk-*
 # Make backup dirs
 rm -rf $backupdir &> /dev/null
 mkdir -p $backupdir &> /dev/null
-mkdir -p $backupdir/new &> /dev/null
-mkdir -p $backupdir/old &> /dev/null
 
 # Backup existing config
-mv /etc/nixos/* $backupdir/old &> /dev/null
-rm -r /etc/nixos/.* &> /dev/null
+# mv /etc/nixos/* $backupdir &> /dev/null
+mv $(find /etc/nixos -iname 'configuration.nix') $backupdir &> /dev/null 
+mv $(find /etc/nixos -iname 'hardware-configuration.nix') $backupdir &> /dev/null
+if [ ! -f $backupdir/hardware-configuration.nix ]; then
+    mv $(find /etc/nixos -iname 'home-pc.nix') $backupdir/hardware-configuration.nix &> /dev/null
+fi
+rm -rf /etc/nixos/* &> /dev/null
+rm -rf /etc/nixos/.* &> /dev/null
 
 # Clone github repo to /etc/nixos
 nix shell --experimental-features "nix-command flakes" nixpkgs#git --command git clone --branch hosts https://github.com/Sly-Harvey/NixOS.git /etc/nixos
@@ -58,7 +62,7 @@ ask_yes_no "Do you want to use current hardware-configuration.nix? (Recommended)
 
 if [ "$replaceHardwareConfig" == "Y" ]; then
     rm /etc/nixos/nixos/hosts/default.nix &> /dev/null
-    cp $(find $backupdir/old -iname 'hardware-configuration.nix') /etc/nixos/nixos/hosts/
+    cp $(find $backupdir -iname 'hardware-configuration.nix') /etc/nixos/nixos/hosts/
     echo "{ imports = [ ./hardware-configuration.nix ]; }" >> /etc/nixos/nixos/hosts/default.nix
 fi
 
