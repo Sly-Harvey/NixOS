@@ -26,17 +26,13 @@
 
   fileSystems."/mnt/seagate" =
     { device = "/dev/disk/by-uuid/E212-7894";
-      fsType = "exfat";
+      fsType = "auto";
       options = [
         "X-mount.mkdir"
-        "rw"
-        "exec"
-        "user"
-        "async"
-        "suid"
+        "defaults"
         "nofail"
         "x-gvfs-show"
-        # "x-systemd.automount"
+        "x-systemd.automount"
         "x-systemd.mount-timeout=5"
       ];
     };
@@ -54,7 +50,6 @@
         "gid=100"
         "umask=000"
         "x-gvfs-show"
-        # "x-systemd.automount"
         "x-systemd.mount-timeout=5"
       ];
     };
