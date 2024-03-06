@@ -210,6 +210,7 @@
       mpv
       mangohud
       steam
+      xfce.thunar
 
       # Development
       shellify
@@ -219,7 +220,9 @@
       ninja
       #python3Full
       #python.pkgs.pip
+      rnix-lsp
       rocmPackages.llvm.clang
+      cargo
       # rustup
       #vscode
       # zig
