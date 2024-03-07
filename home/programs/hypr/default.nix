@@ -74,7 +74,7 @@
     exec-once = polkit-agent-helper-1
     #exec-once = systemctl start --user polkit-kde-authentication-agent-1
 
-    source = /home/harvey/.config/hypr/colors
+    source = ~/.config/hypr/colors
 
     # Input config
     input {

@@ -55,6 +55,10 @@ nix-shell --command "git clone https://github.com/Sly-Harvey/NixOS.git /etc/nixo
 mv $backupdir /etc/nixos/backup
 backupdir="/etc/nixos/backup"
 
+# replace user variable in flake.nix with $USER
+sed -i -e 's/user = \".*\"/user = \"'$USER'\"/' /etc/nixos/flake.nix
+sed -i -e 's/user = \".*\"/user = \"'$USER'\"/' (realpath $(dirname $0))/flake.nix
+
 printf "\n"
 ask_yes_no "Do you want to use current hardware-configuration.nix? (Recommended)" replaceHardwareConfig
 
@@ -81,5 +85,5 @@ nix-shell --command "git -C /etc/nixos add *"
 clear
 nix-shell --command "echo BUILDING! | figlet -cklnoW | lolcat -F 0.3 -p 2.5 -S 300"
 
-nix-shell --command "sudo nixos-rebuild switch --flake /etc/nixos#nixos"
-nix-shell --command "echo REBOOT! | figlet -cklnoW | lolcat -F 0.3 -p 2.5 -S 300"
+nix-shell --command "sudo nixos-rebuild switch --flake /etc/nixos#nixos && echo REBOOT! | figlet -cklnoW | lolcat -F 0.3 -p 2.5 -S 300"
+# nix-shell --command "echo REBOOT! | figlet -cklnoW | lolcat -F 0.3 -p 2.5 -S 300"
