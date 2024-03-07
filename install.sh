@@ -67,13 +67,16 @@ ask_yes_no "Do you want to use current hardware-configuration.nix? (Recommended)
 if [ "$replaceHardwareConfig" == "Y" ]; then
     rm /etc/nixos/nixos/hosts/default.nix &> /dev/null
     if [ -f $backupdir/hardware-configuration.nix ]; then
+      rm /etc/nixos/nixos/hosts/hardware-configuration.nix &> /dev/null
       cp $(find $backupdir -iname 'hardware-configuration.nix') /etc/nixos/nixos/hosts/
       echo "{ imports = [ ./hardware-configuration.nix ]; }" >> /etc/nixos/nixos/hosts/default.nix
     elif [ -f $backupdir/home-pc.nix ]; then
+      rm /etc/nixos/nixos/hosts/home-pc.nix &> /dev/null
       cp $(find $backupdir -iname 'home-pc.nix') /etc/nixos/nixos/hosts/
       echo "{ imports = [ ./home-pc.nix ]; }" >> /etc/nixos/nixos/hosts/default.nix
     else
       rm -rf /tmp/nixos-generated-config &> /dev/null
+      rm /etc/nixos/nixos/hosts/hardware-configuration.nix &> /dev/null
       mkdir -p /tmp/nixos-generated-config
       nixos-generate-config --dir /tmp/nixos-generated-config
       mv /tmp/nixos-generated-config/hardware-configuration.nix /etc/nixos/nixos/hosts/
