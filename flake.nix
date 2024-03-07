@@ -46,14 +46,14 @@
       # Available through 'home-manager --flake .#your-username@your-hostname'
       # or 'home-manager --flake .' for current user in current hostname
       homeConfigurations = {
-        harvey = home-manager.lib.homeManagerConfiguration {
+        ${user} = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.${system};
           modules = [
             ./home/home.nix
             {
               home = {
-                username = "harvey";
-                homeDirectory = "/home/harvey";
+                username = "${user}";
+                homeDirectory = "/home/${user}";
                 stateVersion = "23.11";
               };
             }
