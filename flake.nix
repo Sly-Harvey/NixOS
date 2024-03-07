@@ -12,6 +12,7 @@
 
   outputs = { self, nixpkgs, home-manager, firefox-addons, ... }@inputs:
     let
+      user = "harvey"; # REPLACE THIS WITH YOUR USERNAME!!!!
       system = "x86_64-linux";
       pkgs = import nixpkgs {
         inherit system;
@@ -23,6 +24,7 @@
       nixosConfigurations = {
         nixos = lib.nixosSystem {
           inherit system;
+          specialArgs.user = user;
           modules = [
             ./nixos/configuration.nix
             #./home/programs/firefox/firefox-system.nix
@@ -30,7 +32,7 @@
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = { inherit inputs; };
+              home-manager.extraSpecialArgs = { inherit inputs; user = user; };
               home-manager.users.harvey = {
                 imports = [
                   ./home/home.nix
