@@ -8,7 +8,8 @@
 > [!IMPORTANT]
 > The install script assumes that you have "hardware-configuration.nix" somewhere in /etc/nixos
 > So please rename your file to that if it is named something else.
-> This is only a concern if you use the install script!
+> If you are building straight from the flake then replace nixos/hosts/home-pc.nix
+> and edit nixos/hosts/default.nix and point it to the new one
 
 ### clone the repo
 ```bash
