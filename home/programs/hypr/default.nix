@@ -59,7 +59,7 @@
     #exec-once = [workspace 8 silent] alacritty -e cava
     #exec-once = [workspace 9 silent] alacritty -e cava
 
-    #exec-once = hyprctl setcursor Bibata-Modern-Classic 20
+    exec-once = hyprctl setcursor Bibata-Modern-Classic 24
     exec-once = ~/.config/hypr/scripts/wallpaper.sh
     exec-once = waybar &
     exec-once = swaync &

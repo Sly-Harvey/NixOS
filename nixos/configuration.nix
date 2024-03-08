@@ -173,6 +173,7 @@
       adwaita-qt
       bibata-cursors
       libsForQt5.qt5.qtgraphicaleffects # For sddm to function properly
+      bibata-cursors
       nix-prefetch-scripts
       polkit
       libsForQt5.polkit-kde-agent
