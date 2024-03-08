@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ ... }:
 {
   home.file.".config/cava/config".text = ''
   ## Configuration file for CAVA. Default values are commented out. Use either ';' or '#' for commenting.

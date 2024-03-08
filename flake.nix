@@ -5,12 +5,12 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
     firefox-addons = { url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons"; inputs.nixpkgs.follows = "nixpkgs"; };
     home-manager = {
-      url = github:nix-community/home-manager/release-23.11;
+      url = "github:nix-community/home-manager/release-23.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, firefox-addons, ... }@inputs:
+  outputs = { nixpkgs, home-manager, ... }@inputs:
     let
       user = "harvey"; # REPLACE THIS WITH YOUR USERNAME!!!!
       system = "x86_64-linux";
