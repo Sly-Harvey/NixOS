@@ -6,7 +6,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 # Path to your oh-my-zsh installation.
-ZSH=$HOME/.oh-my-zsh/
+ZSH=$HOME/.oh-my-zsh
 
 # Path to powerlevel10k theme
 source $HOME/.powerlevel10k/powerlevel10k.zsh-theme
@@ -135,36 +135,38 @@ function cgen {
   cat $ZSH/templates/ListTemplate.txt >> CMakeLists.txt
   mkdir src
   mkdir include
-  touch src/main.cpp
   cat $ZSH/templates/HelloWorldTemplate.txt >> src/main.cpp
+  cat $ZSH/templates/shell.txt >> shell.nix
+  cat $ZSH/templates/envrc-nix.txt >> .envrc
+  # direnv allow
 }
 
 function crun {
   #VAR=${1:-.} 
   mkdir build 2> /dev/null
-  cmake -B build
-  cmake --build build
+  nix-shell --command "cmake -B build"
+  nix-shell --command "cmake --build build"
   build/main
 }
 
 function crun-mingw {
   #VAR=${1:-.} 
   mkdir build-mingw 2> /dev/null
-  x86_64-w64-mingw32-cmake -B build-mingw
-  make -C build-mingw
+  nix-shell --command "x86_64-w64-mingw32-cmake -B build-mingw"
+  nix-shell --command "make -C build-mingw"
   build-mingw/main.exe
 }
 
 function cbuild {
   mkdir build 2> /dev/null
-  cmake -B build
-  cmake --build build
+  nix-shell --command "cmake -B build"
+  nix-shell --command "cmake --build build"
 }
 
 function cbuild-mingw {
   mkdir build-mingw 2> /dev/null
-  x86_64-w64-mingw32-cmake -B build-mingw
-  make -C build-mingw
+  nix-shell --command "x86_64-w64-mingw32-cmake -B build-mingw"
+  nix-shell --command "make -C build-mingw"
 }
 
 # Helpful aliases
