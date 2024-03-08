@@ -43,7 +43,6 @@
     (pkgs.writeShellScriptBin "hello" ''
       echo "Hello World!"
     '')
-    bibata-cursors
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
