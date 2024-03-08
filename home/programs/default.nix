@@ -2,6 +2,7 @@
   imports = [
     ./alacritty
     ./dunst
+    ./direnv
     ./firefox
     ./hypr
     # ./kitty

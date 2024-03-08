@@ -166,9 +166,6 @@
 
   qt.style = "adwaita-dark";
 
-  programs.direnv.enable = true;
-  programs.direnv.nix-direnv.enable = true;
-  
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; let sddm-themes = pkgs.callPackage ../home/themes/sddm/themes.nix {}; in [
@@ -214,17 +211,6 @@
       # Development
       shellify
       github-desktop
-      gnumake
-      libgcc
-      ninja
-      #python3Full
-      #python.pkgs.pip
-      rnix-lsp
-      rocmPackages.llvm.clang
-      cargo
-      # rustup
-      #vscode
-      # zig
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
