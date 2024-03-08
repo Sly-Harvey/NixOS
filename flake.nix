@@ -33,7 +33,7 @@
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.extraSpecialArgs = { inherit inputs; user = user; };
-              home-manager.users.harvey = {
+              home-manager.users.${user} = {
                 imports = [
                   ./home/home.nix
                 ];
