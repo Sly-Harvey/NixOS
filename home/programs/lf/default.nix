@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ ... }:
 {
   home.file.".config/lf/lfrc".source = ./lfrc;
   home.file.".config/lf/lfcd.sh".source = ./lfcd.sh;

@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ ... }:
 
 let
   lock-false = {
@@ -7,10 +7,6 @@ let
   };
   lock-true = {
     Value = true;
-    Status = "locked";
-  };
-  lock-empty-string = {
-    Value = "";
     Status = "locked";
   };
 in {

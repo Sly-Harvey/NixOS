@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ ... }:
 
 {
     home.file.".config/hypr/wallpaper.png" = {
