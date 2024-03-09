@@ -7,7 +7,8 @@
     ./hypr
     # ./kitty
     ./lf
-    ./nvim
+    # ./neovim
+    ./nixvim
     ./rofi
     ./swaylock
     ./vscode
