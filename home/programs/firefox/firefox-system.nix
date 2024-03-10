@@ -1,6 +1,4 @@
-{ ... }:
-
-let
+{...}: let
   lock-false = {
     Value = false;
     Status = "locked";
@@ -10,7 +8,7 @@ let
     Status = "locked";
   };
 in {
-    programs.firefox = {
+  programs.firefox = {
     enable = true;
 
     policies = {
@@ -51,7 +49,7 @@ in {
         # Actual settings
         "app.update.auto" = lock-false;
         "browser.bookmarks.restore_default_bookmarks" = lock-false;
-        
+
         "browser.ctrlTab.recentlyUsedOrder" = lock-false;
         "browser.discovery.enabled" = lock-false;
         "browser.laterrun.enabled" = lock-false;
@@ -66,11 +64,11 @@ in {
         "browser.newtabpage.activity-stream.showSponsored" = lock-false;
         "browser.newtabpage.activity-stream.system.showSponsored" = lock-false;
         "browser.newtabpage.activity-stream.showSponsoredTopSites" = lock-false;
-        
+
         "browser.newtabpage.pinned" = lock-false;
         "browser.protections_panel.infoMessage.seen" = lock-true;
         "browser.quitShortcut.disabled" = lock-true;
-        
+
         "browser.ssb.enabled" = lock-true;
         #"browser.toolbars.bookmarks.visibility" = "never";
         "browser.topsites.contile.enabled" = lock-false;
@@ -82,7 +80,7 @@ in {
         "browser.urlbar.suggest.openpage" = lock-false;
         "datareporting.policy.dataSubmissionEnable" = lock-false;
         "datareporting.policy.dataSubmissionPolicyAcceptedVersion" = 2;
-        
+
         "extensions.getAddons.showPane" = lock-false;
         "extensions.htmlaboutaddons.recommendations.enabled" = lock-false;
         "extensions.extensions.activeThemeID" = "firefox-alpenglow@mozilla.org";
@@ -97,7 +95,10 @@ in {
         "network.trr.uri" = "https://cloudflare-dns.com/dns-query";
 
         "signon.rememberSignons" = lock-true;
-        "browser.contentblocking.category" = { Value = "strict"; Status = "locked"; };
+        "browser.contentblocking.category" = {
+          Value = "strict";
+          Status = "locked";
+        };
         "app.shield.optoutstudies.enabled" = lock-false;
         "browser.shell.checkDefaultBrowser" = lock-false;
         "dom.security.https_only_mode" = lock-true;
@@ -129,3 +130,4 @@ in {
     };
   };
 }
+

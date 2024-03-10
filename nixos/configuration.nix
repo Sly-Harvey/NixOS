@@ -1,17 +1,19 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-
-{ config, pkgs, user, ... }:
-
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hosts
-    ];
+  config,
+  pkgs,
+  user,
+  ...
+}: {
+  imports = [
+    # Include the results of the hardware scan.
+    ./hosts
+  ];
 
   # Filesystems support
-  boot.supportedFilesystems = [ "ntfs" "exfat" "ext4" "fat32" "btrfs" ];
+  boot.supportedFilesystems = ["ntfs" "exfat" "ext4" "fat32" "btrfs"];
   services.devmon.enable = true;
   services.gvfs.enable = true;
   services.udisks2.enable = true;
@@ -71,7 +73,7 @@
   # Enable the KDE Plasma Desktop Environment.
   #services.xserver.displayManager.sddm.enable = true;
   #services.xserver.desktopManager.plasma5.enable = true;
-  
+
   # Enable the Hyprland Window Manager
   services.xserver.displayManager.sddm.enable = true;
   services.xserver.displayManager.sddm.theme = "astronaut";
@@ -88,26 +90,25 @@
   };
 
   xdg.portal.enable = true;
-  xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+  xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-gtk];
 
   # Setup auth agent and keyring
   services.gnome.gnome-keyring.enable = true;
   systemd = {
     user.services.polkit-kde-authentication-agent-1 = {
       description = "polkit-kde-authentication-agent-1";
-      wantedBy = [ "graphical-session.target" ];
-      wants = [ "graphical-session.target" ];
-      after = [ "graphical-session.target" ];
+      wantedBy = ["graphical-session.target"];
+      wants = ["graphical-session.target"];
+      after = ["graphical-session.target"];
       serviceConfig = {
-          Type = "simple";
-          ExecStart = "${pkgs.libsForQt5.polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1";
-          Restart = "on-failure";
-          RestartSec = 1;
-          TimeoutStopSec = 10;
+        Type = "simple";
+        ExecStart = "${pkgs.libsForQt5.polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1";
+        Restart = "on-failure";
+        RestartSec = 1;
+        TimeoutStopSec = 10;
       };
     };
   };
-
 
   # Configure keymap in X11
   services.xserver = {
@@ -144,15 +145,15 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.${user} = {
     isNormalUser = true;
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = ["networkmanager" "wheel"];
     packages = with pkgs; [
       firefox
       kate
-    #  thunderbird
+      #  thunderbird
     ];
   };
   # Default user when using: sudo nixos-rebuild build-vm
-  users.users.nixosvmtest.isNormalUser = true ;
+  users.users.nixosvmtest.isNormalUser = true;
   users.users.nixosvmtest.initialPassword = "vm";
   users.users.nixosvmtest.group = "nixosvmtest";
   users.groups.nixosvmtest = {};
@@ -168,52 +169,53 @@
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; let sddm-themes = pkgs.callPackage ../home/themes/sddm/themes.nix {}; in [
-      # System
-      adwaita-qt
-      bibata-cursors
-      libsForQt5.qt5.qtgraphicaleffects # For sddm to function properly
-      bibata-cursors
-      nix-prefetch-scripts
-      polkit
-      libsForQt5.polkit-kde-agent
-      sddm-themes.sugar-dark
-      sddm-themes.astronaut
-      sddm-themes.tokyo-night
+  environment.systemPackages = with pkgs; let
+    sddm-themes = pkgs.callPackage ../home/themes/sddm/themes.nix {};
+  in [
+    # System
+    adwaita-qt
+    bibata-cursors
+    libsForQt5.qt5.qtgraphicaleffects # For sddm to function properly
+    bibata-cursors
+    nix-prefetch-scripts
+    polkit
+    libsForQt5.polkit-kde-agent
+    sddm-themes.sugar-dark
+    sddm-themes.astronaut
+    sddm-themes.tokyo-night
 
-      # Terminal
-      btop
-      cava
-      eza
-      fzf
-      fd
-      glib
-      git
-      gh
-      htop
-      jq
-      lf
-      neofetch
-      ripgrep
-      spotify
-      tldr
-      unzip
+    # Terminal
+    btop
+    cava
+    eza
+    fzf
+    fd
+    glib
+    git
+    gh
+    htop
+    jq
+    lf
+    neofetch
+    ripgrep
+    spotify
+    tldr
+    unzip
 
-      # Applications
-      gimp
-      gparted
-      krita
-      lutris
-      mpv
-      mangohud
-      steam
-      xfce.thunar
+    # Applications
+    gimp
+    gparted
+    krita
+    lutris
+    mpv
+    mangohud
+    steam
+    xfce.thunar
 
-      # Development
-      nil # Nix lsp
-      devbox # faster nix-shells
-      shellify # faster nix-shells
-      github-desktop
+    # Development
+    devbox # faster nix-shells
+    shellify # faster nix-shells
+    github-desktop
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -243,20 +245,21 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.11"; # Did you read the comment?
 
-  nix = {                                   # Nix Package Manager Settings
-    settings ={
+  nix = {
+    # Nix Package Manager Settings
+    settings = {
       auto-optimise-store = true;
-      experimental-features = [ "nix-command" "flakes" ];
+      experimental-features = ["nix-command" "flakes"];
       warn-dirty = false;
       keep-outputs = true;
       keep-derivations = true;
     };
-    gc = {                                  # Garbage Collection
+    gc = {
+      # Garbage Collection
       automatic = true;
       dates = "weekly";
       options = "--delete-older-than 3d";
     };
     package = pkgs.nixFlakes;
   };
-
 }
