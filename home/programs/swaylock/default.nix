@@ -1,7 +1,5 @@
-{ ... }:
-
-{
-    home.file.".config/swaylock/config".text = ''
+{...}: {
+  home.file.".config/swaylock/config".text = ''
     daemonize
     show-failed-attempts
     clock
@@ -40,8 +38,8 @@
     timestr=%I:%M %p
     fade-in=0.3
     ignore-empty-password
-    '';
+  '';
 
-    programs.swaylock.enable = true;
-    programs.wlogout.enable = true;
+  programs.swaylock.enable = true;
+  programs.wlogout.enable = true;
 }

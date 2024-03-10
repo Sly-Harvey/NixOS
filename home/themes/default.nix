@@ -1,7 +1,5 @@
-{ pkgs, ... }:
-
-{
-  imports = [ 
+{pkgs, ...}: {
+  imports = [
     #./cava
   ];
 
@@ -13,7 +11,7 @@
       package = pkgs.adwaita-qt;
     };
   };
-  
+
   gtk = {
     enable = true;
     iconTheme = {

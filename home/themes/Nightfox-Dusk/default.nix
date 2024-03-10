@@ -1,8 +1,9 @@
-{ lib
-, stdenvNoCC
-, fetchFromGitHub
-, gnome-themes-extra
-, gtk-engine-murrine
+{
+  lib,
+  stdenvNoCC,
+  fetchFromGitHub,
+  gnome-themes-extra,
+  gtk-engine-murrine,
 }:
 stdenvNoCC.mkDerivation rec {
   pname = "nightfox-gtk-theme";
@@ -37,6 +38,7 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://www.pling.com/p/1681313/";
     license = licenses.gpl3Only;
     platforms = platforms.unix;
-    maintainers = [ maintainers.math-42 ];
+    maintainers = [maintainers.math-42];
   };
 }
+
