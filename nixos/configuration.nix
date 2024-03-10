@@ -213,7 +213,6 @@
     xfce.thunar
 
     # Development
-    nil # Nix lsp
     devbox # faster nix-shells
     shellify # faster nix-shells
     github-desktop
