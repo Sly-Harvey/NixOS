@@ -1,7 +1,9 @@
-{ inputs, pkgs, ... }:
-
 {
-    home.packages = with pkgs; [
-        inputs.nixvim.packages.${system}.default
-    ];
+  inputs,
+  pkgs,
+  ...
+}: {
+  home.packages = with pkgs; [
+    inputs.nixvim.packages.${system}.default
+  ];
 }

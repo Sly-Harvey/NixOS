@@ -1,6 +1,8 @@
-{ pkgs, user, ... }:
-
 {
+  pkgs,
+  user,
+  ...
+}: {
   imports = [
     ./programs
     ./wallpapers
@@ -58,8 +60,6 @@
     #   org.gradle.console=verbose
     #   org.gradle.daemon.idletimeout=3600000
     # '';
-
-    
   };
   home.file.".local/bin/" = {
     source = ./scripts;

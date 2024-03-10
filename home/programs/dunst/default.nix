@@ -1,7 +1,5 @@
-{ pkgs, ... }:
-
-{
-services.dunst = {
+{pkgs, ...}: {
+  services.dunst = {
     enable = true;
     iconTheme = {
       name = "Papirus-Dark";
@@ -74,4 +72,3 @@ services.dunst = {
     };
   };
 }
-
