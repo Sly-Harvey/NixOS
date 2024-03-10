@@ -1,1 +1,1 @@
-{ imports = [ ./home-pc.nix ]; }
+{imports = [./home-pc.nix];}

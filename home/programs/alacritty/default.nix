@@ -76,7 +76,7 @@
         class.general = "Alacritty";
         class.instance = "Alacritty";
       };
-      
+
       shell = {
         program = "zsh";
       };
