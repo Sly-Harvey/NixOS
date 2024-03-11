@@ -3,6 +3,7 @@
 # to /etc/nixos/configuration.nix instead.
 {
   config,
+  pkgs,
   lib,
   modulesPath,
   ...
@@ -67,6 +68,20 @@
   };
 
   swapDevices = [];
+
+  hardware = {
+    nvidia = {
+      open = false;
+      nvidiaSettings = true;
+      powerManagement.enable = true;
+      modesetting.enable = true;
+      package = config.boot.kernelPackages.nvidiaPackages.stable;
+    };
+    opengl = { enable = true;
+      driSupport32Bit = true;
+      extraPackages = with pkgs; [nvidia-vaapi-driver];
+    };
+  };
 
   virtualisation.vmVariant = {
     # following configuration is added only when building VM with build-vm
