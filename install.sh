@@ -45,6 +45,9 @@ rm -rf ~/.config/cava
 rm -rf $backupdir &> /dev/null
 mkdir -p $backupdir &> /dev/null
 
+# Delete Default hardware-configuration.nix
+rm -f $scriptdir/system/Default/hardware-configuration.nix &> /dev/null
+
 # Backup existing config
 # mv /etc/nixos/* $backupdir &> /dev/null
 cp $(find /etc/nixos -iname 'configuration.nix') $backupdir &> /dev/null 
@@ -57,8 +60,12 @@ cp $(find /etc/nixos -iname 'home-pc.nix') $backupdir &> /dev/null
 sed -i -e 's/username = \".*\"/username = \"'$currentUser'\"/' $scriptdir/flake.nix
 #sed -i -e 's/username = \".*\"/username = \"'$currentUser'\"/' "/etc/nixos/flake.nix"
 
-printf "\n"
-ask_yes_no "Do you want to use current hardware-configuration.nix in /etc/nixos? (Recommended)" replaceHardwareConfig
+if [ "$1" == "--Copy-Hardware" ]; then
+    replaceHardwareConfig="Y"
+else
+    printf "\n"
+    ask_yes_no "Do you want to use current hardware-configuration.nix in /etc/nixos? (Recommended)" replaceHardwareConfig
+fi
 
 if [ "$replaceHardwareConfig" == "Y" ]; then
       rm -f $scriptdir/system/Default/hardware-configuration.nix &> /dev/null
