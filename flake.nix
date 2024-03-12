@@ -95,7 +95,7 @@
           ./home/home.nix
           {
             home = {
-              username = "${username}";
+              username = username;
               homeDirectory = "/home/${username}";
               stateVersion = "23.11";
             };
