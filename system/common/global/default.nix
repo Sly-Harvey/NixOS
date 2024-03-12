@@ -1,17 +1,7 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
 {
-  config,
   pkgs,
-  user,
   ...
 }: {
-  imports = [
-    # Include the results of the hardware scan.
-    ./hosts
-  ];
-
   # Filesystems support
   boot.supportedFilesystems = ["ntfs" "exfat" "ext4" "fat32" "btrfs"];
   services.devmon.enable = true;
@@ -39,58 +29,21 @@
     installPhase = "cp -r customize/nixos $out";
   };
 
-  networking.hostName = "nixos"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  # Enable networking
-  networking.networkmanager.enable = true;
-
-  # Set your time zone.
-  time.timeZone = "Europe/London";
-
-  # Select internationalisation properties.
-  i18n.defaultLocale = "en_GB.UTF-8";
-
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "en_GB.UTF-8";
-    LC_IDENTIFICATION = "en_GB.UTF-8";
-    LC_MEASUREMENT = "en_GB.UTF-8";
-    LC_MONETARY = "en_GB.UTF-8";
-    LC_NAME = "en_GB.UTF-8";
-    LC_NUMERIC = "en_GB.UTF-8";
-    LC_PAPER = "en_GB.UTF-8";
-    LC_TELEPHONE = "en_GB.UTF-8";
-    LC_TIME = "en_GB.UTF-8";
-  };
-
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
-
-  # Enable the KDE Plasma Desktop Environment.
-  #services.xserver.displayManager.sddm.enable = true;
-  #services.xserver.desktopManager.plasma5.enable = true;
-
-  # Enable the Hyprland Window Manager
-  services.xserver.displayManager.sddm.enable = true;
-  services.xserver.displayManager.sddm.theme = "astronaut";
-  services.xserver.displayManager.sddm.settings.Theme.CursorTheme = "Bibata-Modern-Classic";
-  programs.hyprland = {
-    enable = true;
-    enableNvidiaPatches = true;
-    xwayland.enable = true;
-  };
-
   security = {
     polkit.enable = true;
     #sudo.wheelNeedsPassword = false;
   };
 
   xdg.portal.enable = true;
-  xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-gtk];
+  xdg.portal.configPackages = [pkgs.xdg-desktop-portal-gtk];
+
+  # Enable dconf for home-manager
+  programs.dconf.enable = true;
+
+  # Enable sddm login manager
+  services.xserver.displayManager.sddm.enable = true;
+  services.xserver.displayManager.sddm.theme = "astronaut";
+  services.xserver.displayManager.sddm.settings.Theme.CursorTheme = "Bibata-Modern-Classic";
 
   # Setup auth agent and keyring
   services.gnome.gnome-keyring.enable = true;
@@ -109,15 +62,6 @@
       };
     };
   };
-
-  # Configure keymap in X11
-  services.xserver = {
-    layout = "gb";
-    xkbVariant = "";
-  };
-
-  # Configure console keymap
-  console.keyMap = "uk";
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -140,18 +84,8 @@
   };
 
   # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
+  services.xserver.libinput.enable = true;
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.${user} = {
-    isNormalUser = true;
-    extraGroups = ["networkmanager" "wheel"];
-    packages = with pkgs; [
-      firefox
-      kate
-      #  thunderbird
-    ];
-  };
   # Default user when using: sudo nixos-rebuild build-vm
   users.users.nixosvmtest.isNormalUser = true;
   users.users.nixosvmtest.initialPassword = "vm";
@@ -170,7 +104,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; let
-    sddm-themes = pkgs.callPackage ../home/themes/sddm/themes.nix {};
+    sddm-themes = pkgs.callPackage ../../../home/themes/sddm/themes.nix {};
   in [
     # System
     adwaita-qt
@@ -189,7 +123,6 @@
     eza
     fzf
     fd
-    glib
     git
     gh
     htop
@@ -197,19 +130,18 @@
     lf
     neofetch
     ripgrep
-    spotify
     tldr
     unzip
 
     # Applications
-    gimp
-    gparted
-    krita
-    lutris
-    mpv
-    mangohud
-    steam
-    xfce.thunar
+    #gimp
+    #krita
+    #lutris
+    #mpv
+    #mangohud
+    #spotify
+    #steam
+    #xfce.thunar
 
     # Development
     devbox # faster nix-shells
@@ -236,17 +168,11 @@
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
 
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "23.11"; # Did you read the comment?
-
   nix = {
     # Nix Package Manager Settings
     settings = {
+      #substituters = ["https://nix-gaming.cachix.org"];
+      #trusted-public-keys = ["nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="];
       auto-optimise-store = true;
       experimental-features = ["nix-command" "flakes"];
       warn-dirty = false;

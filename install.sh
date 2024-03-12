@@ -6,9 +6,9 @@ if [[ $EUID -ne 0 ]]; then
     exit 1
 fi
 
-backupdir="/tmp/NixOS-backup"
 scriptdir=$(realpath $(dirname $0))
 currentUser=$(logname)
+backupdir="/tmp/NixOS-backup"
 
 colorize_prompt() {
     local color="$1"
@@ -52,42 +52,32 @@ mv $(find /etc/nixos -iname 'home-pc.nix') $backupdir &> /dev/null
 rm -rf /etc/nixos/* &> /dev/null
 rm -rf /etc/nixos/.* &> /dev/null
 
-# Clone github repo to /etc/nixos
-nix-shell --command "git clone https://github.com/Sly-Harvey/NixOS.git /etc/nixos"
-mv $backupdir /etc/nixos/backup
-backupdir="/etc/nixos/backup"
-
 # replace user variable in flake.nix with $USER
-sed -i -e 's/user = \".*\"/user = \"'$currentUser'\"/' /etc/nixos/flake.nix
-sed -i -e 's/user = \".*\"/user = \"'$currentUser'\"/' $scriptdir/flake.nix
+sed -i -e 's/user = \".*\"/user = \"'$currentUser'\"/' "/etc/nixos/flake.nix"
+sed -i -e 's/user = \".*\"/user = \"'$currentUser'\"/' "$scriptdir/flake.nix"
 
 printf "\n"
 ask_yes_no "Do you want to use current hardware-configuration.nix? (Recommended)" replaceHardwareConfig
 
 if [ "$replaceHardwareConfig" == "Y" ]; then
-    rm /etc/nixos/nixos/hosts/default.nix &> /dev/null
+      rm -f $scriptdir/system/Default/hardware-configuration.nix &> /dev/null
     if [ -f $backupdir/hardware-configuration.nix ]; then
-      rm /etc/nixos/nixos/hosts/hardware-configuration.nix &> /dev/null
-      cp $(find $backupdir -iname 'hardware-configuration.nix') /etc/nixos/nixos/hosts/
-      echo "{ imports = [ ./hardware-configuration.nix ]; }" >> /etc/nixos/nixos/hosts/default.nix
+      cp $(find $backupdir -iname 'hardware-configuration.nix') $scriptdir/system/Default/hardware-configuration.nix
     elif [ -f $backupdir/home-pc.nix ]; then
-      rm /etc/nixos/nixos/hosts/home-pc.nix &> /dev/null
-      cp $(find $backupdir -iname 'home-pc.nix') /etc/nixos/nixos/hosts/
-      echo "{ imports = [ ./home-pc.nix ]; }" >> /etc/nixos/nixos/hosts/default.nix
+      cp $(find $backupdir -iname 'home-pc.nix') $scriptdir/system/Default/hardware-configuration.nix
     else
+      # Generate new config
       rm -rf /tmp/nixos-generated-config &> /dev/null
-      rm /etc/nixos/nixos/hosts/hardware-configuration.nix &> /dev/null
       mkdir -p /tmp/nixos-generated-config
       nixos-generate-config --dir /tmp/nixos-generated-config
-      mv /tmp/nixos-generated-config/hardware-configuration.nix /etc/nixos/nixos/hosts/
+      mv /tmp/nixos-generated-config/hardware-configuration.nix $scriptdir/system/Default/hardware-configuration.nix
       rm -rf /tmp/nixos-generated-config
-      echo "{ imports = [ ./hardware-configuration.nix ]; }" >> /etc/nixos/nixos/hosts/default.nix
     fi
 fi
 
-nix-shell --command "git -C /etc/nixos add *"
+nix-shell --command "git -C $scriptdir add *"
 
 clear
 nix-shell --command "echo BUILDING! | figlet -cklnoW | lolcat -F 0.3 -p 2.5 -S 300"
 
-nix-shell --command "sudo nixos-rebuild switch --flake /etc/nixos#nixos"
+nix-shell --command "sudo nixos-rebuild switch --flake $scriptdir#nixos"

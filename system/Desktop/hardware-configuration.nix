@@ -77,7 +77,8 @@
       modesetting.enable = true;
       package = config.boot.kernelPackages.nvidiaPackages.stable;
     };
-    opengl = { enable = true;
+    opengl = {
+      enable = true;
       driSupport32Bit = true;
       extraPackages = with pkgs; [nvidia-vaapi-driver];
     };

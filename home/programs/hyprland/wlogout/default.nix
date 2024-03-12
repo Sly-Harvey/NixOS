@@ -22,7 +22,7 @@
     	"label" : "logout",
     		"action" : "hyprctl dispatch exit 0",
     		"text" : "󰗼",
-    		"keybind" : "e"
+    		"keybind" : "l"
     }
   '';
   home.file.".config/wlogout/style.css".text = ''
