@@ -3,8 +3,8 @@
 # to /etc/nixos/configuration.nix instead.
 {
   config,
-  pkgs,
   lib,
+  pkgs,
   modulesPath,
   ...
 }: {
@@ -18,14 +18,16 @@
   boot.extraModulePackages = [];
 
   fileSystems."/" = {
-    device = "/dev/disk/by-uuid/1986cf52-a606-4e05-957c-b4b3f4cdc67a";
+    device = "/dev/disk/by-uuid/347d01e2-aec3-4525-bee3-3dbdec585399";
     fsType = "ext4";
   };
 
   fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/847B-6876";
+    device = "/dev/disk/by-uuid/9C97-F7D4";
     fsType = "vfat";
   };
+
+  swapDevices = [];
 
   fileSystems."/mnt/seagate" = {
     device = "/dev/disk/by-uuid/E212-7894";
@@ -66,8 +68,6 @@
       "x-systemd.mount-timeout=5"
     ];
   };
-
-  swapDevices = [];
 
   hardware = {
     nvidia = {
