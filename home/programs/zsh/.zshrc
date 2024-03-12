@@ -160,6 +160,13 @@ alias grep='grep --color=always'
 
 # Nixos
 alias list-gens="sudo nix-env --list-generations --profile /nix/var/nix/profiles/system/"
+function rebuild-default {
+  pushd ~/NixOS &> /dev/null
+  sudo ./install.sh --Copy-Hardware
+  popd &> /dev/null
+}
+alias rebuild-desktop="sudo nixos-rebuild switch --flake ~/NixOS#Desktop"
+alias rebuild-laptop="sudo nixos-rebuild switch --flake ~/NixOS#Laptop"
 
 # Directory Shortcuts.
 alias dev='cd /mnt/seagate/dev/'
