@@ -4,7 +4,7 @@
 
 > [!WARNING]
 > **Not Tested on amd!**
-> **Im not responsible if your system breaks.**
+> **I'm not responsible if your system breaks.**
 
 ## Install
 ### clone the repo
