@@ -1,19 +1,14 @@
 {
   imports = [
     ./alacritty
-    ./dunst
+    # ./kitty
     ./direnv
     ./firefox
-    ./hypr
-    # ./kitty
+    ./hyprland
     ./lf
     # ./neovim
     ./nixvim
-    ./rofi
-    ./swaylock
     ./vscode
-    ./waybar
-    ./wlogout
     ./zsh
   ];
 }

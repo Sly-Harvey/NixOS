@@ -19,7 +19,7 @@
     home-manager,
     ...
   } @ inputs: let
-    user = "harvey"; # REPLACE THIS WITH YOUR USERNAME!!!!
+    username = "harvey"; # REPLACE THIS WITH YOUR USERNAME!!!!
     system = "x86_64-linux";
     pkgs = import nixpkgs {
       inherit system;
@@ -28,23 +28,57 @@
     lib = nixpkgs.lib;
   in {
     nixosConfigurations = {
+      # This is the only config you will have to change (Desktop and Laptop are for my personal use and may not work for you)
       nixos = lib.nixosSystem {
         inherit system;
-        specialArgs = {user = user;};
+        specialArgs = { inherit username; };
         modules = [
-          ./nixos/configuration.nix
+          ./system/Default
           #./home/programs/firefox/firefox-system.nix
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = {
-              inherit inputs;
-              user = user;
-            };
-            home-manager.users.${user} = {
+            home-manager.extraSpecialArgs = { inherit inputs username; };
+            home-manager.users.${username} = {
               imports = [
-                ./home/home.nix
+                ./home/hosts/Default/home.nix
+              ];
+            };
+          }
+        ];
+      };
+      Desktop = lib.nixosSystem {
+        inherit system;
+        specialArgs = let hostname = "NixOS-Desktop"; in {inherit username hostname;};
+        modules = [
+          ./system/Desktop
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.extraSpecialArgs = { inherit inputs username; };
+            home-manager.users.${username} = {
+              imports = [
+                ./home/hosts/Desktop/home.nix
+              ];
+            };
+          }
+        ];
+      };
+      Laptop = lib.nixosSystem {
+        inherit system;
+        specialArgs = let hostname = "NixOS-Laptop"; in {inherit username hostname;};
+        modules = [
+          ./system/Laptop
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.extraSpecialArgs = { inherit inputs username; };
+            home-manager.users.${username} = {
+              imports = [
+                ./home/hosts/Laptop/home.nix
               ];
             };
           }
@@ -55,14 +89,14 @@
     # Available through 'home-manager --flake .#your-username@your-hostname'
     # or 'home-manager --flake .' for current user in current hostname
     homeConfigurations = {
-      ${user} = home-manager.lib.homeManagerConfiguration {
+      ${username} = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.${system};
         modules = [
           ./home/home.nix
           {
             home = {
-              username = "${user}";
-              homeDirectory = "/home/${user}";
+              username = "${username}";
+              homeDirectory = "/home/${username}";
               stateVersion = "23.11";
             };
           }
