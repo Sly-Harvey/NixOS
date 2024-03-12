@@ -50,8 +50,8 @@ mkdir -p $backupdir &> /dev/null
 cp $(find /etc/nixos -iname 'configuration.nix') $backupdir &> /dev/null 
 cp $(find /etc/nixos -iname 'hardware-configuration.nix') $backupdir &> /dev/null
 cp $(find /etc/nixos -iname 'home-pc.nix') $backupdir &> /dev/null
-rm -rf /etc/nixos/* &> /dev/null
-rm -rf /etc/nixos/.* &> /dev/null
+#rm -rf /etc/nixos/* &> /dev/null
+#rm -rf /etc/nixos/.* &> /dev/null
 
 # replace user variable in flake.nix with $USER
 sed -i -e 's/username = \".*\"/username = \"'$currentUser'\"/' $scriptdir/flake.nix
