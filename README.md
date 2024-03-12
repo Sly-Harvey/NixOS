@@ -2,8 +2,11 @@
 
 ![Screenshot](./assets/preview.png)
 
-## Install
+> [!WARNING]
+> **Not Tested on amd!**
+> **Im not responsible if your system breaks.**
 
+## Install
 ### clone the repo
 ```bash
 nix run --experimental-features "nix-command flakes" nixpkgs#git clone https://github.com/Sly-Harvey/NixOS.git ~/NixOS
@@ -11,15 +14,15 @@ nix run --experimental-features "nix-command flakes" nixpkgs#git clone https://g
 ```bash
 cd ~/NixOS
 ```
-### then you can use the install script to install to /etc/nixos
+### then you can use the install script to install.
 ```bash
 sudo ./install.sh
 ```
-### or you can build directly from the flake
+Make sure to reboot after.
+### or you can build manually from the flake.
 > [!IMPORTANT]
-> When building straight from the flake make sure to place your hardware-configuration.nix in nixos/hosts/
-> and edit nixos/hosts/default.nix to import it.
-> and CHANGE the user variable in flake.nix with your username!
+> When building manually from the flake make sure to place your hardware-configuration.nix in system/Default/
+> and then CHANGE the username variable in flake.nix with your username!!
 > then run the command below
 ```bash
 sudo nixos-rebuild switch --flake .#nixos
