@@ -101,6 +101,15 @@
 
   qt.style = "adwaita-dark";
 
+  fonts.packages = with pkgs; [
+    (nerdfonts.override {
+      fonts = [
+        "JetBrainsMono"
+        "FiraCode"
+      ];
+    })
+  ];
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; let

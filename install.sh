@@ -39,6 +39,7 @@ ask_yes_no() {
 # Delete dirs that conflict with home-manager
 rm -rf ~/.gtkrc-*
 rm -rf ~/.config/gtk-*
+rm -rf ~/.config/cava
 
 # Make backup dirs
 rm -rf $backupdir &> /dev/null
@@ -46,18 +47,18 @@ mkdir -p $backupdir &> /dev/null
 
 # Backup existing config
 # mv /etc/nixos/* $backupdir &> /dev/null
-mv $(find /etc/nixos -iname 'configuration.nix') $backupdir &> /dev/null 
-mv $(find /etc/nixos -iname 'hardware-configuration.nix') $backupdir &> /dev/null
-mv $(find /etc/nixos -iname 'home-pc.nix') $backupdir &> /dev/null
+cp $(find /etc/nixos -iname 'configuration.nix') $backupdir &> /dev/null 
+cp $(find /etc/nixos -iname 'hardware-configuration.nix') $backupdir &> /dev/null
+cp $(find /etc/nixos -iname 'home-pc.nix') $backupdir &> /dev/null
 rm -rf /etc/nixos/* &> /dev/null
 rm -rf /etc/nixos/.* &> /dev/null
 
 # replace user variable in flake.nix with $USER
-sed -i -e 's/user = \".*\"/user = \"'$currentUser'\"/' "/etc/nixos/flake.nix"
-sed -i -e 's/user = \".*\"/user = \"'$currentUser'\"/' "$scriptdir/flake.nix"
+sed -i -e 's/username = \".*\"/username = \"'$currentUser'\"/' $scriptdir/flake.nix
+#sed -i -e 's/username = \".*\"/username = \"'$currentUser'\"/' "/etc/nixos/flake.nix"
 
 printf "\n"
-ask_yes_no "Do you want to use current hardware-configuration.nix? (Recommended)" replaceHardwareConfig
+ask_yes_no "Do you want to use current hardware-configuration.nix in /etc/nixos? (Recommended)" replaceHardwareConfig
 
 if [ "$replaceHardwareConfig" == "Y" ]; then
       rm -f $scriptdir/system/Default/hardware-configuration.nix &> /dev/null
@@ -67,6 +68,9 @@ if [ "$replaceHardwareConfig" == "Y" ]; then
       cp $(find $backupdir -iname 'home-pc.nix') $scriptdir/system/Default/hardware-configuration.nix
     else
       # Generate new config
+      clear
+      nix-shell --command "echo GENERATING CONFIG! | figlet -cklno | lolcat -F 0.3 -p 2.5 -S 300"
+
       rm -rf /tmp/nixos-generated-config &> /dev/null
       mkdir -p /tmp/nixos-generated-config
       nixos-generate-config --dir /tmp/nixos-generated-config

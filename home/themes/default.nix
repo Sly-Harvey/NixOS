@@ -1,6 +1,6 @@
 {pkgs, config, ...}: {
   imports = [
-    #./cava
+    ./cava
   ];
 
   qt = {
