@@ -180,9 +180,7 @@
   nix = {
     # Nix Package Manager Settings
     settings = {
-      #substituters = ["https://nix-gaming.cachix.org"];
-      #trusted-public-keys = ["nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="];
-      auto-optimise-store = true;
+      #auto-optimise-store = true; # Disbabled for now because it takes a long time to build
       experimental-features = ["nix-command" "flakes"];
       warn-dirty = false;
       keep-outputs = true;
