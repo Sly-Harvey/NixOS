@@ -12,7 +12,7 @@
       ms-vscode.cmake-tools
       ms-vscode.makefile-tools
       ms-dotnettools.csharp
-      ms-python.python
+      # DISABLED BECAUSE IT MAKES NIXOS-REBUILD HANG LIKE CRAZY: ms-python.python
       pkief.material-icon-theme
       equinusocio.vsc-material-theme
       catppuccin.catppuccin-vsc
