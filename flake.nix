@@ -31,7 +31,7 @@
       # This is the only config you will have to change (Desktop and Laptop are for my personal use and may not work for you)
       nixos = lib.nixosSystem {
         inherit system;
-        specialArgs = { inherit username; };
+        specialArgs = {inherit username;};
         modules = [
           ./system/Default
           #./home/programs/firefox/firefox-system.nix
@@ -39,7 +39,7 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = { inherit inputs username; };
+            home-manager.extraSpecialArgs = {inherit inputs username;};
             home-manager.users.${username} = {
               imports = [
                 ./home/hosts/Default/home.nix
@@ -57,7 +57,7 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = { inherit inputs username; };
+            home-manager.extraSpecialArgs = {inherit inputs username;};
             home-manager.users.${username} = {
               imports = [
                 ./home/hosts/Desktop/home.nix
@@ -75,7 +75,7 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = { inherit inputs username; };
+            home-manager.extraSpecialArgs = {inherit inputs username;};
             home-manager.users.${username} = {
               imports = [
                 ./home/hosts/Laptop/home.nix

@@ -5,11 +5,12 @@
 
   qt = {
     enable = true;
-    platformTheme = "gnome";
-    style = {
-      name = "adwaita-dark";
-      package = pkgs.adwaita-qt;
-    };
+    platformTheme = "gtk"; # gnome
+    #platformTheme = "gnome";
+    #style = {
+    #  name = "adwaita-dark";
+    #  package = pkgs.adwaita-qt;
+    #};
   };
 
   gtk = {
@@ -32,8 +33,11 @@
     };
 
     cursorTheme = {
+      #package = pkgs.phinger-cursors;
+      #name = "phinger-cursors-light";
       name = "Bibata-Modern-Classic";
       package = pkgs.bibata-cursors;
+      size = 24;
     };
   };
   xdg.configFile = {

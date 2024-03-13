@@ -157,9 +157,9 @@ alias mkd="mkdir -pv"
 alias tp="trash-put"
 alias tpr="trash-restore"
 alias grep='grep --color=always'
-
 # Nixos
 alias list-gens="sudo nix-env --list-generations --profile /nix/var/nix/profiles/system/"
+function find-store-path { nix-shell -p $1 --command "nix eval -f '<nixpkgs>' --raw $1" }
 function rebuild-default {
   pushd ~/NixOS &> /dev/null
   sudo ./install.sh --Copy-Hardware
