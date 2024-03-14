@@ -37,7 +37,7 @@
   wayland.windowManager.hyprland = {
     enable = true;
     systemd.enable = true;
-    enableNvidiaPatches = true;
+    #enableNvidiaPatches = true;
     extraConfig = ''
       $scriptsDir = $HOME/.local/bin
       $hyprScriptsDir = $HOME/.config/hypr/scripts
