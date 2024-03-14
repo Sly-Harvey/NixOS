@@ -6,10 +6,6 @@
   programs.mpv = {
     enable = true;
     defaultProfiles = ["gpu-hq"];
-    scripts = with pkgs.mpvScripts; [
-      thumbnail
-      mpris
-    ];
     bindings = rec {
       MBTN_LEFT_DBL = "cycle fullscreen";
       MBTN_RIGHT = "cycle pause";
@@ -127,6 +123,27 @@
       screenshot-sw = true;
       cache-dir = "${config.xdg.cacheHome}/mpv";
       input-default-bindings = false;
+    };
+    # profiles = { };
+    package = pkgs.wrapMpv ((pkgs.mpv-unwrapped.override {
+        # webp support
+        ffmpeg = pkgs.ffmpeg-full;
+      })
+      .overrideAttrs (old: {
+        patches =
+          old.patches
+          or []
+          ++ [
+            (pkgs.fetchpatch {
+              url = "https://github.com/mpv-player/mpv/pull/11648.patch";
+              hash = "sha256-rp5VxVD74dY3w5rKct1BwFbruxpHsGk8zwtkkhdJovM=";
+            })
+          ];
+      })) {
+      scripts = with pkgs.mpvScripts; [
+        thumbnail
+        mpris
+      ];
     };
   };
 }
