@@ -6,7 +6,8 @@
 }: {
   imports = [
     ../common/global
-    ../common/optional/hyprland.nix
+    ../common/optional/hyprland.nix # Enable Hyprland window manager
+    ../common/optional/gnome.nix # Enable Gnome desktop environment
     ./hardware-configuration.nix
   ];
 

@@ -5,7 +5,8 @@
 }: {
   imports = [
     ../common.nix
-    ../../programs/hyprland # use Hyprland window manager
+    ../../programs/hyprland # Enable Hyprland window manager
+    ../../programs/gnome # Enable Gnome desktop environment
   ];
 
   home.username = username;
