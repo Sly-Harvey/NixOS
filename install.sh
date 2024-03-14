@@ -37,6 +37,7 @@ ask_yes_no() {
 }
 
 # Delete dirs that conflict with home-manager
+rm -f ~/.mozilla/firefox/profiles.ini
 rm -rf ~/.gtkrc-*
 rm -rf ~/.config/gtk-*
 rm -rf ~/.config/cava
@@ -86,7 +87,7 @@ if [ "$replaceHardwareConfig" == "Y" ]; then
     fi
 fi
 
-nix-shell --command "git -C $scriptdir add *"
+nix-shell --command "sudo -u $currentUser git -C $scriptdir add *"
 
 clear
 nix-shell --command "echo BUILDING! | figlet -cklnoW | lolcat -F 0.3 -p 2.5 -S 300"
