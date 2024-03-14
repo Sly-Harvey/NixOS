@@ -5,7 +5,7 @@
 }: {
   imports = [
     ../common/global
-    ../common/optional/hyprland.nix
+    ../common/optional/hyprland-nvidia.nix
     ./hardware-configuration.nix
   ];
 
@@ -41,9 +41,9 @@
   services.xserver.enable = true;
 
   # Configure keymap in X11
-  services.xserver.xkb = {
+  services.xserver = {
     layout = "gb";
-    variant = "";
+    xkbVariant = "";
   };
 
   # Configure console keymap
