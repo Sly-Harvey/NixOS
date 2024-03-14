@@ -3,7 +3,7 @@
 ![Screenshot](./assets/preview.png)
 
 > [!WARNING]
-> **Not Tested on amd gpus!**
+> **Not Tested on amd!**
 > **I'm not responsible if your system breaks.**
 
 ## Install
