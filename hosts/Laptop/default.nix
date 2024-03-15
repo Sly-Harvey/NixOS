@@ -2,7 +2,6 @@
   pkgs,
   username,
   hostname,
-  home-manager,
   ...
 }: {
   imports = [
