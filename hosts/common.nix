@@ -5,15 +5,15 @@
 }: {
   imports = [
     home-manager.nixosModules.home-manager
-    ../modules/nixvim
-    ../modules/alacritty
-    ../modules/direnv
-    ../modules/lf
-    ../modules/firefox
-    #../modules/vscode
-    ../modules/mpv
-    ../modules/zsh
-    ../modules/style
+    ../modules/programs/nixvim
+    ../modules/programs/alacritty
+    ../modules/programs/direnv
+    ../modules/programs/lf
+    ../modules/programs/firefox
+    #../modules/programs/vscode
+    ../modules/programs/mpv
+    ../modules/programs/zsh
+    ../modules/themes
   ];
 
   # Filesystems support
@@ -127,7 +127,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; let
-    sddm-themes = pkgs.callPackage ../modules/style/sddm/themes.nix {};
+    sddm-themes = pkgs.callPackage ../modules/themes/sddm/themes.nix {};
   in [
     # System
     adwaita-qt
