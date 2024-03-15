@@ -1,49 +1,20 @@
 {
   pkgs,
   home-manager,
-  username,
   ...
 }: {
   imports = [
     home-manager.nixosModules.home-manager
+    ../modules/nixvim
+    ../modules/alacritty
+    ../modules/direnv
+    ../modules/lf
+    ../modules/firefox
+    #../modules/vscode
+    ../modules/mpv
+    ../modules/zsh
+    ../modules/style
   ];
-
-  home-manager.users.${username} = _: {
-    imports = [
-      ../modules/nixvim
-      ../modules/alacritty
-      ../modules/direnv
-      ../modules/lf
-      ../modules/firefox
-      ../modules/vscode
-      ../modules/mpv
-      ../modules/zsh
-      ../modules/style
-    ];
-
-    home.username = username;
-    home.homeDirectory = "/home/${username}";
-
-    # The home.packages option allows you to install Nix packages into your
-    # environment.
-    home.packages = with pkgs; [
-      (pkgs.writeShellScriptBin "hello" ''
-        echo "Hello World!"
-      '')
-    ];
-
-    home.sessionVariables = {
-      # EDITOR = "emacs";
-    };
-
-    home.file.".local/bin/" = {
-      source = ../scripts;
-      recursive = true;
-    };
-
-    # Let Home Manager install and manage itself.
-    programs.home-manager.enable = true;
-  };
 
   # Filesystems support
   boot.supportedFilesystems = ["ntfs" "exfat" "ext4" "fat32" "btrfs"];
@@ -156,7 +127,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; let
-    sddm-themes = pkgs.callPackage ../../../home/themes/sddm/themes.nix {};
+    sddm-themes = pkgs.callPackage ../modules/style/sddm/themes.nix {};
   in [
     # System
     adwaita-qt

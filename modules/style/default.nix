@@ -2,10 +2,9 @@
   home-manager,
   username,
   pkgs,
-  config,
   ...
 }: {
-  home-manager.users.${username} = _: {
+  home-manager.users.${username} = {config, ...}: {
     imports = [
       ./cava
       ./wallpapers

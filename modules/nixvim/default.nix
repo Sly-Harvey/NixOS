@@ -1,5 +1,4 @@
 {
-  home-manager,
   username,
   inputs,
   pkgs,
