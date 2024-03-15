@@ -1,7 +1,6 @@
 {
   pkgs,
   username,
-  home-manager,
   ...
 }: {
   imports = [
@@ -12,13 +11,8 @@
 
   # Home-manager config
   home-manager.users.${username} = {
-    # THE FOLLOWING OPTIONS ARE SET IN hosts/common.nix
-
-    #home.username = username;
-    #home.homeDirectory = "/home/${username}";
-
-    # Let Home Manager install and manage itself.
-    #programs.home-manager.enable = true;
+    home.username = username;
+    home.homeDirectory = "/home/${username}";
 
     home.stateVersion = "23.11"; # Please read the comment before changing.
 
@@ -27,10 +21,18 @@
       #vim
       #krita
       #steam
+      (pkgs.writeShellScriptBin "hello" ''
+        echo "Hello ''${username}!"
+      '')
     ];
 
     home.sessionVariables = {
       # EDITOR = "emacs";
+    };
+
+    home.file.".local/bin/" = {
+      source = ../../scripts;
+      recursive = true;
     };
 
     # Let Home Manager install and manage itself.

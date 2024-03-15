@@ -1,4 +1,8 @@
-{...}: {
+{
+  home-manager,
+  username,
+  ...
+}: {
   home.file.".config/hypr/wallpaper.png" = {
     source = ./aurora_borealis.png;
   };

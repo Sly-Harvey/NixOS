@@ -18,7 +18,7 @@
     nixpkgs,
     home-manager,
     ...
-  } @ attrs: let
+  }@inputs: let
     username = "harvey"; # REPLACE THIS WITH YOUR USERNAME!!!!
     system = "x86_64-linux";
     pkgs = import nixpkgs {
@@ -31,7 +31,7 @@
       # This is the only config you will have to change (Desktop and Laptop are for my personal use and may not work for you)
       nixos = lib.nixosSystem {
         inherit system;
-        specialArgs = {inherit username;} // attrs;
+        specialArgs = {inherit username inputs;} // inputs;
         modules = [
           ./hosts/Default
           #./home/programs/firefox/firefox-system.nix
@@ -42,7 +42,7 @@
         specialArgs = let
           hostname = "NixOS-Desktop";
         in
-          {inherit username hostname;} // attrs;
+          {inherit username hostname inputs;} // inputs;
         modules = [
           ./hosts/Desktop
         ];
@@ -52,7 +52,7 @@
         specialArgs = let
           hostname = "NixOS-Laptop";
         in
-          {inherit username hostname;} // attrs;
+          {inherit username hostname inputs;} // inputs;
         modules = [
           ./hosts/Laptop
         ];
