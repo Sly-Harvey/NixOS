@@ -47,7 +47,7 @@ rm -rf $backupdir &> /dev/null
 mkdir -p $backupdir &> /dev/null
 
 # Delete Default hardware-configuration.nix
-rm -f $scriptdir/system/Default/hardware-configuration.nix &> /dev/null
+rm -f $scriptdir/hosts/Default/hardware-configuration.nix &> /dev/null
 
 # Backup existing config
 # mv /etc/nixos/* $backupdir &> /dev/null
@@ -69,21 +69,22 @@ else
 fi
 
 if [ "$replaceHardwareConfig" == "Y" ]; then
-      rm -f $scriptdir/system/Default/hardware-configuration.nix &> /dev/null
+      rm -f $scriptdir/hosts/Default/hardware-configuration.nix &> /dev/null
     if [ -f $backupdir/hardware-configuration.nix ]; then
-      cp $(find $backupdir -iname 'hardware-configuration.nix') $scriptdir/system/Default/hardware-configuration.nix
+      cp $(find $backupdir -iname 'hardware-configuration.nix') $scriptdir/hosts/Default/hardware-configuration.nix
     elif [ -f $backupdir/home-pc.nix ]; then
-      cp $(find $backupdir -iname 'home-pc.nix') $scriptdir/system/Default/hardware-configuration.nix
+      cp $(find $backupdir -iname 'home-pc.nix') $scriptdir/hosts/Default/hardware-configuration.nix
     else
       # Generate new config
       clear
       nix-shell --command "echo GENERATING CONFIG! | figlet -cklno | lolcat -F 0.3 -p 2.5 -S 300"
+      nixos-generate-config --show-hardware-config > $scriptdir/hosts/Default/hardware-configuration.nix
 
-      rm -rf /tmp/nixos-generated-config &> /dev/null
-      mkdir -p /tmp/nixos-generated-config
-      nixos-generate-config --dir /tmp/nixos-generated-config
-      mv /tmp/nixos-generated-config/hardware-configuration.nix $scriptdir/system/Default/hardware-configuration.nix
-      rm -rf /tmp/nixos-generated-config
+      #rm -rf /tmp/nixos-generated-config &> /dev/null
+      #mkdir -p /tmp/nixos-generated-config
+      #nixos-generate-config --dir /tmp/nixos-generated-config
+      #mv /tmp/nixos-generated-config/hardware-configuration.nix $scriptdir/hosts/Default/hardware-configuration.nix
+      #rm -rf /tmp/nixos-generated-config
     fi
 fi
 
@@ -92,4 +93,4 @@ nix-shell --command "sudo -u $currentUser git -C $scriptdir add *"
 clear
 nix-shell --command "echo BUILDING! | figlet -cklnoW | lolcat -F 0.3 -p 2.5 -S 300"
 
-nix-shell --command "sudo nixos-rebuild switch --flake $scriptdir#nixos"
+nix-shell --command "sudo nixos-rebuild switch --flake $scriptdir#nixos --show-trace && rm -rf $backupdir"

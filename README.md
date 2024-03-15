@@ -21,7 +21,7 @@ sudo ./install.sh
 Make sure to reboot after.
 ### or you can build manually from the flake.
 > [!IMPORTANT]
-> When building manually from the flake make sure to place your hardware-configuration.nix in system/Default/
+> When building manually from the flake make sure to place your hardware-configuration.nix in hosts/Default/
 > and then CHANGE the username variable in flake.nix with your username!!
 > then run the command below
 ```bash
