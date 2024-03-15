@@ -1,4 +1,8 @@
-{home-manager, ...}: {
+{
+  home-manager,
+  username,
+  ...
+}: {
   home-manager.users.${username} = _: {
     imports = [
       ./hypr

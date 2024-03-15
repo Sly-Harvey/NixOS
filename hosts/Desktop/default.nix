@@ -13,14 +13,6 @@
 
   # Home-manager config
   home-manager.users.${username} = {
-    imports = [
-      #../../programs
-      #../../themes
-      #../../wallpapers
-      ../common.nix
-      ../../programs/hyprland # use Hyprland window manager
-    ];
-
     # THE FOLLOWING OPTIONS ARE SET IN hosts/common.nix
 
     #home.username = username;
