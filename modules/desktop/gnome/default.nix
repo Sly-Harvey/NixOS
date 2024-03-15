@@ -1,17 +1,12 @@
 {
-  inputs,
   pkgs,
-  lib,
-  home-manager,
   username,
   ...
 }:
-with lib.hm.gvariant; {
-  home-manager.users.${username} = _: {
-    imports = [
-      ./dconf.nix
-    ];
-  };
+{
+  imports = [
+    ./dconf.nix
+  ];
   services.xserver = {
     enable = true;
     desktopManager.gnome.enable = true;
