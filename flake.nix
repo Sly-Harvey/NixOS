@@ -61,20 +61,20 @@
     # Standalone home-manager configuration entrypoint
     # Available through 'home-manager --flake .#your-username@your-hostname'
     # or 'home-manager --flake .' for current user in current hostname
-    homeConfigurations = {
-      ${username} = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.${system};
-        modules = [
-          ./home/home.nix
-          {
-            home = {
-              username = username;
-              homeDirectory = "/home/${username}";
-              stateVersion = "23.11";
-            };
-          }
-        ];
-      };
-    };
+    #homeConfigurations = {
+    #  ${username} = home-manager.lib.homeManagerConfiguration {
+    #    pkgs = nixpkgs.legacyPackages.${system};
+    #    modules = [
+    #      ./home/home.nix
+    #      {
+    #        home = {
+    #          username = username;
+    #          homeDirectory = "/home/${username}";
+    #          stateVersion = "23.11";
+    #        };
+    #      }
+    #    ];
+    #  };
+    #};
   };
 }
