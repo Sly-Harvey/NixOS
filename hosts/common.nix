@@ -18,8 +18,7 @@
       ../modules/vscode
       ../modules/mpv
       ../modules/zsh
-      ../wallpapers
-      ../themes
+      ../modules/style
     ];
 
     home.username = username;
