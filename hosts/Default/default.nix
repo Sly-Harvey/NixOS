@@ -1,6 +1,8 @@
 {
   pkgs,
   username,
+  locale,
+  timezone,
   ...
 }: {
   imports = [
@@ -49,22 +51,19 @@
   # Enable networking
   networking.networkmanager.enable = true;
 
-  # Set your time zone.
-  time.timeZone = "Europe/London";
-
-  # Select internationalisation properties.
-  i18n.defaultLocale = "en_GB.UTF-8";
-
+  # Timezone and locale
+  time.timeZone = timezone;
+  i18n.defaultLocale = locale;
   i18n.extraLocaleSettings = {
-    LC_ADDRESS = "en_GB.UTF-8";
-    LC_IDENTIFICATION = "en_GB.UTF-8";
-    LC_MEASUREMENT = "en_GB.UTF-8";
-    LC_MONETARY = "en_GB.UTF-8";
-    LC_NAME = "en_GB.UTF-8";
-    LC_NUMERIC = "en_GB.UTF-8";
-    LC_PAPER = "en_GB.UTF-8";
-    LC_TELEPHONE = "en_GB.UTF-8";
-    LC_TIME = "en_GB.UTF-8";
+    LC_ADDRESS = locale;
+    LC_IDENTIFICATION = locale;
+    LC_MEASUREMENT = locale;
+    LC_MONETARY = locale;
+    LC_NAME = locale;
+    LC_NUMERIC = locale;
+    LC_PAPER = locale;
+    LC_TELEPHONE = locale;
+    LC_TIME = locale;
   };
 
   # Enable the X11 windowing system.
@@ -98,7 +97,6 @@
     ];
   };
 
-  # ADD SYSTEM PACKAGES HERE (Add user packages in /home/hosts/Default/home.nix )
   environment.systemPackages = with pkgs; [
     # Applications
     #gimp

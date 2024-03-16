@@ -18,12 +18,16 @@
     nixpkgs,
     home-manager,
     ...
-  }@inputs: let
-    username = "harvey"; # REPLACE THIS WITH YOUR USERNAME!!!!
-    system = "x86_64-linux";
+  } @ inputs: let
+    username = "harvey"; # REPLACE THIS WITH YOUR USERNAME!!!! (if manually installing, this is Required.)
+    system = "x86_64-linux"; # REPLACE THIS WITH YOUR ARCHITECTURE (Rarely need to)
+    locale = "en_GB.UTF-8"; # REPLACE THIS WITH YOUR LOCALE
+    timezone = "Europe/London"; # REPLACE THIS WITH YOUR TIMEZONE
+
     pkgs = import nixpkgs {
       inherit system;
       config.allowUnfree = true;
+      allowUnfreePredicate = _: true;
     };
     lib = nixpkgs.lib;
   in {
@@ -31,7 +35,7 @@
       # This is the only config you will have to change (Desktop and Laptop are for my personal use and may not work for you)
       nixos = lib.nixosSystem {
         inherit system;
-        specialArgs = {inherit username inputs;} // inputs;
+        specialArgs = {inherit username locale timezone inputs;} // inputs;
         modules = [
           ./hosts/Default
           #./home/programs/firefox/firefox-system.nix
@@ -58,6 +62,7 @@
         ];
       };
     };
+
     # Standalone home-manager configuration entrypoint
     # Available through 'home-manager --flake .#your-username@your-hostname'
     # or 'home-manager --flake .' for current user in current hostname
