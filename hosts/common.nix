@@ -5,6 +5,7 @@
 }: {
   imports = [
     home-manager.nixosModules.home-manager
+    ../modules/services/tlp # Set cpu power settings
     ../modules/programs/nixvim
     ../modules/programs/alacritty
     ../modules/programs/direnv
@@ -99,6 +100,11 @@
 
   # Enable touchpad support (enabled default in most desktopManager).
   services.xserver.libinput.enable = true;
+
+  hardware.opengl = {
+    enable = true;
+    driSupport32Bit = true;
+  };
 
   # Default user when using: sudo nixos-rebuild build-vm
   users.users.nixosvmtest.isNormalUser = true;

@@ -8,6 +8,7 @@
   imports = [
     ../common.nix
     ../../modules/desktop/hyprland # Enable Hyprland window manager
+    ../../modules/programs/games
     ./hardware-configuration.nix
   ];
 
@@ -113,11 +114,29 @@
     krita
     lutris
     mangohud
-    steam
     xfce.thunar
 
     # Development
   ];
+
+  virtualisation.vmVariant = {
+    # following configuration is added only when building VM with build-vm
+    virtualisation = {
+      memorySize = 8192; # Use 8GB memory.
+      # memorySize = 4096; # Use 4GB memory.
+      # memorySize = 2048; # Use 2GB memory.
+      cores = 3;
+    };
+  };
+  virtualisation.vmVariantWithBootLoader = {
+    # following configuration is added only when building VM with build-vm
+    virtualisation = {
+      memorySize = 8192; # Use 8GB memory.
+      # memorySize = 4096; # Use 4GB memory.
+      # memorySize = 2048; # Use 2GB memory.
+      cores = 3;
+    };
+  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

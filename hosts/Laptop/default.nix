@@ -8,6 +8,8 @@
     ../common.nix
     ../../modules/desktop/hyprland # Enable Hyprland window manager
     ../../modules/desktop/gnome # Enable Gnome desktop environment
+    ../../modules/programs/games/gamemode.nix
+    ../../modules/programs/games/steam.nix
     ./hardware-configuration.nix
   ];
 
@@ -113,11 +115,29 @@
     krita
     lutris
     mangohud
-    steam
     xfce.thunar
 
     # Development
   ];
+
+  virtualisation.vmVariant = {
+    # following configuration is added only when building VM with build-vm
+    virtualisation = {
+      #memorySize = 8192; # Use 8GB memory.
+      memorySize = 4096; # Use 4GB memory.
+      #memorySize = 2048; # Use 2GB memory.
+      cores = 1;
+    };
+  };
+  virtualisation.vmVariantWithBootLoader = {
+    # following configuration is added only when building VM with build-vm
+    virtualisation = {
+      #memorySize = 8192; # Use 8GB memory.
+      memorySize = 4096; # Use 4GB memory.
+      #memorySize = 2048; # Use 2GB memory.
+      cores = 1;
+    };
+  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

@@ -4,12 +4,12 @@
 {
   config,
   lib,
-  pkgs,
   modulesPath,
   ...
 }: {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
+    #../../modules/hardware/nvidia.nix
   ];
 
   boot.initrd.availableKernelModules = ["xhci_pci" "ahci" "usbhid" "uas" "usb_storage" "sd_mod"];
@@ -70,40 +70,6 @@
       "x-gvfs-show"
       "x-systemd.mount-timeout=5"
     ];
-  };
-
-  hardware = {
-    nvidia = {
-      open = false;
-      nvidiaSettings = true;
-      powerManagement.enable = true;
-      modesetting.enable = true;
-      package = config.boot.kernelPackages.nvidiaPackages.stable;
-    };
-    opengl = {
-      enable = true;
-      driSupport32Bit = true;
-      extraPackages = with pkgs; [nvidia-vaapi-driver];
-    };
-  };
-
-  virtualisation.vmVariant = {
-    # following configuration is added only when building VM with build-vm
-    virtualisation = {
-      memorySize = 8192; # Use 8GB memory.
-      # memorySize = 4096; # Use 4GB memory.
-      # memorySize = 2048; # Use 2GB memory.
-      cores = 3;
-    };
-  };
-  virtualisation.vmVariantWithBootLoader = {
-    # following configuration is added only when building VM with build-vm
-    virtualisation = {
-      memorySize = 8192; # Use 8GB memory.
-      # memorySize = 4096; # Use 4GB memory.
-      # memorySize = 2048; # Use 2GB memory.
-      cores = 3;
-    };
   };
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
