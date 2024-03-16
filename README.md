@@ -3,27 +3,30 @@
 ![Screenshot](./assets/preview.png)
 
 > [!WARNING]
-> **Not Tested on amd!**
-> **I'm not responsible if your system breaks.**
+> <p>Not Tested on amd or bios!<br>
 
-## Install
-### clone the repo
+# Install
+> [!IMPORTANT]
+> <p>Default locale and timezone is British.<br>
+> If you want to change this then edit the variables in flake.nix.</p>
+
+Make sure to reboot after installing with any of the methods below.
+## Using the install script
 ```bash
 nix run --experimental-features "nix-command flakes" nixpkgs#git clone https://github.com/Sly-Harvey/NixOS.git ~/NixOS
 ```
 ```bash
 cd ~/NixOS
 ```
-### then you can use the install script to install.
 ```bash
 sudo ./install.sh
 ```
 Make sure to reboot after.
-### or you can build manually from the flake.
+## Building manually
 > [!IMPORTANT]
-> When building manually from the flake make sure to place your hardware-configuration.nix in hosts/Default/
-> and then CHANGE the username variable in flake.nix with your username!!
-> then run the command below
+> <p>When building manually from the flake make sure to place your hardware-configuration.nix in hosts/Default/<br>
+> and CHANGE the username variable in flake.nix with your username!!<br>
+> then run the command below</p>
 ```bash
 sudo nixos-rebuild switch --flake .#nixos
 ```
