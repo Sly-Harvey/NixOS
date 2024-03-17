@@ -21,6 +21,7 @@
       cliphist
       grimblast
       libnotify
+      light
       networkmanagerapplet
       pamixer
       pavucontrol
@@ -333,7 +334,6 @@
         bind = $mainMod CTRL, B, exec, $hyprScriptsDir/WaybarStyles.sh # Waybar Styles Menu
         bind = $mainMod ALT, B, exec, $hyprScriptsDir/WaybarLayout.sh # Waybar Layout Menu
 
-
         # Screenshot/Screencapture
         bind = $mainMod, P, exec, $hyprScriptsDir/screenshot.sh s # drag to snip an area / click on a window to print it
         bind = $mainMod CTRL, P, exec, $hyprScriptsDir/screenshot.sh sf # frozen screen, drag to snip an area / click on a window to print it
@@ -352,9 +352,8 @@
         bind =,XF86AudioPause,exec,playerctl play-pause
         bind =,xf86AudioNext,exec,playerctl next
         bind =,xf86AudioPrev,exec,playerctl previous
-
-        #bind =,xf86AudioNext,exec,$hyprScriptsDir/MediaCtrl.sh --nxt
-        #bind =,xf86AudioPrev,exec,$hyprScriptsDir/MediaCtrl.sh --prv
+        # bind =,xf86AudioNext,exec,$hyprScriptsDir/MediaCtrl.sh --nxt
+        # bind =,xf86AudioPrev,exec,$hyprScriptsDir/MediaCtrl.sh --prv
 
         # to switch between windows in a floating workspace
         bind = SUPER,Tab,cyclenext,
