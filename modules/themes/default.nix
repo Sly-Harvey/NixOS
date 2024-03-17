@@ -1,5 +1,4 @@
 {
-  home-manager,
   username,
   pkgs,
   ...
@@ -22,20 +21,24 @@
     gtk = {
       enable = true;
       iconTheme = {
-        name = "Yaru-magenta-dark";
-        package = pkgs.yaru-theme;
+        package = pkgs.gnome.adwaita-icon-theme;
+        name = "Adwaita";
       };
 
       theme = {
+        name = "Flat-Remix-GTK-Grey-Darkest";
+        package = pkgs.flat-remix-gtk;
+
         #name = "Tokyonight-Dark-B-LB";
         #package = pkgs.tokyo-night-gtk;
-        name = "Catppuccin-Macchiato-Compact-Pink-Dark";
-        package = pkgs.catppuccin-gtk.override {
-          accents = ["pink"];
-          size = "compact";
-          #tweaks = [ "rimless" "black" ];
-          variant = "macchiato";
-        };
+
+        #name = "Catppuccin-Macchiato-Compact-Pink-Dark";
+        #package = pkgs.catppuccin-gtk.override {
+        #  accents = ["pink"];
+        #  size = "compact";
+        #  #tweaks = [ "rimless" "black" ];
+        #  variant = "macchiato";
+        #};
       };
 
       cursorTheme = {
@@ -43,7 +46,7 @@
         #name = "phinger-cursors-light";
         name = "Bibata-Modern-Classic";
         package = pkgs.bibata-cursors;
-        size = 24;
+        size = 16;
       };
     };
     xdg.configFile = {

@@ -15,7 +15,7 @@
     ../modules/programs/nixvim
     ../modules/services/tlp # Set cpu power settings
     #../modules/programs/vscode
-    ../modules/themes
+    #../modules/themes
     ../modules/programs/spicetify
     ../modules/programs/zsh
   ];
