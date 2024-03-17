@@ -18,9 +18,8 @@
     home.username = username;
     home.homeDirectory = "/home/${username}";
 
-    home.stateVersion = "23.11"; # Please read the comment before changing.
+    home.stateVersion = "23.11";
 
-    # ADD USER PACKAGES HERE (Add system packages in /system/hosts/Default/configuration.nix)
     home.packages = with pkgs; [
       #vim
       #krita
@@ -95,29 +94,17 @@
       "video"
       "audio"
     ];
-    packages = with pkgs; [
-      firefox
-      kate
-      #  thunderbird
-    ];
   };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    # System
-
-    # Terminal
-
     # Applications
     gimp
     gparted
     krita
     lutris
     mangohud
-    xfce.thunar
-
-    # Development
   ];
 
   virtualisation.vmVariant = {

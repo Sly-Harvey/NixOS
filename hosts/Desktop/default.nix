@@ -19,7 +19,6 @@
 
     home.stateVersion = "23.11"; # Please read the comment before changing.
 
-    # ADD USER PACKAGES HERE (Add system packages in /system/hosts/Default/configuration.nix)
     home.packages = with pkgs; [
       #vim
       #krita
@@ -93,11 +92,6 @@
       "wheel"
       "video"
       "audio"
-    ];
-    packages = with pkgs; [
-      firefox
-      kate
-      #  thunderbird
     ];
   };
 

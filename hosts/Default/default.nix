@@ -90,28 +90,9 @@
       "video"
       "audio"
     ];
-    packages = with pkgs; [
-      firefox
-      kate
-      #  thunderbird
-    ];
   };
 
   environment.systemPackages = with pkgs; [
-    # Applications
-    #gimp
-    #gparted
-    #krita
-    #lutris
-    #mangohud
-    #steam
-    xfce.thunar
-
-    # Terminal
-
-    # System
-
-    # Development
   ];
 
   # This value determines the NixOS release from which the default
