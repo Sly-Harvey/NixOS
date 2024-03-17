@@ -1,21 +1,52 @@
 {
   pkgs,
+  username,
   home-manager,
   ...
 }: {
   imports = [
     home-manager.nixosModules.home-manager
-    ../modules/services/tlp # Set cpu power settings
-    ../modules/programs/nixvim
     ../modules/programs/alacritty
+    ../modules/programs/cava
     ../modules/programs/direnv
-    ../modules/programs/lf
     ../modules/programs/firefox
-    #../modules/programs/vscode
+    ../modules/programs/lf
     ../modules/programs/mpv
-    ../modules/programs/zsh
+    ../modules/programs/nixvim
+    ../modules/services/tlp # Set cpu power settings
+    #../modules/programs/vscode
     ../modules/themes
+    ../modules/programs/spicetify
+    ../modules/programs/zsh
   ];
+
+  # Common home-manager options that are shared between all systems.
+  home-manager.users.${username} = {pkgs, ...}: {
+    # Packages that don't require configuration. If you're looking to configure a program see the /modules dir
+    home.packages = with pkgs; [
+      # Applications
+      #kate
+      xfce.thunar
+
+      # Terminal
+      btop
+      #cava
+      eza
+      fzf
+      fd
+      git
+      gh
+      htop
+      jq
+      lf
+      #lolcat
+      nix-prefetch-scripts
+      neofetch
+      ripgrep
+      tldr
+      unzip
+    ];
+  };
 
   # Filesystems support
   boot.supportedFilesystems = ["ntfs" "exfat" "ext4" "fat32" "btrfs"];
@@ -139,38 +170,11 @@
     adwaita-qt
     bibata-cursors
     libsForQt5.qt5.qtgraphicaleffects # For sddm to function properly
-    nix-prefetch-scripts
     polkit
     libsForQt5.polkit-kde-agent
     sddm-themes.sugar-dark
     sddm-themes.astronaut
     sddm-themes.tokyo-night
-
-    # Terminal
-    btop
-    cava
-    eza
-    fzf
-    fd
-    git
-    gh
-    htop
-    jq
-    lf
-    neofetch
-    ripgrep
-    tldr
-    unzip
-
-    # Applications
-    #gimp
-    #krita
-    #lutris
-    #mpv
-    #mangohud
-    #spotify
-    #steam
-    #xfce.thunar
 
     # Development
     devbox # faster nix-shells
