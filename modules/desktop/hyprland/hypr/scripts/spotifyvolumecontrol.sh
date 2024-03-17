@@ -1,20 +1,25 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # define the name of the player
 PLAYER="spotify"
+ICON="$HOME/.config/swaync/icons/music.png"
 
 # function to increase Spotify volume
 increase_volume() {
     	playerctl --player="$PLAYER" volume 0.05+
 	VOLUME=$(playerctl volume --player $PLAYER)
-	dunstify -a Spotify -r 2 -t 1500 -i /usr/share/icons/Tela-circle-black/scalable/apps/com.spotify.Client.svg "Volume increased" "$VOLUME"
+	dunstify -a Spotify -r 2 -t 1500 -i $ICON "Volume increased" "$VOLUME"
+	#dunstify -a Spotify -r 2 -t 1500 -i /usr/share/icons/Tela-circle-black/scalable/apps/com.spotify.Client.svg "Volume increased" "$VOLUME"
+        #notify-send -e -u low -i "$ICON" "Volume increased:" "$VOLUME"
 }
 
 # function to decrease Spotify volume
 decrease_volume() {
     	playerctl --player="$PLAYER" volume 0.05-
 	VOLUME=$(playerctl volume --player $PLAYER)
-        dunstify -a Spotify -r 2 -t 1500 -i /usr/share/icons/Tela-circle-black/scalable/apps/com.spotify.Client.svg "Volume decreased" "$VOLUME"
+	dunstify -a Spotify -r 2 -t 1500 -i $ICON "Volume increased" "$VOLUME"
+	#dunstify -a Spotify -r 2 -t 1500 -i /usr/share/icons/Tela-circle-black/scalable/apps/com.spotify.Client.svg "Volume increased" "$VOLUME"
+        #notify-send -e -u low -i "$ICON" "Volume increased:" "$VOLUME"
 }
 
 # check for the argument and perform the corresponding action

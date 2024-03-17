@@ -24,6 +24,7 @@
       networkmanagerapplet
       pamixer
       pavucontrol
+      playerctl
       slurp
       swappy
       swww
@@ -340,14 +341,20 @@
         bind = $mainMod ALT, P, exec, $hyprScriptsDir/screenshot.sh p  # print all monitor outputs
 
         # Functional keybinds
+        bind =,xf86Sleep, exec, systemctl suspend
         bind =,XF86AudioMicMute,exec,pamixer --default-source -t
         bind =,XF86MonBrightnessDown,exec,light -U 20
         bind =,XF86MonBrightnessUp,exec,light -A 20
         bind =,XF86AudioMute,exec,pamixer -t
-        bind =,XF86AudioLowerVolume,exec,pamixer -d 10
-        bind =,XF86AudioRaiseVolume,exec,pamixer -i 10
+        bind =,XF86AudioLowerVolume,exec,pamixer -d 5
+        bind =,XF86AudioRaiseVolume,exec,pamixer -i 5
         bind =,XF86AudioPlay,exec,playerctl play-pause
         bind =,XF86AudioPause,exec,playerctl play-pause
+        bind =,xf86AudioNext,exec,playerctl next
+        bind =,xf86AudioPrev,exec,playerctl previous
+
+        #bind =,xf86AudioNext,exec,$hyprScriptsDir/MediaCtrl.sh --nxt
+        #bind =,xf86AudioPrev,exec,$hyprScriptsDir/MediaCtrl.sh --prv
 
         # to switch between windows in a floating workspace
         bind = SUPER,Tab,cyclenext,
