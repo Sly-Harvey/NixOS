@@ -5,7 +5,7 @@
       settings = {
         general = {
           framerate = 60;
-          sensitivity = 85;
+          sensitivity = 90;
           autosens = 1;
         };
         color = {
