@@ -1,5 +1,6 @@
 {username, ...}: {
   home-manager.users.${username} = _: {
+    home.file.".config/swaync/icons/music.png".source = ./music.png;
     home.file.".config/swaync/config.json".text = ''
           {
         "$schema": "/etc/xdg/swaync/configSchema.json",

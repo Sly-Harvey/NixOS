@@ -165,8 +165,8 @@ function rebuild-default {
   sudo ./install.sh --Copy-Hardware
   popd &> /dev/null
 }
-alias rebuild-desktop="sudo nixos-rebuild switch --flake ~/NixOS#Desktop"
-alias rebuild-laptop="sudo nixos-rebuild switch --flake ~/NixOS#Laptop"
+alias rebuild-desktop="clear && sudo nixos-rebuild switch --flake ~/NixOS#Desktop"
+alias rebuild-laptop="clear && sudo nixos-rebuild switch --flake ~/NixOS#Laptop"
 
 # Directory Shortcuts.
 alias dev='cd /mnt/seagate/dev/'
