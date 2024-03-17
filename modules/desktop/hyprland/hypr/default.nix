@@ -61,9 +61,9 @@
         exec-once dbus-update-activation-environment --systemd --all
 
         # Autostart
-        exec-once = pamixer --set-volume 40
-        exec-once = [workspace 1 silent] firefox
-        exec-once = [workspace 2 silent] alacritty
+        exec-once = pamixer --set-volume 35
+        #exec-once = [workspace 1 silent] firefox
+        #exec-once = [workspace 2 silent] alacritty
         #exec-once = [workspace 5 silent] spotify
         #exec-once = [workspace special silent] firefox --new-instance -P private
         #exec-once = [workspace special silent] alacritty
