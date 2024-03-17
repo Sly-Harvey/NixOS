@@ -10,15 +10,15 @@ iDIR="$HOME/.config/hypr/icons"
 declare -A menu_options=(
   ["Korean Drama OST 📻🎶"]="https://youtube.com/playlist?list=PLUge_o9AIFp4HuA-A3e3ZqENh63LuRRlQ"
   ["Pop 📻🎶"]="https://youtube.com/playlist?list=PLMC9KNkIncKtPzgY-5rmhvj7fax8fdxoj"
-  ["Classics UK 🎻🎶"]="http://stream3.hippynet.co.uk:8008/stream.mp3"
-  ["Kiss UK ☕️🎶"]="http://live-kiss.sharp-stream.com/kissnational.mp3?aw_0_1st.skey=1709633813"
+  ["Classics UK 🎻🎶"]="https://stream3.hippynet.co.uk:8008/stream.mp3"
+  ["Kiss UK ☕️🎶"]="https://live-kiss.sharp-stream.com/kissnational.mp3?aw_0_1st.skey=1709633813"
   ["Dance 📻🎶"]="https://dancewave.online:443/dance.mp3"
   ["Lofi Radio ☕️🎶"]="https://play.streamafrica.net/lofiradio"
   ["96.3 Easy Rock 📻🎶"]="https://radio-stations-philippines.com/easy-rock"
   ["Rock 📻🎶"]="https://www.youtube.com/playlist?list=PL6Lt9p1lIRZ311J9ZHuzkR5A3xesae2pk"
   ["Ghibli Music 🎻🎶"]="https://youtube.com/playlist?list=PLNi74S754EXbrzw-IzVhpeAaMISNrzfUy&si=rqnXCZU5xoFhxfOl"
   ["Top Youtube Music 2023 ☕️🎶"]="https://youtube.com/playlist?list=PLDIoUOhQQPlXr63I_vwF9GD8sAKh77dWU&si=y7qNeEVFNgA-XxKy"
-  ["Chillhop ☕️🎶"]="http://stream.zeno.fm/fyn8eh3h5f8uv"
+  ["Chillhop ☕️🎶"]="https://stream.zeno.fm/fyn8eh3h5f8uv"
   ["SmoothChill ☕️🎶"]="https://media-ssl.musicradio.com/SmoothChill"
   ["Smooth UK ☕️🎶"]="https://icecast.thisisdax.com/SmoothUKMP3"
   ["Relaxing Music ☕️🎶"]="https://youtube.com/playlist?list=PLMIbmfP_9vb8BCxRoraJpoo4q1yMFg4CE"
@@ -27,7 +27,7 @@ declare -A menu_options=(
 
 # Function for displaying notifications
 notification() {
-  notify-send -u normal -i "$iDIR/music.png" "Playing now: $@"
+  notify-send -e -u normal -i "$iDIR/music.png" "Playing now: $@"
 }
 
 # Main function
@@ -51,4 +51,4 @@ main() {
 }
 
 # Check if an online music process is running and send a notification, otherwise run the main function
-pkill mpv && notify-send -u low -i "$iDIR/music.png" "Online Music stopped" || main
+pkill mpv && notify-send -e -u low -i "$iDIR/music.png" "Playback stopped" || main
