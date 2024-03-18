@@ -80,7 +80,7 @@
           program = "zsh";
         };
 
-        key_bindings = [
+        keyboard.bindings = [
           {
             chars = "cd $(find /mnt/seagate/dev/ ~/.config/ /usr/ ~/.local/ ~/ -mindepth 1 -maxdepth 2 | fzf)\r";
             key = "F";

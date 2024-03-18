@@ -7,12 +7,14 @@
 }: {
   programs.hyprland = {
     enable = true;
-    enableNvidiaPatches = true;
+    #enableNvidiaPatches = true;
     xwayland.enable = true;
+    package = inputs.hyprland.packages.${pkgs.system}.hyprland;
   };
 
   home-manager.users.${username} = _: {
     imports = [
+      inputs.hyprland.homeManagerModules.default
       ./hyprland-environment.nix
     ];
 
@@ -44,11 +46,55 @@
       recursive = true;
     };
 
+    home.pointerCursor = {
+      gtk.enable = true;
+      x11.enable = true;
+      package = pkgs.bibata-cursors;
+      name = "Bibata-Modern-Classic";
+      size = 16; # 24
+    };
+
+    gtk = {
+      enable = true;
+      theme = {
+        name = "Catppuccin-Macchiato-Compact-Pink-Dark";
+        package = pkgs.catppuccin-gtk.override {
+          accents = ["pink"];
+          size = "compact";
+          #tweaks = [ "rimless" "black" ];
+          variant = "macchiato";
+        };
+      };
+
+      iconTheme = {
+        package = pkgs.gnome.adwaita-icon-theme;
+        name = "Adwaita";
+        #name = "Yaru-magenta-dark";
+        #package = pkgs.yaru-theme;
+      };
+
+      #font = {
+      #  name = "Sans";
+      #  size = 11;
+      #};
+    };
+
+    qt = {
+      enable = true;
+      platformTheme = "gtk"; # gnome
+      #platformTheme = "gnome";
+      #style = {
+      #  name = "adwaita-dark";
+      #  package = pkgs.adwaita-qt;
+      #};
+    };
+
     #test later systemd.user.targets.hyprland-session.Unit.Wants = [ "xdg-desktop-autostart.target" ];
     wayland.windowManager.hyprland = {
       enable = true;
       systemd.enable = true;
-      enableNvidiaPatches = true;
+      #enableNvidiaPatches = true;
+      xwayland.enable = true;
       extraConfig = ''
         $scriptsDir = $HOME/.local/bin
         $hyprScriptsDir = $HOME/.config/hypr/scripts
@@ -59,8 +105,8 @@
         monitor=HDMI-A-1,1920x1080@60.0,0x0,1.0
 
         # Fix slow startup
-        exec-once systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP QT_QPA_PLATFORMTHEME
-        exec-once dbus-update-activation-environment --systemd --all
+        #exec-once = systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP QT_QPA_PLATFORMTHEME
+        exec-once = dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
 
         # Autostart
         exec-once = pamixer --set-volume 35
@@ -72,7 +118,7 @@
         #exec-once = [workspace 8 silent] alacritty -e cava
         #exec-once = [workspace 9 silent] alacritty -e cava
 
-        exec-once = hyprctl setcursor Bibata-Modern-Classic 24
+        #exec-once = hyprctl setcursor Bibata-Modern-Classic 24
         exec-once = ~/.config/hypr/scripts/wallpaper.sh
         exec-once = waybar &
         exec-once = swaync &

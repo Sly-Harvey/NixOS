@@ -1,4 +1,5 @@
 {
+  inputs,
   pkgs,
   username,
   home-manager,
@@ -15,7 +16,7 @@
     ../modules/programs/nixvim
     ../modules/services/tlp # Set cpu power settings
     #../modules/programs/vscode
-    ../modules/themes
+    #../modules/themes
     ../modules/programs/spicetify
     ../modules/programs/zsh
   ];
@@ -143,9 +144,6 @@
   users.users.nixosvmtest.group = "nixosvmtest";
   users.groups.nixosvmtest = {};
 
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
-
   # Default shell
   programs.zsh.enable = true;
   users.defaultUserShell = pkgs.zsh;
@@ -160,6 +158,13 @@
       ];
     })
   ];
+
+  nixpkgs = {
+    config.allowUnfree = true;
+    overlays = [
+      inputs.nur.overlay
+    ];
+  };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
