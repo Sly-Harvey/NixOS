@@ -23,13 +23,28 @@ in {
             # add policies here...
 
             /*
-            ---- EXTENSIONS ----
+            ---- GLOBAL EXTENSIONS ----
             */
             ExtensionSettings = {
-              "*".installation_mode = "blocked"; # blocks all addons except the ones specified below
-              # uBlock Origin:
+              "*".installation_mode = "normal_installed"; # blocks all addons except the ones specified below
               "uBlock0@raymondhill.net" = {
                 install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
+                installation_mode = "force_installed";
+              };
+              "addon@darkreader.org" = {
+                install_url = "https://addons.mozilla.org/firefox/downloads/latest/darkreader/latest.xpi";
+                installation_mode = "force_installed";
+              };
+              "jid1-MnnxcxisBPnSXQ@jetpack" = {
+                install_url = "https://addons.mozilla.org/firefox/downloads/latest/privacy-badger17/latest.xpi";
+                installation_mode = "force_installed";
+              };
+              "{d7742d87-e61d-4b78-b8a1-b469842139fa}" = {
+                install_url = "https://addons.mozilla.org/firefox/downloads/latest/vimium-ff/latest.xpi";
+                installation_mode = "force_installed";
+              };
+              "{c2c003ee-bd69-42a2-b0e9-6f34222cb046}" = {
+                install_url = "https://addons.mozilla.org/firefox/downloads/latest/auto-tab-discard/latest.xpi";
                 installation_mode = "force_installed";
               };
               "queryamoid@kaply.com" = {
@@ -67,12 +82,8 @@ in {
             id = 0; # 0 is the default profile; see also option "isDefault"
             name = "default"; # name as listed in about:profiles
             isDefault = true; # can be omitted; true if profile ID is 0
-            extensions = with inputs.firefox-addons.packages.${pkgs.system}; [
-              ublock-origin
-              privacy-badger
-              darkreader
-              profile-switcher
-              vimium
+            extensions = with pkgs.nur.repos.rycee.firefox-addons; [
+              #profile-switcher
             ];
             bookmarks = [
               {
