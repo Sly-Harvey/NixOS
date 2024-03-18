@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nur.url = "github:nix-community/NUR";
     nixvim.url = "github:Sly-Harvey/nixvim";
     hyprland.url = "github:hyprwm/Hyprland";
     home-manager = {
@@ -29,11 +30,6 @@
     locale = "en_GB.UTF-8"; # REPLACE THIS WITH YOUR LOCALE
     timezone = "Europe/London"; # REPLACE THIS WITH YOUR TIMEZONE
 
-    pkgs = import nixpkgs {
-      inherit system;
-      config.allowUnfree = true;
-      allowUnfreePredicate = _: true;
-    };
     lib = nixpkgs.lib;
   in {
     nixosConfigurations = {
