@@ -5,6 +5,10 @@
   username,
   ...
 }: {
+  imports = [
+    ../../../themes/catppuccin
+  ];
+
   programs.hyprland = {
     enable = true;
     #enableNvidiaPatches = true;
@@ -12,7 +16,7 @@
     package = inputs.hyprland.packages.${pkgs.system}.hyprland;
   };
 
-  home-manager.users.${username} = _: {
+  home-manager.users.${username} = {config, ...}: {
     imports = [
       inputs.hyprland.homeManagerModules.default
       ./hyprland-environment.nix
@@ -44,49 +48,6 @@
     home.file.".config/hypr/icons" = {
       source = ./icons;
       recursive = true;
-    };
-
-    home.pointerCursor = {
-      gtk.enable = true;
-      x11.enable = true;
-      package = pkgs.bibata-cursors;
-      name = "Bibata-Modern-Classic";
-      size = 16; # 24
-    };
-
-    gtk = {
-      enable = true;
-      theme = {
-        name = "Catppuccin-Macchiato-Compact-Pink-Dark";
-        package = pkgs.catppuccin-gtk.override {
-          accents = ["pink"];
-          size = "compact";
-          #tweaks = [ "rimless" "black" ];
-          variant = "macchiato";
-        };
-      };
-
-      iconTheme = {
-        package = pkgs.gnome.adwaita-icon-theme;
-        name = "Adwaita";
-        #name = "Yaru-magenta-dark";
-        #package = pkgs.yaru-theme;
-      };
-
-      #font = {
-      #  name = "Sans";
-      #  size = 11;
-      #};
-    };
-
-    qt = {
-      enable = true;
-      platformTheme = "gtk"; # gnome
-      #platformTheme = "gnome";
-      #style = {
-      #  name = "adwaita-dark";
-      #  package = pkgs.adwaita-qt;
-      #};
     };
 
     #test later systemd.user.targets.hyprland-session.Unit.Wants = [ "xdg-desktop-autostart.target" ];
