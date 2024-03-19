@@ -1,0 +1,13 @@
+cmake_minimum_required(VERSION 3.15)
+
+project(main)
+
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
+file(GLOB_RECURSE SRC_FILES src/*.cpp)
+add_executable(main src/main.cpp ${SRC_FILES})
+
+#find_package()
+target_include_directories(main PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
+#target_link_directories()
+#target_link_libraries()
