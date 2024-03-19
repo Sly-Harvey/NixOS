@@ -170,16 +170,18 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; let
     sddm-themes = pkgs.callPackage ../modules/themes/sddm/themes.nix {};
+    scripts = pkgs.callPackage ../modules/scripts {};
   in [
     # System
+    scripts.tmux-find
+    sddm-themes.sugar-dark
+    sddm-themes.astronaut
+    sddm-themes.tokyo-night
     adwaita-qt
     bibata-cursors
     libsForQt5.qt5.qtgraphicaleffects # For sddm to function properly
     polkit
     libsForQt5.polkit-kde-agent
-    sddm-themes.sugar-dark
-    sddm-themes.astronaut
-    sddm-themes.tokyo-night
 
     # Development
     devbox # faster nix-shells

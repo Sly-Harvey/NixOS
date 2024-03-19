@@ -321,7 +321,7 @@
         bind = $mainMod, E, exec, $file
         bind = $mainMod, C, exec, $editor
         bind = $mainMod, F, exec, $browser
-        bind = $CONTROL ALT, DELETE, exec, $term -e btop
+        bind = $CONTROL ALT, DELETE, exec, $term -e "${pkgs.btop}/bin/btop"
 
         bind = $mainMod, A, exec, pkill -x rofi || $launcher # launch desktop applications
         #bind = $mainMod, tab, exec, pkill -x rofi || ~/.config/hypr/scripts/rofilaunch.sh w # switch between desktop applications
