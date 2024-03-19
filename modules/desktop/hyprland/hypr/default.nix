@@ -6,12 +6,11 @@
   ...
 }: {
   imports = [
-    ../../../themes/catppuccin
+    ../../../themes/Catppuccin # Catppuccin GTK and QT themes
   ];
 
   programs.hyprland = {
     enable = true;
-    #enableNvidiaPatches = true;
     xwayland.enable = true;
     package = inputs.hyprland.packages.${pkgs.system}.hyprland;
   };
@@ -54,7 +53,6 @@
     wayland.windowManager.hyprland = {
       enable = true;
       systemd.enable = true;
-      #enableNvidiaPatches = true;
       xwayland.enable = true;
       extraConfig = ''
         $scriptsDir = $HOME/.local/bin
