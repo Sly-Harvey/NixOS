@@ -32,11 +32,6 @@
       # EDITOR = "emacs";
     };
 
-    home.file.".local/bin/" = {
-      source = ../../scripts;
-      recursive = true;
-    };
-
     # Let Home Manager install and manage itself.
     programs.home-manager.enable = true;
   };
