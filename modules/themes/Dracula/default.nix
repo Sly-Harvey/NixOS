@@ -10,6 +10,7 @@
 
     dconf.settings = {
       "org/gnome/desktop/interface" = {
+        gtk-theme = "Dracula";
         color-scheme = "prefer-dark";
       };
     };
