@@ -48,7 +48,6 @@ cd ~/NixOS
 ```bash
 sudo ./install.sh
 ```
-Make sure to reboot after.
 ## Building manually
 > [!IMPORTANT]
 > <p>When building manually from the flake make sure to place your hardware-configuration.nix in hosts/Default/<br>
