@@ -228,6 +228,7 @@
         # Nixos
         list-gens = "sudo nix-env --list-generations --profile /nix/var/nix/profiles/system/";
         find-store-path = ''function { nix-shell -p $1 --command "nix eval -f "<nixpkgs>" --raw $1" }'';
+        update-input = "nix flake lock --update-input $@";
         rebuild-default = "pushd ~/NixOS &> /dev/null && sudo ./install.sh --Copy-Hardware && popd &> /dev/null";
         rebuild-desktop = "clear && sudo nixos-rebuild switch --flake ~/NixOS#Desktop";
         rebuild-laptop = "clear && sudo nixos-rebuild switch --flake ~/NixOS#Laptop";
@@ -235,7 +236,7 @@
         # Directory Shortcuts.
         dev = "cd /mnt/seagate/dev/";
         dots = "cd ~/.dotfiles/";
-        nvimdir = "cd ~/.config/nvim/";
+        nixdir = "cd /mnt/seagate/dev/nix/";
         cppdir = "cd /mnt/seagate/dev/C++/";
         zigdir = "cd /mnt/seagate/dev/Zig/";
         csdir = "cd /mnt/seagate/dev/C#/";
