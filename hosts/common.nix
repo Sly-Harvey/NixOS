@@ -148,8 +148,6 @@
   programs.zsh.enable = true;
   users.defaultUserShell = pkgs.zsh;
 
-  qt.style = "adwaita-dark";
-
   fonts.packages = with pkgs; [
     (nerdfonts.override {
       fonts = [
