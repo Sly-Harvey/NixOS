@@ -7,6 +7,7 @@
 }: {
   imports = [
     home-manager.nixosModules.home-manager
+    ../modules/hardware/opengl.nix
     ../modules/programs/alacritty
     ../modules/programs/cava
     ../modules/programs/direnv
@@ -56,24 +57,31 @@
   services.udisks2.enable = true;
 
   # Bootloader.
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.efi.efiSysMountPoint = "/boot";
-  boot.loader.timeout = null; # Display bootloader indefinitely until user selects OS
-  boot.loader.grub.enable = true;
-  boot.loader.grub.device = "nodev";
-  boot.loader.grub.efiSupport = true;
-  boot.loader.grub.useOSProber = true;
-  boot.loader.grub.gfxmodeEfi = "1920x1080";
-  boot.loader.grub.theme = pkgs.stdenv.mkDerivation {
-    pname = "distro-grub-themes";
-    version = "3.1";
-    src = pkgs.fetchFromGitHub {
-      owner = "AdisonCavani";
-      repo = "distro-grub-themes";
-      rev = "v3.1";
-      hash = "sha256-ZcoGbbOMDDwjLhsvs77C7G7vINQnprdfI37a9ccrmPs=";
+  boot = {
+    tmp.cleanOnBoot = true;
+    loader = {
+      efi.canTouchEfiVariables = true;
+      efi.efiSysMountPoint = "/boot";
+      timeout = null; # Display bootloader indefinitely until user selects OS
+      grub = {
+        enable = true;
+        device = "nodev";
+        efiSupport = true;
+        useOSProber = true;
+        gfxmodeEfi = "1920x1080";
+        theme = pkgs.stdenv.mkDerivation {
+          pname = "distro-grub-themes";
+          version = "3.1";
+          src = pkgs.fetchFromGitHub {
+            owner = "AdisonCavani";
+            repo = "distro-grub-themes";
+            rev = "v3.1";
+            hash = "sha256-ZcoGbbOMDDwjLhsvs77C7G7vINQnprdfI37a9ccrmPs=";
+          };
+          installPhase = "cp -r customize/nixos $out";
+        };
+      };
     };
-    installPhase = "cp -r customize/nixos $out";
   };
 
   security = {
@@ -132,11 +140,6 @@
 
   # Enable touchpad support (enabled default in most desktopManager).
   services.xserver.libinput.enable = true;
-
-  hardware.opengl = {
-    enable = true;
-    driSupport32Bit = true;
-  };
 
   # Default user when using: sudo nixos-rebuild build-vm
   users.users.nixosvmtest.isNormalUser = true;
@@ -209,16 +212,18 @@
   nix = {
     # Nix Package Manager Settings
     settings = {
-      #auto-optimise-store = true; # Disbabled for now because it takes a long time to build
+      auto-optimise-store = true;
       substituters = [
         "https://cache.nixos.org/"
         "https://nix-community.cachix.org"
         "https://hyprland.cachix.org"
+        "https://nix-gaming.cachix.org"
       ];
       trusted-public-keys = [
         "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
         "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+        "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
       ];
       experimental-features = ["nix-command" "flakes"];
       warn-dirty = false;

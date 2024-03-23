@@ -1,5 +1,15 @@
-{pkgs, ...}: {
-  hardware.opengl.driSupport32Bit = true;
+{
+  pkgs,
+  lib,
+  ...
+}: {
+  # hardware.opengl.driSupport32Bit = true;
+  imports = [
+    ../../hardware/opengl.nix
+  ];
   programs.steam.enable = true;
-  environment.systemPackages = [pkgs.steam];
+  nixpkgs.config.allowUnfreePredicate = pkg:
+    builtins.elem (lib.getName pkg) [
+      "steam"
+    ];
 }
