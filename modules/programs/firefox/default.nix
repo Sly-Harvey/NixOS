@@ -39,10 +39,10 @@ in {
                 install_url = "https://addons.mozilla.org/firefox/downloads/latest/privacy-badger17/latest.xpi";
                 installation_mode = "force_installed";
               };
-              "{d7742d87-e61d-4b78-b8a1-b469842139fa}" = {
-                install_url = "https://addons.mozilla.org/firefox/downloads/latest/vimium-ff/latest.xpi";
-                installation_mode = "force_installed";
-              };
+              # "{d7742d87-e61d-4b78-b8a1-b469842139fa}" = {
+              #   install_url = "https://addons.mozilla.org/firefox/downloads/latest/vimium-ff/latest.xpi";
+              #   installation_mode = "force_installed";
+              # };
               "{c2c003ee-bd69-42a2-b0e9-6f34222cb046}" = {
                 install_url = "https://addons.mozilla.org/firefox/downloads/latest/auto-tab-discard/latest.xpi";
                 installation_mode = "force_installed";
@@ -154,8 +154,7 @@ in {
               "media.ffmpeg.vaapi.enabled" = true;
               "widget.dmabuf.force-enabled" = true; # Required in recent Firefoxes
 
-              # Re-bind ctrl to super (would interfere with tridactyl otherwise)
-              "ui.key.accelKey" = 91;
+              "ui.key.accelKey" = 17;
 
               # Keep the reader button enabled at all times; really don't
               # care if it doesn't work 20% of the time, most websites are
@@ -182,7 +181,6 @@ in {
 
               "browser.newtabpage.pinned" = false;
               "browser.protections_panel.infoMessage.seen" = true;
-              "browser.quitShortcut.disabled" = true;
 
               "browser.ssb.enabled" = true;
               "browser.toolbars.bookmarks.visibility" = "newtab";
@@ -310,8 +308,7 @@ in {
               "media.ffmpeg.vaapi.enabled" = true;
               "widget.dmabuf.force-enabled" = true; # Required in recent Firefoxes
 
-              # Re-bind ctrl to super (would interfere with tridactyl otherwise)
-              "ui.key.accelKey" = 91;
+              "ui.key.accelKey" = 17;
 
               # Keep the reader button enabled at all times; really don't
               # care if it doesn't work 20% of the time, most websites are
