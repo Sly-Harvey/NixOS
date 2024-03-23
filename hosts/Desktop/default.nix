@@ -7,6 +7,8 @@
 }: {
   imports = [
     ../common.nix
+    ../../modules/hardware/nvidia.nix
+    ../../modules/hardware/opengl.nix
     ../../modules/desktop/hyprland # Enable Hyprland window manager
     ../../modules/programs/games
     ./hardware-configuration.nix
