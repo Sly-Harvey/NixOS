@@ -35,7 +35,7 @@ in {
         "widget.dmabuf.force-enabled" = lock-true; # Required in recent Firefoxes
 
         # Re-bind ctrl to super (would interfere with tridactyl otherwise)
-        "ui.key.accelKey" = 91;
+        "ui.key.accelKey" = 17;
 
         # Keep the reader button enabled at all times; really don't
         # care if it doesn't work 20% of the time, most websites are
