@@ -9,6 +9,7 @@
     home-manager.nixosModules.home-manager
     ../modules/hardware/opengl.nix
     ../modules/programs/alacritty
+    ../modules/programs/btop
     ../modules/programs/cava
     ../modules/programs/direnv
     ../modules/programs/firefox
@@ -31,8 +32,6 @@
       xfce.thunar
 
       # Terminal
-      btop
-      #cava
       eza
       fzf
       fd
