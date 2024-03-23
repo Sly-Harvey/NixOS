@@ -17,6 +17,7 @@
     ../modules/programs/mpv
     ../modules/programs/nixvim
     ../modules/services/tlp # Set cpu power settings
+    ../modules/programs/tmux
     #../modules/programs/vscode
     #../modules/themes
     ../modules/programs/spicetify

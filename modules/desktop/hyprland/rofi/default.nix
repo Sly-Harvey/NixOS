@@ -4,9 +4,11 @@
   ...
 }: {
   home-manager.users.${username} = _: {
-    home.packages = with pkgs; [
-      rofi-wayland
-    ];
+    programs.rofi = {
+      enable = true;
+      package = pkgs.rofi-wayland;
+      terminal = "${pkgs.alacritty}/bin/alacritty";
+    };
     home.file.".config/rofi/config-music.rasi".source = ./config-music.rasi;
     home.file.".config/rofi/config-long.rasi".source = ./config-long.rasi;
     home.file.".config/rofi/config-wallpaper.rasi".source = ./config-wallpaper.rasi;

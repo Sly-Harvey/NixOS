@@ -1,4 +1,5 @@
 {
+  pkgs,
   username,
   ...
 }: {
@@ -77,7 +78,7 @@
         };
 
         shell = {
-          program = "zsh";
+          program = "${pkgs.zsh}/bin/zsh";
         };
 
         keyboard.bindings = [
