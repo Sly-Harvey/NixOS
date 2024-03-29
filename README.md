@@ -1,7 +1,7 @@
 <h1 align="center">
    <img src="./assets/nixos-logo.png  " width="100px" /> 
    <br>
-      My reproducible system
+      My reproducible configuration for NixOS
    <br>
       <img src="https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/palette/macchiato.png" width="600px" /> <br>
    <div align="center">
