@@ -4,7 +4,7 @@
       EDITOR = "nvim";
       BROWSER = "firefox";
       TERMINAL = "alacritty";
-      XCURSOR_SIZE = "16";
+      # XCURSOR_SIZE = "16";
 
       WLR_NO_HARDWARE_CURSORS = "1";
       WLR_RENDERER_ALLOW_SOFTWARE = "1";

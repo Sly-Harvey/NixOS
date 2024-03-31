@@ -64,11 +64,10 @@
         monitor=HDMI-A-1,1920x1080@60.0,0x0,1.0
 
         # Fix slow startup
-        #exec-once = systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP QT_QPA_PLATFORMTHEME
         exec-once = dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
 
         # Autostart
-        exec-once = pamixer --set-volume 35
+        exec-once = pamixer --set-volume 40
         #exec-once = [workspace 1 silent] firefox
         #exec-once = [workspace 2 silent] alacritty
         #exec-once = [workspace 5 silent] spotify
@@ -77,7 +76,6 @@
         #exec-once = [workspace 8 silent] alacritty -e cava
         #exec-once = [workspace 9 silent] alacritty -e cava
 
-        #exec-once = hyprctl setcursor Bibata-Modern-Classic 24
         exec-once = ~/.config/hypr/scripts/wallpaper.sh
         exec-once = waybar &
         exec-once = swaync &
