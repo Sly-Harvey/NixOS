@@ -52,7 +52,10 @@
     #test later systemd.user.targets.hyprland-session.Unit.Wants = [ "xdg-desktop-autostart.target" ];
     wayland.windowManager.hyprland = {
       enable = true;
-      systemd.enable = true;
+      systemd = {
+        enable = true;
+        variables = ["--all"];
+      };
       xwayland.enable = true;
       extraConfig = ''
         $scriptsDir = $HOME/.local/bin
@@ -62,9 +65,6 @@
         monitor=HDMI-A-2,1920x1080@60.0,1920x0,1.0
         # monitor=HDMI-A-2,disable
         monitor=HDMI-A-1,1920x1080@60.0,0x0,1.0
-
-        # Fix slow startup
-        exec-once = dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
 
         # Autostart
         exec-once = pamixer --set-volume 40
@@ -141,14 +141,12 @@
             col.border_locked_inactive = rgba(b4befecc) rgba(6c7086cc) 45deg
         }
 
-        #opengl {
-        #    nvidia_anti_flicker = true
-        #}
-
         misc {
             disable_hyprland_logo = true
             mouse_move_focuses_monitor = true
-            # vrr = 1
+            vfr = 1 # always keep on
+            vrr = 1 # enable variable refresh rate (effective depending on hardware)
+            no_direct_scanout = false; # Set to false for improved Fullscreen performance.
         }
 
         animations {
@@ -300,7 +298,7 @@
         $browser = firefox
 
         # Night Mode (lower value means warmer temp)
-        bind = $mainMod, F9, exec, wlsunset -t 3700
+        bind = $mainMod, F9, exec, wlsunset -t 3000 -T 3600
         bind = $mainMod, F10, exec, pkill wlsunset
 
         # Window/Session actions
