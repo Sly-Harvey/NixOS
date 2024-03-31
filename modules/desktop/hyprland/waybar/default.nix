@@ -267,6 +267,14 @@
         	color: @pink;
         }
 
+        #cava {
+        	color: @pink;
+        }
+
+        #mpris {
+        	color: @pink;
+        }
+
         #custom-menu {
           color: @rosewater;
         }
@@ -373,8 +381,8 @@
           "margin-left" = 8;
           "margin-right" = 8;
 
-          "modules-left" = ["hyprland/workspaces" "custom/cava_mviz" "custom/r_end"];
-          #"modules-left" = ["custom/l_end" "hyprland/workspaces" "mpris" "custom/r_end"];
+          # "modules-left" = ["hyprland/workspaces" "mpris" "custom/r_end"];
+          "modules-left" = ["hyprland/workspaces" "cava" "custom/r_end"];
           "modules-center" = ["custom/l_end" "idle_inhibitor" "clock" "custom/r_end"];
           "modules-right" = ["custom/l_end" "temperature" "cpu" "memory" "keyboard-state" "network" "bluetooth" "pulseaudio" "custom/r_end" "hyprland/language" "custom/r_end" "tray" "battery" "custom/l_end" "custom/power" "custom/padd"];
           #"modules-right" = ["custom/l_end" "temperature" "cpu" "memory" "keyboard-state" "network" "bluetooth" "pulseaudio" "custom/r_end" "hyprland/language" "custom/r_end" "tray" "battery" "custom/l_end" "custom/power" "custom/r_end" "custom/padd" ];
@@ -384,9 +392,19 @@
             "on-scroll-up" = "busctl --user -- call rs.wl-gammarelay / rs.wl.gammarelay UpdateTemperature n +100";
             "on-scroll-down" = "busctl --user -- call rs.wl-gammarelay / rs.wl.gammarelay UpdateTemperature n -100";
           };
-          "custom/cava_mviz" = {
+          "custom/cava_mviz" = { # DEPRECATED Use builtin cava module instead.
             "exec" = "~/.config/hypr/scripts/WaybarCava.sh";
             "format" = "{}";
+          };
+          "cava" = {
+            "hide_on_silence" = false;
+            "framerate" = 30;
+            "bars" = 10;
+            "format-icons" = ["▁" "▂" "▃" "▄" "▅" "▆" "▇" "█" ];
+            "input_delay" = 1;
+            # "noise_reduction" = 0.77;
+            "sleep_timer" = 5;
+            "bar_delimiter" = 0;
           };
           "custom/gpuinfo" = {
             "exec" = " ~/.config/hypr/scripts/gpuinfo.sh";
