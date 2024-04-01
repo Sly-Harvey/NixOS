@@ -37,7 +37,7 @@
         inherit system;
         specialArgs =
           {
-            username = "nixos";
+            username = "harvey";
             inherit inputs;
           }
           // inputs;
