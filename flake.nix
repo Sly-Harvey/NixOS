@@ -38,7 +38,7 @@
         inherit system;
         specialArgs = {inherit username locale timezone inputs;} // inputs;
         modules = [
-          ./hosts/Default
+          ./hosts/Default/configuration.nix
           #./home/programs/firefox/firefox-system.nix
         ];
       };
@@ -49,7 +49,7 @@
         in
           {inherit username hostname inputs;} // inputs;
         modules = [
-          ./hosts/Desktop
+          ./hosts/Desktop/configuration.nix
         ];
       };
       Laptop = lib.nixosSystem {
@@ -59,7 +59,7 @@
         in
           {inherit username hostname inputs;} // inputs;
         modules = [
-          ./hosts/Laptop
+          ./hosts/Laptop/configuration.nix
         ];
       };
     };
