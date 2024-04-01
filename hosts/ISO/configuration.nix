@@ -66,8 +66,8 @@
   };
 
   environment.systemPackages = with pkgs; let
-    sddm-themes = pkgs.callPackage ../modules/themes/sddm/themes.nix {};
-    scripts = pkgs.callPackage ../modules/scripts {};
+    sddm-themes = pkgs.callPackage ../../modules/themes/sddm/themes.nix {};
+    scripts = pkgs.callPackage ../../modules/scripts {};
   in [
     # System
     scripts.tmux-find
