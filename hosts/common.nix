@@ -2,11 +2,10 @@
   inputs,
   pkgs,
   username,
-  home-manager,
   ...
 }: {
   imports = [
-    home-manager.nixosModules.home-manager
+    inputs.home-manager.nixosModules.home-manager
     ../modules/hardware/opengl.nix
     ../modules/programs/alacritty
     ../modules/programs/btop
@@ -20,7 +19,6 @@
     ../modules/services/tlp # Set cpu power settings
     ../modules/programs/tmux
     #../modules/programs/vscode
-    #../modules/themes
     ../modules/programs/spicetify
     ../modules/programs/zsh
   ];

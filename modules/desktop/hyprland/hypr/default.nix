@@ -1,7 +1,6 @@
 {
   inputs,
   pkgs,
-  home-manager,
   username,
   ...
 }: {

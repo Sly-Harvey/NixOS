@@ -1,4 +1,7 @@
-{username, ...}: {
+{
+  username,
+  ...
+}: {
   home-manager.users.${username} = _: {
     home.file.".config/swaylock/config".text = ''
       daemonize
