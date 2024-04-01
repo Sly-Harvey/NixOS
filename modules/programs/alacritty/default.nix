@@ -4,7 +4,14 @@
   ...
 }: {
   home-manager.users.${username} = _: {
-    #home.packages = lib.optionals config.programs.alacritty.enable [pkgs.nerdfonts];
+    home.packages = with pkgs; [
+      (nerdfonts.override {
+        fonts = [
+          "JetBrainsMono"
+          # "FiraCode"
+        ];
+      })
+    ];
 
     programs.alacritty = {
       enable = true;
