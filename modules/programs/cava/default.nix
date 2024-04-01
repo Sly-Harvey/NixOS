@@ -1,4 +1,7 @@
-{username, ...}: {
+{
+  username,
+  ...
+}: {
   home-manager.users.${username} = _: {
     programs.cava = {
       enable = true;

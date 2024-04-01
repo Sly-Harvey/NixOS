@@ -33,6 +33,18 @@
     lib = nixpkgs.lib;
   in {
     nixosConfigurations = {
+      iso = lib.nixosSystem {
+        inherit system;
+        specialArgs =
+          {
+            username = "nixos";
+            inherit inputs;
+          }
+          // inputs;
+        modules = [
+          ./hosts/ISO/configuration.nix
+        ];
+      };
       # This is the only config you will have to change (Desktop and Laptop are for my personal use and may not work for you)
       nixos = lib.nixosSystem {
         inherit system;

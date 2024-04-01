@@ -1,5 +1,4 @@
 {
-  home-manager,
   username,
   pkgs,
   ...
@@ -33,130 +32,130 @@
         plugins = ["git" "gitignore" "aliases" "z"];
       };
       initExtra = ''
-                # Powerlevel10k Zsh theme
-                source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
-                test -f ~/.config/zsh/.p10k.zsh && source ~/.config/zsh/.p10k.zsh
+        # Powerlevel10k Zsh theme
+        source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
+        test -f ~/.config/zsh/.p10k.zsh && source ~/.config/zsh/.p10k.zsh
 
-                # Direnv hook
-                eval "$(direnv hook zsh)"
+        # Direnv hook
+        eval "$(direnv hook zsh)"
 
-                # Key Bindings
-                bindkey -s ^t "tmux-find\n"
-                bindkey -s ^l "lf\n"
-                bindkey '^a' beginning-of-line
-                bindkey '^e' end-of-line
+        # Key Bindings
+        bindkey -s ^t "tmux-find\n"
+        bindkey -s ^l "lf\n"
+        bindkey '^a' beginning-of-line
+        bindkey '^e' end-of-line
 
-                # options
-                unsetopt menu_complete
-                unsetopt flowcontrol
+        # options
+        unsetopt menu_complete
+        unsetopt flowcontrol
 
-                setopt prompt_subst
-                setopt always_to_end
-                setopt append_history
-                setopt auto_menu
-                setopt complete_in_word
-                setopt extended_history
-                setopt hist_expire_dups_first
-                setopt hist_ignore_dups
-                setopt hist_ignore_space
-                setopt hist_verify
-                setopt inc_append_history
-                setopt share_history
+        setopt prompt_subst
+        setopt always_to_end
+        setopt append_history
+        setopt auto_menu
+        setopt complete_in_word
+        setopt extended_history
+        setopt hist_expire_dups_first
+        setopt hist_ignore_dups
+        setopt hist_ignore_space
+        setopt hist_verify
+        setopt inc_append_history
+        setopt share_history
 
-                function lf {
-                    tmp="$(mktemp)"
-                    # `command` is needed in case `lfcd` is aliased to `lf`
-                    command lf -last-dir-path="$tmp" "$@"
-                    if [ -f "$tmp" ]; then
-                        dir="$(cat "$tmp")"
-                        rm -f "$tmp"
-                        if [ -d "$dir" ]; then
-                            if [ "$dir" != "$(pwd)" ]; then
-                                cd "$dir"
-                            fi
-                        fi
+        function lf {
+            tmp="$(mktemp)"
+            # `command` is needed in case `lfcd` is aliased to `lf`
+            command lf -last-dir-path="$tmp" "$@"
+            if [ -f "$tmp" ]; then
+                dir="$(cat "$tmp")"
+                rm -f "$tmp"
+                if [ -d "$dir" ]; then
+                    if [ "$dir" != "$(pwd)" ]; then
+                        cd "$dir"
                     fi
-                }
-                function ex {
-                 if [ -z "$1" ]; then
-                    # display usage if no parameters given
-                    echo "Usage: extract <path/file_name>.<zip|rar|bz2|gz|tar|tbz2|tgz|Z|7z|xz|ex|tar.bz2|tar.gz|tar.xz>"
-                    echo "       extract <path/file_name_1.ext> [path/file_name_2.ext] [path/file_name_3.ext]"
-                 else
-                    for n in "$@"
-                    do
-                      if [ -f "$n" ] ; then
-                          case "''${n%,}" in
-                            *.cbt|*.tar.bz2|*.tar.gz|*.tar.xz|*.tbz2|*.tgz|*.txz|*.tar)
-                                         tar xvf "$n"       ;;
-                            *.lzma)      unlzma ./"$n"      ;;
-                            *.bz2)       bunzip2 ./"$n"     ;;
-                            *.cbr|*.rar)       unrar x -ad ./"$n" ;;
-                            *.gz)        gunzip ./"$n"      ;;
-                            *.cbz|*.epub|*.zip)       unzip ./"$n"       ;;
-                            *.z)         uncompress ./"$n"  ;;
-                            *.7z|*.arj|*.cab|*.cb7|*.chm|*.deb|*.dmg|*.iso|*.lzh|*.msi|*.pkg|*.rpm|*.udf|*.wim|*.xar)
-                                         7z x ./"$n"        ;;
-                            *.xz)        unxz ./"$n"        ;;
-                            *.exe)       cabextract ./"$n"  ;;
-                            *.cpio)      cpio -id < ./"$n"  ;;
-                            *.cba|*.ace)      unace x ./"$n"      ;;
-                            *)
-                                         echo "extract: '$n' - unknown archive method"
-                                         return 1
-                                         ;;
-                          esac
-                      else
-                          echo "'$n' - file does not exist"
-                          return 1
-                      fi
-                    done
-                 fi
-                }
-                function cgen {
-                  if [ -d "$1" ]; then
-                    echo "Directory \"$1\" already exists!"
-                    return 1
-                  fi
-                  mkdir $1 && cd $1
-                  cat ~/.config/zsh/templates/ListTemplate.txt >> CMakeLists.txt
-                  mkdir src
-                  mkdir include
-                  cat ~/.config/zsh/templates/HelloWorldTemplate.txt >> src/main.cpp
-                  cat ~/.config/zsh/templates/shell.txt >> shell.nix
-                  cat ~/.config/zsh/templates/envrc-nix.txt >> .envrc
-                  direnv allow
-                  #echo "Created the following Directories and files."
-                  ${pkgs.eza}/bin/eza --icons=auto --tree .
-                }
+                fi
+            fi
+        }
+        function ex {
+         if [ -z "$1" ]; then
+            # display usage if no parameters given
+            echo "Usage: extract <path/file_name>.<zip|rar|bz2|gz|tar|tbz2|tgz|Z|7z|xz|ex|tar.bz2|tar.gz|tar.xz>"
+            echo "       extract <path/file_name_1.ext> [path/file_name_2.ext] [path/file_name_3.ext]"
+         else
+            for n in "$@"
+            do
+              if [ -f "$n" ] ; then
+                  case "''${n%,}" in
+                    *.cbt|*.tar.bz2|*.tar.gz|*.tar.xz|*.tbz2|*.tgz|*.txz|*.tar)
+                                 tar xvf "$n"       ;;
+                    *.lzma)      unlzma ./"$n"      ;;
+                    *.bz2)       bunzip2 ./"$n"     ;;
+                    *.cbr|*.rar)       unrar x -ad ./"$n" ;;
+                    *.gz)        gunzip ./"$n"      ;;
+                    *.cbz|*.epub|*.zip)       unzip ./"$n"       ;;
+                    *.z)         uncompress ./"$n"  ;;
+                    *.7z|*.arj|*.cab|*.cb7|*.chm|*.deb|*.dmg|*.iso|*.lzh|*.msi|*.pkg|*.rpm|*.udf|*.wim|*.xar)
+                                 7z x ./"$n"        ;;
+                    *.xz)        unxz ./"$n"        ;;
+                    *.exe)       cabextract ./"$n"  ;;
+                    *.cpio)      cpio -id < ./"$n"  ;;
+                    *.cba|*.ace)      unace x ./"$n"      ;;
+                    *)
+                                 echo "extract: '$n' - unknown archive method"
+                                 return 1
+                                 ;;
+                  esac
+              else
+                  echo "'$n' - file does not exist"
+                  return 1
+              fi
+            done
+         fi
+        }
+        function cgen {
+          if [ -d "$1" ]; then
+            echo "Directory \"$1\" already exists!"
+            return 1
+          fi
+          mkdir $1 && cd $1
+          cat ~/.config/zsh/templates/ListTemplate.txt >> CMakeLists.txt
+          mkdir src
+          mkdir include
+          cat ~/.config/zsh/templates/HelloWorldTemplate.txt >> src/main.cpp
+          cat ~/.config/zsh/templates/shell.txt >> shell.nix
+          cat ~/.config/zsh/templates/envrc-nix.txt >> .envrc
+          direnv allow
+          #echo "Created the following Directories and files."
+          ${pkgs.eza}/bin/eza --icons=auto --tree .
+        }
 
-                function crun {
-                  #VAR=''${1:-.}
-                  mkdir build 2> /dev/null
-                  nix-shell --run "cmake -B build"
-                  nix-shell --run "cmake --build build"
-                  build/main
-                }
+        function crun {
+          #VAR=''${1:-.}
+          mkdir build 2> /dev/null
+          nix-shell --run "cmake -B build"
+          nix-shell --run "cmake --build build"
+          build/main
+        }
 
-                function crun-mingw {
-                  #VAR=''${1:-.}
-                  mkdir build-mingw 2> /dev/null
-                  nix-shell --run "x86_64-w64-mingw32-cmake -B build-mingw"
-                  nix-shell --run "make -C build-mingw"
-                  build-mingw/main.exe
-                }
+        function crun-mingw {
+          #VAR=''${1:-.}
+          mkdir build-mingw 2> /dev/null
+          nix-shell --run "x86_64-w64-mingw32-cmake -B build-mingw"
+          nix-shell --run "make -C build-mingw"
+          build-mingw/main.exe
+        }
 
-                function cbuild {
-                  mkdir build 2> /dev/null
-                  nix-shell --run "cmake -B build"
-                  nix-shell --run "cmake --build build"
-                }
+        function cbuild {
+          mkdir build 2> /dev/null
+          nix-shell --run "cmake -B build"
+          nix-shell --run "cmake --build build"
+        }
 
-                function cbuild-mingw {
-                  mkdir build-mingw 2> /dev/null
-                  nix-shell --run "x86_64-w64-mingw32-cmake -B build-mingw"
-                  nix-shell --run "make -C build-mingw"
-                }
+        function cbuild-mingw {
+          mkdir build-mingw 2> /dev/null
+          nix-shell --run "x86_64-w64-mingw32-cmake -B build-mingw"
+          nix-shell --run "make -C build-mingw"
+        }
       '';
       envExtra = ''
               # Defaults

@@ -1,4 +1,7 @@
-{username, ...}: {
+{
+  username,
+  ...
+}: {
   home-manager.users.${username} = _: {
     programs.waybar = {
       enable = true;
@@ -392,7 +395,8 @@
             "on-scroll-up" = "busctl --user -- call rs.wl-gammarelay / rs.wl.gammarelay UpdateTemperature n +100";
             "on-scroll-down" = "busctl --user -- call rs.wl-gammarelay / rs.wl.gammarelay UpdateTemperature n -100";
           };
-          "custom/cava_mviz" = { # DEPRECATED Use builtin cava module instead.
+          "custom/cava_mviz" = {
+            # DEPRECATED Use builtin cava module instead.
             "exec" = "~/.config/hypr/scripts/WaybarCava.sh";
             "format" = "{}";
           };
@@ -400,7 +404,7 @@
             "hide_on_silence" = false;
             "framerate" = 30;
             "bars" = 10;
-            "format-icons" = ["▁" "▂" "▃" "▄" "▅" "▆" "▇" "█" ];
+            "format-icons" = ["▁" "▂" "▃" "▄" "▅" "▆" "▇" "█"];
             "input_delay" = 1;
             # "noise_reduction" = 0.77;
             "sleep_timer" = 5;

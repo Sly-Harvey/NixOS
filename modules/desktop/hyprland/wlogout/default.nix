@@ -1,4 +1,7 @@
-{username, ...}: {
+{
+  username,
+  ...
+}: {
   home-manager.users.${username} = _: {
     programs.wlogout.enable = true;
     #home.file.".config/wlogout/icons" = {
