@@ -30,7 +30,7 @@
 ![Screenshot](./assets/preview.png)
 
 > [!WARNING]
-> <p>Not Tested on amd GPUs, bios and single monitor configurations!<br>
+> <p>Not Tested on amd GPUs and bios boot mode!<br>
 
 # Install
 > [!Note]
