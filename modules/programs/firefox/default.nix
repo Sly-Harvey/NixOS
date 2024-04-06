@@ -12,72 +12,6 @@
     Value = true;
     Status = "locked";
   };
-  settings = {
-    # Performance settings
-    "gfx.webrender.all" = true; # Force enable GPU acceleration
-    "media.ffmpeg.vaapi.enabled" = true;
-    "widget.dmabuf.force-enabled" = true; # Required in recent Firefoxes
-    "reader.parse-on-load.force-enabled" = true;
-    "privacy.webrtc.legacyGlobalIndicator" = false;
-
-    # Use cloudflare for better security/privacy
-    "network.trr.mode" = 3; # 2
-    "network.trr.custom_uri" = "1.1.1.1";
-    "network.trr.uri" = "1.1.1.1";
-
-    # Remove trackers
-    "privacy.purge_trackers.enabled" = true;
-    "privacy.trackingprotection.enabled" = true;
-    "privacy.trackingprotection.socialtracking.enabled" = true;
-    "privacy.donottrackheader.enabled" = true;
-    "privacy.donottrackheader.value" = 1;
-
-    # Block more unwanted stuff
-    "browser.contentblocking.category" = "strict";
-    "browser.newtabpage.activity-stream.section.highlights.includePocket" = false;
-    "browser.shell.checkDefaultBrowser" = false;
-    "signon.rememberSignons" = false;
-
-    # General settings
-    "ui.key.accelKey" = 17; # Set CTRL as master key
-    "browser.newtabpage.pinned" = true; # false
-    "browser.bookmarks.defaultLocation" = "toolbar";
-    "browser.startup.page" = 3;
-    "browser.newtab.url" = "about:blank";
-    "browser.newtabpage.activity-stream.showSponsored" = false;
-    "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
-    "app.shield.optoutstudies.enabled" = false;
-    "dom.security.https_only_mode" = true;
-    "dom.security.https_only_mode_ever_enabled" = true;
-    "identity.fxaccounts.enabled" = false;
-    "app.update.auto" = false;
-    "browser.startup.homepage" = "";
-    "browser.bookmarks.restore_default_bookmarks" = false;
-    "browser.ctrlTab.recentlyUsedOrder" = false;
-    "browser.discovery.enabled" = false;
-    "browser.laterrun.enabled" = false;
-    "browser.newtabpage.activity-stream.asrouter.userprefs.cfr.addons" = false;
-    "browser.newtabpage.activity-stream.asrouter.userprefs.cfr.features" = false;
-    "browser.newtabpage.activity-stream.feeds.snippets" = false;
-    "browser.newtabpage.activity-stream.improvesearch.topSiteSearchShortcuts.havePinned" = "";
-    "browser.newtabpage.activity-stream.improvesearch.topSiteSearchShortcuts.searchEngines" = "";
-    "browser.protections_panel.infoMessage.seen" = true;
-    "browser.ssb.enabled" = true;
-    "browser.toolbars.bookmarks.visibility" = "newtab";
-    #"browser.urlbar.placeholderName" = "Google";
-    "browser.urlbar.suggest.openpage" = false;
-    "datareporting.policy.dataSubmissionEnable" = false;
-    "datareporting.policy.dataSubmissionPolicyAcceptedVersion" = 2;
-
-    "extensions.getAddons.showPane" = false;
-    "extensions.htmlaboutaddons.recommendations.enabled" = false;
-    "extensions.extensions.activeThemeID" = "firefox-alpenglow@mozilla.org";
-    "extensions.update.enabled" = false;
-    "extensions.webcompat.enable_picture_in_picture_overrides" = true;
-    "extensions.webcompat.enable_shims" = true;
-    "extensions.webcompat.perform_injections" = true;
-    "extensions.webcompat.perform_ua_overrides" = true;
-  };
 in {
   home-manager.users.${username} = _: {
     programs = {
@@ -125,13 +59,102 @@ in {
             */
             # Set preferences shared by all profiles.
             Preferences = {
+              # Performance settings
+              "gfx.webrender.all" = true; # Force enable GPU acceleration
+              "media.ffmpeg.vaapi.enabled" = true;
+              "widget.dmabuf.force-enabled" = true; # Required in recent Firefoxes
+              "reader.parse-on-load.force-enabled" = true;
+              "privacy.webrtc.legacyGlobalIndicator" = false;
+
+              # Use cloudflare for better security/privacy
+              "network.trr.mode" = 2; # 3 for no fallback (may cause problems)
+              "network.trr.custom_uri" = "1.1.1.1";
+              "network.trr.uri" = "1.1.1.1";
+
+              # Remove trackers
+              "privacy.purge_trackers.enabled" = lock-true;
+              "privacy.trackingprotection.enabled" = lock-true;
+              "privacy.trackingprotection.socialtracking.enabled" = lock-true;
+              "privacy.donottrackheader.enabled" = lock-true;
+              "privacy.donottrackheader.value" = 1;
+
+              # Block more unwanted stuff
               "browser.contentblocking.category" = {
                 Value = "strict";
                 Status = "locked";
               };
               "extensions.pocket.enabled" = lock-false;
-              "extensions.screenshots.disabled" = lock-true;
-              # add global preferences here...
+              "browser.newtabpage.activity-stream.section.highlights.includePocket" = lock-false;
+              "browser.shell.checkDefaultBrowser" = lock-false;
+              "signon.rememberSignons" = lock-false;
+              "toolkit.telemetry.unified" = lock-false;
+              "toolkit.telemetry.enabled" = lock-false;
+              "toolkit.telemetry.server" = "data:,";
+              "toolkit.telemetry.archive.enabled" = lock-false;
+              "toolkit.telemetry.coverage.opt-out" = lock-true;
+              "toolkit.coverage.opt-out" = lock-true;
+              "toolkit.coverage.endpoint.base" = "";
+              "experiments.supported" = lock-false;
+              "experiments.enabled" = lock-false;
+              "experiments.manifest.uri" = "";
+              "browser.ping-centre.telemetry" = lock-false;
+              "datareporting.healthreport.uploadEnabled" = lock-false;
+              "datareporting.healthreport.service.enabled" = lock-false;
+              "datareporting.policy.dataSubmissionEnabled" = lock-false;
+              "breakpad.reportURL" = "";
+              "browser.tabs.crashReporting.sendReport" = lock-false;
+              "browser.crashReports.unsubmittedCheck.autoSubmit2" = lock-false;
+              "browser.formfill.enable" = lock-false;
+              "extensions.formautofill.addresses.enabled" = lock-false;
+              "extensions.formautofill.available" = "off";
+              "extensions.formautofill.creditCards.available" = lock-false;
+              "extensions.formautofill.creditCards.enabled" = lock-false;
+              "extensions.formautofill.heuristics.enabled" = lock-false;
+
+              # General settings
+              "ui.key.accelKey" = 17; # Set CTRL as master key
+              "browser.newtab.url" = "about:blank";
+              "browser.newtabpage.activity-stream.enabled" = lock-false;
+              "browser.newtabpage.activity-stream.telemetry" = lock-false;
+              "browser.newtabpage.enhanced" = lock-false;
+              "browser.newtabpage.introShown" = lock-true;
+              "browser.newtabpage.pinned" = false;
+              "browser.bookmarks.defaultLocation" = "toolbar";
+              "browser.startup.page" = 3;
+              "browser.newtabpage.activity-stream.showSponsored" = lock-false;
+              "browser.newtabpage.activity-stream.showSponsoredTopSites" = lock-false;
+              "app.shield.optoutstudies.enabled" = lock-false;
+              "dom.security.https_only_mode" = lock-true;
+              "dom.security.https_only_mode_ever_enabled" = lock-true;
+              "identity.fxaccounts.enabled" = lock-false;
+              "app.update.auto" = false;
+              "browser.startup.homepage" = "";
+              "browser.bookmarks.restore_default_bookmarks" = false;
+              "browser.ctrlTab.recentlyUsedOrder" = false;
+              "browser.discovery.enabled" = false;
+              "browser.laterrun.enabled" = false;
+              "browser.newtabpage.activity-stream.asrouter.userprefs.cfr.addons" = false;
+              "browser.newtabpage.activity-stream.asrouter.userprefs.cfr.features" = false;
+              "browser.newtabpage.activity-stream.feeds.snippets" = false;
+              "browser.newtabpage.activity-stream.improvesearch.topSiteSearchShortcuts.havePinned" = "";
+              "browser.newtabpage.activity-stream.improvesearch.topSiteSearchShortcuts.searchEngines" = "";
+              "browser.protections_panel.infoMessage.seen" = true;
+              "browser.ssb.enabled" = true;
+              "browser.toolbars.bookmarks.visibility" = "newtab";
+              #"browser.urlbar.placeholderName" = "Google";
+              "browser.urlbar.suggest.openpage" = false;
+              "datareporting.policy.dataSubmissionEnable" = false;
+              "datareporting.policy.dataSubmissionPolicyAcceptedVersion" = 2;
+
+              # "extensions.screenshots.disabled" = lock-true;
+              "extensions.getAddons.showPane" = false;
+              "extensions.htmlaboutaddons.recommendations.enabled" = false;
+              "extensions.extensions.activeThemeID" = "firefox-alpenglow@mozilla.org";
+              "extensions.update.enabled" = false;
+              "extensions.webcompat.enable_picture_in_picture_overrides" = true;
+              "extensions.webcompat.enable_shims" = true;
+              "extensions.webcompat.perform_injections" = true;
+              "extensions.webcompat.perform_ua_overrides" = true;
             };
           };
         };
@@ -181,7 +204,7 @@ in {
                     bookmarks = [
                       {
                         name = "Startpage";
-                        url = "https://www.startpage.com/sp/search?query={searchTerms}&prfe=dea8b8a2e1126185da987128a196ee5c47cdf324dce146f96b3b9157ab1f9e7166ae05d134c935eccc20f54e46222c8f1bb60faece00557b02e7a4e1fe397bc0f6750fbd3f7f580b241188&abp=-1";
+                        url = "https://www.startpage.com/do/mypage.pl?prfe=358f0310b1c47c53e468bbed228d921438352de61d9ea4fcad92c335685a8e4de5118de1f91f06960587d38d76310c444d27766f935be9bb7dfa8fbc7f0b8207fbcd0a23600e2f957b79e6b3";
                       }
                       {
                         name = "SearX";
@@ -286,7 +309,6 @@ in {
                 "Google".metaData.alias = "@g"; # builtin engines only support specifying one additional alias
               };
             };
-            settings = settings;
             extraConfig = ''
               lockPref("extensions.autoDisableScopes", 0);
             '';
