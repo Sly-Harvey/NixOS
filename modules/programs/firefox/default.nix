@@ -67,24 +67,51 @@ in {
               "privacy.webrtc.legacyGlobalIndicator" = false;
 
               # Use cloudflare for better security/privacy
-              "network.trr.mode" = 2; # 3 for no fallback (may cause problems)
-              "network.trr.custom_uri" = "1.1.1.1";
-              "network.trr.uri" = "1.1.1.1";
+              "network.trr.mode" = 3; # 2 if your havng DNS problems
+              "network.trr.custom_uri" = "https://cloudflare-dns.com/dns-query";
+              "network.trr.uri" = "https://cloudflare-dns.com/dns-query";
 
               # Remove trackers
               "privacy.purge_trackers.enabled" = lock-true;
               "privacy.trackingprotection.enabled" = lock-true;
+              "privacy.trackingprotection.fingerprinting.enabled" = lock-true;
+              "privacy.resistFingerprinting" = lock-true;
               "privacy.trackingprotection.socialtracking.enabled" = lock-true;
+              "privacy.trackingprotection.cryptomining.enabled" = lock-true;
+              "privacy.globalprivacycontrol.enabled" = lock-true;
+              "privacy.globalprivacycontrol.functionality.enabled" = lock-true;
               "privacy.donottrackheader.enabled" = lock-true;
               "privacy.donottrackheader.value" = 1;
+              "privacy.query_stripping.enabled" = lock-true;
+              "privacy.query_stripping.enabled.pbmode" = lock-true;
+
+              # Clear on shutdown (Only locks the options to true. Manually enable in firefox settings)
+              "privacy.sanitize.sanitizeOnShutdown" = lock-true;
+              "privacy.clearOnShutdown.cache" = lock-true;
+              "privacy.clearOnShutdown.cookies" = lock-true;
+              "privacy.clearOnShutdown.downloads" = lock-true;
+              "privacy.clearOnShutdown.formdata" = lock-true;
+              "privacy.clearOnShutdown.history" = lock-true;
+              "privacy.clearOnShutdown.offlineApps" = lock-true;
+              "privacy.clearOnShutdown.sessions" = lock-true;
+              "privacy.clearOnShutdown.siteSettings" = lock-true;
 
               # Block more unwanted stuff
+              "browser.privatebrowsing.forceMediaMemoryCache" = lock-true;
               "browser.contentblocking.category" = {
                 Value = "strict";
                 Status = "locked";
               };
+              "browser.search.suggest.enabled" = lock-false;
+              "browser.search.suggest.enabled.private" = lock-false;
+              "privacy.popups.disable_from_plugins" = 3;
               "extensions.pocket.enabled" = lock-false;
               "browser.newtabpage.activity-stream.section.highlights.includePocket" = lock-false;
+              "browser.newtabpage.activity-stream.feeds.section.topstories" = lock-false;
+              "browser.newtabpage.activity-stream.feeds.topsites" = lock-false;
+              "browser.newtabpage.activity-stream.showSponsored" = lock-false;
+              "browser.newtabpage.activity-stream.showSponsoredTopSites" = lock-false;
+              "layout.word_select.eat_space_to_next_word" = lock-false;
               "browser.shell.checkDefaultBrowser" = lock-false;
               "signon.rememberSignons" = lock-false;
               "toolkit.telemetry.unified" = lock-false;
@@ -110,6 +137,10 @@ in {
               "extensions.formautofill.creditCards.available" = lock-false;
               "extensions.formautofill.creditCards.enabled" = lock-false;
               "extensions.formautofill.heuristics.enabled" = lock-false;
+              "app.normandy.enabled" = lock-false;
+              "app.normandy.api_url" = "";
+              "dom.webnotifications.enabled" = lock-false;
+              "dom.webnotifications.serviceworker.enabled" = lock-false;
 
               # General settings
               "ui.key.accelKey" = 17; # Set CTRL as master key
@@ -121,8 +152,6 @@ in {
               "browser.newtabpage.pinned" = false;
               "browser.bookmarks.defaultLocation" = "toolbar";
               "browser.startup.page" = 3;
-              "browser.newtabpage.activity-stream.showSponsored" = lock-false;
-              "browser.newtabpage.activity-stream.showSponsoredTopSites" = lock-false;
               "app.shield.optoutstudies.enabled" = lock-false;
               "dom.security.https_only_mode" = lock-true;
               "dom.security.https_only_mode_ever_enabled" = lock-true;
@@ -146,11 +175,11 @@ in {
               "datareporting.policy.dataSubmissionEnable" = false;
               "datareporting.policy.dataSubmissionPolicyAcceptedVersion" = 2;
 
-              # "extensions.screenshots.disabled" = lock-true;
-              "extensions.getAddons.showPane" = false;
-              "extensions.htmlaboutaddons.recommendations.enabled" = false;
+              "extensions.screenshots.disabled" = lock-true;
+              "extensions.getAddons.showPane" = lock-false;
+              "extensions.htmlaboutaddons.recommendations.enabled" = lock-false;
               "extensions.extensions.activeThemeID" = "firefox-alpenglow@mozilla.org";
-              "extensions.update.enabled" = false;
+              # "extensions.update.enabled" = false;
               "extensions.webcompat.enable_picture_in_picture_overrides" = true;
               "extensions.webcompat.enable_shims" = true;
               "extensions.webcompat.perform_injections" = true;
