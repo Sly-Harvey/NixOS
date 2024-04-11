@@ -1,6 +1,5 @@
 {
   username,
-  pkgs,
   ...
 }: {
   home-manager.users.${username} = _: {

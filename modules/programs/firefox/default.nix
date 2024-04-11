@@ -1,7 +1,6 @@
 {
   username,
   pkgs,
-  inputs,
   ...
 }: let
   lock-false = {

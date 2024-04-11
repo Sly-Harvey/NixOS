@@ -14,7 +14,7 @@
     package = inputs.hyprland.packages.${pkgs.system}.hyprland;
   };
 
-  home-manager.users.${username} = {config, ...}: {
+  home-manager.users.${username} = { ...}: {
     imports = [
       inputs.hyprland.homeManagerModules.default
       ./hyprland-environment.nix

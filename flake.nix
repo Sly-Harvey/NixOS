@@ -22,7 +22,6 @@
 
   outputs = {
     nixpkgs,
-    home-manager,
     ...
   } @ inputs: let
     username = "harvey"; # REPLACE THIS WITH YOUR USERNAME!!!! (if manually installing, this is Required.)
