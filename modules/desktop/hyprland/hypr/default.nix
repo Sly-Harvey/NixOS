@@ -66,6 +66,10 @@
         plugin {
           overview {
             showEmptyWorkspace = true
+            panelHeight = 200
+            overrideGaps = true
+            gapsIn = 6
+            gapsOut = 13
           }
         }
 
@@ -310,7 +314,7 @@
         bind = $mainMod, F10, exec, pkill wlsunset
 
         # Overview plugin
-        bind = $mainMod, tab, overview:toggle, all
+        bind = $mainMod, tab, overview:toggle
 
         # Window/Session actions
         bind = $mainMod, Q, exec, ~/.config/hypr/scripts/dontkillsteam.sh # killactive, kill the window on focus
