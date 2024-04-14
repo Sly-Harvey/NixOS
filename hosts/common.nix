@@ -95,9 +95,9 @@
   programs.dconf.enable = true;
 
   # Enable sddm login manager
-  services.xserver.displayManager.sddm.enable = true;
-  services.xserver.displayManager.sddm.theme = "astronaut";
-  services.xserver.displayManager.sddm.settings.Theme.CursorTheme = "Bibata-Modern-Classic";
+  services.displayManager.sddm.enable = true;
+  services.displayManager.sddm.theme = "astronaut";
+  services.displayManager.sddm.settings.Theme.CursorTheme = "Bibata-Modern-Classic";
 
   # Setup auth agent and keyring
   services.gnome.gnome-keyring.enable = true;
