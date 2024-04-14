@@ -6,6 +6,10 @@
     nur.url = "github:nix-community/NUR";
     nixvim.url = "github:Sly-Harvey/nixvim";
     hyprland.url = "github:hyprwm/Hyprland";
+    Hyprspace = {
+      url = "github:KZDKM/Hyprspace";
+      inputs.hyprland.follows = "hyprland";
+    };
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -20,10 +24,8 @@
     };
   };
 
-  outputs = {
-    nixpkgs,
-    ...
-  } @ inputs: let
+  outputs = {nixpkgs, ...} @ inputs: let
+
     username = "harvey"; # REPLACE THIS WITH YOUR USERNAME!!!! (if manually installing, this is Required.)
     system = "x86_64-linux"; # REPLACE THIS WITH YOUR ARCHITECTURE (Rarely need to)
     locale = "en_GB.UTF-8"; # REPLACE THIS WITH YOUR LOCALE

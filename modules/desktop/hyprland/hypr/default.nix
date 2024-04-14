@@ -14,7 +14,7 @@
     package = inputs.hyprland.packages.${pkgs.system}.hyprland;
   };
 
-  home-manager.users.${username} = { ...}: {
+  home-manager.users.${username} = {...}: {
     imports = [
       inputs.hyprland.homeManagerModules.default
       ./hyprland-environment.nix
@@ -51,6 +51,9 @@
     #test later systemd.user.targets.hyprland-session.Unit.Wants = [ "xdg-desktop-autostart.target" ];
     wayland.windowManager.hyprland = {
       enable = true;
+      plugins = [
+        inputs.Hyprspace.packages.${pkgs.system}.Hyprspace
+      ];
       systemd = {
         enable = true;
         variables = ["--all"];
@@ -59,6 +62,12 @@
       extraConfig = ''
         $scriptsDir = $HOME/.local/bin
         $hyprScriptsDir = $HOME/.config/hypr/scripts
+
+        plugin {
+          overview {
+            showEmptyWorkspace = true
+          }
+        }
 
         # Monitor
         monitor=HDMI-A-2,1920x1080@60.0,1920x0,1.0
@@ -299,6 +308,9 @@
         # Night Mode (lower value means warmer temp)
         bind = $mainMod, F9, exec, wlsunset -t 3000 -T 3600
         bind = $mainMod, F10, exec, pkill wlsunset
+
+        # Overview plugin
+        bind = $mainMod, tab, overview:toggle
 
         # Window/Session actions
         bind = $mainMod, Q, exec, ~/.config/hypr/scripts/dontkillsteam.sh # killactive, kill the window on focus
