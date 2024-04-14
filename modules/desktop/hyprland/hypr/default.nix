@@ -310,7 +310,7 @@
         bind = $mainMod, F10, exec, pkill wlsunset
 
         # Overview plugin
-        bind = $mainMod, tab, overview:toggle
+        bind = $mainMod, tab, overview:toggle, all
 
         # Window/Session actions
         bind = $mainMod, Q, exec, ~/.config/hypr/scripts/dontkillsteam.sh # killactive, kill the window on focus
@@ -368,8 +368,8 @@
         # bind =,xf86AudioPrev,exec,$hyprScriptsDir/MediaCtrl.sh --prv
 
         # to switch between windows in a floating workspace
-        bind = SUPER,Tab,cyclenext,
-        bind = SUPER,Tab,bringactivetotop,
+        # bind = SUPER,Tab,cyclenext,
+        # bind = SUPER,Tab,bringactivetotop,
 
         # Switch workspaces with mainMod + [0-9]
         bind = $mainMod, 1, workspace, 1
