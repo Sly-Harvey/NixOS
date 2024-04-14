@@ -1,5 +1,31 @@
 {
   "nodes": {
+    "Hyprspace": {
+      "inputs": {
+        "hyprland": [
+          "hyprland"
+        ],
+        "hyprlandPlugins": "hyprlandPlugins",
+        "nixpkgs": [
+          "Hyprspace",
+          "hyprland",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1713113295,
+        "narHash": "sha256-3oivuUgU2B3zQIuop1lc+VXBOhqCnZMl81pFYdZu1oc=",
+        "owner": "KZDKM",
+        "repo": "Hyprspace",
+        "rev": "046533d6fb0244874273254d4008cbdc48621829",
+        "type": "github"
+      },
+      "original": {
+        "owner": "KZDKM",
+        "repo": "Hyprspace",
+        "type": "github"
+      }
+    },
     "devshell": {
       "inputs": {
         "flake-utils": "flake-utils_2",
@@ -328,6 +354,33 @@
         "type": "github"
       }
     },
+    "hyprlandPlugins": {
+      "inputs": {
+        "hyprland": [
+          "Hyprspace",
+          "hyprland"
+        ],
+        "systems": [
+          "Hyprspace",
+          "hyprlandPlugins",
+          "hyprland",
+          "systems"
+        ]
+      },
+      "locked": {
+        "lastModified": 1712836056,
+        "narHash": "sha256-qf6yev9OlJuQv557ApLQ/5V8pQj0YOO9tyh5j3It1mY=",
+        "owner": "hyprwm",
+        "repo": "hyprland-plugins",
+        "rev": "e9457e08ca3ff16dc5a815be62baf9e18b539197",
+        "type": "github"
+      },
+      "original": {
+        "owner": "hyprwm",
+        "repo": "hyprland-plugins",
+        "type": "github"
+      }
+    },
     "hyprlang": {
       "inputs": {
         "nixpkgs": [
@@ -503,11 +556,11 @@
     },
     "nur": {
       "locked": {
-        "lastModified": 1713126303,
-        "narHash": "sha256-1+Z2rYbyvnkr5G0tMuSBmRJrz67mReEHyZfi6hCS+Ic=",
+        "lastModified": 1713127733,
+        "narHash": "sha256-8DgSHzlv5WvDGEWiCmkyiRUR70dBX52YRXyXcQV6PF8=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "f349623d8dd59e9fa1b0c1534bbed0de83e4f3c3",
+        "rev": "54d3d777defd18924d6c1438dedab6ae6d3cd976",
         "type": "github"
       },
       "original": {
@@ -548,6 +601,7 @@
     },
     "root": {
       "inputs": {
+        "Hyprspace": "Hyprspace",
         "firefox-addons": "firefox-addons",
         "home-manager": "home-manager",
         "hyprland": "hyprland",
