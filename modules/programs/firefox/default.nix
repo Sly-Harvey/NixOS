@@ -311,17 +311,18 @@ in {
                   definedAliases = ["@nw"];
                 };
                 "Home Manager Options" = {
-                  urls = [
-                    {
-                      template = "https://mipmip.github.io/home-manager-option-search";
-                      params = [
-                        {
-                          name = "query";
-                          value = "{searchTerms}";
-                        }
-                      ];
-                    }
-                  ];
+                  urls = [{template = "https://home-manager-options.extranix.com/?query={searchTerms}";}];
+                  # urls = [
+                  #   {
+                  #     template = "https://mipmip.github.io/home-manager-option-search";
+                  #     params = [
+                  #       {
+                  #         name = "query";
+                  #         value = "{searchTerms}";
+                  #       }
+                  #     ];
+                  #   }
+                  # ];
                   iconUpdateURL = "https://avatars.githubusercontent.com/u/33221035";
                   updateInterval = 24 * 60 * 60 * 1000; # Update every day.
                   definedAliases = ["@hm"];

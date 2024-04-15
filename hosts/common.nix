@@ -8,6 +8,7 @@
     inputs.home-manager.nixosModules.home-manager
     ../modules/hardware/opengl.nix
     ../modules/programs/alacritty
+    ../modules/programs/bash
     ../modules/programs/btop
     ../modules/programs/cava
     ../modules/programs/direnv
@@ -17,6 +18,7 @@
     ../modules/programs/lf
     ../modules/programs/mpv
     ../modules/programs/nixvim
+    ../modules/programs/starship
     ../modules/services/tlp # Set cpu power settings
     ../modules/programs/tmux
     #../modules/programs/vscode
