@@ -13,6 +13,7 @@
     ../modules/programs/direnv
     ../modules/programs/firefox
     # ../modules/programs/firefox/firefox-system.nix
+    ../modules/programs/lazygit
     ../modules/programs/lf
     ../modules/programs/mpv
     ../modules/programs/nixvim

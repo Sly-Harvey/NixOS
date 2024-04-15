@@ -26,11 +26,12 @@
       theme = spicePkgs.themes.catppuccin;
       colorScheme = "mocha";
 
-      # enabledExtensions = with spicePkgs.extensions; [
-      #   fullAppDisplay
-      #   shuffle # shuffle+ (special characters are sanitized out of ext names)
-      #   hidePodcasts
-      # ];
+      enabledExtensions = with spicePkgs.extensions; [
+        adblock
+        # fullAppDisplay
+        # shuffle # shuffle+ (special characters are sanitized out of ext names)
+        # hidePodcasts
+      ];
     };
   };
 }
