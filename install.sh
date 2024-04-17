@@ -63,13 +63,13 @@ if [ "$replaceHardwareConfig" == "Y" ]; then
 	if ! cp $(find /etc/nixos -iname 'hardware-configuration.nix') $scriptdir/hosts/Default/hardware-configuration.nix; then
 		# Generate new config
 		clear
-		nix-shell --command "echo GENERATING CONFIG! | figlet -cklno | lolcat -F 0.3 -p 2.5 -S 300"
-		nixos-generate-config --show-hardware-config >$scriptdir/hosts/Default/hardware-configuration.nix
+		nix shell nixpkgs#figlet nixpkgs#lolcat --command "echo GENERATING CONFIG! | figlet -cklno | lolcat -F 0.3 -p 2.5 -S 300"
+		nixos-generate-config --show-hardware-config > $scriptdir/hosts/Default/hardware-configuration.nix
 	fi
 fi
 
-nix-shell --command "sudo -u $currentUser git -C $scriptdir add *"
+sudo -u $currentUser git -C $scriptdir add *
 
 clear
-nix-shell --command "echo BUILDING! | figlet -cklnoW | lolcat -F 0.3 -p 2.5 -S 300"
-nix-shell --command "sudo nixos-rebuild switch --flake $scriptdir#nixos --show-trace && rm -rf $backupdir"
+nix shell nixpkgs#figlet nixpkgs#lolcat --command "echo BUILDING! | figlet -cklnoW | lolcat -F 0.3 -p 2.5 -S 300"
+nix shell --experimental-features "nix-command flakes" --command "sudo nixos-rebuild switch --flake $scriptdir#nixos --show-trace && rm -rf $backupdir"
