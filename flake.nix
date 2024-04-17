@@ -34,25 +34,12 @@
     lib = nixpkgs.lib;
   in {
     nixosConfigurations = {
-      iso = lib.nixosSystem {
-        inherit system;
-        specialArgs =
-          {
-            username = "harvey";
-            inherit inputs;
-          }
-          // inputs;
-        modules = [
-          ./hosts/ISO/configuration.nix
-        ];
-      };
       # This is the only config you will have to change (Desktop and Laptop are for my personal use and may not work for you)
       nixos = lib.nixosSystem {
         inherit system;
         specialArgs = {inherit username locale timezone inputs;} // inputs;
         modules = [
           ./hosts/Default/configuration.nix
-          #./home/programs/firefox/firefox-system.nix
         ];
       };
       Desktop = lib.nixosSystem {
@@ -73,6 +60,25 @@
           {inherit username hostname inputs;} // inputs;
         modules = [
           ./hosts/Laptop/configuration.nix
+        ];
+      };
+      iso = lib.nixosSystem {
+        inherit system;
+        specialArgs =
+          {
+            username = "harvey";
+            inherit inputs;
+          }
+          // inputs;
+        modules = [
+          ./hosts/ISO/configuration.nix
+        ];
+      };
+      Test = lib.nixosSystem {
+        inherit system;
+        specialArgs = {inherit username locale timezone inputs;} // inputs;
+        modules = [
+          ./hosts/Test/configuration.nix
         ];
       };
     };
