@@ -59,4 +59,4 @@ jobs:
           
       - name: "Build NixOS config ❄️"
         run: |
-          nix build .#nixosConfigurations.nixos.config.system.build.toplevel
+          nix build .#nixosConfigurations.Test.config.system.build.toplevel
