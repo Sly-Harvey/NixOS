@@ -228,7 +228,7 @@
         list-gens = "sudo nix-env --list-generations --profile /nix/var/nix/profiles/system/";
         find-store-path = ''function { nix-shell -p $1 --command "nix eval -f "<nixpkgs>" --raw $1" }'';
         update-input = "nix flake lock --update-input $@";
-        rebuild-default = "pushd ~/NixOS &> /dev/null && sudo ./install.sh --Copy-Hardware && popd &> /dev/null";
+        rebuild-default = "pushd ~/NixOS &> /dev/null && sudo ./install.sh && popd &> /dev/null";
         rebuild-desktop = "clear && sudo nixos-rebuild switch --flake ~/NixOS#Desktop";
         rebuild-laptop = "clear && sudo nixos-rebuild switch --flake ~/NixOS#Laptop";
         build-iso = "nix build .#nixosConfigurations.iso.config.system.build.isoImage";
