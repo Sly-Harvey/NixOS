@@ -7,7 +7,7 @@ on:
   push:
     branches:
       - master
-      - testing
+      #- testing
     paths-ignore:
       - "README.md"
       - ".gitignore"
