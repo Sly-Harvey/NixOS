@@ -59,4 +59,4 @@ jobs:
 
       - name: "Build NixOS config ❄️"
         run: |
-          sudo ./install.sh
+          sudo ./install.sh --Copy-Hardware
