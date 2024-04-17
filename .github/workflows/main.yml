@@ -6,6 +6,7 @@ on:
   pull_request:
   push:
     branches:
+      - master
       - testing
     paths-ignore:
       - "README.md"
