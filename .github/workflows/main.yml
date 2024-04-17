@@ -57,18 +57,8 @@ jobs:
         with:
           name: workflow-nixos-config
           authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
-
-      - name: "Run install script"
-        uses: ZenithalHourlyRate/nix-shell-action@v4
-        with:
-          file: shell.nix
-          script: |
-            sudo ./install.sh --Copy-Hardware
           
-      #- name: "Build NixOS config ❄️"
-      #  run: |
-      #    nix build .#nixosConfigurations.nixos.config.system.build.toplevel
-      
-      #- name: "Build NixOS config ❄️"
-      #  run: |
-      #    sudo ./install.sh --Copy-Hardware
+      - name: "Build NixOS config ❄️"
+        run: |
+          nixos-generate-config --show-hardware-config > ./hosts/Default/hardware-configuration.nix
+          nix build .#nixosConfigurations.nixos.config.system.build.toplevel
