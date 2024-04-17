@@ -60,5 +60,4 @@ jobs:
           
       - name: "Build NixOS config ❄️"
         run: |
-          nixos-generate-config --show-hardware-config > ./hosts/Default/hardware-configuration.nix
           nix build .#nixosConfigurations.nixos.config.system.build.toplevel
