@@ -246,7 +246,7 @@
         windowrulev2 = workspace 4, title:(.*)(Godot)(.*)$
         windowrulev2 = workspace 4, title:(GNU Image Manipulation Program)(.*)$
         windowrulev2 = workspace 5, class:^(Spotify)$
-        windowrulev2 = workspace 5, class:^(Spotify Premium)$
+        windowrulev2 = workspace 5, title:(.*)(Spotify)(.*)$
         windowrulev2 = workspace 7, class:^(steam)$
         # windowrulev2 = workspace 10, class:^(factorio)$
 
@@ -263,7 +263,7 @@
         windowrulev2 = opacity 0.80 0.80,class:^(steam)$
         windowrulev2 = opacity 0.80 0.80,class:^(steamwebhelper)$
         windowrulev2 = opacity 0.80 0.80,class:^(Spotify)$
-        windowrulev2 = opacity 0.80 0.80,class:^(Spotify Premium)$
+        windowrulev2 = opacity 0.80 0.80,title:(.*)(Spotify)(.*)$
         # windowrulev2 = opacity 0.80 0.80,class:^(VSCodium)$
         # windowrulev2 = opacity 0.80 0.80,class:^(codium-url-handler)$
         windowrulev2 = opacity 0.80 0.80,class:^(Code)$
