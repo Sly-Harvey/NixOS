@@ -238,13 +238,17 @@
         windowrulev2 = workspace 1, class:^(firefox)$
         windowrulev2 = workspace 2, class:^(Alacritty)$
         windowrulev2 = workspace 2, class:^(kitty)$
-        windowrulev2 = workspace 3, class:^(krita)$
-        windowrulev2 = workspace 3, title:(.*)(Godot)(.*)$
+        windowrulev2 = workspace 3, class:^(VSCodium)$
+        windowrulev2 = workspace 3, class:^(codium-url-handler)$
+        windowrulev2 = workspace 3, class:^(Code)$
+        windowrulev2 = workspace 3, class:^(code-url-handler)$
+        windowrulev2 = workspace 4, class:^(krita)$
+        windowrulev2 = workspace 4, title:(.*)(Godot)(.*)$
         windowrulev2 = workspace 4, title:(GNU Image Manipulation Program)(.*)$
-        windowrulev2 = workspace 4, class:^(Code)$
         windowrulev2 = workspace 5, class:^(Spotify)$
+        windowrulev2 = workspace 5, class:^(Spotify Premium)$
         windowrulev2 = workspace 7, class:^(steam)$
-        windowrulev2 = workspace 10, class:^(factorio)$
+        # windowrulev2 = workspace 10, class:^(factorio)$
 
         # Allow screen tearing for reduced input latency on some games.
         #windowrulev2 = immediate, class:^(cs2)$
@@ -259,6 +263,9 @@
         windowrulev2 = opacity 0.80 0.80,class:^(steam)$
         windowrulev2 = opacity 0.80 0.80,class:^(steamwebhelper)$
         windowrulev2 = opacity 0.80 0.80,class:^(Spotify)$
+        windowrulev2 = opacity 0.80 0.80,class:^(Spotify Premium)$
+        # windowrulev2 = opacity 0.80 0.80,class:^(VSCodium)$
+        # windowrulev2 = opacity 0.80 0.80,class:^(codium-url-handler)$
         windowrulev2 = opacity 0.80 0.80,class:^(Code)$
         windowrulev2 = opacity 0.80 0.80,class:^(code-url-handler)$
         windowrulev2 = opacity 0.80 0.80,class:^(kitty)$
@@ -305,8 +312,8 @@
         $mainMod = SUPER
         $launcher = pkill rofi || rofi -show drun -modi drun,filebrowser,run,window -theme ~/.config/rofi/launchers/type-2/style-2.rasi
         $term = alacritty
-        $editor = code
-        $file = alacritty -e lf
+        $editor = codium
+        $file = $term -e lf
         $browser = firefox
 
         # Night Mode (lower value means warmer temp)
