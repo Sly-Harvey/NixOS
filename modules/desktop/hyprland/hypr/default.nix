@@ -317,7 +317,7 @@
         $browser = firefox
 
         # Night Mode (lower value means warmer temp)
-        bind = $mainMod, F9, exec, wlsunset -t 3000 -T 3600
+        bind = $mainMod, F9, exec, wlsunset -t 3000 -T 3900
         bind = $mainMod, F10, exec, pkill wlsunset
 
         # Overview plugin

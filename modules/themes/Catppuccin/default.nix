@@ -4,9 +4,10 @@
   ...
 }: {
   home-manager.users.${username} = {config, ...}: {
-    home.file.".config/hypr/wallpaper.png" = {
+    home.file.".config/hypr/wallpaper.jpg" = {
+      source = ../wallpapers/escape_velocity.jpg;
       # source = ../wallpapers/aurora_borealis.png;
-      source = ../wallpapers/moon.png;
+      # source = ../wallpapers/moon.png;
     };
 
     dconf.settings = {
@@ -26,19 +27,14 @@
     qt = {
       enable = true;
       platformTheme.name = "gtk"; # gnome
-      #platformTheme = "gnome";
-      #style = {
-      #  name = "adwaita-dark";
-      #  package = pkgs.adwaita-qt;
-      #};
     };
 
     gtk = {
       enable = true;
       theme = {
-        name = "Catppuccin-Macchiato-Compact-Pink-Dark";
+        name = "Catppuccin-Macchiato-Compact-Mauve-Dark";
         package = pkgs.catppuccin-gtk.override {
-          accents = ["pink"];
+          accents = ["mauve"];
           size = "compact";
           #tweaks = [ "rimless" "black" ];
           variant = "macchiato";
