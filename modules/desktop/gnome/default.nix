@@ -21,6 +21,7 @@
     gnome-maps
     gnome-music
     pkgs.gnome-tour
+    pkgs.gnome-text-editor
     pkgs.gnome-user-docs
   ];
   environment.systemPackages = with pkgs; [
