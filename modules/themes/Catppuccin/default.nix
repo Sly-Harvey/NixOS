@@ -4,10 +4,10 @@
   ...
 }: {
   home-manager.users.${username} = {config, ...}: {
-    home.file.".config/hypr/wallpaper.jpg" = {
-      source = ../wallpapers/escape_velocity.jpg;
+    home.file.".config/hypr/wallpaper.png" = {
+      # source = ../wallpapers/escape_velocity.jpg;
       # source = ../wallpapers/aurora_borealis.png;
-      # source = ../wallpapers/moon.png;
+      source = ../wallpapers/moon.png;
     };
 
     dconf.settings = {

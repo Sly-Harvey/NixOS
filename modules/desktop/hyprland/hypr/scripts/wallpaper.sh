@@ -4,4 +4,4 @@ swww query
 if [ $? -eq 1 ] ; then
     swww init
 fi
-swww img ~/.config/hypr/wallpaper.jpg
+swww img ~/.config/hypr/wallpaper.png
