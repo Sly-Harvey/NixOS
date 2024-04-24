@@ -9,7 +9,7 @@
   hardware = {
     nvidia = {
       open = false;
-      nvidiaSettings = true;
+      nvidiaSettings = false;
       powerManagement.enable = true;
       modesetting.enable = true;
       package = config.boot.kernelPackages.nvidiaPackages.stable;

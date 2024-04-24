@@ -1,7 +1,6 @@
-{
-  username,
-  pkgs,
-  ...
+{ username
+, pkgs
+, ...
 }: {
   home-manager.users.${username} = _: {
     programs.vscode = {
@@ -9,6 +8,7 @@
       package = pkgs.vscodium;
       extensions = with pkgs.vscode-extensions; [
         bbenoist.nix
+        #jnoortheen.nix-ide
         arrterian.nix-env-selector
         eamodio.gitlens
         github.vscode-github-actions
