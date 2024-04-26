@@ -179,6 +179,7 @@
   in [
     # System
     scripts.tmux-sessionizer
+    scripts.collect-garbage
     sddm-themes.sugar-dark
     sddm-themes.astronaut
     sddm-themes.tokyo-night
