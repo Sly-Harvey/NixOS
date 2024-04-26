@@ -178,7 +178,7 @@
     scripts = pkgs.callPackage ../modules/scripts {};
   in [
     # System
-    scripts.tmux-find
+    scripts.tmux-sessionizer
     sddm-themes.sugar-dark
     sddm-themes.astronaut
     sddm-themes.tokyo-night

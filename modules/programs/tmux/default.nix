@@ -21,7 +21,8 @@ in {
       enable = true;
       clock24 = true;
       keyMode = "vi";
-      terminal = "tmux-256color";
+      # terminal = "tmux-256color";
+      terminal = "screen-256color";
       historyLimit = 100000;
       plugins = with pkgs.tmuxPlugins; [
         vim-tmux-navigator
@@ -43,7 +44,7 @@ in {
         set-window-option -g pane-base-index 1
         set -ga terminal-overrides ",*:Tc"
 
-        bind-key -r f run-shell "tmux neww tmux-find"
+        bind-key -r f run-shell "tmux neww tmux-sessionizer"
 
         # Select panes
         bind r source-file ~/.config/tmux/tmux.conf
