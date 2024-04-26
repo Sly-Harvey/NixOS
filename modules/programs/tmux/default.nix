@@ -25,6 +25,7 @@ in {
       terminal = "screen-256color";
       historyLimit = 100000;
       plugins = with pkgs.tmuxPlugins; [
+        sensible
         vim-tmux-navigator
         dreamsofcode-io-catppuccin-tmux
         # catppuccin
