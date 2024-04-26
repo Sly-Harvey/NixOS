@@ -165,6 +165,7 @@
 
   nixpkgs = {
     config.allowUnfree = true;
+    # config.allowUnfreePredicate = _: true;
     overlays = [
       inputs.nur.overlay
     ];
@@ -228,7 +229,8 @@
         "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
         "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
       ];
-      experimental-features = ["nix-command" "flakes"];
+      experimental-features = ["nix-command" "flakes" "repl-flake"];
+      use-xdg-base-directories = true;
       warn-dirty = false;
       keep-outputs = true;
       keep-derivations = true;

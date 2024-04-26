@@ -5,7 +5,7 @@ pkgs.writeShellScriptBin "tmux-find" ''
   if [[ $# -eq 1 ]]; then
       selected=$1
   else
-      selected=$(find /mnt/seagate/dev/ ~/ -mindepth 1 -maxdepth 2 -type d | $fzf)
+      selected=$(find ~/ ~/git-clone/ /mnt/seagate/dev/ -mindepth 1 -maxdepth 2 -type d | $fzf)
   fi
 
   if [[ -z $selected ]]; then
@@ -13,7 +13,8 @@ pkgs.writeShellScriptBin "tmux-find" ''
   fi
 
   # return project name with space replaced with -
-  selected_name=$(echo "$selected" | sed "s/\s/-/g" | sed "s/.*\///")
+  # selected_name=$(echo "$selected" | sed "s/\s/-/g" | sed "s/.*\///")
+  selected_name=$(basename "$selected" | tr . _)
   tmux_running=$(pgrep tmux)
 
   if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
