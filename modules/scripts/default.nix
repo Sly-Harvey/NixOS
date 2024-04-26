@@ -1,4 +1,4 @@
 { pkgs, ... }:
 {
-  tmux-find = pkgs.callPackage ./tmux-find.nix {};
+  tmux-sessionizer = pkgs.callPackage ./tmux-sessionizer.nix {};
 }

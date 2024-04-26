@@ -40,7 +40,7 @@
         eval "$(direnv hook zsh)"
 
         # Key Bindings
-        bindkey -s ^t "tmux-find\n"
+        # bindkey -s ^t "tmux-sessionizer\n"
         bindkey -s ^l "lf\n"
         bindkey '^a' beginning-of-line
         bindkey '^e' end-of-line
@@ -212,6 +212,7 @@
       };
       shellAliases = {
         cls = "clear";
+        tml = "tmux list-sessions";
         attach = "tmux attach";
         att = "tmux attach";
         l = "${pkgs.eza}/bin/eza -lh  --icons=auto"; # long list
