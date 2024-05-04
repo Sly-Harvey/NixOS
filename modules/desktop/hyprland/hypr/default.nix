@@ -52,7 +52,7 @@
     wayland.windowManager.hyprland = {
       enable = true;
       plugins = [
-        inputs.Hyprspace.packages.${pkgs.system}.Hyprspace
+        # inputs.Hyprspace.packages.${pkgs.system}.Hyprspace
       ];
       systemd = {
         enable = true;
@@ -63,15 +63,15 @@
         $scriptsDir = $HOME/.local/bin
         $hyprScriptsDir = $HOME/.config/hypr/scripts
 
-        plugin {
-          overview {
-            showEmptyWorkspace = true
-            panelHeight = 200
-            overrideGaps = true
-            gapsIn = 6
-            gapsOut = 13
-          }
-        }
+        # plugin {
+        #   overview {
+        #     showEmptyWorkspace = true
+        #     panelHeight = 200
+        #     overrideGaps = true
+        #     gapsIn = 6
+        #     gapsOut = 13
+        #   }
+        # }
 
         # Monitor
         monitor=HDMI-A-2,1920x1080@60.0,1920x0,1.0
@@ -321,7 +321,7 @@
         bind = $mainMod, F10, exec, pkill wlsunset
 
         # Overview plugin
-        bind = $mainMod, tab, overview:toggle
+        # bind = $mainMod, tab, overview:toggle
 
         # Window/Session actions
         bind = $mainMod, Q, exec, ~/.config/hypr/scripts/dontkillsteam.sh # killactive, kill the window on focus
