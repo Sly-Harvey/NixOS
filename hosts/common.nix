@@ -142,7 +142,7 @@
   };
 
   # Enable touchpad support (enabled default in most desktopManager).
-  services.xserver.libinput.enable = true;
+  services.libinput.enable = true;
 
   # Default user when using: sudo nixos-rebuild build-vm
   users.users.nixosvmtest.isNormalUser = true;
