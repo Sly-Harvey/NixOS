@@ -26,7 +26,7 @@
       #krita
       #steam
       (pkgs.writeShellScriptBin "hello" ''
-        echo "Hello ''${username}!"
+        echo "Hello ${username}!"
       '')
     ];
 

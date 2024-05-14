@@ -7,9 +7,9 @@
 }: {
   imports = [
     ../common.nix
+    ../../modules/desktop/hyprland # Enable Hyprland window manager
     ../../modules/hardware/nvidia.nix
     ../../modules/hardware/opengl.nix
-    ../../modules/desktop/hyprland # Enable Hyprland window manager
     #../../modules/programs/games
     ./hardware-configuration.nix
   ];
@@ -26,7 +26,7 @@
       #krita
       #steam
       (pkgs.writeShellScriptBin "hello" ''
-        echo "Hello ''${username}!"
+        echo "Hello ${username}!"
       '')
     ];
 
