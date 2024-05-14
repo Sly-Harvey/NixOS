@@ -5,11 +5,11 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nur.url = "github:nix-community/NUR";
     nixvim.url = "github:Sly-Harvey/nixvim";
-    hyprland.url = "github:hyprwm/Hyprland";
-    Hyprspace = {
+    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
+    /* Hyprspace = {
       url = "github:KZDKM/Hyprspace";
       inputs.hyprland.follows = "hyprland";
-    };
+    }; */
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
