@@ -16,15 +16,15 @@
     ../../modules/programs/alacritty
     ../../modules/programs/btop
     ../../modules/programs/cava
-    # ../../modules/programs/direnv
+    ../../modules/programs/direnv
     ../../modules/programs/firefox
     # ../../modules/programs/firefox/firefox-system.nix
     ../../modules/programs/lf
     ../../modules/programs/mpv
     ../../modules/programs/nixvim
     ../../modules/services/tlp
-    # ../../modules/programs/tmux
-    # ../../modules/programs/spicetify
+    ../../modules/programs/tmux
+    ../../modules/programs/spicetify
     ../../modules/programs/zsh
   ];
 

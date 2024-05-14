@@ -27,6 +27,7 @@
   outputs = {nixpkgs, ...} @ inputs: let
 
     username = "harvey"; # REPLACE THIS WITH YOUR USERNAME!!! (if manually installing, this is Required.)
+
     system = "x86_64-linux"; # REPLACE THIS WITH YOUR ARCHITECTURE (Rarely need to)
     locale = "en_GB.UTF-8"; # REPLACE THIS WITH YOUR LOCALE
     timezone = "Europe/London"; # REPLACE THIS WITH YOUR TIMEZONE
@@ -62,23 +63,16 @@
           ./hosts/Laptop/configuration.nix
         ];
       };
-      iso = lib.nixosSystem {
+      Iso = lib.nixosSystem {
         inherit system;
         specialArgs =
           {
-            username = "harvey";
+            username = username;
             inherit inputs;
           }
           // inputs;
         modules = [
           ./hosts/ISO/configuration.nix
-        ];
-      };
-      Test = lib.nixosSystem {
-        inherit system;
-        specialArgs = {inherit username locale timezone inputs;} // inputs;
-        modules = [
-          ./hosts/Test/configuration.nix
         ];
       };
     };

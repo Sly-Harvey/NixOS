@@ -312,7 +312,7 @@
         $mainMod = SUPER
         $launcher = pkill rofi || rofi -show drun -modi drun,filebrowser,run,window -theme ~/.config/rofi/launchers/type-2/style-2.rasi
         $term = alacritty
-        $editor = codium --disable-gpu
+        $editor = code --disable-gpu
         $file = $term -e lf
         $browser = firefox
 

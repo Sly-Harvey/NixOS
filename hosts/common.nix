@@ -22,7 +22,7 @@
     ../modules/programs/starship
     ../modules/services/tlp # Set cpu power settings
     ../modules/programs/tmux
-    ../modules/programs/vscodium
+    ../modules/programs/vscode
     ../modules/programs/spicetify
     ../modules/programs/zsh
   ];
