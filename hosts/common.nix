@@ -8,24 +8,23 @@
     inputs.home-manager.nixosModules.home-manager
     ../modules/core
     ../modules/hardware/opengl.nix
-    ../modules/programs/alacritty
-    ../modules/programs/bash
-    ../modules/programs/btop
-    ../modules/programs/cava
-    ../modules/programs/direnv
-    ../modules/programs/firefox
-    # ../modules/programs/firefox/firefox-system.nix
-    ../modules/programs/kitty
-    ../modules/programs/lazygit
-    ../modules/programs/lf
-    ../modules/programs/mpv
-    ../modules/programs/nixvim
-    ../modules/programs/starship
-    ../modules/services/tlp # Set cpu power settings
-    ../modules/programs/tmux
-    ../modules/programs/vscode
-    ../modules/programs/spicetify
-    ../modules/programs/zsh
+
+    ../modules/programs/terminal/alacritty
+    ../modules/programs/terminal/kitty
+    ../modules/programs/shell/bash
+    ../modules/programs/shell/zsh
+    ../modules/programs/browser/firefox
+    ../modules/programs/editor/nixvim
+    ../modules/programs/editor/vscode
+    ../modules/programs/cli/starship
+    ../modules/programs/cli/tmux
+    ../modules/programs/cli/direnv
+    ../modules/programs/cli/lf
+    ../modules/programs/cli/lazygit
+    ../modules/programs/cli/cava
+    ../modules/programs/cli/btop
+    ../modules/programs/misc/mpv
+    ../modules/programs/misc/spicetify
   ];
 
   # Common home-manager options that are shared between all systems.
