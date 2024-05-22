@@ -180,8 +180,12 @@
           color: @yellow;
         }
 
-        #cpu {
+        #custom-gpuinfo {
           color: @green;
+        }
+
+        #cpu {
+          color: @teal;
         }
 
         #custom-keyboard,
@@ -387,7 +391,7 @@
           # "modules-left" = ["hyprland/workspaces" "mpris" "custom/r_end"];
           "modules-left" = ["hyprland/workspaces" "cava" "custom/r_end"];
           "modules-center" = ["custom/l_end" "idle_inhibitor" "clock" "custom/r_end"];
-          "modules-right" = ["custom/l_end" "temperature" "cpu" "memory" "keyboard-state" "network" "bluetooth" "pulseaudio" "custom/r_end" "hyprland/language" "custom/r_end" "tray" "battery" "custom/l_end" "custom/power" "custom/padd"];
+          "modules-right" = ["custom/l_end" "custom/gpuinfo" "cpu" "memory" "keyboard-state" "network" "bluetooth" "pulseaudio" "custom/r_end" "hyprland/language" "custom/r_end" "tray" "battery" "custom/l_end" "custom/power" "custom/padd"];
           #"modules-right" = ["custom/l_end" "temperature" "cpu" "memory" "keyboard-state" "network" "bluetooth" "pulseaudio" "custom/r_end" "hyprland/language" "custom/r_end" "tray" "battery" "custom/l_end" "custom/power" "custom/r_end" "custom/padd" ];
           "custom/colour-temperature" = {
             "format" = "{} ";
@@ -465,8 +469,7 @@
             "active-only" = false;
             "on-click" = "activate";
             "persistent-workspaces" = {
-              "HDMI-A-1" = [1 2 3 4 5 6 7 8 9 10];
-              "HDMI-A-2" = [1 2 3 4 5 6 7 8 9 10];
+              "*" = [1 2 3 4 5 6 7 8 9 10];
             };
           };
 

@@ -345,7 +345,7 @@
         #bind = $mainMod, tab, exec, pkill -x rofi || ~/.config/hypr/scripts/rofilaunch.sh w # switch between desktop applications
         bind = $mainMod, R, exec, pkill -x rofi || ~/.config/hypr/scripts/rofilaunch.sh f # browse system files
         bind = $mainMod SHIFT, W, exec, $hyprScriptsDir/WallpaperSelect.sh # Select wallpaper to apply
-        bind = $mainMod, K, exec, $hyprScriptsDir/keyboardswitch.sh # change keyboard layout
+        bind = $mainMod ALT, K, exec, $hyprScriptsDir/keyboardswitch.sh # change keyboard layout
         bind = $mainMod SHIFT, N, exec, swaync-client -t -sw # swayNC panel
         bind = $mainMod, G, exec, $hyprScriptsDir/gamelauncher.sh # game launcher
         bind = $mainMod ALT, G, exec, $hyprScriptsDir/gamemode.sh # disable hypr effects for gamemode
