@@ -1,3 +1,4 @@
+# The main purpose of this module is for laptops. If you use nvidia/amd module then this is not needed!
 {pkgs, ...}: {
   hardware.opengl = {
     enable = true;

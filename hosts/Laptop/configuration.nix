@@ -6,10 +6,11 @@
 }: {
   imports = [
     ../common.nix
-    ../../modules/desktop/gnome # Enable Gnome desktop environment
-    ../../modules/desktop/hyprland # Enable Hyprland window manager
+    ../../modules/desktop/gnome # Enable gnome desktop environment
+    ../../modules/desktop/hyprland # Enable hyprland window manager
     ../../modules/programs/games/gamemode.nix
     ../../modules/programs/games/steam.nix
+    # ../../modules/programs/games/lutris.nix
     ./hardware-configuration.nix
   ];
 

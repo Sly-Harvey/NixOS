@@ -9,8 +9,7 @@
     "${modulesPath}/installer/cd-dvd/installation-cd-minimal.nix"
     inputs.home-manager.nixosModules.home-manager
     # ../../modules/hardware/nvidia.nix
-    # ../../modules/hardware/opengl.nix
-    ../../modules/desktop/hyprland # Enable Hyprland window manager
+    ../../modules/desktop/hyprland # Enable hyprland window manager
     #../../modules/programs/games
 
     ../../modules/programs/alacritty

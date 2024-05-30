@@ -2,14 +2,12 @@
   pkgs,
   username,
   hostname,
-  home-manager,
   ...
 }: {
   imports = [
     ../common.nix
-    ../../modules/hardware/nvidia.nix
-    ../../modules/hardware/opengl.nix
-    ../../modules/desktop/hyprland # Enable Hyprland window manager
+    ../../modules/hardware/nvidia.nix # Enable nvidia drivers
+    ../../modules/desktop/hyprland # Enable hyprland window manager
     ../../modules/programs/games
     ./hardware-configuration.nix
   ];
