@@ -5,7 +5,7 @@
   home-manager.users.${username} = _: {
     programs.mangohud = {
       enable = true;
-      enableSessionWide = true;
+      enableSessionWide = false;
       settingsPerApplication = {
         mpv = {
           no_display = true;

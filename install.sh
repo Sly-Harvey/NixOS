@@ -15,10 +15,10 @@ rm -rf ~/.gtkrc-*
 rm -rf ~/.config/gtk-*
 rm -rf ~/.config/cava
 
-# replace user variable in flake.nix with $USER
+# replace username variable in flake.nix with $USER
 sed -i -e 's/username = \".*\"/username = \"'$currentUser'\"/' $scriptdir/flake.nix
 
-rm -f $scriptdir/hosts/Default/hardware-configuration.nix &>/dev/null
+# rm -f $scriptdir/hosts/Default/hardware-configuration.nix &>/dev/null
 if ! cp $(find /etc/nixos -iname 'hardware-configuration.nix') $scriptdir/hosts/Default/hardware-configuration.nix; then
 	# Generate new config
 	clear
