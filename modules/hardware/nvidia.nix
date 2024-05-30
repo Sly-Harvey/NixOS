@@ -24,7 +24,7 @@
       nvidiaSettings = false;
       powerManagement.enable = false; # This can cause sleep/suspend to fail and saves entire VRAM to /tmp/
       modesetting.enable = true;
-      package = lib.mkDefault config.boot.kernelPackages.nvidiaPackages.latest;
+      package = lib.mkDefault config.boot.kernelPackages.nvidiaPackages.stable;
     };
     opengl = {
       enable = true;
