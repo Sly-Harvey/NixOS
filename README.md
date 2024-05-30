@@ -1,7 +1,7 @@
 <h1 align="center">
-   <img src="./assets/nixos-logo.png  " width="100px" /> 
+   <img src="assets/nixos-logo.png" width="110px" /> 
    <br>
-      My reproducible config for NixOS
+      An ordinary config for NixOS
    <br>
       <img src="https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/palette/macchiato.png" width="600px" /> <br>
    <div align="center">
@@ -27,17 +27,12 @@
    </div>
 </h1>
 
-![Screenshot](./assets/preview.png)
-
-> [!WARNING]
-> <p>Not Tested on amd GPUs and bios boot mode!<br>
+![Screenshot](assets/preview.png)
 
 # Install
 > [!Note]
-> <p>Default locale and timezone is British.<br>
-> If you want to change this then edit the variables in flake.nix.</p>
-
-Make sure to reboot after installing with any of the methods below.
+> <p>Default gpu drivers are nvidia.<br>
+> If you want to change this then edit the imports in ./hosts/Default/configuration.nix.</p>
 ## Using the install script
 ```bash
 nix run --experimental-features "nix-command flakes" nixpkgs#git clone https://github.com/Sly-Harvey/NixOS.git ~/NixOS
@@ -51,8 +46,8 @@ sudo ./install.sh
 ## Building manually
 > [!IMPORTANT]
 > <p>When building manually from the flake make sure to place your hardware-configuration.nix in hosts/Default/<br>
-> and CHANGE the username variable in flake.nix with your username!!<br>
-> then run the command below</p>
+> then change the username variable in flake.nix with your username!!<br>
+> afterwards run the command below</p>
 ```bash
 sudo nixos-rebuild switch --flake .#nixos
 ```
