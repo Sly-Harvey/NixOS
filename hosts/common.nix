@@ -242,7 +242,7 @@ in {
         "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
       ];
       experimental-features = ["nix-command" "flakes" "repl-flake"];
-      use-xdg-base-directories = true;
+      use-xdg-base-directories = false;
       warn-dirty = false;
       keep-outputs = true;
       keep-derivations = true;
