@@ -3,7 +3,10 @@
   pkgs,
   username,
   ...
-}: {
+}: let
+  sddm-themes = pkgs.callPackage ../modules/themes/sddm/themes.nix {};
+  scripts = pkgs.callPackage ../modules/scripts {};
+in {
   imports = [
     inputs.home-manager.nixosModules.home-manager
     ../modules/core
@@ -29,6 +32,11 @@
 
   # Common home-manager options that are shared between all systems.
   home-manager.users.${username} = {pkgs, ...}: {
+    home.username = username;
+    home.homeDirectory = "/home/${username}";
+
+    home.stateVersion = "23.11"; # Please read the comment before changing.
+
     # Packages that don't require configuration. If you're looking to configure a program see the /modules dir
     home.packages = with pkgs; [
       # Applications
@@ -41,6 +49,7 @@
       fd
       git
       gh
+      github-desktop
       htop
       jq
       lf
@@ -50,7 +59,12 @@
       ripgrep
       tldr
       unzip
+      (pkgs.writeShellScriptBin "hello" ''
+        echo "Hello ${username}!"
+      '')
     ];
+    # Let Home Manager install and manage itself.
+    programs.home-manager.enable = true;
   };
 
   # Filesystems support
@@ -173,26 +187,24 @@
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; let
-    sddm-themes = pkgs.callPackage ../modules/themes/sddm/themes.nix {};
-    scripts = pkgs.callPackage ../modules/scripts {};
-  in [
-    # System
+  environment.systemPackages = with pkgs; [
+    # Scripts
     scripts.tmux-sessionizer
     scripts.collect-garbage
-    sddm-themes.sugar-dark
+
+    # System
+    # sddm-themes.sugar-dark
     sddm-themes.astronaut
-    sddm-themes.tokyo-night
-    adwaita-qt
-    bibata-cursors
+    # sddm-themes.tokyo-night
+    # adwaita-qt
+    # bibata-cursors
     libsForQt5.qt5.qtgraphicaleffects # For sddm to function properly
-    polkit
-    libsForQt5.polkit-kde-agent
+    # polkit
+    # libsForQt5.polkit-kde-agent
 
     # Development
     devbox # faster nix-shells
     shellify # faster nix-shells
-    github-desktop
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
