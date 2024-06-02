@@ -26,7 +26,7 @@
 
   outputs = {nixpkgs, ...} @ inputs: let
 
-    username = "''"; # REPLACE THIS WITH YOUR USERNAME!!! (if manually installing, this is Required.)
+    username = "harvey"; # REPLACE THIS WITH YOUR USERNAME!!! (if manually installing, this is Required.)
 
     system = "x86_64-linux"; # REPLACE THIS WITH YOUR ARCHITECTURE (Rarely need to)
     locale = "en_GB.UTF-8"; # REPLACE THIS WITH YOUR LOCALE
