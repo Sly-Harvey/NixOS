@@ -20,16 +20,16 @@ sed -i -e 's/username = \".*\"/username = \"'$currentUser'\"/' "$scriptdir/flake
 
 # rm -f $scriptdir/hosts/Default/hardware-configuration.nix &>/dev/null
 if [ -f "/etc/nixos/hardware-configuration.nix" ]; then
-	cp "/etc/nixos/hardware-configuration.nix" "$scriptdir/hosts/Default/hardware-configuration.nix"
-	cp "/etc/nixos/hardware-configuration.nix" "$scriptdir/hosts/Desktop/hardware-configuration.nix"
-	cp "/etc/nixos/hardware-configuration.nix" "$scriptdir/hosts/Laptop/hardware-configuration.nix"
+	cat "/etc/nixos/hardware-configuration.nix" > "$scriptdir/hosts/Default/hardware-configuration.nix"
+	cat "/etc/nixos/hardware-configuration.nix" > "$scriptdir/hosts/Desktop/hardware-configuration.nix"
+	cat "/etc/nixos/hardware-configuration.nix" > "$scriptdir/hosts/Laptop/hardware-configuration.nix"
 else
 	# Generate new config
 	clear
 	nix-shell --command "echo GENERATING CONFIG! | figlet -cklno | lolcat -F 0.3 -p 2.5 -S 300"
-	sudo nixos-generate-config --show-hardware-config | sudo tee "$scriptdir/hosts/Default/hardware-configuration.nix"
-	sudo nixos-generate-config --show-hardware-config | sudo tee "$scriptdir/hosts/Desktop/hardware-configuration.nix"
-	sudo nixos-generate-config --show-hardware-config | sudo tee "$scriptdir/hosts/Laptop/hardware-configuration.nix"
+	sudo nixos-generate-config --show-hardware-config > "$scriptdir/hosts/Default/hardware-configuration.nix"
+	sudo nixos-generate-config --show-hardware-config > "$scriptdir/hosts/Desktop/hardware-configuration.nix"
+	sudo nixos-generate-config --show-hardware-config > "$scriptdir/hosts/Laptop/hardware-configuration.nix"
 fi
 
 nix-shell --command "git -C $scriptdir add *"

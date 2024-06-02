@@ -32,11 +32,11 @@
       },
       "locked": {
         "dir": "pkgs/firefox-addons",
-        "lastModified": 1717301009,
-        "narHash": "sha256-CO5JVBEaw6rcOZwY3OADwSNqSjPzZjWM3yUzHU2Teic=",
+        "lastModified": 1717316653,
+        "narHash": "sha256-91VBjCb9A5Sv1N7LpBg0OzTG0DKpvXVAnIT01Ba4lOw=",
         "owner": "rycee",
         "repo": "nur-expressions",
-        "rev": "f40925e507e7719980cacf554873eb2c25f44fc9",
+        "rev": "29a3b4c8d5f21dcb359a91d88fd94ae4aa3e6a47",
         "type": "gitlab"
       },
       "original": {
@@ -524,11 +524,11 @@
     },
     "nur": {
       "locked": {
-        "lastModified": 1717311268,
-        "narHash": "sha256-mzonxQobUAAWrllsBuAut53c3DesE4rG9ptArADPhAs=",
+        "lastModified": 1717327691,
+        "narHash": "sha256-bkYQsoQTLckK7bSTIakgWTdljp9JMPY9gkG7uZrxZ58=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "5228189c61f2fe1c0f3f99634eb28cc5ffc05c37",
+        "rev": "7f8d9720afb627dd4ec4ebabdeabc40eef1a3ff8",
         "type": "github"
       },
       "original": {

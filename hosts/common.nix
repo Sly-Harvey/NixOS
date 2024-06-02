@@ -52,7 +52,6 @@ in {
       github-desktop
       htop
       jq
-      lf
       #lolcat
       nix-prefetch-scripts
       neofetch
