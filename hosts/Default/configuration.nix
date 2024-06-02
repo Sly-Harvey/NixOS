@@ -22,9 +22,9 @@
       #steam
     ];
 
-    home.sessionVariables = {
-      # EDITOR = "emacs";
-    };
+    /* home.sessionVariables = {
+      EDITOR = "emacs";
+    }; */
   };
 
   networking.hostName = "nixos"; # Define your hostname.

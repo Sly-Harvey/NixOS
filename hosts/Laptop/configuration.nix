@@ -60,9 +60,9 @@
       #steam
     ];
 
-    home.sessionVariables = {
-      # EDITOR = "emacs";
-    };
+    /* home.sessionVariables = {
+      EDITOR = "emacs";
+    }; */
   };
 
   networking.hostName = hostname; # Define your hostname.
