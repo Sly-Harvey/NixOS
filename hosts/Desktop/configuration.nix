@@ -12,28 +12,57 @@
     ./hardware-configuration.nix
   ];
 
+  fileSystems."/mnt/seagate" = {
+    device = "/dev/disk/by-uuid/E212-7894";
+    fsType = "auto";
+    options = [
+      "X-mount.mkdir"
+      "nofail"
+      "async"
+      # "auto"
+      "rw"
+      "exec"
+      "user"
+      "uid=1000"
+      "gid=100"
+      "umask=000"
+      # "dev"
+      # "suid"
+      "x-gvfs-show"
+      "x-systemd.automount"
+      "x-systemd.mount-timeout=5"
+    ];
+  };
+
+  fileSystems."/mnt/games" = {
+    device = "/dev/disk/by-uuid/01DA12C1CBDE9100";
+    fsType = "lowntfs-3g";
+    options = [
+      "X-mount.mkdir"
+      "nofail"
+      "async"
+      "rw"
+      "exec"
+      "user"
+      "uid=1000"
+      "gid=100"
+      "umask=000"
+      "x-gvfs-show"
+      "x-systemd.mount-timeout=5"
+    ];
+  };
+
   # Home-manager config
   home-manager.users.${username} = {
-    home.username = username;
-    home.homeDirectory = "/home/${username}";
-
-    home.stateVersion = "23.11"; # Please read the comment before changing.
-
     home.packages = with pkgs; [
       #vim
       #krita
       #steam
-      (pkgs.writeShellScriptBin "hello" ''
-        echo "Hello ${username}!"
-      '')
     ];
 
     home.sessionVariables = {
       # EDITOR = "emacs";
     };
-
-    # Let Home Manager install and manage itself.
-    programs.home-manager.enable = true;
   };
 
   networking.hostName = hostname; # Define your hostname.

@@ -8,6 +8,7 @@
   imports = [
     ../common.nix
     ../../modules/hardware/nvidia.nix # Enable nvidia drivers
+    # ../../modules/hardware/amdgpu.nix # Enable amdgpu drivers
     ../../modules/desktop/hyprland # Enable hyprland window manager
     #../../modules/programs/games
     ./hardware-configuration.nix
@@ -15,26 +16,15 @@
 
   # Home-manager config
   home-manager.users.${username} = {
-    home.username = username;
-    home.homeDirectory = "/home/${username}";
-
-    home.stateVersion = "23.11"; # Please read the comment before changing.
-
     home.packages = with pkgs; [
       #vim
       #krita
       #steam
-      (pkgs.writeShellScriptBin "hello" ''
-        echo "Hello ${username}!"
-      '')
     ];
 
     home.sessionVariables = {
       # EDITOR = "emacs";
     };
-
-    # Let Home Manager install and manage itself.
-    programs.home-manager.enable = true;
   };
 
   networking.hostName = "nixos"; # Define your hostname.
