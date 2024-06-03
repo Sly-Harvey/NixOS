@@ -49,5 +49,5 @@ sudo ./install.sh
 > then change the username variable in flake.nix with your username!!<br>
 > afterwards run the command below</p>
 ```bash
-sudo nixos-rebuild switch --flake .#nixos
+sudo nixos-rebuild switch --flake .#Default
 ```
