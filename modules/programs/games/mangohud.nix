@@ -1,11 +1,17 @@
 {
+  pkgs,
   username,
   ...
 }: {
+  # Make mangohud work with every game
+  hardware.opengl = {
+    extraPackages = with pkgs; [mangohud];
+    extraPackages32 = with pkgs; [mangohud];
+  };
   home-manager.users.${username} = _: {
     programs.mangohud = {
       enable = true;
-      enableSessionWide = false;
+      enableSessionWide = true;
       settingsPerApplication = {
         mpv = {
           no_display = true;

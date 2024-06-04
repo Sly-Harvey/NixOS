@@ -3,7 +3,9 @@
   pkgs,
   config,
   ...
-}: {
+}: let
+  nvidiaDriverChannel = config.boot.kernelPackages.nvidiaPackages.beta;
+in {
   # Load nvidia driver for Xorg and Wayland
   services.xserver.videoDrivers = ["nvidia"]; # or "nvidiaLegacy470 etc.
   boot.kernelParams = lib.optionals (lib.elem "nvidia" config.services.xserver.videoDrivers) [
@@ -24,16 +26,21 @@
       nvidiaSettings = false;
       powerManagement.enable = false; # This can cause sleep/suspend to fail and saves entire VRAM to /tmp/
       modesetting.enable = true;
-      package = lib.mkDefault config.boot.kernelPackages.nvidiaPackages.stable;
+      package = nvidiaDriverChannel;
     };
     opengl = {
       enable = true;
+      package = nvidiaDriverChannel;
       driSupport = true;
       driSupport32Bit = true;
       extraPackages = with pkgs; [
         nvidia-vaapi-driver
         vaapiVdpau
         libvdpau-va-gl
+
+        vulkan-loader
+        vulkan-validation-layers
+        vulkan-extension-layer
       ];
     };
   };

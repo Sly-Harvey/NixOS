@@ -190,6 +190,7 @@ in {
     # Scripts
     scripts.tmux-sessionizer
     scripts.collect-garbage
+    scripts.gpuinfo
 
     # System
     # sddm-themes.sugar-dark
@@ -200,6 +201,7 @@ in {
     libsForQt5.qt5.qtgraphicaleffects # For sddm to function properly
     # polkit
     # libsForQt5.polkit-kde-agent
+    vulkan-tools
 
     # Development
     devbox # faster nix-shells

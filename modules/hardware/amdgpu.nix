@@ -21,6 +21,10 @@
       vdpauinfo
       rocm-opencl-icd
       rocm-opencl-runtime
+
+      vulkan-loader
+      vulkan-validation-layers
+      vulkan-extension-layer
     ];
     extraPackages32 = with pkgs; [driversi686Linux.amdvlk];
   };
