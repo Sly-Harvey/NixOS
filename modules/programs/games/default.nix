@@ -1,9 +1,9 @@
 {...}: {
   imports = [
     ./gamemode.nix
-    ./mangohud.nix
     ./steam.nix
     ./lutris.nix
+    ./mangohud.nix
     # ./prismlauncher.nix
   ];
 }

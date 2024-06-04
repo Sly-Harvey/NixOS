@@ -7,12 +7,16 @@
     enable = true;
     driSupport = true;
     driSupport32Bit = true;
+
     extraPackages = with pkgs; [
       vulkan-loader
       vulkan-validation-layers
       vulkan-extension-layer
     ];
   };
+  environment.systemPackages = with pkgs; [
+    steam-run
+  ];
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true;
@@ -23,5 +27,7 @@
   nixpkgs.config.allowUnfreePredicate = pkg:
     builtins.elem (lib.getName pkg) [
       "steam"
+      "steam-original"
+      "steam-run"
     ];
 }
