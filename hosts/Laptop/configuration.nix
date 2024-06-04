@@ -17,36 +17,35 @@
     fsType = "auto";
     options = [
       "X-mount.mkdir"
-      "nofail"
-      "async"
-      # "auto"
-      "rw"
-      "exec"
-      "user"
       "uid=1000"
       "gid=100"
+      "noatime"
+      "rw"
+      "user"
+      "exec"
       "umask=000"
-      # "dev"
-      # "suid"
+      "nofail"
+      # "auto"
       "x-gvfs-show"
-      "x-systemd.automount"
+      # "x-systemd.automount"
       "x-systemd.mount-timeout=5"
     ];
   };
 
   fileSystems."/mnt/games" = {
     device = "/dev/disk/by-uuid/01DA12C1CBDE9100";
-    fsType = "lowntfs-3g";
+    fsType = "ntfs";
     options = [
       "X-mount.mkdir"
-      "nofail"
-      "async"
-      "rw"
-      "exec"
-      "user"
       "uid=1000"
       "gid=100"
+      "noatime"
+      "rw"
+      "user"
+      "exec"
       "umask=000"
+      "nofail"
+      # "async"
       "x-gvfs-show"
       "x-systemd.mount-timeout=5"
     ];
@@ -60,9 +59,11 @@
       #steam
     ];
 
-    /* home.sessionVariables = {
+    /*
+       home.sessionVariables = {
       EDITOR = "emacs";
-    }; */
+    };
+    */
   };
 
   networking.hostName = hostname; # Define your hostname.

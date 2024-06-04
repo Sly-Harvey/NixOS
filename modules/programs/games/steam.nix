@@ -3,10 +3,16 @@
   lib,
   ...
 }: {
-  # hardware.opengl.driSupport32Bit = true;
-  imports = [
-    ../../hardware/opengl.nix
-  ];
+  hardware.opengl = {
+    enable = true;
+    driSupport = true;
+    driSupport32Bit = true;
+    extraPackages = with pkgs; [
+      vulkan-loader
+      vulkan-validation-layers
+      vulkan-extension-layer
+    ];
+  };
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true;
