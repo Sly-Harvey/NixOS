@@ -158,10 +158,10 @@ in {
   services.libinput.enable = true;
 
   # Default user when using: sudo nixos-rebuild build-vm
-  users.users.nixosvmtest.isNormalUser = true;
-  users.users.nixosvmtest.initialPassword = "vm";
-  users.users.nixosvmtest.group = "nixosvmtest";
-  users.groups.nixosvmtest = {};
+  # users.users.nixosvmtest.isNormalUser = true;
+  # users.users.nixosvmtest.initialPassword = "vm";
+  # users.users.nixosvmtest.group = "nixosvmtest";
+  # users.groups.nixosvmtest = {};
 
   # Default shell
   programs.zsh.enable = true;
@@ -190,7 +190,8 @@ in {
     # Scripts
     scripts.tmux-sessionizer
     scripts.collect-garbage
-    scripts.gpuinfo
+    scripts.driverinfo
+    scripts.underwatt
 
     # System
     # sddm-themes.sugar-dark

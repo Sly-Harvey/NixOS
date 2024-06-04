@@ -73,6 +73,10 @@
     extraGroups = [
       "networkmanager"
       "wheel"
+      "kvm"
+      "input"
+      "disk"
+      "libvirtd"
       "video"
       "audio"
     ];
