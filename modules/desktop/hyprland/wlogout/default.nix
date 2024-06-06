@@ -29,19 +29,19 @@
         }
         {
           label = "shutdown";
-          action = "poweroff";
+          action = "systemctl poweroff";
           text = "Shutdown";
           keybind = "s";
         }
         {
           label = "suspend";
-          action = "suspend";
+          action = "systemctl suspend";
           text = "Suspend";
           keybind = "u";
         }
         {
           label = "reboot";
-          action = "reboot";
+          action = "systemctl reboot";
           text = "Reboot";
           keybind = "r";
         }
