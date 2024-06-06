@@ -1,89 +1,112 @@
 {
+  pkgs,
   username,
   ...
 }: {
   home-manager.users.${username} = _: {
-    programs.wlogout.enable = true;
-    #home.file.".config/wlogout/icons" = {
-    #	source = ./icons;
-    #	recursive = true;
-    #};
+    xdg.configFile."wlogout/icons".source = ./icons;
+    programs.wlogout = {
+      enable = true;
+      layout = [
+        # {
+        #   label = "lock";
+        #   action = "${pkgs.hyprlock}/bin/hyprlock";
+        #   text = "Lock";
+        #   keybind = "l";
+        # }
+        # {
+        #   label = "hibernate";
+        #   action = "systemctl hibernate";
+        #   text = "Hibernate";
+        #   keybind = "h";
+        # }
+        {
+          label = "logout";
+          action = "hyprctl dispatch exit 0";
+          # action = "killall -9 Hyprland sleep 2";
+          text = "Exit";
+          keybind = "e";
+        }
+        {
+          label = "shutdown";
+          action = "poweroff";
+          text = "Shutdown";
+          keybind = "s";
+        }
+        {
+          label = "suspend";
+          action = "suspend";
+          text = "Suspend";
+          keybind = "u";
+        }
+        {
+          label = "reboot";
+          action = "reboot";
+          text = "Reboot";
+          keybind = "r";
+        }
+      ];
+      style = ''
+        window {
+          font-family: monospace;
+          font-size: 14pt;
+          color: #cdd6f4; /* text */
+          background-color: rgba(30, 30, 46, 0.5);
+        }
 
-    home.file.".config/wlogout/layout".text = ''
-      {
-      	"label" : "shutdown",
-      		"action" : "poweroff",
-      		"text" : "󰐥",
-      		"keybind" : "s"
-      }
-      {
-      	"label" : "reboot",
-      		"action" : "reboot",
-      		"text" : "󰑓",
-      		"keybind" : "r"
-      }
-      {
-      	"label" : "logout",
-      		"action" : "hyprctl dispatch exit 0",
-      		"text" : "󰗼",
-      		"keybind" : "l"
-      }
-    '';
-    home.file.".config/wlogout/style.css".text = ''
-      		@define-color fg #ebdbb2;
-      	@define-color bg #1d2021;
+        button {
+          background-repeat: no-repeat;
+          background-position: center;
+          background-size: 25%;
+          border: none;
+          background-color: rgba(30, 30, 46, 0);
+          margin: 5px;
+          transition: box-shadow 0.2s ease-in-out, background-color 0.2s ease-in-out;
+        }
 
-      	@define-color black #282828;
-      	@define-color red #cc241d;
-      	@define-color green #b8bb26;
-      	@define-color yellow #fabd2f;
-      	@define-color blue #83a598;
-      	@define-color purple #d3869b;
-      	@define-color aqua #8ec07c;
-      	@define-color orange #fe8019;
+        button:hover {
+          background-color: rgba(49, 50, 68, 0.1);
+        }
 
-      	window {
-      		background-color: rgba(40, 40, 40, 0.5);
-      		font-family: Sauce Code Pro NF;
-      		font-size: 80px;
-      	}
+        button:focus {
+          background-color: #cba6f7;
+          color: #1e1e2e;
+        }
+        #lock {
+          background-image: image(url("icons/lock.png"));
+        }
+        #lock:focus {
+          background-image: image(url("icons/lock-hover.png"));
+        }
 
-      	grid {
-      		border-radius: 30px;
-      margin: 200px 400px;
-      padding: 10px;
-      	 background-color: @bg;
-      	}
+        #logout {
+          background-image: image(url("icons/logout.png"));
+        }
+        #logout:focus {
+          background-image: image(url("icons/logout-hover.png"));
+        }
 
-      	button {
-      		border-radius: 20px;
-      		border-width: 3px;
-      		border-color: @black;
-      		outline-style: none;
-      margin: 10px;
-      padding: 40px;
-      	 background-repeat: no-repeat;
-      	 background-size: 0%;
-      	 background-position: center;
-      	 background-color: @black;
-      	}
+        #suspend {
+          background-image: image(url("icons/sleep.png"));
+        }
+        #suspend:focus {
+          background-image: image(url("icons/sleep-hover.png"));
+        }
 
-      button:focus,
-      	       button:active {
-      		       border-color: @color;
-      	       }
+        #shutdown {
+          background-image: image(url("icons/power.png"));
+        }
+        #shutdown:focus {
+          background-image: image(url("icons/power-hover.png"));
+        }
 
-      #shutdown {
-      color: @red;
-      }
-
-      #reboot {
-      color: @blue;
-      }
-
-      #logout {
-      color: @green;
-      }
-    '';
+        #reboot {
+          background-image: image(url("icons/restart.png"));
+        }
+        #reboot:focus {
+          background-image: image(url("icons/restart-hover.png"));
+        }
+      '';
+    };
   };
 }
