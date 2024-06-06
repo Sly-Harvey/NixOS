@@ -331,7 +331,7 @@
         bind = $mainMod SHIFT, G, togglegroup # toggle the window on focus to float
         bind = ALT, return, fullscreen # toggle the window on focus to fullscreen
         #bind = $mainMod ALT, L, exec, swaylock # lock screen
-        bind = $mainMod, backspace, exec, wlogout # logout menu
+        bind = $mainMod, backspace, exec, wlogout -b 4 # logout menu
         bind = $CONTROL, ESCAPE, exec, killall waybar || waybar # toggle waybar
 
         bind = $mainMod, Return, exec, $term
