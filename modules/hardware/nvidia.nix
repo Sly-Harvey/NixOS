@@ -23,7 +23,7 @@ in {
   hardware = {
     nvidia = {
       open = false;
-      nvidiaSettings = true;
+      nvidiaSettings = false;
       powerManagement.enable = false; # This can cause sleep/suspend to fail and saves entire VRAM to /tmp/
       modesetting.enable = true;
       package = nvidiaDriverChannel;
