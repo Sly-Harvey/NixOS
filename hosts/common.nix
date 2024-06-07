@@ -75,6 +75,7 @@ in {
   # Bootloader.
   boot = {
     tmp.cleanOnBoot = true;
+    kernelPackages = pkgs.linuxPackages_latest; # _zen, _hardened, _rt, _rt_latest, etc.
     loader = {
       efi.canTouchEfiVariables = true;
       efi.efiSysMountPoint = "/boot";

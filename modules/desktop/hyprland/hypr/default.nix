@@ -74,9 +74,7 @@
         # }
 
         # Monitor
-        monitor=HDMI-A-2,1920x1080@60.0,1920x0,1.0
-        # monitor=HDMI-A-2,disable
-        monitor=HDMI-A-1,1920x1080@60.0,0x0,1.0
+        monitor=,preferred,auto,1
 
         # Autostart
         exec-once = pamixer --set-volume 40
@@ -143,7 +141,7 @@
             col.inactive_border = rgba(b4befecc) rgba(6c7086cc) 45deg
             resize_on_border = true
             layout = master # dwindle or master
-            #allow_tearing = true
+            # allow_tearing = true # Allow tearing for games (use immediate window rules for specific games or all titles)
         }
 
         group {
