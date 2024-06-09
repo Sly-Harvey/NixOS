@@ -28,6 +28,7 @@ in {
     ../modules/programs/cli/btop
     ../modules/programs/misc/mpv
     ../modules/programs/misc/spicetify
+    ../modules/programs/misc/obs
   ];
 
   # Common home-manager options that are shared between all systems.
