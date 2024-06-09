@@ -7,7 +7,7 @@
 }: {
   imports = [
     ../common.nix
-    ../../modules/hardware/nvidia.nix # Enable nvidia drivers
+    ../../modules/hardware/nvidia.nix # Enable nvidia proprietary drivers
     # ../../modules/hardware/amdgpu.nix # Enable amdgpu drivers
     ../../modules/desktop/hyprland # Enable hyprland window manager
     #../../modules/programs/games
