@@ -4,7 +4,7 @@
   config,
   ...
 }: let
-  nvidiaDriverChannel = config.boot.kernelPackages.nvidiaPackages.beta;
+  nvidiaDriverChannel = config.boot.kernelPackages.nvidiaPackages.beta; # stable, latest, etc.
 in {
   # Load nvidia driver for Xorg and Wayland
   services.xserver.videoDrivers = ["nvidia"]; # or "nvidiaLegacy470 etc.
@@ -19,7 +19,15 @@ in {
     LIBVA_DRIVER_NAME = "nvidia"; # hardware acceleration
     __GLX_VENDOR_LIBRARY_NAME = "nvidia";
   };
-  nixpkgs.config.nvidia.acceptLicense = true;
+  nixpkgs.config = {
+    nvidia.acceptLicense = true;
+    allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+      "cudatoolkit"
+      "nvidia-persistenced"
+      "nvidia-settings"
+      "nvidia-x11"
+    ];
+  };
   hardware = {
     nvidia = {
       open = false;

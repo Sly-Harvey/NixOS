@@ -36,7 +36,8 @@
       swaynotificationcenter
       waybar
       wlsunset
-      # wl-clipboard
+      wtype
+      wl-clipboard
     ];
 
     home.file.".config/hypr/scripts" = {
@@ -61,7 +62,7 @@
       xwayland.enable = true;
       extraConfig = ''
         $scriptsDir = $HOME/.local/bin
-        $hyprScriptsDir = $HOME/.config/hypr/scripts
+        $hyprScriptsDir = $XDG_CONFIG_HOME/hypr/scripts
 
         # plugin {
         #   overview {
@@ -134,8 +135,8 @@
         }
 
         general {
-            gaps_in = 3
-            gaps_out = 8
+            gaps_in = 4
+            gaps_out = 9
             border_size = 2
             col.active_border = rgba(ca9ee6ff) rgba(f2d5cfff) 45deg
             col.inactive_border = rgba(b4befecc) rgba(6c7086cc) 45deg
@@ -308,8 +309,9 @@
         windowrulev2 = float,class:^(org.kde.polkit-kde-authentication-agent-1)$
 
         $mainMod = SUPER
-        $launcher = pkill rofi || rofi -show drun -modi drun,filebrowser,run,window -theme ~/.config/rofi/launchers/type-2/style-2.rasi
-        $term = alacritty
+        # $launcher = pkill rofi || rofi -show drun -modi drun,filebrowser,run,window -theme $XDG_CONFIG_HOME/rofi/launchers/type-2/style-2.rasi
+        $launcher = pkill rofi || rofi -show drun -modi drun,filebrowser,run,window -theme $XDG_CONFIG_HOME/rofi/launchers/type-4/style-3.rasi
+        $term = "${pkgs.alacritty}/bin/alacritty"
         $editor = code --disable-gpu
         $file = $term -e lf
         $browser = firefox
@@ -322,8 +324,8 @@
         # bind = $mainMod, tab, overview:toggle
 
         # Window/Session actions
-        bind = $mainMod, Q, exec, ~/.config/hypr/scripts/dontkillsteam.sh # killactive, kill the window on focus
-        bind = ALT, F4, exec, ~/.config/hypr/scripts/dontkillsteam.sh # killactive, kill the window on focus
+        bind = $mainMod, Q, exec, $hyprScriptsDir/dontkillsteam.sh # killactive, kill the window on focus
+        bind = ALT, F4, exec, $hyprScriptsDir/dontkillsteam.sh # killactive, kill the window on focus
         bind = $mainMod, delete, exit # kill hyperland session
         bind = $mainMod, W, togglefloating # toggle the window on focus to float
         bind = $mainMod SHIFT, G, togglegroup # toggle the window on focus to float
@@ -340,8 +342,9 @@
         bind = $CONTROL ALT, DELETE, exec, $term -e "${pkgs.btop}/bin/btop"
 
         bind = $mainMod, A, exec, pkill -x rofi || $launcher # launch desktop applications
-        #bind = $mainMod, tab, exec, pkill -x rofi || ~/.config/hypr/scripts/rofilaunch.sh w # switch between desktop applications
-        bind = $mainMod, R, exec, pkill -x rofi || ~/.config/hypr/scripts/rofilaunch.sh f # browse system files
+        bind = $mainMod, Z, exec, $hyprScriptsDir/emoji.sh # launch emoji picker
+        #bind = $mainMod, tab, exec, pkill -x rofi || $hyprScriptsDir/rofilaunch.sh w # switch between desktop applications
+        bind = $mainMod, R, exec, pkill -x rofi || $hyprScriptsDir/rofilaunch.sh f # browse system files
         bind = $mainMod SHIFT, W, exec, $hyprScriptsDir/WallpaperSelect.sh # Select wallpaper to apply
         bind = $mainMod ALT, K, exec, $hyprScriptsDir/keyboardswitch.sh # change keyboard layout
         bind = $mainMod SHIFT, N, exec, swaync-client -t -sw # swayNC panel
