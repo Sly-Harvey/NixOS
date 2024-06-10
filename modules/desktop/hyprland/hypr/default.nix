@@ -342,7 +342,7 @@
         bind = $CONTROL ALT, DELETE, exec, $term -e "${pkgs.btop}/bin/btop"
 
         bind = $mainMod, A, exec, pkill -x rofi || $launcher # launch desktop applications
-        bind = $mainMod, Z, exec, $hyprScriptsDir/emoji.sh # launch emoji picker
+        bind = $mainMod, Z, exec, pkill -x rofi || $hyprScriptsDir/emoji.sh # launch emoji picker
         #bind = $mainMod, tab, exec, pkill -x rofi || $hyprScriptsDir/rofilaunch.sh w # switch between desktop applications
         bind = $mainMod, R, exec, pkill -x rofi || $hyprScriptsDir/rofilaunch.sh f # browse system files
         bind = $mainMod SHIFT, W, exec, $hyprScriptsDir/WallpaperSelect.sh # Select wallpaper to apply
