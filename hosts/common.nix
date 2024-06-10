@@ -107,8 +107,10 @@ in {
     #sudo.wheelNeedsPassword = false;
   };
 
-  xdg.portal.enable = true;
-  xdg.portal.configPackages = [pkgs.xdg-desktop-portal-gtk];
+  xdg.portal = {
+    enable = true;
+    configPackages = with pkgs; [xdg-desktop-portal-gtk];
+  };
 
   # Enable dconf for home-manager
   programs.dconf.enable = true;
@@ -148,6 +150,7 @@ in {
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
+    wireplumber.enable = true;
     # If you want to use JACK applications, uncomment this
     #jack.enable = true;
 

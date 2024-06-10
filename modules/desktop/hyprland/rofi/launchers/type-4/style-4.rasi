@@ -95,7 +95,7 @@ inputbar {
     border-color:                @border-colour;
     background-color:            @background-colour;
     text-color:                  @foreground-colour;
-    children:                    [ "prompt", "entry" ];
+    children:                    [ "textbox-prompt-colon", "entry" ];
 }
 
 prompt {
@@ -106,7 +106,7 @@ prompt {
 textbox-prompt-colon {
     enabled:                     true;
     expand:                      false;
-    str:                         "::";
+    str:                         " ";
     background-color:            inherit;
     text-color:                  inherit;
 }
@@ -115,7 +115,7 @@ entry {
     background-color:            inherit;
     text-color:                  inherit;
     cursor:                      text;
-    placeholder:                 "";
+    placeholder:                 "Search Emojis...";
     placeholder-color:           inherit;
 }
 

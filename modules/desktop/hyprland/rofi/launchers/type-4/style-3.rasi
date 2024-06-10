@@ -76,7 +76,7 @@ mainbox {
     enabled:                     true;
     spacing:                     10px;
     margin:                      0px;
-    padding:                     50px;
+    padding:                     20px;
     border:                      0px solid;
     border-radius:               0px 0px 0px 0px;
     border-color:                @border-colour;
@@ -95,7 +95,7 @@ inputbar {
     border-color:                @border-colour;
     background-color:            @background-colour;
     text-color:                  @foreground-colour;
-    children:                    [ "prompt", "entry" ];
+    children:                    [ "textbox-prompt-colon", "entry" ];
 }
 
 prompt {
@@ -106,7 +106,7 @@ prompt {
 textbox-prompt-colon {
     enabled:                     true;
     expand:                      false;
-    str:                         "::";
+    str:                         " ";
     background-color:            inherit;
     text-color:                  inherit;
 }
@@ -115,7 +115,7 @@ entry {
     background-color:            inherit;
     text-color:                  inherit;
     cursor:                      text;
-    placeholder:                 "Search Music...";
+    placeholder:                 "Search Applications...";
     placeholder-color:           inherit;
 }
 
