@@ -2,6 +2,7 @@
   inputs,
   pkgs,
   username,
+  terminal,
   ...
 }: let
   sddm-themes = pkgs.callPackage ../modules/themes/sddm/themes.nix {};
@@ -9,11 +10,10 @@
 in {
   imports = [
     inputs.home-manager.nixosModules.home-manager
-    ../modules/core
-    ../modules/hardware/opengl.nix
+    ../modules/hardware/video/opengl.nix
+    ../modules/hardware/drives # Will still boot if these these drives are not found
 
-    ../modules/programs/terminal/alacritty
-    ../modules/programs/terminal/kitty
+    ../modules/programs/terminal/${terminal}
     ../modules/programs/shell/bash
     ../modules/programs/shell/zsh
     ../modules/programs/browser/firefox
@@ -33,6 +33,7 @@ in {
 
   # Common home-manager options that are shared between all systems.
   home-manager.users.${username} = {pkgs, ...}: {
+    xdg.enable = true;
     home.username = username;
     home.homeDirectory = "/home/${username}";
 
@@ -151,22 +152,10 @@ in {
     alsa.support32Bit = true;
     pulse.enable = true;
     wireplumber.enable = true;
-    # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
-
-    # use the example session manager (no others are packaged yet so this is enabled by default,
-    # no need to redefine it in your config for now)
-    #media-session.enable = true;
   };
 
   # Enable touchpad support (enabled default in most desktopManager).
   services.libinput.enable = true;
-
-  # Default user when using: sudo nixos-rebuild build-vm
-  # users.users.nixosvmtest.isNormalUser = true;
-  # users.users.nixosvmtest.initialPassword = "vm";
-  # users.users.nixosvmtest.group = "nixosvmtest";
-  # users.groups.nixosvmtest = {};
 
   # Default shell
   programs.zsh.enable = true;
@@ -187,6 +176,16 @@ in {
     overlays = [
       inputs.nur.overlay
     ];
+  };
+
+  environment.sessionVariables = {
+    # These are the defaults, and xdg.enable does set them, but due to load
+    # order, they're not set before environment.variables are set, which could
+    # cause race conditions.
+    XDG_CACHE_HOME = "$HOME/.cache";
+    XDG_CONFIG_HOME = "$HOME/.config";
+    XDG_DATA_HOME = "$HOME/.local/share";
+    XDG_BIN_HOME = "$HOME/.local/bin";
   };
 
   # List packages installed in system profile. To search, run:

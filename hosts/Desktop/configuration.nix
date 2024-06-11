@@ -2,55 +2,20 @@
   pkgs,
   username,
   hostname,
+  locale,
+  terminal,
+  timezone,
   ...
 }: {
   imports = [
     ../common.nix
-    ../../modules/hardware/nvidia.nix # Enable nvidia proprietary drivers
-    # ../../modules/hardware/amdgpu.nix # Enable amdgpu drivers
     ../../modules/desktop/hyprland # Enable hyprland window manager
     ../../modules/programs/games
+
+    ../../modules/hardware/video/nvidia.nix # Enable nvidia proprietary drivers
+    # ../../modules/hardware/video/amdgpu.nix # Enable amdgpu drivers
     ./hardware-configuration.nix
   ];
-
-  fileSystems."/mnt/seagate" = {
-    device = "/dev/disk/by-uuid/E212-7894";
-    fsType = "auto";
-    options = [
-      "X-mount.mkdir"
-      "uid=1000"
-      "gid=100"
-      "noatime"
-      "rw"
-      "user"
-      "exec"
-      "umask=000"
-      "nofail"
-      # "auto"
-      "x-gvfs-show"
-      # "x-systemd.automount"
-      "x-systemd.mount-timeout=5"
-    ];
-  };
-
-  fileSystems."/mnt/games" = {
-    device = "/dev/disk/by-uuid/01DA12C1CBDE9100";
-    fsType = "lowntfs-3g";
-    options = [
-      "X-mount.mkdir"
-      "uid=1000"
-      "gid=100"
-      "noatime"
-      "rw"
-      "user"
-      "exec"
-      "umask=000"
-      "nofail"
-      # "async"
-      "x-gvfs-show"
-      "x-systemd.mount-timeout=5"
-    ];
-  };
 
   # Home-manager config
   home-manager.users.${username} = {
@@ -59,11 +24,21 @@
       #krita
       #steam
     ];
-
-    /* home.sessionVariables = {
-      EDITOR = "emacs";
-    }; */
+    home.sessionVariables = {
+      EDITOR = "nvim";
+      BROWSER = "firefox";
+      TERMINAL = terminal;
+    };
   };
+
+  environment.systemPackages = with pkgs; [
+    # Applications
+    godot_4
+    unityhub
+    gimp
+    gparted
+    krita
+  ];
 
   networking.hostName = hostname; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -75,22 +50,19 @@
   # Enable networking
   networking.networkmanager.enable = true;
 
-  # Set your time zone.
-  time.timeZone = "Europe/London";
-
-  # Select internationalisation properties.
-  i18n.defaultLocale = "en_GB.UTF-8";
-
+  # Timezone and locale
+  time.timeZone = timezone;
+  i18n.defaultLocale = locale;
   i18n.extraLocaleSettings = {
-    LC_ADDRESS = "en_GB.UTF-8";
-    LC_IDENTIFICATION = "en_GB.UTF-8";
-    LC_MEASUREMENT = "en_GB.UTF-8";
-    LC_MONETARY = "en_GB.UTF-8";
-    LC_NAME = "en_GB.UTF-8";
-    LC_NUMERIC = "en_GB.UTF-8";
-    LC_PAPER = "en_GB.UTF-8";
-    LC_TELEPHONE = "en_GB.UTF-8";
-    LC_TIME = "en_GB.UTF-8";
+    LC_ADDRESS = locale;
+    LC_IDENTIFICATION = locale;
+    LC_MEASUREMENT = locale;
+    LC_MONETARY = locale;
+    LC_NAME = locale;
+    LC_NUMERIC = locale;
+    LC_PAPER = locale;
+    LC_TELEPHONE = locale;
+    LC_TIME = locale;
   };
 
   # Enable the X11 windowing system.
@@ -122,17 +94,6 @@
       "audio"
     ];
   };
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    # Applications
-    gimp
-    gparted
-    krita
-    mangohud
-    xfce.thunar
-  ];
 
   virtualisation.vmVariant = {
     # following configuration is added only when building VM with build-vm
