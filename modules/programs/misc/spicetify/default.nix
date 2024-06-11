@@ -1,5 +1,6 @@
 {
   spicetify-nix,
+  inputs,
   username,
   ...
 }: {

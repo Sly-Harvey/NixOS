@@ -9,6 +9,8 @@ fi
 scriptdir=$(realpath "$(dirname "$0")")
 currentUser=$(logname)
 
+pushd "$scriptdir"&> /dev/null || exit
+
 # Delete dirs that conflict with home-manager
 sudo rm -f ~/.mozilla/firefox/profiles.ini
 sudo rm -rf ~/.gtkrc-*
@@ -37,3 +39,5 @@ nix-shell --command "git -C $scriptdir add *"
 clear
 nix-shell --command "echo BUILDING! | figlet -cklnoW | lolcat -F 0.3 -p 2.5 -S 300"
 sudo nixos-rebuild switch --flake "$scriptdir#Default" --show-trace
+
+popd "$scriptdir" &> /dev/null || exit

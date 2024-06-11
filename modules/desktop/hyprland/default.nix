@@ -2,6 +2,7 @@
   inputs,
   pkgs,
   username,
+  terminal,
   ...
 }: let
 in {
@@ -73,16 +74,12 @@ in {
         "$mainMod" = "SUPER";
         # "$launcher" = "pkill rofi || rofi -show drun -modi drun,filebrowser,run,window -theme $XDG_CONFIG_HOME/rofi/launchers/type-2/style-2.rasi";
         "$launcher" = "pkill rofi || rofi -show drun -modi drun,filebrowser,run,window -theme $XDG_CONFIG_HOME/rofi/launchers/type-4/style-3.rasi";
-        "$term" = "${pkgs.alacritty}/bin/alacritty";
+        "$term" = "${pkgs.${terminal}}/bin/${terminal}";
         "$editor" = "code --disable-gpu";
         "$file" = "$term -e lf";
         "$browser" = "firefox";
 
         env = [
-          #Default applications
-          "EDITOR,nvim"
-          "BROWSER,firefox"
-          "TERMINAL,alacritty"
           # "XCURSOR_SIZE,16"
 
           # WLR
@@ -342,7 +339,7 @@ in {
             "$mainMod, A, exec, pkill -x rofi || $launcher" # launch desktop applications
             "$mainMod, Z, exec, pkill -x rofi || $hyprScriptsDir/emoji.sh" # launch emoji picker
             #"$mainMod, tab, exec, pkill -x rofi || $hyprScriptsDir/rofilaunch.sh w" # switch between desktop applications
-            "$mainMod, R, exec, pkill -x rofi || $hyprScriptsDir/rofilaunch.sh f" # browse system files
+            # "$mainMod, R, exec, pkill -x rofi || $hyprScriptsDir/rofilaunch.sh f" # browse system files
             "$mainMod SHIFT, W, exec, $hyprScriptsDir/WallpaperSelect.sh" # Select wallpaper to apply
             "$mainMod ALT, K, exec, $hyprScriptsDir/keyboardswitch.sh" # change keyboard layout
             "$mainMod SHIFT, N, exec, swaync-client -t -sw" # swayNC panel

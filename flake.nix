@@ -26,74 +26,61 @@
 
   outputs = {nixpkgs, ...} @ inputs: let
 
-    username = "harvey"; # REPLACE THIS WITH YOUR USERNAME!!! (if manually installing, this is Required.)
+    # User configuration
+    username = "harvey"; # WARNING REPLACE THIS WITH YOUR USERNAME IF YOU ARE MANUALLY INSTALLING WITHOUT THE SCRIPT
+    terminal = "alacritty"; # or kitty
 
-    system = "x86_64-linux"; # REPLACE THIS WITH YOUR ARCHITECTURE (Rarely need to)
+    # System configuration
     locale = "en_GB.UTF-8"; # REPLACE THIS WITH YOUR LOCALE
     timezone = "Europe/London"; # REPLACE THIS WITH YOUR TIMEZONE
+    hostname = "nixos"; # CHOOSE A HOSTNAME HERE (default is fine)
 
+    arguments = {
+      inherit
+      username
+      terminal
+      system
+      locale
+      timezone
+      hostname;
+    };
+
+    system = "x86_64-linux"; # most users will be on 64 bit pcs (unless yours is ancient)
     lib = nixpkgs.lib;
   in {
     nixosConfigurations = {
-      # This is the only config you will have to change (Desktop and Laptop are for my personal use and may not work for you)
       Default = lib.nixosSystem {
         inherit system;
-        specialArgs = {inherit username locale timezone inputs;} // inputs;
+        specialArgs = (arguments //
+        { inherit inputs; }) // inputs; # Expose all inputs and arguments
         modules = [
           ./hosts/Default/configuration.nix
         ];
       };
       Desktop = lib.nixosSystem {
         inherit system;
-        specialArgs = let
-          hostname = "NixOS-Desktop";
-        in
-          {inherit username hostname inputs;} // inputs;
+        specialArgs = (arguments //
+        { inherit inputs; hostname = "NixOS-Desktop"; }) // inputs; # Expose all inputs and arguments
         modules = [
           ./hosts/Desktop/configuration.nix
         ];
       };
       Laptop = lib.nixosSystem {
         inherit system;
-        specialArgs = let
-          hostname = "NixOS-Laptop";
-        in
-          {inherit username hostname inputs;} // inputs;
+        specialArgs = (arguments //
+        { inherit inputs; hostname = "NixOS-Laptop"; }) // inputs; # Expose all inputs and arguments
         modules = [
           ./hosts/Laptop/configuration.nix
         ];
       };
-      Iso = lib.nixosSystem {
+      Iso = lib.nixosSystem { # Build the iso with the build-iso command. (cpu intensive)
         inherit system;
-        specialArgs =
-          {
-            username = username;
-            inherit inputs;
-          }
-          // inputs;
+        specialArgs = (arguments //
+        { inherit inputs; hostname = "NixOS-Portable"; }) // inputs; # Expose all inputs and arguments
         modules = [
           ./hosts/ISO/configuration.nix
         ];
       };
     };
-
-    # Standalone home-manager configuration entrypoint
-    # Available through 'home-manager --flake .#your-username@your-hostname'
-    # or 'home-manager --flake .' for current user in current hostname
-    #homeConfigurations = {
-    #  ${username} = home-manager.lib.homeManagerConfiguration {
-    #    pkgs = nixpkgs.legacyPackages.${system};
-    #    modules = [
-    #      ./home/home.nix
-    #      {
-    #        home = {
-    #          username = username;
-    #          homeDirectory = "/home/${username}";
-    #          stateVersion = "23.11";
-    #        };
-    #      }
-    #    ];
-    #  };
-    #};
   };
 }

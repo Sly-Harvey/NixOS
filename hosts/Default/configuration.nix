@@ -3,14 +3,17 @@
   username,
   locale,
   timezone,
+  terminal,
+  hostname,
   ...
 }: {
   imports = [
     ../common.nix
-    ../../modules/hardware/nvidia.nix # Enable nvidia proprietary drivers
-    # ../../modules/hardware/amdgpu.nix # Enable amdgpu drivers
     ../../modules/desktop/hyprland # Enable hyprland window manager
-    #../../modules/programs/games
+    ../../modules/programs/games
+
+    ../../modules/hardware/video/nvidia.nix # Enable nvidia proprietary drivers
+    # ../../modules/hardware/video/amdgpu.nix # Enable amdgpu drivers
     ./hardware-configuration.nix
   ];
 
@@ -21,21 +24,25 @@
       #krita
       #steam
     ];
-
-    /* home.sessionVariables = {
-      EDITOR = "emacs";
-    }; */
+    home.sessionVariables = {
+      EDITOR = "nvim";
+      BROWSER = "firefox";
+      TERMINAL = terminal;
+    };
   };
 
-  networking.hostName = "nixos"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+  environment.systemPackages = with pkgs; [
+  ];
 
   # Enable networking
-  networking.networkmanager.enable = true;
+  networking = {
+    hostName = hostname; # Define your hostname.
+    networkmanager.enable = true;
+    # wireless.enable = true; # Enables wireless support via wpa_supplicant.
+    # Configure network proxy if necessary
+    # networking.proxy.default = "http://user:password@proxy:port/";
+    # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+  };
 
   # Timezone and locale
   time.timeZone = timezone;
@@ -53,21 +60,16 @@
   };
 
   # Enable the X11 windowing system.
-  services.xserver.enable = true;
-
-  # Configure keymap in X11
-  services.xserver.xkb = {
-    layout = "gb";
-    variant = "";
+  services.xserver = {
+    enable = true;
+    xkb = {
+      layout = "gb";
+      variant = "";
+    };
   };
+  console.keyMap = "uk"; # Configure console keymap
+  services.printing.enable = true; # Enable CUPS to print documents.
 
-  # Configure console keymap
-  console.keyMap = "uk";
-
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.${username} = {
     isNormalUser = true;
     extraGroups = [
@@ -81,9 +83,6 @@
       "audio"
     ];
   };
-
-  environment.systemPackages = with pkgs; [
-  ];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
