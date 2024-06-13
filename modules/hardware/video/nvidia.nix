@@ -38,7 +38,7 @@ in {
     };
     opengl = {
       enable = true;
-      package = nvidiaDriverChannel;
+      # package = nvidiaDriverChannel;
       driSupport = true;
       driSupport32Bit = true;
       extraPackages = with pkgs; [
