@@ -90,18 +90,18 @@
 
         keyboard.bindings = [
           /* {
-            chars = "cd $(find /mnt/seagate/dev/ ~/.config/ /usr/ ~/.local/ ~/ -mindepth 1 -maxdepth 2 | fzf)\r";
-            key = "F";
-            mods = "Control";
-          } */
-          /* {
             chars = "lf\r";
             key = "L";
             mods = "Control|Alt";
           } */
           {
-            chars = "tmux-sessionizer\r";
+            chars = "cd $(${pkgs.fd}/bin/fd . /mnt/seagate /mnt/seagate/dev/ /run /run/current-system ~/.local/ ~/ --max-depth 2 | fzf)\r";
             key = "F";
+            mods = "Control";
+          }
+          {
+            chars = "tmux-sessionizer\r";
+            key = "T";
             mods = "Control";
           }
           {

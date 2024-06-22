@@ -87,7 +87,7 @@
               if [ -f "$n" ] ; then
                   case "''${n%,}" in
                     *.cbt|*.tar.bz2|*.tar.gz|*.tar.xz|*.tbz2|*.tgz|*.txz|*.tar)
-                                 tar xvf "$n"       ;;
+                    ${pkgs.gnutar}/bin/tar xvf "$n"       ;;
                     *.lzma)      unlzma ./"$n"      ;;
                     *.bz2)       bunzip2 ./"$n"     ;;
                     *.cbr|*.rar)       unrar x -ad ./"$n" ;;
@@ -95,15 +95,15 @@
                     *.cbz|*.epub|*.zip)       unzip ./"$n"       ;;
                     *.z)         uncompress ./"$n"  ;;
                     *.7z|*.arj|*.cab|*.cb7|*.chm|*.deb|*.dmg|*.iso|*.lzh|*.msi|*.pkg|*.rpm|*.udf|*.wim|*.xar)
-                                 7z x ./"$n"        ;;
+                    ${pkgs.p7zip}/bin/7z x ./"$n"        ;;
                     *.xz)        unxz ./"$n"        ;;
                     *.exe)       cabextract ./"$n"  ;;
                     *.cpio)      cpio -id < ./"$n"  ;;
                     *.cba|*.ace)      unace x ./"$n"      ;;
                     *)
-                                 echo "extract: '$n' - unknown archive method"
-                                 return 1
-                                 ;;
+                    echo "Unsupported format"
+                    return 1
+                    ;;
                   esac
               else
                   echo "'$n' - file does not exist"
