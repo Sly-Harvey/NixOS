@@ -15,16 +15,23 @@
         icons = true;
       };
       keybindings = {
+        m = "";
+        d = "";
+        f = "fzf";
+        "." = "set hidden!";
         "<enter>" = "$nvim $f";
-        do = "dragon-out";
+        "<space>" = "toggle"; # Select file (v to select all)
+        do = "dragon-out"; # Drag and drop
         e = "open-with-editor";
         au = "unarchive";
-        ae = "$wine $f";
-        dd = "trash";
-        dr = "restore_trash";
+        ae = "$wine $f"; # Run .exe
+        dd = "cut";
+        dD = "delete";
+        # dR = "restore_trash";
         p = "paste";
         x = "cut";
         y = "copy";
+        c = "copy";
         R = "reload";
         mf = "mkfile";
         md = "mkdir";
@@ -53,7 +60,7 @@
           ''${{
               printf "File Name: "
               read ans
-              $EDITOR $ans
+              touch $ans
             }}
         '';
         setwallpaper = ''
@@ -65,12 +72,29 @@
           ''${{
               case "$f" in
                   *.zip) ${pkgs.unzip}/bin/unzip "$f" ;;
-                  *.tar.gz) ${pkgs.gnutar}/bin/tar -xzvf "$f" ;;
-                  *.tar.bz2) ${pkgs.gnutar}/bin/tar -xjvf "$f" ;;
+                  *.7z) ${pkgs.p7zip}/bin/7z x "$f" ;;
+                  *.rar) ${pkgs.unrar}/bin/unrar x "$f" ;;
                   *.tar) ${pkgs.gnutar}/bin/tar -xvf "$f" ;;
+                  *.tar.xz|*.txz) ${pkgs.gnutar}/bin/tar xJvf $f;;
+                  *.tar.gz|*.tgz) ${pkgs.gnutar}/bin/tar -xzvf "$f" ;;
+                  *.tar.bz|*.tar.bz2|*.tbz|*.tbz2) ${pkgs.gnutar}/bin/tar -xjvf "$f" ;;
                   *) echo "Unsupported format" ;;
               esac
             }}
+        '';
+        fzf = ''
+          ''${{
+            res="$(find . | ${pkgs.fzf}/bin/fzf --reverse --header='Jump to location')"
+            if [ -n "$res" ]; then
+                if [ -d "$res" ]; then
+                    cmd="cd"
+                else
+                    cmd="select"
+                fi
+                res="$(printf '%s' "$res" | sed 's/\\/\\\\/g;s/"/\\"/g')"
+                lf -remote "send $id $cmd \"$res\""
+            fi
+          }}
         '';
         trash = ''
           ''${{

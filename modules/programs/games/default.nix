@@ -6,5 +6,9 @@
     ./mangohud.nix
     # ./prismlauncher.nix
   ];
-  environment.systemPackages = [pkgs.heroic pkgs.bottles];
+  environment.systemPackages = with pkgs; [
+    ryujinx
+    heroic
+    bottles
+  ];
 }
