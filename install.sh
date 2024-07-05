@@ -22,16 +22,18 @@ sed -i -e 's/username = \".*\"/username = \"'$currentUser'\"/' "$scriptdir/flake
 
 # rm -f $scriptdir/hosts/Default/hardware-configuration.nix &>/dev/null
 if [ -f "/etc/nixos/hardware-configuration.nix" ]; then
-	cat "/etc/nixos/hardware-configuration.nix" > "$scriptdir/hosts/Default/hardware-configuration.nix"
-	cat "/etc/nixos/hardware-configuration.nix" > "$scriptdir/hosts/Desktop/hardware-configuration.nix"
-	cat "/etc/nixos/hardware-configuration.nix" > "$scriptdir/hosts/Laptop/hardware-configuration.nix"
+  for host in "$scriptdir"/hosts/*/ ; do
+    host=${host%*/}
+    cat "/etc/nixos/hardware-configuration.nix" > "$host/hardware-configuration.nix"
+  done
 else
 	# Generate new config
 	clear
 	nix-shell --command "echo GENERATING CONFIG! | figlet -cklno | lolcat -F 0.3 -p 2.5 -S 300"
-	sudo nixos-generate-config --show-hardware-config > "$scriptdir/hosts/Default/hardware-configuration.nix"
-	sudo nixos-generate-config --show-hardware-config > "$scriptdir/hosts/Desktop/hardware-configuration.nix"
-	sudo nixos-generate-config --show-hardware-config > "$scriptdir/hosts/Laptop/hardware-configuration.nix"
+  for host in "$scriptdir"/hosts/*/ ; do
+    host=${host%*/}
+    sudo nixos-generate-config --show-hardware-config > "$host/hardware-configuration.nix"
+  done
 fi
 
 nix-shell --command "git -C $scriptdir add *"

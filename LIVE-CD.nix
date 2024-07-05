@@ -1,3 +1,6 @@
+# This is the live iso config. To build the iso file use the build-iso command in the root of the project after using install.sh
+
+
 {
   pkgs,
   inputs,
@@ -8,26 +11,28 @@
   imports = [
     "${modulesPath}/installer/cd-dvd/installation-cd-minimal.nix"
     inputs.home-manager.nixosModules.home-manager
-    ../modules/core
-    ../modules/hardware/opengl.nix
+    ./modules/core
+    ./modules/hardware/video/opengl.nix
+    ./modules/hardware/drives/games.nix
+    ./modules/hardware/drives/seagate.nix
 
-    ../../modules/desktop/hyprland # Enable hyprland window manager
-    ../modules/programs/terminal/alacritty
-    # ../modules/programs/terminal/kitty
-    ../modules/programs/shell/bash
-    ../modules/programs/shell/zsh
-    ../modules/programs/browser/firefox
-    ../modules/programs/editor/nixvim
-    ../modules/programs/editor/vscode
-    ../modules/programs/cli/starship
-    ../modules/programs/cli/tmux
-    ../modules/programs/cli/direnv
-    ../modules/programs/cli/lf
-    ../modules/programs/cli/lazygit
-    ../modules/programs/cli/cava
-    ../modules/programs/cli/btop
-    ../modules/programs/misc/mpv
-    ../modules/programs/misc/spicetify
+    ./modules/desktop/hyprland # Enable hyprland window manager
+    ./modules/programs/terminal/alacritty
+    # ./modules/programs/terminal/kitty
+    ./modules/programs/shell/bash
+    ./modules/programs/shell/zsh
+    ./modules/programs/browser/firefox
+    ./modules/programs/editor/nixvim
+    ./modules/programs/editor/vscode
+    ./modules/programs/cli/starship
+    ./modules/programs/cli/tmux
+    ./modules/programs/cli/direnv
+    ./modules/programs/cli/lf
+    ./modules/programs/cli/lazygit
+    ./modules/programs/cli/cava
+    ./modules/programs/cli/btop
+    ./modules/programs/misc/mpv
+    ./modules/programs/misc/spicetify
   ];
 
   # Filesystems support
@@ -206,45 +211,5 @@
       warn-dirty = false;
     };
     package = pkgs.nixFlakes;
-  };
-
-  fileSystems."/mnt/seagate" = {
-    device = "/dev/disk/by-uuid/E212-7894";
-    fsType = "auto";
-    options = [
-      "X-mount.mkdir"
-      "nofail"
-      "async"
-      # "auto"
-      "rw"
-      "exec"
-      "user"
-      "uid=1000"
-      "gid=100"
-      "umask=000"
-      # "dev"
-      # "suid"
-      "x-gvfs-show"
-      "x-systemd.automount"
-      "x-systemd.mount-timeout=5"
-    ];
-  };
-
-  fileSystems."/mnt/games" = {
-    device = "/dev/disk/by-uuid/01DA12C1CBDE9100";
-    fsType = "lowntfs-3g";
-    options = [
-      "X-mount.mkdir"
-      "nofail"
-      "async"
-      "rw"
-      "exec"
-      "user"
-      "uid=1000"
-      "gid=100"
-      "umask=000"
-      "x-gvfs-show"
-      "x-systemd.mount-timeout=5"
-    ];
   };
 }
