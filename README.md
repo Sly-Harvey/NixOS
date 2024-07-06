@@ -51,3 +51,6 @@ sudo ./install.sh
 ```bash
 sudo nixos-rebuild switch --flake .#Default
 ```
+### Credits/Inspiration
+https://github.com/JaKooLit/Hyprland-Dots<br>
+https://github.com/prasanthrangan/hyprdots
