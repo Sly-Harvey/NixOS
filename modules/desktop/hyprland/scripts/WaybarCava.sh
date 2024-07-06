@@ -1,4 +1,4 @@
-# #! /bin/bash
+#!/usr/bin/env bash
 ## /* ---- 💫 https://github.com/JaKooLit 💫 ---- */  ##
 
 # Not my own work. This was added through Github PR. Credit to original author
@@ -20,7 +20,7 @@ config_file="/tmp/bar_cava_config"
 cat >"$config_file" <<EOF
 [general]
 bars = 10
-framerate = 30
+;framerate = 60
 ;sensitivity = 120
 
 [input]
@@ -31,9 +31,9 @@ source = auto
 method = raw
 raw_target = /dev/stdout
 data_format = ascii
-ascii_max_range = 9
+ascii_max_range = 7
 EOF
-# ascii_max_range = 7
+# ascii_max_range = 9
 
 # Kill cava if it's already running
 pkill -f "cava -p $config_file"

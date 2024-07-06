@@ -8,6 +8,7 @@
     programs.lf = {
       enable = true;
       settings = {
+        # period = 1; # dir update time in seconds
         preview = true;
         drawbox = false;
         hidden = true;
@@ -35,6 +36,7 @@
         R = "reload";
         mf = "mkfile";
         md = "mkdir";
+        mo = "$chmod +x $f";
         C = "clear";
 
         gn = "cd ~/NixOS";
