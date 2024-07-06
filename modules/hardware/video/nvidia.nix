@@ -36,11 +36,10 @@ in {
       modesetting.enable = true;
       package = nvidiaDriverChannel;
     };
-    opengl = {
+    graphics = {
       enable = true;
       # package = nvidiaDriverChannel;
-      driSupport = true;
-      driSupport32Bit = true;
+      enable32Bit = true;
       extraPackages = with pkgs; [
         nvidia-vaapi-driver
         vaapiVdpau

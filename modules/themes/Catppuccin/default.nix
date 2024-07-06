@@ -1,9 +1,12 @@
 {
+  inputs,
   username,
   pkgs,
   ...
 }: {
+  imports = [inputs.catppuccin.nixosModules.catppuccin];
   home-manager.users.${username} = {config, ...}: {
+    imports = [inputs.catppuccin.homeManagerModules.catppuccin];
     home.file.".config/hypr/wallpaper.png" = {
       # source = ../wallpapers/escape_velocity.jpg;
       # source = ../wallpapers/aurora_borealis.png;
@@ -27,23 +30,26 @@
 
     qt = {
       enable = true;
-      platformTheme.name = "gtk"; # gnome
+      platformTheme.name = "gtk";
+      /* style = {
+        package = pkgs.adwaita-qt;
+        name = "adwaita-dark";
+      }; */
     };
 
+    catppuccin.flavor = "macchiato";
     gtk = {
       enable = true;
-      theme = {
-        name = "Catppuccin-Macchiato-Compact-Mauve-Dark";
-        package = pkgs.catppuccin-gtk.override {
-          accents = ["mauve"];
-          size = "compact";
-          #tweaks = [ "rimless" "black" ];
-          variant = "macchiato";
-        };
+      catppuccin = {
+        enable = true;
+        accent = "mauve";
+        size = "compact";
+        # tweaks = [ "rimless" "black" ];
+        flavor = "macchiato";
       };
 
       iconTheme = {
-        package = pkgs.gnome.adwaita-icon-theme;
+        package = pkgs.adwaita-icon-theme;
         name = "Adwaita";
         #name = "Yaru-magenta-dark";
         #package = pkgs.yaru-theme;

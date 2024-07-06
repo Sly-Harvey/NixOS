@@ -1,6 +1,7 @@
 {
   inputs,
   pkgs,
+  pkgs-stable,
   username,
   terminal,
   ...
@@ -175,6 +176,7 @@ in {
     # config.allowUnfreePredicate = _: true;
     overlays = [
       inputs.nur.overlay
+      pkgs-stable
     ];
   };
 
