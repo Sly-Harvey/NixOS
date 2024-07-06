@@ -1,12 +1,21 @@
 {
-  inputs,
   username,
   pkgs,
   ...
-}: {
-  imports = [inputs.catppuccin.nixosModules.catppuccin];
+}: let
+  catppuccin-gtk = pkgs.catppuccin-gtk.overrideAttrs {
+    src = pkgs.fetchFromGitHub {
+      owner = "catppuccin";
+      repo = "gtk";
+      rev = "v1.0.3";
+      fetchSubmodules = true;
+      hash = "sha256-q5/VcFsm3vNEw55zq/vcM11eo456SYE5TQA3g2VQjGc=";
+    };
+
+    postUnpack = "";
+  };
+in {
   home-manager.users.${username} = {config, ...}: {
-    imports = [inputs.catppuccin.homeManagerModules.catppuccin];
     home.file.".config/hypr/wallpaper.png" = {
       # source = ../wallpapers/escape_velocity.jpg;
       # source = ../wallpapers/aurora_borealis.png;
@@ -31,48 +40,33 @@
     qt = {
       enable = true;
       platformTheme.name = "gtk";
-      /* style = {
-        package = pkgs.adwaita-qt;
-        name = "adwaita-dark";
-      }; */
     };
 
-    catppuccin.flavor = "macchiato";
     gtk = {
       enable = true;
-      catppuccin = {
-        enable = true;
-        accent = "mauve";
-        size = "compact";
-        # tweaks = [ "rimless" "black" ];
-        flavor = "macchiato";
+      theme = {
+        name = "catppuccin-macchiato-mauve-compact";
+        package = catppuccin-gtk.override {
+          accents = ["mauve"];
+          variant = "macchiato";
+          size = "compact";
+        };
       };
-
       iconTheme = {
         package = pkgs.adwaita-icon-theme;
         name = "Adwaita";
-        #name = "Yaru-magenta-dark";
-        #package = pkgs.yaru-theme;
       };
-
       gtk3.extraConfig = {
         Settings = ''
           gtk-application-prefer-dark-theme=1
         '';
       };
-
       gtk4.extraConfig = {
         Settings = ''
           gtk-application-prefer-dark-theme=1
         '';
       };
-
-      #font = {
-      #  name = "Sans";
-      #  size = 11;
-      #};
     };
-
     xdg.configFile = {
       "gtk-4.0/assets".source = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/assets";
       "gtk-4.0/gtk.css".source = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/gtk.css";
