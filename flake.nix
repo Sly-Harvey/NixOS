@@ -8,7 +8,6 @@
     nur.url = "github:nix-community/NUR";
     nixvim.url = "github:Sly-Harvey/nixvim";
     hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
-    catppuccin.url = "github:catppuccin/nix";
     /*
        Hyprspace = {
       url = "github:KZDKM/Hyprspace";

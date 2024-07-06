@@ -7,7 +7,6 @@
   home-manager.users.${username} = {
     pkgs,
     lib,
-    #spicetify-nix,
     ...
   }: let
     spicePkgs = spicetify-nix.packages.${pkgs.system}.default;
