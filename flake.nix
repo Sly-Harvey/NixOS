@@ -3,13 +3,18 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.05";
+    nixpkgs-waybar-fix.url = "github:nixos/nixpkgs/c7b821ba2e1e635ba5a76d299af62821cbcb09f3";
     nur.url = "github:nix-community/NUR";
     nixvim.url = "github:Sly-Harvey/nixvim";
     hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
-    /* Hyprspace = {
+    catppuccin.url = "github:catppuccin/nix";
+    /*
+       Hyprspace = {
       url = "github:KZDKM/Hyprspace";
       inputs.hyprland.follows = "hyprland";
-    }; */
+    };
+    */
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -24,8 +29,12 @@
     };
   };
 
-  outputs = {nixpkgs, ...} @ inputs: let
-
+  outputs = {
+    nixpkgs,
+    nixpkgs-stable,
+    nixpkgs-waybar-fix,
+    ...
+  } @ inputs: let
     # User configuration
     username = "harvey"; # WARNING REPLACE THIS WITH YOUR USERNAME IF YOU ARE MANUALLY INSTALLING WITHOUT THE SCRIPT
     terminal = "alacritty"; # or kitty
@@ -37,48 +46,75 @@
 
     arguments = {
       inherit
-      username
-      terminal
-      system
-      locale
-      timezone
-      hostname;
+        pkgs-stable
+        username
+        terminal
+        system
+        locale
+        timezone
+        hostname
+        ;
     };
 
     system = "x86_64-linux"; # most users will be on 64 bit pcs (unless yours is ancient)
     lib = nixpkgs.lib;
+    pkgs-stable = final: prev: {
+      stable = import nixpkgs-stable {
+        inherit system;
+        config.allowUnfree = true;
+        config.nvidia.acceptLicense = true;
+      };
+    };
   in {
     nixosConfigurations = {
       Default = lib.nixosSystem {
         inherit system;
-        specialArgs = (arguments //
-        { inherit inputs; }) // inputs; # Expose all inputs and arguments
+        specialArgs =
+          (arguments
+            // {inherit inputs;})
+          // inputs; # Expose all inputs and arguments
         modules = [
           ./hosts/Default/configuration.nix
         ];
       };
       Desktop = lib.nixosSystem {
         inherit system;
-        specialArgs = (arguments //
-        { inherit inputs; hostname = "NixOS-Desktop"; }) // inputs; # Expose all inputs and arguments
+        specialArgs =
+          (arguments
+            // {
+              inherit inputs;
+              hostname = "NixOS-Desktop";
+            })
+          // inputs; # Expose all inputs and arguments
         modules = [
           ./hosts/Desktop/configuration.nix
         ];
       };
       Laptop = lib.nixosSystem {
         inherit system;
-        specialArgs = (arguments //
-        { inherit inputs; hostname = "NixOS-Laptop"; }) // inputs; # Expose all inputs and arguments
+        specialArgs =
+          (arguments
+            // {
+              inherit inputs;
+              hostname = "NixOS-Laptop";
+            })
+          // inputs; # Expose all inputs and arguments
         modules = [
           ./hosts/Laptop/configuration.nix
         ];
       };
-      Iso = lib.nixosSystem { # Build the iso with the build-iso command. (cpu intensive)
+      Iso = lib.nixosSystem {
+        # Build the iso with the build-iso command. (cpu intensive)
         inherit system;
-        specialArgs = (arguments //
-        { inherit inputs; hostname = "NixOS-Portable"; }) // inputs; # Expose all inputs and arguments
+        specialArgs =
+          (arguments
+            // {
+              inherit inputs;
+              hostname = "NixOS-Installer";
+            })
+          // inputs; # Expose all inputs and arguments
         modules = [
-          ./hosts/ISO/configuration.nix
+          ./LIVE-CD.nix
         ];
       };
     };
