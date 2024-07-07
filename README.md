@@ -41,7 +41,7 @@ nix run --experimental-features "nix-command flakes" nixpkgs#git clone https://g
 cd ~/NixOS
 ```
 ```bash
-sudo ./install.sh
+./install.sh
 ```
 ## Building manually
 > [!IMPORTANT]
