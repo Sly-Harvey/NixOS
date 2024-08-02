@@ -19,6 +19,10 @@
 
   # Home-manager config
   home-manager.users.${username} = {
+    # Vertical monitor setup
+    wayland.windowManager.hyprland.extraConfig = ''
+      monitor=desc:BNQ BenQ xl2420t 99D06760SL0,preferred,0x-750,1,transform,3 # 7 for fipped
+    '';
     home.packages = with pkgs; [
       #vim
       #krita
