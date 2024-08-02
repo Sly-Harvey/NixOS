@@ -116,7 +116,7 @@ in {
           #"[workspace 9 silent] alacritty -e cava"
 
           "$hyprScriptsDir/wallpaper.sh"
-          "waybar &"
+          "sleep 1 && waybar &"
           "swaync &"
           # "dunst"
           # "blueman-applet"

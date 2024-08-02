@@ -11,6 +11,8 @@
 in {
   imports = [
     inputs.home-manager.nixosModules.home-manager
+    inputs.chaotic.nixosModules.default
+
     ../modules/hardware/video/opengl.nix
     ../modules/hardware/drives # Will still boot if these these drives are not found
 
@@ -75,10 +77,16 @@ in {
   services.gvfs.enable = true;
   services.udisks2.enable = true;
 
+  # Setup cpu scheduler for responsiveness and performance with cachyos kernel
+  # scx Won't build if not using the cachyos kernel
+  chaotic.scx = {
+    enable = true;
+    scheduler = "scx_rusty";
+  };
   # Bootloader.
   boot = {
     tmp.cleanOnBoot = true;
-    kernelPackages = pkgs.linuxPackages_latest; # _zen, _hardened, _rt, _rt_latest, etc.
+    kernelPackages = pkgs.linuxPackages_cachyos; # _zen_latest, _xanmod_latest _hardened, _rt, _OTHER_CHANNEL, etc.
     loader = {
       efi.canTouchEfiVariables = true;
       efi.efiSysMountPoint = "/boot";
@@ -144,7 +152,6 @@ in {
   services.printing.enable = true;
 
   # Enable sound with pipewire.
-  sound.enable = true;
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
@@ -240,9 +247,9 @@ in {
       auto-optimise-store = true;
       substituters = [
         "https://cache.nixos.org/"
-        "https://nix-community.cachix.org"
-        "https://hyprland.cachix.org"
-        "https://nix-gaming.cachix.org"
+        "https://nix-community.cachix.org/"
+        "https://hyprland.cachix.org/"
+        "https://nix-gaming.cachix.org/"
       ];
       trusted-public-keys = [
         "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
