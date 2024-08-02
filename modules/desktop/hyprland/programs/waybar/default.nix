@@ -23,7 +23,7 @@
           margin-left = 8;
           margin-right = 8;
 
-          modules-left = ["hyprland/workspaces" "custom/cava_mviz" "custom/r_end"];
+          modules-left = ["hyprland/workspaces" "cava" "custom/r_end"];
           modules-center = ["custom/l_end" "idle_inhibitor" "clock" "custom/r_end"];
           modules-right = ["custom/l_end" "custom/gpuinfo" "cpu" "memory" "keyboard-state" "network" "bluetooth" "pulseaudio" "custom/r_end" "hyprland/language" "custom/r_end" "tray" "battery" "custom/l_end" "custom/power" "custom/padd"];
           #"modules-right" = ["custom/l_end" "temperature" "cpu" "memory" "keyboard-state" "network" "bluetooth" "pulseaudio" "custom/r_end" "hyprland/language" "custom/r_end" "tray" "battery" "custom/l_end" "custom/power" "custom/r_end" "custom/padd" ];
@@ -39,7 +39,7 @@
           };
           "cava" = {
             hide_on_silence = false;
-            framerate = 30;
+            framerate = 60;
             bars = 10;
             format-icons = ["▁" "▂" "▃" "▄" "▅" "▆" "▇" "█"];
             input_delay = 1;
