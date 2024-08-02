@@ -80,30 +80,21 @@ in {
         "$browser" = "firefox";
 
         env = [
-          # "XCURSOR_SIZE,16"
-
-          # WLR
-          "WLR_NO_HARDWARE_CURSORS,1"
-          "WLR_RENDERER_ALLOW_SOFTWARE,1"
-
-          # XDG Specifications
           "XDG_CURRENT_DESKTOP,Hyprland"
           "XDG_SESSION_DESKTOP,Hyprland"
           "XDG_SESSION_TYPE,wayland"
-
-          # Use wayland by default
           "GDK_BACKEND=wayland,x11,*"
-          "QT_QPA_PLATFORM,wayland;xcb"
           "NIXOS_OZONE_WL,1"
           "MOZ_ENABLE_WAYLAND,1"
           "SDL_VIDEODRIVER,wayland"
           "OZONE_PLATFORM,wayland"
           "CLUTTER_BACKEND,wayland"
-
-          # Qt settings
+          "QT_QPA_PLATFORM,wayland;xcb"
           "QT_WAYLAND_DISABLE_WINDOWDECORATION,1"
           "QT_QPA_PLATFORMTHEME,qt6ct"
           "QT_AUTO_SCREEN_SCALE_FACTOR,1"
+          "WLR_RENDERER_ALLOW_SOFTWARE,1"
+          "NIXPKGS_ALLOW_UNFREE,1"
         ];
         exec-once = [
           "pamixer --set-volume 40"
