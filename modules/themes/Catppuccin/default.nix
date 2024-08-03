@@ -16,11 +16,11 @@
   };
 in {
   home-manager.users.${username} = {config, ...}: {
-    home.file.".config/hypr/wallpaper.png" = {
-      # source = ../wallpapers/escape_velocity.jpg;
-      # source = ../wallpapers/aurora_borealis.png;
+    xdg.configFile."hypr/wallpaper.png" = {
       # source = ../wallpapers/blue_hue.png; # Favourite
       source = ../wallpapers/moon.png; # Favourite
+      # source = ../wallpapers/Train.jpg; # Favourite
+      # source = ../wallpapers/Kurzgesagt-2.png; # Favourite
     };
 
     dconf.settings = {
