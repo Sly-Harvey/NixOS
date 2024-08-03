@@ -1,8 +1,15 @@
 #!/usr/bin/env bash
 
-# Check if running as root. If root, script will exit
+# Check if running as root. If root, script will exit.
 if [[ $EUID -eq 0 ]]; then
 	echo "This script should not be executed as root! Exiting..."
+	exit 1
+fi
+
+# Check if using NixOS. If not using NixOS, script will exit.
+if [[ ! "$(grep -i nixos < /etc/os-release)" ]]; then
+	echo "This installation script only works on NixOS! Download an iso at https://nixos.org/download/"
+  echo "Keep in mind that this script is not intended for use while in the live environment."
 	exit 1
 fi
 
@@ -40,6 +47,8 @@ nix-shell --command "git -C $scriptdir add *"
 
 clear
 nix-shell --command "echo BUILDING! | figlet -cklnoW | lolcat -F 0.3 -p 2.5 -S 300"
-sudo nixos-rebuild switch --flake "$scriptdir#Default" --show-trace
+sudo nixos-rebuild switch --flake "$scriptdir#Default" --show-trace || exit 1
+echo "success!"
+echo "Make sure to reboot if this is your first time using this script!"
 
 popd "$scriptdir" &> /dev/null || exit

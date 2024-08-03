@@ -12,7 +12,7 @@ in {
     ./programs/wlogout
     ./programs/rofi
     ./programs/dunst
-    ./programs/swaylock
+    ./programs/hyprlock
     ./programs/swaync
   ];
 
@@ -97,7 +97,6 @@ in {
           "NIXPKGS_ALLOW_UNFREE,1"
         ];
         exec-once = [
-          "pamixer --set-volume 40"
           #"[workspace 1 silent] firefox"
           #"[workspace 2 silent] alacritty"
           #"[workspace 5 silent] spotify"
@@ -109,6 +108,7 @@ in {
           "$hyprScriptsDir/wallpaper.sh"
           "sleep 1 && waybar &"
           "swaync &"
+          "pamixer --set-volume 40"
           # "dunst"
           # "blueman-applet"
           "nm-applet --indicator"
@@ -163,6 +163,9 @@ in {
           "col.border_locked_active" = "rgba(ca9ee6ff) rgba(f2d5cfff) 45deg";
           "col.border_locked_inactive" = "rgba(b4befecc) rgba(6c7086cc) 45deg";
         };
+        layerrule = [
+          # "dimaround, swaync-control-center"
+        ];
         animations = {
           enabled = true;
           bezier = [
@@ -316,7 +319,7 @@ in {
             "$mainMod, W, togglefloating" # toggle the window on focus to float
             "$mainMod SHIFT, G, togglegroup" # toggle the window on focus to float
             "ALT, return, fullscreen" # toggle the window on focus to fullscreen
-            #"$mainMod ALT, L, exec, swaylock" # lock screen
+            "$mainMod, L, exec, hyprlock" # lock screen
             "$mainMod, backspace, exec, wlogout -b 4" # logout menu
             "$CONTROL, ESCAPE, exec, killall waybar || waybar" # toggle waybar
 
@@ -334,6 +337,7 @@ in {
             "$mainMod SHIFT, W, exec, $hyprScriptsDir/WallpaperSelect.sh" # Select wallpaper to apply
             "$mainMod ALT, K, exec, $hyprScriptsDir/keyboardswitch.sh" # change keyboard layout
             "$mainMod SHIFT, N, exec, swaync-client -t -sw" # swayNC panel
+            "$mainMod SHIFT, Q, exec, swaync-client -t -sw" # swayNC panel
             "$mainMod, G, exec, $hyprScriptsDir/gamelauncher.sh" # game launcher
             "$mainMod ALT, G, exec, $hyprScriptsDir/gamemode.sh" # disable hypr effects for gamemode
             "$mainMod, V, exec, $hyprScriptsDir/ClipManager.sh" # Clipboard Manager
@@ -347,7 +351,7 @@ in {
             # Screenshot/Screencapture
             "$mainMod, P, exec, $hyprScriptsDir/screenshot.sh s" # drag to snip an area / click on a window to print it
             "$mainMod CTRL, P, exec, $hyprScriptsDir/screenshot.sh sf" # frozen screen, drag to snip an area / click on a window to print it
-            ",print, exec, $hyprScriptsDir/screenshot.sh m" # print focused monitor
+            "$mainMod, print, exec, $hyprScriptsDir/screenshot.sh m" # print focused monitor
             "$mainMod ALT, P, exec, $hyprScriptsDir/screenshot.sh p" # print all monitor outputs
 
             # Functional keybinds
@@ -356,8 +360,8 @@ in {
             ",XF86MonBrightnessDown,exec,light -U 20"
             ",XF86MonBrightnessUp,exec,light -A 20"
             ",XF86AudioMute,exec,pamixer -t"
-            ",XF86AudioLowerVolume,exec,pamixer -d 5"
-            ",XF86AudioRaiseVolume,exec,pamixer -i 5"
+            ",XF86AudioLowerVolume,exec,pamixer -d 2"
+            ",XF86AudioRaiseVolume,exec,pamixer -i 2"
             ",XF86AudioPlay,exec,playerctl play-pause"
             ",XF86AudioPause,exec,playerctl play-pause"
             ",xf86AudioNext,exec,playerctl next"

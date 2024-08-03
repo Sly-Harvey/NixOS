@@ -244,7 +244,7 @@
 
           "custom/power" = {
             format = "{}";
-            on-click = "~/.config/hypr/scripts/Wlogout.sh";
+            on-click = "wlogout -b 4";
             interval = 86400; # once every day
             tooltip = true;
           };
