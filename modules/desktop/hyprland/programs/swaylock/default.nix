@@ -4,44 +4,35 @@
 }: {
   home-manager.users.${username} = _: {
     home.file.".config/swaylock/config".text = ''
-      daemonize
-      show-failed-attempts
-      clock
-      screenshot
-      effect-blur=15x15
-      effect-vignette=1:1
-      color=1f1d2e80
-      font="Inter"
-      indicator
-      indicator-radius=200
-      indicator-thickness=20
-      line-color=1f1d2e
-      ring-color=191724
-      inside-color=1f1d2e
-      key-hl-color=eb6f92
+      color=24273a
+      bs-hl-color=f4dbd6
+      caps-lock-bs-hl-color=f4dbd6
+      caps-lock-key-hl-color=a6da95
+      inside-color=00000000
+      inside-clear-color=00000000
+      inside-caps-lock-color=00000000
+      inside-ver-color=00000000
+      inside-wrong-color=00000000
+      key-hl-color=a6da95
+      layout-bg-color=00000000
+      layout-border-color=00000000
+      layout-text-color=cad3f5
+      line-color=00000000
+      line-clear-color=00000000
+      line-caps-lock-color=00000000
+      line-ver-color=00000000
+      line-wrong-color=00000000
+      ring-color=b7bdf8
+      ring-clear-color=f4dbd6
+      ring-caps-lock-color=f5a97f
+      ring-ver-color=8aadf4
+      ring-wrong-color=ee99a0
       separator-color=00000000
-      text-color=e0def4
-      text-caps-lock-color=""
-      line-ver-color=eb6f92
-      ring-ver-color=eb6f92
-      inside-ver-color=1f1d2e
-      text-ver-color=e0def4
-      ring-wrong-color=31748f
-      text-wrong-color=31748f
-      inside-wrong-color=1f1d2e
-      inside-clear-color=1f1d2e
-      text-clear-color=e0def4
-      ring-clear-color=9ccfd8
-      line-clear-color=1f1d2e
-      line-wrong-color=1f1d2e
-      bs-hl-color=31748f
-      grace=2
-      grace-no-mouse
-      grace-no-touch
-      datestr=%a, %B %e
-      timestr=%I:%M %p
-      fade-in=0.3
-      ignore-empty-password
+      text-color=cad3f5
+      text-clear-color=f4dbd6
+      text-caps-lock-color=f5a97f
+      text-ver-color=8aadf4
+      text-wrong-color=ee99a0
     '';
 
     programs.swaylock.enable = true;
