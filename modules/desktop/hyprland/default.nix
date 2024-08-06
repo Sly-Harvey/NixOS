@@ -192,12 +192,16 @@ in {
             "specialWorkspace, 1, 3, md3_decel, slidevert"
           ];
         };
+        render = {
+          explicit_sync = 1; # 0 = off, 1 = on, 2 = auto based on gpu driver.
+          explicit_sync_kms = 1; # 0 = off, 1 = on, 2 = auto based on gpu driver.
+          direct_scanout = true; # Set to true for improved Fullscreen performance.
+        };
         misc = {
           disable_hyprland_logo = true;
           mouse_move_focuses_monitor = true;
           vfr = true; # always keep on
           vrr = true; # enable variable refresh rate (effective depending on hardware)
-          no_direct_scanout = false; # Set to false for improved Fullscreen performance.
         };
         gestures = {
           workspace_swipe = true;
