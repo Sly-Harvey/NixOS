@@ -6,22 +6,20 @@
         "$schema": "/etc/xdg/swaync/configSchema.json",
         "positionX": "right",
         "positionY": "top",
-        "layer": "overlay",
-        "layer-shell": "true",
         "cssPriority": "application",
-        "control-center-margin-top": 10,
-        "control-center-margin-bottom": 10,
-        "control-center-margin-right": 10,
-        "control-center-margin-left": 1508,
+        "control-center-margin-top": 22,
+        "control-center-margin-bottom": 2,
+        "control-center-margin-right": 1,
+        "control-center-margin-left": 0,
         "notification-icon-size": 64,
         "notification-body-image-height": 128,
         "notification-body-image-width": 200,
         "timeout": 4,
         "timeout-low": 2,
         "timeout-critical": 6,
-        "fit-to-screen": true,
+        "fit-to-screen": false,
         "control-center-width": 400,
-        "control-center-height": 650,
+        "control-center-height": 900,
         "notification-window-width": 375,
         "keyboard-shortcuts": true,
         "image-visibility": "when-available",
@@ -36,7 +34,7 @@
           }
         },
         "notification-visibility": {
-          "spotify": {
+          "example": {
             "state": "muted",
             "urgency": "Low",
             "app-name": "Spotify"
@@ -44,6 +42,7 @@
         },
         "widgets": [
           "title",
+          "dnd",
           "menubar#desktop",
           "volume",
           "mpris",
@@ -154,6 +153,10 @@
       @define-color pink      #f5c2e7;
       @define-color flamingo  #f2cdcd;
       @define-color rosewater #f5e0dc;
+
+      @define-color dnd_background  rgba(24, 24, 37, .85);
+      @define-color dnd_selected    #cba6f7;
+      @define-color dnd_hover       rgba(203, 166, 247, .85);
 
       * {
         font-family: "Product Sans";
@@ -280,12 +283,12 @@
       /* Control center */
 
       .control-center {
-        /* background: transparent; */
         background: @crust;
-        /* background: @theme_bg_color; */
-        /* border: 1px solid @surface0; */
-        border-radius: 4px;
-        /* box-shadow: 0px 0px 2px black; */
+        border-radius: 15px;
+        border: 0px solid @selected;
+        box-shadow: 0 0 10px 0 rgba(0,0,0,.85);
+        margin: 10px;
+        padding: 4px;
       }
 
       /* .right.overlay-indicator { */
@@ -647,23 +650,33 @@
 
       /* DND widget */
       .widget-dnd {
-        margin: 8px;
-        font-size: 1.1rem;
+        margin: 6px;
+        font-size: 1.2rem;
       }
+
       .widget-dnd > switch {
+        background: @dnd_background;
         font-size: initial;
-        border-radius: 4px;
-        background: @base;
-        /* background: @theme_bg_color; */
-        /* border: 1px solid @surface1; */
+        border-radius: 8px;
+        box-shadow: none;
+        padding: 2px;
       }
+
+      .widget-dnd > switch:hover {
+        background: @dnd_hover;
+      }
+
       .widget-dnd > switch:checked {
-        background: @insensitive_base_color;
+        background: @dnd_selected;
       }
+
+      .widget-dnd > switch:checked:hover {
+        background: @dnd_hover;
+      }
+
       .widget-dnd > switch slider {
-        background: @base;
-        /* background: @theme_bg_color; */
-        border-radius: 12px;
+        background: @dnd_hover;
+        border-radius: 6px;
       }
 
       /* Toggles */
