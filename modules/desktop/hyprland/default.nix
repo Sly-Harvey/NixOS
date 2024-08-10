@@ -323,7 +323,7 @@ in {
             "$mainMod, W, togglefloating" # toggle the window on focus to float
             "$mainMod SHIFT, G, togglegroup" # toggle the window on focus to float
             "ALT, return, fullscreen" # toggle the window on focus to fullscreen
-            "$mainMod, L, exec, hyprlock" # lock screen
+            "$mainMod ALT, L, exec, hyprlock" # lock screen
             "$mainMod, backspace, exec, wlogout -b 4" # logout menu
             "$CONTROL, ESCAPE, exec, killall waybar || waybar" # toggle waybar
 
