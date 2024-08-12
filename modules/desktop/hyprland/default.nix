@@ -164,6 +164,12 @@ in {
           "col.border_locked_inactive" = "rgba(b4befecc) rgba(6c7086cc) 45deg";
         };
         layerrule = [
+          "blur, swaync-control-center"
+          "blur, swaync-notification-window"
+          "ignorezero, swaync-control-center"
+          "ignorezero, swaync-notification-window"
+          "ignorealpha 0.8, swaync-control-center"
+          "ignorealpha 0.8, swaync-notification-window"
           # "dimaround, swaync-control-center"
         ];
         animations = {
