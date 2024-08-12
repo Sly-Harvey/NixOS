@@ -20,33 +20,32 @@ configuration {
 }
 
 /*****----- Global Properties -----*****/
-@import                          "shared/colors.rasi"
 @import                          "shared/fonts.rasi"
 
 * {
-    border-colour:               var(selected);
-    handle-colour:               var(selected);
-    background-colour:           var(background);
-    foreground-colour:           var(foreground);
-    alternate-background:        var(background-alt);
-    normal-background:           var(background);
-    normal-foreground:           var(foreground);
-    urgent-background:           var(urgent);
-    urgent-foreground:           var(background);
-    active-background:           var(active);
-    active-foreground:           var(background);
-    selected-normal-background:  var(selected);
-    selected-normal-foreground:  var(background);
-    selected-urgent-background:  var(active);
-    selected-urgent-foreground:  var(background);
-    selected-active-background:  var(urgent);
-    selected-active-foreground:  var(background);
-    alternate-normal-background: var(background);
-    alternate-normal-foreground: var(foreground);
-    alternate-urgent-background: var(urgent);
-    alternate-urgent-foreground: var(background);
-    alternate-active-background: var(active);
-    alternate-active-foreground: var(background);
+    border-colour:               rgba(122, 162, 247, 80%);
+    handle-colour:               rgba(122, 162, 247, 80%);
+    background-colour:           rgba(30, 29, 47, 80%);
+    foreground-colour:           #D9E0EEFF;
+    alternate-background:        rgba(40, 40, 57, 80%);
+    normal-background:           rgba(30, 29, 47, 80%);
+    normal-foreground:           #D9E0EEFF;
+    urgent-background:           rgba(242, 143, 173, 80%);
+    urgent-foreground:           rgba(30, 29, 47, 80%);
+    active-background:           rgba(171, 233, 179, 80%);
+    active-foreground:           rgba(30, 29, 47, 80%);
+    selected-normal-background:  rgba(122, 162, 247, 80%);
+    selected-normal-foreground:  rgba(30, 29, 47, 80%);
+    selected-urgent-background:  rgba(171, 233, 179, 80%);
+    selected-urgent-foreground:  rgba(30, 29, 47, 80%);
+    selected-active-background:  rgba(242, 143, 173, 80%);
+    selected-active-foreground:  rgba(30, 29, 47, 80%);
+    alternate-normal-background: rgba(30, 29, 47, 80%);
+    alternate-normal-foreground: #D9E0EEFF;
+    alternate-urgent-background: rgba(242, 143, 173, 80%);
+    alternate-urgent-foreground: rgba(30, 29, 47, 80%);
+    alternate-active-background: rgba(171, 233, 179, 80%);
+    alternate-active-foreground: rgba(30, 29, 47, 80%);
 }
 
 /*****----- Main Window -----*****/
@@ -69,7 +68,7 @@ window {
     border-radius:               0px;
     border-color:                @border-colour;
     cursor:                      "default";
-    background-color:            @background-colour;
+    background-color:            transparent;
 }
 
 /*****----- Main Box -----*****/
@@ -107,7 +106,7 @@ prompt {
 textbox-prompt-colon {
     enabled:                     true;
     expand:                      false;
-    str:                         "::";
+    str:                         " ";
     background-color:            transparent;
     text-color:                  inherit;
 }

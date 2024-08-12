@@ -282,10 +282,10 @@
       /* Control center */
 
       .control-center {
-        background: alpha(@crust, .85);
+        background: alpha(@crust, .80);
         border-radius: 15px;
         border: 0px solid @selected;
-        box-shadow: 0 0 10px 0 rgba(0,0,0,.85);
+        box-shadow: 0 0 10px 0 rgba(0,0,0,.80);
         margin: 10px;
         padding: 4px;
       }
@@ -296,7 +296,7 @@
 
       .control-center-list {
         /* background: @base; */
-        background: alpha(@crust, .85);
+        background: alpha(@crust, .80);
         min-height: 5px;
         /* border: 1px solid @surface1; */
         border-top: none;
@@ -405,7 +405,7 @@
         margin: 0px;
         padding: 0px;
         min-height: 5px;
-        background: alpha(@mantle, .85);
+        background: alpha(@mantle, .80);
         /* background: @theme_bg_color; */
         border-radius: 0px 0px 4px 4px;
         /* border: 1px solid @surface1; */
@@ -431,7 +431,7 @@
         background: transparent;
       }
       .widget-menubar > box > box > button {
-        background: alpha(@mantle, .85);
+        background: alpha(@mantle, .80);
         /* background: alpha(currentColor, 0.05); */
         min-width: 185px;
         min-height: 50px;
@@ -453,7 +453,7 @@
 
       .widget-menubar > box > revealer > box {
         margin: 5px 10px 5px 10px;
-        background: alpha(@mantle, .85);
+        background: alpha(@mantle, .80);
         /* background: alpha(currentColor, 0.05); */
         border-radius: 4px;
       }
@@ -479,7 +479,7 @@
       }
 
       .widget-buttons-grid > flowbox > flowboxchild {
-        background: alpha(@mantle, .85);
+        background: alpha(@mantle, .80);
         /* background: alpha(currentColor, 0.05); */
         border-radius: 4px;
         min-height: 50px;
@@ -498,7 +498,7 @@
 
 
       .widget-buttons-grid > flowbox > flowboxchild > button:hover {
-        background: alpha(@mantle, .85);
+        background: alpha(@mantle, .80);
         /* background: alpha(currentColor, 0.1); */
       }
 
@@ -514,7 +514,7 @@
         padding: 0px;
         border-radius: 4px;
         /* background: alpha(currentColor, 0.05); */
-        background: alpha(@mantle, .85);
+        background: alpha(@mantle, .80);
       }
       .widget-mpris > box > button:nth-child(1),
       .widget-mpris > box > button:nth-child(3) {
@@ -591,7 +591,7 @@
         padding: 0px;
       }
       .widget-volume > box {
-        background: alpha(@mantle, .85);
+        background: alpha(@mantle, .80);
         /* background: alpha(currentColor, 0.05); */
         border-radius: 4px;
         margin: 5px 10px 5px 10px;
@@ -611,7 +611,7 @@
         background: @surface0;
       }
       .widget-volume > revealer > list {
-        background: alpha(@mantle, .85);
+        background: alpha(@mantle, .80);
         /* background: alpha(currentColor, 0.05); */
         border-radius: 4px;
         margin-top: 5px;
@@ -628,7 +628,7 @@
         border-radius: 4px;
       }
       .widget-backlight > scale {
-        background: alpha(@mantle, .85);
+        background: alpha(@mantle, .80);
         /* background: alpha(currentColor, 0.05); */
         border-radius: 0px 4px 4px 0px;
         margin: 5px 10px 5px 0px;
@@ -652,7 +652,7 @@
       }
 
       .widget-dnd > switch {
-        background: alpha(@mantle, .85);
+        background: alpha(@mantle, .80);
         font-size: initial;
         border-radius: 8px;
         box-shadow: none;
@@ -660,7 +660,7 @@
       }
 
       .widget-dnd > switch:hover {
-        background: alpha(@mauve_lighter, .85);
+        background: alpha(@mauve_lighter, .80);
       }
 
       .widget-dnd > switch:checked {
@@ -668,11 +668,11 @@
       }
 
       .widget-dnd > switch:checked:hover {
-        background: alpha(@mauve_lighter, .85);
+        background: alpha(@mauve_lighter, .80);
       }
 
       .widget-dnd > switch slider {
-        background: alpha(@mauve_lighter, .85);
+        background: alpha(@mauve_lighter, .80);
         border-radius: 6px;
       }
 

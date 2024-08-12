@@ -16,8 +16,16 @@ configuration {
 }
 
 /*****----- Global Properties -----*****/
-@import                          "shared/colors.rasi"
 @import                          "shared/fonts.rasi"
+
+* {
+    background:                  rgba(30, 29, 47, 80%);
+    background-alt:              rgba(40, 40, 57, 80%);
+    foreground:                  #D9E0EEFF;
+    selected:                    rgba(122, 162, 247, 80%);
+    active:                      rgba(171, 233, 179, 80%);
+    urgent:                      rgba(242, 143, 173, 80%);
+}
 
 /*****----- Main Window -----*****/
 window {
@@ -33,7 +41,7 @@ window {
     margin:                      0px;
     padding:                     0px;
     border:                      0px solid;
-    border-radius:               12px;
+    border-radius:               15px;
     border-color:                @selected;
     background-color:            @background;
     cursor:                      "default";
@@ -80,10 +88,10 @@ textbox-prompt-colon {
 }
 entry {
     enabled:                     true;
-    background-color:            inherit;
+    background-color:            transparent;
     text-color:                  inherit;
     cursor:                      text;
-    placeholder:                 "Search...";
+    placeholder:                 "Search Applications...";
     placeholder-color:           inherit;
 }
 
@@ -131,7 +139,7 @@ element {
     cursor:                      pointer;
 }
 element normal.normal {
-    background-color:            @background;
+    background-color:            transparent;
     text-color:                  @foreground;
 }
 element selected.normal {

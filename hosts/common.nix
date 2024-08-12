@@ -56,7 +56,6 @@ in {
       gh
       github-desktop
       htop
-      jq
       nix-prefetch-scripts
       neofetch
       ripgrep
@@ -206,6 +205,7 @@ in {
     scripts.underwatt
 
     # System
+    jq
     # sddm-themes.sugar-dark
     sddm-themes.astronaut
     # sddm-themes.tokyo-night

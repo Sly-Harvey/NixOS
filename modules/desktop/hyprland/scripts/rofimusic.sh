@@ -32,8 +32,8 @@ notification() {
 
 # Main function
 main() {
-  r_override="entry{placeholder:'Search Music...';}"
-  choice=$(printf "%s\n" "${!menu_options[@]}" | rofi -dmenu -theme-str "$r_override" -theme ~/.config/rofi/launchers/type-4/style-3.rasi -i -p "") # type-1, style-2
+  r_override="entry{placeholder:'Search Music...';}listview{lines:9;}"
+  choice=$(printf "%s\n" "${!menu_options[@]}" | rofi -dmenu -theme-str "$r_override" -theme ~/.config/rofi/launchers/type-2/style-2.rasi -i -p "") # type-1, style-2
 
   if [ -z "$choice" ]; then
     exit 1
