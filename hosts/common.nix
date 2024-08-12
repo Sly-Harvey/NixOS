@@ -57,7 +57,6 @@ in {
       github-desktop
       htop
       jq
-      #lolcat
       nix-prefetch-scripts
       neofetch
       ripgrep

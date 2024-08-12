@@ -19,12 +19,12 @@
         "timeout-critical": 6,
         "fit-to-screen": false,
         "control-center-width": 400,
-        "control-center-height": 900,
+        "control-center-height": 915,
         "notification-window-width": 375,
         "keyboard-shortcuts": true,
         "image-visibility": "when-available",
         "transition-time": 200,
-        "hide-on-clear": true,
+        "hide-on-clear": false,
         "hide-on-action": true,
         "script-fail-notify": true,
         "scripts": {
@@ -50,9 +50,9 @@
         ],
         "widget-config": {
           "title": {
-            "text": "Quick settings",
+            "text": " Quick settings",
             "clear-all-button": true,
-            "button-text": ""
+            "button-text": ""
           },
           "menubar#desktop": {
             "menu#screenshot": {
@@ -101,15 +101,16 @@
             "show-per-app-label": false
           },
           "dnd": {
-            "text": "Do Not Disturb"
+            "text": " Do Not Disturb"
           },
           "mpris": {
             "image-size": 96,
             "image-radius": 4
           },
           "label": {
-            "text": "",
-            "clear-all-button": false
+            "text": "Notifications",
+            "clear-all-button": true,
+            "button-text": ""
           }
         }
       }
@@ -193,7 +194,6 @@
         /* background: @surface0; */
         background: @insensitive_bg_color;
       }
-
 
       .notification-content {
         min-height: 64px;
@@ -296,7 +296,7 @@
 
       .control-center-list {
         /* background: @base; */
-        background: @crust;
+        background: alpha(@crust, .85);
         min-height: 5px;
         /* border: 1px solid @surface1; */
         border-top: none;
@@ -318,10 +318,22 @@
         /* selectable: no; */
       }
 
+      .notification-group > box {
+        all: unset;
+        background: transparent;
+        /* background: alpha(currentColor, 0.072); */
+        padding: 4px;
+        margin: 0px;
+        /* margin: 0px -5px; */
+        border: none;
+        border-radius: 4px;
+        box-shadow: none;
+      }
+
       .notification-row {
         outline: none;
         transition: all 1s ease;
-        background: alpha(@base, .85);
+        background: alpha(@mantle, .80);
         /* background: @theme_bg_color; */
         border: 0px solid @crust;
         margin: 10px 5px 0px 5px;
@@ -393,14 +405,14 @@
         margin: 0px;
         padding: 0px;
         min-height: 5px;
-        background: @mantle;
+        background: alpha(@mantle, .85);
         /* background: @theme_bg_color; */
         border-radius: 0px 0px 4px 4px;
         /* border: 1px solid @surface1; */
         border-top: none;
       }
       .widget-label > label {
-        font-size: 0px;
+        font-size: 15px;
         font-weight: 400;
       }
 
@@ -419,7 +431,7 @@
         background: transparent;
       }
       .widget-menubar > box > box > button {
-        background: @mantle;
+        background: alpha(@mantle, .85);
         /* background: alpha(currentColor, 0.05); */
         min-width: 185px;
         min-height: 50px;
@@ -441,7 +453,7 @@
 
       .widget-menubar > box > revealer > box {
         margin: 5px 10px 5px 10px;
-        background: @mantle;
+        background: alpha(@mantle, .85);
         /* background: alpha(currentColor, 0.05); */
         border-radius: 4px;
       }
@@ -467,7 +479,7 @@
       }
 
       .widget-buttons-grid > flowbox > flowboxchild {
-        background: @mantle;
+        background: alpha(@mantle, .85);
         /* background: alpha(currentColor, 0.05); */
         border-radius: 4px;
         min-height: 50px;
@@ -486,7 +498,7 @@
 
 
       .widget-buttons-grid > flowbox > flowboxchild > button:hover {
-        background: @mantle;
+        background: alpha(@mantle, .85);
         /* background: alpha(currentColor, 0.1); */
       }
 
@@ -502,7 +514,7 @@
         padding: 0px;
         border-radius: 4px;
         /* background: alpha(currentColor, 0.05); */
-        background: @mantle;
+        background: alpha(@mantle, .85);
       }
       .widget-mpris > box > button:nth-child(1),
       .widget-mpris > box > button:nth-child(3) {
@@ -579,7 +591,7 @@
         padding: 0px;
       }
       .widget-volume > box {
-        background: @mantle;
+        background: alpha(@mantle, .85);
         /* background: alpha(currentColor, 0.05); */
         border-radius: 4px;
         margin: 5px 10px 5px 10px;
@@ -599,7 +611,7 @@
         background: @surface0;
       }
       .widget-volume > revealer > list {
-        background: @mantle;
+        background: alpha(@mantle, .85);
         /* background: alpha(currentColor, 0.05); */
         border-radius: 4px;
         margin-top: 5px;
@@ -616,7 +628,7 @@
         border-radius: 4px;
       }
       .widget-backlight > scale {
-        background: @mantle;
+        background: alpha(@mantle, .85);
         /* background: alpha(currentColor, 0.05); */
         border-radius: 0px 4px 4px 0px;
         margin: 5px 10px 5px 0px;
