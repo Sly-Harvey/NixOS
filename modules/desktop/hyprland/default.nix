@@ -72,8 +72,9 @@ in {
         "$scriptsDir" = "XDG_BIN_HOME";
         "$hyprScriptsDir" = "$XDG_CONFIG_HOME/hypr/scripts";
         "$mainMod" = "SUPER";
-        # "$launcher" = "pkill rofi || rofi -show drun -modi drun,filebrowser,run,window -theme $XDG_CONFIG_HOME/rofi/launchers/type-2/style-2.rasi";
-        "$launcher" = "pkill rofi || rofi -show drun -modi drun,filebrowser,run,window -theme $XDG_CONFIG_HOME/rofi/launchers/type-4/style-3.rasi";
+        # "$launcher" = "pkill rofi || rofi -show drun -modi drun,filebrowser,run,window -theme $XDG_CONFIG_HOME/rofi/launchers/type-4/style-7.rasi";
+        # "$launcher" = "pkill rofi || rofi -show drun -modi drun,filebrowser,run,window -theme $XDG_CONFIG_HOME/rofi/launchers/type-4/style-3.rasi";
+        "$launcher" = "pkill rofi || rofi -show drun -modi drun,filebrowser,run,window -theme $XDG_CONFIG_HOME/rofi/launchers/type-2/style-2.rasi";
         "$term" = "${pkgs.${terminal}}/bin/${terminal}";
         "$editor" = "code --disable-gpu";
         "$file" = "$term -e lf";
@@ -164,12 +165,16 @@ in {
           "col.border_locked_inactive" = "rgba(b4befecc) rgba(6c7086cc) 45deg";
         };
         layerrule = [
+          "blur, rofi"
+          "ignorezero, rofi"
+          "ignorealpha 0.7, rofi"
+
           "blur, swaync-control-center"
           "blur, swaync-notification-window"
           "ignorezero, swaync-control-center"
           "ignorezero, swaync-notification-window"
-          "ignorealpha 0.8, swaync-control-center"
-          "ignorealpha 0.8, swaync-notification-window"
+          "ignorealpha 0.7, swaync-control-center"
+          # "ignorealpha 0.8, swaync-notification-window"
           # "dimaround, swaync-control-center"
         ];
         animations = {
@@ -224,7 +229,6 @@ in {
         };
         windowrulev2 = [
           #"noanim, class:^(Rofi)$
-          "opacity 0.80 0.80,class:^(alacritty)$"
           "tile,title:(.*)(Godot)(.*)$"
           "workspace 1, class:^(firefox)$"
           "workspace 2, class:^(Alacritty)$"
@@ -248,6 +252,7 @@ in {
           #"immediate, class:^(steam_app_2)$"
           #"immediate, class:^(.*)(.exe)$"
 
+          "opacity 0.80 0.80,class:^(alacritty)$"
           "opacity 1.00 1.00,class:^(firefox)$"
           "opacity 0.90 0.90,class:^(Brave-browser)$"
           "opacity 0.80 0.80,class:^(Steam)$"
@@ -264,6 +269,7 @@ in {
           "opacity 0.80 0.80,class:^(org.kde.ark)$"
           "opacity 0.80 0.80,class:^(nwg-look)$"
           "opacity 0.80 0.80,class:^(qt5ct)$"
+          "opacity 0.80 0.80,class:^(qt6ct)$"
 
           "opacity 0.90 0.90,class:^(com.github.rafostar.Clapper)$" #Clapper-Gtk
           "opacity 0.80 0.80,class:^(com.github.tchx84.Flatseal)$" #Flatseal-Gtk
@@ -344,14 +350,14 @@ in {
             "$mainMod, Z, exec, pkill -x rofi || $hyprScriptsDir/emoji.sh" # launch emoji picker
             #"$mainMod, tab, exec, pkill -x rofi || $hyprScriptsDir/rofilaunch.sh w" # switch between desktop applications
             # "$mainMod, R, exec, pkill -x rofi || $hyprScriptsDir/rofilaunch.sh f" # browse system files
-            "$mainMod SHIFT, W, exec, $hyprScriptsDir/WallpaperSelect.sh" # Select wallpaper to apply
             "$mainMod ALT, K, exec, $hyprScriptsDir/keyboardswitch.sh" # change keyboard layout
             "$mainMod SHIFT, N, exec, swaync-client -t -sw" # swayNC panel
             "$mainMod SHIFT, Q, exec, swaync-client -t -sw" # swayNC panel
             "$mainMod, G, exec, $hyprScriptsDir/gamelauncher.sh" # game launcher
             "$mainMod ALT, G, exec, $hyprScriptsDir/gamemode.sh" # disable hypr effects for gamemode
             "$mainMod, V, exec, $hyprScriptsDir/ClipManager.sh" # Clipboard Manager
-            "$mainMod SHIFT, M, exec, $hyprScriptsDir/rofimusic.sh" # online music
+            "$mainMod, M, exec, pkill -x rofi || $hyprScriptsDir/rofimusic.sh" # online music
+            "$mainMod SHIFT, M, exec, pkill -x rofi || $hyprScriptsDir/rofimusic.sh" # online music
 
             # Waybar
             "$mainMod, B, exec, killall -SIGUSR1 waybar" # Toggle hide/show waybar
