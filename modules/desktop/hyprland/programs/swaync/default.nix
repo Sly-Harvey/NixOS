@@ -6,7 +6,7 @@
         "$schema": "/etc/xdg/swaync/configSchema.json",
         "positionX": "right",
         "positionY": "top",
-        "cssPriority": "application",
+        "cssPriority": "user",
         "control-center-margin-top": 22,
         "control-center-margin-bottom": 2,
         "control-center-margin-right": 1,
@@ -19,12 +19,12 @@
         "timeout-critical": 6,
         "fit-to-screen": false,
         "control-center-width": 400,
-        "control-center-height": 900,
+        "control-center-height": 915,
         "notification-window-width": 375,
         "keyboard-shortcuts": true,
         "image-visibility": "when-available",
         "transition-time": 200,
-        "hide-on-clear": true,
+        "hide-on-clear": false,
         "hide-on-action": true,
         "script-fail-notify": true,
         "scripts": {
@@ -50,9 +50,9 @@
         ],
         "widget-config": {
           "title": {
-            "text": "Quick settings",
+            "text": " Quick settings",
             "clear-all-button": true,
-            "button-text": ""
+            "button-text": ""
           },
           "menubar#desktop": {
             "menu#screenshot": {
@@ -101,15 +101,16 @@
             "show-per-app-label": false
           },
           "dnd": {
-            "text": "Do Not Disturb"
+            "text": " Do Not Disturb"
           },
           "mpris": {
             "image-size": 96,
             "image-radius": 4
           },
           "label": {
-            "text": "",
-            "clear-all-button": false
+            "text": "Notifications",
+            "clear-all-button": true,
+            "button-text": ""
           }
         }
       }
@@ -154,9 +155,8 @@
       @define-color flamingo  #f2cdcd;
       @define-color rosewater #f5e0dc;
 
-      @define-color dnd_background  rgba(24, 24, 37, .85);
-      @define-color dnd_selected    #cba6f7;
-      @define-color dnd_hover       rgba(203, 166, 247, .85);
+      @define-color base_lighter  #1e1e2e;
+      @define-color mauve_lighter #caa6f7;
 
       * {
         font-family: "Product Sans";
@@ -194,7 +194,6 @@
         /* background: @surface0; */
         background: @insensitive_bg_color;
       }
-
 
       .notification-content {
         min-height: 64px;
@@ -246,7 +245,7 @@
       .summary {
         color: @text;
         /* color: @theme_text_color; */
-        font-size: 16px;
+        font-size: 14px;
         padding: 0px;
       }
 
@@ -283,7 +282,7 @@
       /* Control center */
 
       .control-center {
-        background: @crust;
+        background: alpha(@crust, .85);
         border-radius: 15px;
         border: 0px solid @selected;
         box-shadow: 0 0 10px 0 rgba(0,0,0,.85);
@@ -297,7 +296,7 @@
 
       .control-center-list {
         /* background: @base; */
-        background: @crust;
+        background: alpha(@crust, .85);
         min-height: 5px;
         /* border: 1px solid @surface1; */
         border-top: none;
@@ -314,18 +313,16 @@
 
       .notification-group {
         /* unset the annoying focus thingie */
-        all: unset;
-        border: none;
         opacity: 0;
-        padding: 0px;
         box-shadow: none;
         /* selectable: no; */
       }
+
       .notification-group > box {
         all: unset;
-        background: @mantle;
+        background: transparent;
         /* background: alpha(currentColor, 0.072); */
-        padding: 8px;
+        padding: 4px;
         margin: 0px;
         /* margin: 0px -5px; */
         border: none;
@@ -333,15 +330,14 @@
         box-shadow: none;
       }
 
-
       .notification-row {
         outline: none;
         transition: all 1s ease;
-        background: @base;
+        background: alpha(@mantle, .80);
         /* background: @theme_bg_color; */
-        border: 1px solid @crust;
+        border: 0px solid @crust;
         margin: 10px 5px 0px 5px;
-        border-radius: 4px;
+        border-radius: 14px;
         /* box-shadow: 0px 0px 4px black; */
         /* background: alpha(currentColor, 0.05); */
       }
@@ -376,7 +372,7 @@
       /* Title widget */
       .widget-title {
         margin: 0px;
-        background: inherit;
+        background: transparent;
         /* background: @theme_bg_color; */
         border-radius: 4px 4px 0px 0px;
         /* border: 1px solid @surface1; */
@@ -409,20 +405,20 @@
         margin: 0px;
         padding: 0px;
         min-height: 5px;
-        background: @mantle;
+        background: alpha(@mantle, .85);
         /* background: @theme_bg_color; */
         border-radius: 0px 0px 4px 4px;
         /* border: 1px solid @surface1; */
         border-top: none;
       }
       .widget-label > label {
-        font-size: 0px;
+        font-size: 15px;
         font-weight: 400;
       }
 
       /* Menubar */
       .widget-menubar {
-        background: inherit;
+        background: transparent;
         /* background: @theme_bg_color; */
         /* border: 1px solid @surface1; */
         border-top: none;
@@ -435,7 +431,7 @@
         background: transparent;
       }
       .widget-menubar > box > box > button {
-        background: @mantle;
+        background: alpha(@mantle, .85);
         /* background: alpha(currentColor, 0.05); */
         min-width: 185px;
         min-height: 50px;
@@ -457,7 +453,7 @@
 
       .widget-menubar > box > revealer > box {
         margin: 5px 10px 5px 10px;
-        background: @mantle;
+        background: alpha(@mantle, .85);
         /* background: alpha(currentColor, 0.05); */
         border-radius: 4px;
       }
@@ -471,7 +467,7 @@
       /* Buttons grid */
       .widget-buttons-grid {
         /* background-color: @theme_bg_color; */
-        background-color: @mantle;
+        background: transparent;
         /* border: 1px solid @surface1; */
         border-top: none;
         border-bottom: none;
@@ -483,7 +479,7 @@
       }
 
       .widget-buttons-grid > flowbox > flowboxchild {
-        background: @mantle;
+        background: alpha(@mantle, .85);
         /* background: alpha(currentColor, 0.05); */
         border-radius: 4px;
         min-height: 50px;
@@ -502,13 +498,13 @@
 
 
       .widget-buttons-grid > flowbox > flowboxchild > button:hover {
-        background: @mantle;
+        background: alpha(@mantle, .85);
         /* background: alpha(currentColor, 0.1); */
       }
 
       /* Mpris widget */
       .widget-mpris {
-        padding: 10px;
+        padding: 8px;
         padding-bottom: 15px;
         margin-bottom: -33px;
       }
@@ -518,7 +514,7 @@
         padding: 0px;
         border-radius: 4px;
         /* background: alpha(currentColor, 0.05); */
-        background: @mantle;
+        background: alpha(@mantle, .85);
       }
       .widget-mpris > box > button:nth-child(1),
       .widget-mpris > box > button:nth-child(3) {
@@ -583,7 +579,8 @@
       /* Backlight and volume widgets */
       .widget-backlight,
       .widget-volume {
-        background-color: @crust;
+        background: transparent;
+        /* background-color: @crust; */
         /* background-color: @theme_bg_color; */
         /* border: 1px solid @surface1; */
         border-top: none;
@@ -594,7 +591,7 @@
         padding: 0px;
       }
       .widget-volume > box {
-        background: @mantle;
+        background: alpha(@mantle, .85);
         /* background: alpha(currentColor, 0.05); */
         border-radius: 4px;
         margin: 5px 10px 5px 10px;
@@ -614,7 +611,7 @@
         background: @surface0;
       }
       .widget-volume > revealer > list {
-        background: @mantle;
+        background: alpha(@mantle, .85);
         /* background: alpha(currentColor, 0.05); */
         border-radius: 4px;
         margin-top: 5px;
@@ -631,7 +628,7 @@
         border-radius: 4px;
       }
       .widget-backlight > scale {
-        background: @mantle;
+        background: alpha(@mantle, .85);
         /* background: alpha(currentColor, 0.05); */
         border-radius: 0px 4px 4px 0px;
         margin: 5px 10px 5px 0px;
@@ -655,7 +652,7 @@
       }
 
       .widget-dnd > switch {
-        background: @dnd_background;
+        background: alpha(@mantle, .85);
         font-size: initial;
         border-radius: 8px;
         box-shadow: none;
@@ -663,19 +660,19 @@
       }
 
       .widget-dnd > switch:hover {
-        background: @dnd_hover;
+        background: alpha(@mauve_lighter, .85);
       }
 
       .widget-dnd > switch:checked {
-        background: @dnd_selected;
+        background: @mauve;
       }
 
       .widget-dnd > switch:checked:hover {
-        background: @dnd_hover;
+        background: alpha(@mauve_lighter, .85);
       }
 
       .widget-dnd > switch slider {
-        background: @dnd_hover;
+        background: alpha(@mauve_lighter, .85);
         border-radius: 6px;
       }
 
