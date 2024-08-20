@@ -17,13 +17,19 @@
 
   hardware = {
     nvidia.package = lib.mkDefault config.boot.kernelPackages.nvidiaPackages.latest;
-    opengl = {
+    graphics = {
+      enable = true;
+      enable32Bit = true;
       extraPackages = with pkgs; [
         mesa # Enables mesa
         mesa.drivers # Enables the use of mesa drivers
         nvidia-vaapi-driver # Not sure if this is needed
         vaapiVdpau # Not sure if this is needed
         libvdpau-va-gl # Not sure if this is needed
+
+        # vulkan-loader
+        # vulkan-extension-layer
+        # vulkan-validation-layers
       ];
     };
   };

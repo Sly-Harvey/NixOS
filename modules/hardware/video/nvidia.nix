@@ -45,9 +45,9 @@ in {
         vaapiVdpau
         libvdpau-va-gl
 
-        vulkan-loader
-        vulkan-validation-layers
-        vulkan-extension-layer
+        # vulkan-loader
+        # vulkan-extension-layer
+        # vulkan-validation-layers
       ];
     };
   };
