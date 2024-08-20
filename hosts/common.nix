@@ -13,7 +13,6 @@ in {
     inputs.home-manager.nixosModules.home-manager
     inputs.chaotic.nixosModules.default
 
-    ../modules/hardware/video/opengl.nix
     ../modules/hardware/drives # Will still boot if these these drives are not found
 
     ../modules/programs/terminal/${terminal}
