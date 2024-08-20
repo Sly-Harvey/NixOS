@@ -4,14 +4,16 @@
     enable = true;
     videoDrivers = ["amdgpu"];
   };
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
-    driSupport = true;
-    driSupport32Bit = true;
+    enable32Bit = true;
     extraPackages = with pkgs; [
       amdvlk
       libvdpau-va-gl
       vaapiVdpau
+      # vulkan-loader
+      # vulkan-extension-layer
+      # vulkan-validation-layers
     ];
     extraPackages32 = with pkgs; [driversi686Linux.amdvlk];
   };
