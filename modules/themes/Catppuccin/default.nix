@@ -45,10 +45,10 @@ in {
     gtk = {
       enable = true;
       theme = {
-        name = "catppuccin-macchiato-mauve-compact";
+        name = "catppuccin-mocha-mauve-compact";
         package = catppuccin-gtk.override {
           accents = ["mauve"];
-          variant = "macchiato";
+          variant = "mocha";
           size = "compact";
         };
       };
