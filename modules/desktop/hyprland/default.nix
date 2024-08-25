@@ -86,7 +86,7 @@ in {
           "XDG_SESSION_TYPE,wayland"
           "GDK_BACKEND=wayland,x11,*"
           "NIXOS_OZONE_WL,1"
-          "MOZ_ENABLE_WAYLAND,1"
+          "MOZ_ENABLE_WAYLAND,1" # disable if You're having issues with firefox
           "SDL_VIDEODRIVER,wayland"
           "OZONE_PLATFORM,wayland"
           "CLUTTER_BACKEND,wayland"
