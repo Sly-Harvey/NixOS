@@ -114,7 +114,7 @@
             })
           // inputs; # Expose all inputs and arguments
         modules = [
-          ./LIVE-CD.nix
+            ./hosts/LIVE-CD.nix
         ];
       };
     };
