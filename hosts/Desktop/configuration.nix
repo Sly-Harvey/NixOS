@@ -1,4 +1,5 @@
 {
+  lib,
   pkgs,
   username,
   hostname,
@@ -17,9 +18,12 @@
     ./hardware-configuration.nix
   ];
 
+  boot.loader.grub.gfxmodeEfi = lib.mkForce "3840x2160";
+  boot.loader.grub.gfxmodeBios = lib.mkForce "3840x2160";
+
   # Home-manager config
   home-manager.users.${username} = {
-    # vertical monitor on the left, 4K monitor in the middle and 1080p hdr monitor on the right.
+    # vertical monitor on the left, 4K-HDR monitor in the middle and 1080p-HDR monitor on the right.
     wayland.windowManager.hyprland.extraConfig = ''
       monitor=desc:BNQ BenQ xl2420t 99D06760SL0,preferred,-1080x-750,1,transform,3 # 7 for fipped
       monitor=desc:BNQ BenQ EL2870U PCK00489SL0,3840x2160@60,0x0,2,bitdepth,10

@@ -230,9 +230,9 @@ in {
         windowrulev2 = [
           #"noanim, class:^(Rofi)$
           "tile,title:(.*)(Godot)(.*)$"
-          "workspace 1, class:^(firefox)$"
-          "workspace 2, class:^(Alacritty)$"
-          "workspace 2, class:^(kitty)$"
+          "workspace 2, class:^(firefox)$"
+          "workspace 1, class:^(Alacritty)$"
+          "workspace 1, class:^(kitty)$"
           "workspace 3, class:^(VSCodium)$"
           "workspace 3, class:^(codium-url-handler)$"
           "workspace 3, class:^(Code)$"
@@ -240,10 +240,10 @@ in {
           "workspace 4, class:^(krita)$"
           "workspace 4, title:(.*)(Godot)(.*)$"
           "workspace 4, title:(GNU Image Manipulation Program)(.*)$"
-          "workspace 5, class:^(Spotify)$"
-          "workspace 5, title:(.*)(Spotify)(.*)$"
-          "workspace 7, class:^(steam)$"
-          # "workspace 10, class:^(factorio)$"
+          "workspace 9, class:^(Spotify)$"
+          "workspace 9, title:(.*)(Spotify)(.*)$"
+          "workspace 5, class:^(steam)$"
+          "workspace 10, class:^(factorio)$"
 
           # Allow screen tearing for reduced input latency on some games.
           #"immediate, class:^(cs2)$"
@@ -482,15 +482,15 @@ in {
         # Monitor
         monitor=,preferred,auto,1
 
-        workspace=1,monitor:HDMI-A-1,default:true
-        workspace=2,monitor:HDMI-A-2,default:true
-        workspace=3,monitor:HDMI-A-2
-        workspace=4,monitor:HDMI-A-2
-        workspace=5,monitor:HDMI-A-1
+        workspace=1,monitor:DP-1,default:true
+        workspace=2,monitor:HDMI-A-1,default:true
+        workspace=3,monitor:HDMI-A-2,default:true
+        workspace=4,monitor:DP-1
+        workspace=5,monitor:DP-1
         workspace=7,monitor:HDMI-A-1
         workspace=8,monitor:HDMI-A-1
-        workspace=9,monitor:HDMI-A-2
-        workspace=10,monitor:HDMI-A-2
+        workspace=9,monitor:HDMI-A-1
+        workspace=10,monitor:DP-1
       '';
     };
   };
