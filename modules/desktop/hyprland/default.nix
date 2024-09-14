@@ -424,7 +424,7 @@ in {
             "$mainMod, j, movefocus, d"
 
             # Go to workspace 5 (Spotify) with mouse side button
-            "$mainMod, mouse:275, workspace, 5"
+            "$mainMod, mouse:275, workspace, 9"
 
             # Scroll through existing workspaces with mainMod + scroll
             "$mainMod, mouse_down, workspace, e+1"
@@ -479,8 +479,13 @@ in {
           #pass_mouse_when_bound=0
         }
 
-        # Monitor
+        # Easily plug in any monitor
         monitor=,preferred,auto,1
+
+        # vertical monitor on the left, 4K-HDR monitor in the middle and 1080p-HDR monitor on the right.
+        monitor=desc:BNQ BenQ xl2420t 99D06760SL0,preferred,-1080x-750,1,transform,3 # 7 for fipped
+        monitor=desc:BNQ BenQ EL2870U PCK00489SL0,3840x2160@60,0x0,2,bitdepth,10
+        monitor=desc:BNQ BenQ EW277HDR 99J01861SL0,preferred,1920x0,1,bitdepth,8
 
         workspace=1,monitor:DP-1,default:true
         workspace=2,monitor:HDMI-A-1,default:true

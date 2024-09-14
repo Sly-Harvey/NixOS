@@ -124,9 +124,12 @@ in {
   programs.dconf.enable = true;
 
   # Enable sddm login manager
-  services.displayManager.sddm.enable = true;
-  services.displayManager.sddm.theme = "astronaut";
-  services.displayManager.sddm.settings.Theme.CursorTheme = "Bibata-Modern-Classic";
+  services.displayManager.sddm = {
+    enable = true;
+    wayland.enable = true;
+    theme = "astronaut";
+    settings.Theme.CursorTheme = "Bibata-Modern-Classic";
+  };
 
   # Setup auth agent and keyring
   services.gnome.gnome-keyring.enable = true;
