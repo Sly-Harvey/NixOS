@@ -94,6 +94,7 @@ in {
         efiSupport = true;
         useOSProber = true;
         gfxmodeEfi = "1920x1080";
+        gfxmodeBios = "1920x1080";
         theme = pkgs.stdenv.mkDerivation {
           pname = "distro-grub-themes";
           version = "3.1";
