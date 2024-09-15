@@ -109,7 +109,7 @@ in {
           "$hyprScriptsDir/wallpaper.sh"
           "sleep 1 && waybar &"
           "swaync &"
-          "pamixer --set-volume 40"
+          "pamixer --set-volume 46"
           # "dunst"
           # "blueman-applet"
           "nm-applet --indicator"
@@ -423,8 +423,9 @@ in {
             "$mainMod, k, movefocus, u"
             "$mainMod, j, movefocus, d"
 
-            # Go to workspace 5 (Spotify) with mouse side button
+            # Go to workspace 9 (Spotify) and 5 with mouse side buttons
             "$mainMod, mouse:275, workspace, 9"
+            "$mainMod, mouse:276, workspace, 5"
 
             # Scroll through existing workspaces with mainMod + scroll
             "$mainMod, mouse_down, workspace, e+1"
