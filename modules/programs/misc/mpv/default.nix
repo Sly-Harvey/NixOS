@@ -104,22 +104,15 @@
       };
       config = {
         osc = "no";
-        hwdec = "vaapi";
-        vo = "gpu-next,gpu,dmabuf-wayland,wlshm,vdpau,xv,x11,sdl,drm,";
-        alang = "jpn,en,ru";
-        slang = "jpn,en,ru";
-        vlang = "jpn,en,ru";
         watch-later-directory = "${config.xdg.stateHome}/mpv/watch_later";
         resume-playback-check-mtime = true;
-        # vaapi-device / vulkan-device
-        # screen / vulkan-display-display
         audio-device = "pipewire";
         # because ao=pipewire doesn't work for audio-only files for whatever reason...
         # TODO: hopefully remove it when it's fixed upstream
-        ao = "pulse,alsa,jack,pipewire,";
+        ao = "pipewire";
         audio-file-auto = "fuzzy";
         sub-auto = "fuzzy";
-        gpu-context = "waylandvk";
+        # gpu-context = "waylandvk";
         wayland-edge-pixels-pointer = 0;
         wayland-edge-pixels-touch = 0;
         screenshot-format = "webp";
