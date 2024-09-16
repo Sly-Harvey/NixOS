@@ -1,67 +1,89 @@
-# This is the live iso config. To build the iso file use the build-iso command in the root of the project after using install.sh
-
-
 {
+  lib,
   pkgs,
   inputs,
   modulesPath,
-  username,
+  terminal,
   ...
 }: {
   imports = [
     "${modulesPath}/installer/cd-dvd/installation-cd-minimal.nix"
+    "${modulesPath}/installer/cd-dvd/channel.nix"
+    "${modulesPath}/installer/cd-dvd/installation-cd-graphical-calamares.nix"
     inputs.home-manager.nixosModules.home-manager
-    ./modules/core
-    ./modules/hardware/video/opengl.nix
-    ./modules/hardware/drives/games.nix
-    ./modules/hardware/drives/seagate.nix
+    inputs.chaotic.nixosModules.default
+    ../modules/desktop/hyprland # Enable hyprland window manager
 
-    ./modules/desktop/hyprland # Enable hyprland window manager
-    ./modules/programs/terminal/alacritty
-    # ./modules/programs/terminal/kitty
-    ./modules/programs/shell/bash
-    ./modules/programs/shell/zsh
-    ./modules/programs/browser/firefox
-    ./modules/programs/editor/nixvim
-    ./modules/programs/editor/vscode
-    ./modules/programs/cli/starship
-    ./modules/programs/cli/tmux
-    ./modules/programs/cli/direnv
-    ./modules/programs/cli/lf
-    ./modules/programs/cli/lazygit
-    ./modules/programs/cli/cava
-    ./modules/programs/cli/btop
-    ./modules/programs/misc/mpv
-    ./modules/programs/misc/spicetify
+    ../modules/hardware/drives # Will still boot if these these drives are not found
+
+    ../modules/programs/terminal/${terminal}
+    ../modules/programs/shell/bash
+    ../modules/programs/shell/zsh
+    ../modules/programs/browser/firefox
+    ../modules/programs/editor/nixvim
+    # ../modules/programs/editor/vscode
+    ../modules/programs/cli/starship
+    ../modules/programs/cli/tmux
+    ../modules/programs/cli/direnv
+    ../modules/programs/cli/lf
+    ../modules/programs/cli/lazygit
+    ../modules/programs/cli/cava
+    ../modules/programs/cli/btop
+    ../modules/programs/misc/mpv
+    ../modules/programs/misc/spicetify
   ];
 
   # Filesystems support
-  boot.supportedFilesystems = ["ntfs" "exfat" "ext4" "fat32" "btrfs"];
+  boot.supportedFilesystems = ["ntfs" "exfat" "ext4" "fat32" "btrfs" "vfat" "xfs"];
   services.devmon.enable = true;
   services.gvfs.enable = true;
   services.udisks2.enable = true;
 
+  # Setup cpu scheduler for responsiveness and performance with cachyos kernel
+  # scx Won't build if not using the cachyos kernel
+  chaotic.scx = {
+    enable = true;
+    scheduler = "scx_rusty";
+  };
+  boot = {
+    kernel.sysctl."vm.overcommit_memory" = "1";
+    kernelPackages = pkgs.linuxPackages_cachyos; # _latest, _zen_latest, _xanmod_latest _hardened, _rt, etc.
+    postBootCommands = ''
+      for o in $(</proc/cmdline); do
+        case "$o" in
+          live.nixos.passwd=*)
+            set -- $(IFS==; echo $o)
+            echo "nixos:$2" | ${pkgs.shadow}/bin/chpasswd
+            ;;
+        esac
+      done
+    '';
+  };
+
   # Home-manager config
-  home-manager.users.${username} = {
-    home.username = username;
-    home.homeDirectory = "/home/${username}";
+  home-manager.users.nixos = {
+    home.username = "nixos";
+    home.homeDirectory = "/home/nixos";
 
     home.stateVersion = "23.11"; # Please read the comment before changing.
 
     home.packages = with pkgs; [
-      calamares-nixos
       xfce.thunar
-
-      # Terminal
       #vim
       eza
       fzf
       fd
       git
       gh
-      lf
+      github-desktop
+      htop
       nix-prefetch-scripts
       neofetch
+      ripgrep
+      tldr
+      unzip
+
+      krita
     ];
 
     home.sessionVariables = {
@@ -72,26 +94,37 @@
     programs.home-manager.enable = true;
   };
 
+  services = {
+    qemuGuest.enable = true;
+    # openssh.settings.PermitRootLogin = lib.mkForce "yes";
+  };
+
   environment.systemPackages = with pkgs; let
     sddm-themes = pkgs.callPackage ../../modules/themes/sddm/themes.nix {};
     scripts = pkgs.callPackage ../../modules/scripts {};
   in [
+    # Calamares for graphical installation
+    # libsForQt5.kpmcore
+    # calamares-nixos
+    # calamares-nixos-autostart
+    # calamares-nixos-extensions
+    # # Get list of locales
+    # glibcLocales
+
     # System
-    scripts.tmux-find
+    scripts.tmux-sessionizer
     scripts.collect-garbage
+    scripts.driverinfo
+    scripts.underwatt
     # sddm-themes.sugar-dark
     sddm-themes.astronaut
     # sddm-themes.tokyo-night
-    # adwaita-qt
     bibata-cursors
     libsForQt5.qt5.qtgraphicaleffects # For sddm to function properly
-    polkit
-    libsForQt5.polkit-kde-agent
 
     # Development
-    # devbox # faster nix-shells
-    # shellify # faster nix-shells
-    github-desktop
+    devbox # faster nix-shells
+    shellify # faster nix-shells
   ];
 
   nixpkgs = {
@@ -102,11 +135,15 @@
     ];
   };
 
+  # Enable wpa_supplicant, but don't start it by default.
+  networking.wireless.enable = lib.mkDefault true;
+  networking.wireless.userControlled.enable = true;
+  systemd.services.wpa_supplicant.wantedBy = lib.mkOverride 50 [];
+
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
   # Enable sound with pipewire.
-  sound.enable = true;
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
@@ -114,6 +151,7 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
+    wireplumber.enable = true;
     # If you want to use JACK applications, uncomment this
     #jack.enable = true;
 
@@ -124,20 +162,28 @@
 
   security = {
     polkit.enable = true;
-    #sudo.wheelNeedsPassword = false;
+    sudo.wheelNeedsPassword = false;
   };
 
   xdg.portal.enable = true;
-  xdg.portal.configPackages = [pkgs.xdg-desktop-portal-gtk];
+  xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-gtk];
 
   # Enable dconf for home-manager
   programs.dconf.enable = true;
 
   # Enable sddm login manager
   services.xserver.enable = true;
-  services.xserver.displayManager.sddm.enable = true;
-  services.xserver.displayManager.sddm.theme = "astronaut";
-  services.xserver.displayManager.sddm.settings.Theme.CursorTheme = "Bibata-Modern-Classic";
+  services.xserver.displayManager = {
+    sddm = {
+      enable = true;
+      theme = "astronaut";
+      settings.Theme.CursorTheme = "Bibata-Modern-Classic";
+    };
+    autoLogin = {
+      enable = true;
+      user = "nixos";
+    };
+  };
 
   # Setup auth agent and keyring
   services.gnome.gnome-keyring.enable = true;
@@ -163,12 +209,6 @@
   programs.zsh.enable = true;
   users.defaultUserShell = pkgs.zsh;
 
-  # Default user when using: sudo nixos-rebuild build-vm
-  users.users.nixosvmtest.isNormalUser = true;
-  users.users.nixosvmtest.initialPassword = "vm";
-  users.users.nixosvmtest.group = "nixosvmtest";
-  users.groups.nixosvmtest = {};
-
   fonts.packages = with pkgs; [
     (nerdfonts.override {
       fonts = [
@@ -177,8 +217,42 @@
       ];
     })
   ];
+  services.getty.helpLine = ''
+    The "nixos" and "root" accounts have empty passwords.
 
-  users.users.${username} = {
+    To log in over ssh you must set a password for either "nixos" or "root"
+    with `passwd` (prefix with `sudo` for "root"), or add your public key to
+    /home/nixos/.ssh/authorized_keys or /root/.ssh/authorized_keys.
+
+    If you need a wireless connection, type
+    `sudo systemctl start wpa_supplicant` and configure a
+    network using `wpa_cli`. See the NixOS manual for details.
+  '';
+
+  # Automatically log in at the virtual consoles.
+  services.getty.autologinUser = "nixos";
+
+  users.users = {
+    root.initialHashedPassword = "";
+    nixos = {
+      initialHashedPassword = "";
+      isNormalUser = true;
+      extraGroups = [
+        "wheel"
+        "networkmanager"
+        "video"
+        "audio"
+        "kvm"
+        "input"
+        "disk"
+        "libvirtd"
+      ];
+    };
+  };
+
+  # users.extraUsers.root.password = "nixos";
+
+  /* users.users.${username} = {
     isNormalUser = true;
     initialPassword = "nixos";
     extraGroups = [
@@ -191,20 +265,39 @@
       "video"
       "audio"
     ];
-  };
+  }; */
+
+  # Tell the Nix evaluator to garbage collect more aggressively.
+  # This is desirable in memory-constrained environments that don't
+  # (yet) have swap set up.
+  environment.variables.GC_INITIAL_HEAP_SIZE = "1M";
+
+  environment.etc."systemd/pstore.conf".text = ''
+      [PStore]
+      Unlink=no
+  '';
+
+  # Speed up install with these.
+  system.extraDependencies = with pkgs; [
+    stdenv
+    stdenvNoCC # for runCommand
+    busybox
+    jq # for closureInfo
+    # For boot.initrd.systemd
+    makeInitrdNGTool
+  ];
 
   nix = {
     settings = {
+      trusted-users = [ "root" "nixos" ];
       substituters = [
         "https://cache.nixos.org/"
         "https://nix-community.cachix.org"
-        "https://hyprland.cachix.org"
         "https://nix-gaming.cachix.org"
       ];
       trusted-public-keys = [
         "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-        "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
         "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
       ];
       experimental-features = ["nix-command" "flakes"];
