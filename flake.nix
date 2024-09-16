@@ -9,12 +9,10 @@
     nur.url = "github:nix-community/NUR";
     nixvim.url = "github:Sly-Harvey/nixvim";
     hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
-    /*
-       Hyprspace = {
+    /* Hyprspace = {
       url = "github:KZDKM/Hyprspace";
       inputs.hyprland.follows = "hyprland";
-    };
-    */
+    }; */
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -104,7 +102,7 @@
         ];
       };
       Iso = lib.nixosSystem {
-        # Build the iso with the build-iso command. (cpu intensive)
+        # Build with: nix build .#nixosConfigurations.Iso.config.system.build.isoImage. (cpu intensive)
         inherit system;
         specialArgs =
           (arguments

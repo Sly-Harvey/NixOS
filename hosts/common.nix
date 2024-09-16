@@ -83,7 +83,7 @@ in {
   # Bootloader.
   boot = {
     tmp.cleanOnBoot = true;
-    kernelPackages = pkgs.linuxPackages_cachyos; # _zen_latest, _xanmod_latest _hardened, _rt, _OTHER_CHANNEL, etc.
+    kernelPackages = pkgs.linuxPackages_cachyos; # _latest, _zen_latest, _xanmod_latest _hardened, _rt, etc.
     loader = {
       efi.canTouchEfiVariables = true;
       efi.efiSysMountPoint = "/boot";
@@ -212,11 +212,7 @@ in {
     # sddm-themes.sugar-dark
     sddm-themes.astronaut
     # sddm-themes.tokyo-night
-    # adwaita-qt
-    # bibata-cursors
     libsForQt5.qt5.qtgraphicaleffects # For sddm to function properly
-    # polkit
-    # libsForQt5.polkit-kde-agent
     vulkan-tools
 
     # Development
