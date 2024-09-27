@@ -11,7 +11,6 @@
 in {
   imports = [
     inputs.home-manager.nixosModules.home-manager
-    inputs.chaotic.nixosModules.default
 
     ../modules/hardware/drives # Will still boot if these these drives are not found
 
@@ -74,16 +73,10 @@ in {
   services.gvfs.enable = true;
   services.udisks2.enable = true;
 
-  # Setup cpu scheduler for responsiveness and performance with cachyos kernel
-  # scx Won't build if not using the cachyos kernel
-  chaotic.scx = {
-    enable = true;
-    scheduler = "scx_rusty";
-  };
   # Bootloader.
   boot = {
     tmp.cleanOnBoot = true;
-    kernelPackages = pkgs.linuxPackages_cachyos; # _latest, _zen_latest, _xanmod_latest _hardened, _rt, etc.
+    kernelPackages = pkgs.linuxKernel.packages.linux_6_10; # _zen_latest, _xanmod_latest _hardened, _rt, _OTHER_CHANNEL, etc.
     loader = {
       efi.canTouchEfiVariables = true;
       efi.efiSysMountPoint = "/boot";

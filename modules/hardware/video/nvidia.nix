@@ -13,7 +13,7 @@ in {
     "nvidia_drm.fbdev=1"
   ];
   environment.variables = {
-    VK_DRIVER_FILES = /run/opengl-driver/share/vulkan/icd.d/nvidia_icd.x86_64.json;
+    #VK_DRIVER_FILES = /run/opengl-driver/share/vulkan/icd.d/nvidia_icd.x86_64.json;
     GBM_BACKEND = "nvidia-drm";
     WLR_NO_HARDWARE_CURSORS = "1";
     LIBVA_DRIVER_NAME = "nvidia"; # hardware acceleration
