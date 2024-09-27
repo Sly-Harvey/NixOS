@@ -47,7 +47,7 @@ nix-shell --command "git -C $scriptdir add *"
 
 clear
 nix-shell --command "echo BUILDING! | figlet -cklnoW | lolcat -F 0.3 -p 2.5 -S 300"
-sudo nixos-rebuild switch --flake "$scriptdir#Default" || exit 1
+nix-shell --command "sudo nixos-rebuild switch --flake "$scriptdir#Default" || exit 1"
 echo "success!"
 echo "Make sure to reboot if this is your first time using this script!"
 
