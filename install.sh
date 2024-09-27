@@ -36,18 +36,18 @@ if [ -f "/etc/nixos/hardware-configuration.nix" ]; then
 else
 	# Generate new config
 	clear
-	nix-shell --command "echo GENERATING CONFIG! | figlet -cklno | lolcat -F 0.3 -p 2.5 -S 300"
+	echo GENERATING CONFIG! | figlet -cklno | lolcat -F 0.3 -p 2.5 -S 300
   for host in "$scriptdir"/hosts/*/ ; do
     host=${host%*/}
     sudo nixos-generate-config --show-hardware-config > "$host/hardware-configuration.nix"
   done
 fi
 
-nix-shell --command "git -C $scriptdir add *"
+git -C $scriptdir add *
 
 clear
-nix-shell --command "echo BUILDING! | figlet -cklnoW | lolcat -F 0.3 -p 2.5 -S 300"
-sudo nixos-rebuild switch --flake "$scriptdir#Default" --show-trace || exit 1
+echo BUILDING! | figlet -cklnoW | lolcat -F 0.3 -p 2.5 -S 300
+sudo nixos-rebuild switch --flake "$scriptdir#Default" || exit 1
 echo "success!"
 echo "Make sure to reboot if this is your first time using this script!"
 
