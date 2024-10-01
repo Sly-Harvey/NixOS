@@ -1,6 +1,5 @@
 {
   pkgs,
-  username,
   ...
 }: let
   fromYAML = f: let
@@ -13,20 +12,22 @@
   in
     builtins.elemAt (builtins.fromJSON (builtins.readFile jsonFile)) 0;
 in {
-  home-manager.users.${username} = _: {
-    home.shellAliases = {
-      lg = "lazygit";
-    };
-    programs.lazygit = {
-      enable = true;
-      settings = {
-        gui = fromYAML (
-          pkgs.catppuccin + "/lazygit/themes/blue.yml"
-        );
-        git = {
-          overrideGpg = true;
+  home-manager.sharedModules = [
+    (_: {
+      home.shellAliases = {
+        lg = "lazygit";
+      };
+      programs.lazygit = {
+        enable = true;
+        settings = {
+          gui = fromYAML (
+            pkgs.catppuccin + "/lazygit/themes/blue.yml"
+          );
+          git = {
+            overrideGpg = true;
+          };
         };
       };
-    };
-  };
+    })
+  ];
 }

@@ -29,7 +29,6 @@
   outputs = {
     nixpkgs,
     nixpkgs-stable,
-    nixpkgs-waybar-fix,
     ...
   } @ inputs: let
     # User configuration
@@ -55,7 +54,7 @@
 
     system = "x86_64-linux"; # most users will be on 64 bit pcs (unless yours is ancient)
     lib = nixpkgs.lib;
-    pkgs-stable = final: prev: {
+    pkgs-stable = _final: _prev: {
       stable = import nixpkgs-stable {
         inherit system;
         config.allowUnfree = true;

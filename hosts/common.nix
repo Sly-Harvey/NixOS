@@ -201,12 +201,13 @@ in {
     scripts.underwatt
 
     # System
+    killall
     jq
-    # sddm-themes.sugar-dark
-    sddm-themes.astronaut
-    # sddm-themes.tokyo-night
     libsForQt5.qt5.qtgraphicaleffects # For sddm to function properly
     vulkan-tools
+    sddm-themes.astronaut
+    # sddm-themes.sugar-dark
+    # sddm-themes.tokyo-night
 
     # Development
     devbox # faster nix-shells
