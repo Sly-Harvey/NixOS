@@ -7,13 +7,13 @@
   ...
 }: {
   imports = [
-    "${modulesPath}/installer/cd-dvd/installation-cd-minimal.nix"
     "${modulesPath}/installer/cd-dvd/channel.nix"
     "${modulesPath}/installer/cd-dvd/installation-cd-graphical-calamares.nix"
     inputs.home-manager.nixosModules.home-manager
-    inputs.chaotic.nixosModules.default
     ../modules/desktop/hyprland # Enable hyprland window manager
 
+    ../modules/hardware/video/nvidia.nix # Enable nvidia drivers
+    # ../modules/hardware/video/amdgpu.nix # Enable amdgpu drivers
     ../modules/hardware/drives # Will still boot if these these drives are not found
 
     ../modules/programs/terminal/${terminal}
@@ -39,25 +39,8 @@
   services.gvfs.enable = true;
   services.udisks2.enable = true;
 
-  # Setup cpu scheduler for responsiveness and performance with cachyos kernel
-  # scx Won't build if not using the cachyos kernel
-  chaotic.scx = {
-    enable = true;
-    scheduler = "scx_rusty";
-  };
   boot = {
-    kernel.sysctl."vm.overcommit_memory" = "1";
-    kernelPackages = pkgs.linuxPackages_cachyos; # _latest, _zen_latest, _xanmod_latest _hardened, _rt, etc.
-    postBootCommands = ''
-      for o in $(</proc/cmdline); do
-        case "$o" in
-          live.nixos.passwd=*)
-            set -- $(IFS==; echo $o)
-            echo "nixos:$2" | ${pkgs.shadow}/bin/chpasswd
-            ;;
-        esac
-      done
-    '';
+    kernelPackages = pkgs.linuxKernel.packages.linux_6_10; # _latest, _zen_latest, _xanmod_latest _hardened, _rt, etc.
   };
 
   # Home-manager config
@@ -100,8 +83,8 @@
   };
 
   environment.systemPackages = with pkgs; let
-    sddm-themes = pkgs.callPackage ../../modules/themes/sddm/themes.nix {};
-    scripts = pkgs.callPackage ../../modules/scripts {};
+    sddm-themes = pkgs.callPackage ../modules/themes/sddm/themes.nix {};
+    scripts = pkgs.callPackage ../modules/scripts {};
   in [
     # Calamares for graphical installation
     # libsForQt5.kpmcore
@@ -173,7 +156,7 @@
 
   # Enable sddm login manager
   services.xserver.enable = true;
-  services.xserver.displayManager = {
+  services.displayManager = {
     sddm = {
       enable = true;
       theme = "astronaut";
@@ -204,7 +187,7 @@
   };
 
   # Enable touchpad support (enabled default in most desktopManager).
-  services.xserver.libinput.enable = true;
+  services.libinput.enable = true;
 
   programs.zsh.enable = true;
   users.defaultUserShell = pkgs.zsh;
@@ -249,33 +232,6 @@
       ];
     };
   };
-
-  # users.extraUsers.root.password = "nixos";
-
-  /* users.users.${username} = {
-    isNormalUser = true;
-    initialPassword = "nixos";
-    extraGroups = [
-      "networkmanager"
-      "wheel"
-      "kvm"
-      "input"
-      "disk"
-      "libvirtd"
-      "video"
-      "audio"
-    ];
-  }; */
-
-  # Tell the Nix evaluator to garbage collect more aggressively.
-  # This is desirable in memory-constrained environments that don't
-  # (yet) have swap set up.
-  environment.variables.GC_INITIAL_HEAP_SIZE = "1M";
-
-  environment.etc."systemd/pstore.conf".text = ''
-      [PStore]
-      Unlink=no
-  '';
 
   # Speed up install with these.
   system.extraDependencies = with pkgs; [
