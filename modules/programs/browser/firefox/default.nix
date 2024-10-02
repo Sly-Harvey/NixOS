@@ -1,4 +1,5 @@
 {
+  lib,
   pkgs,
   ...
 }: let
@@ -19,38 +20,179 @@ in {
           package = pkgs.wrapFirefox pkgs.firefox-unwrapped {
             extraPolicies = {
               DisableTelemetry = true;
-              # add policies here...
+              DisablePocket = true;
+              DisableFirefoxAccounts = true;
+              DisableFeedbackCommands = true;
+              DisableFirefoxStudies = true;
+              OfferToSaveLogins = false;
+              OffertosaveloginsDefault = false;
+              PasswordManagerEnabled = false;
+              EncryptedMediaExtensions.Enabled = true;
+              OverrideFirstRunPage = "";
+              OverridePostUpdatePage = "";
+              EnableTrackingProtection = {
+                Value = true;
+                Cryptomining = true;
+                Fingerprinting = true;
+                EmailTracking = true;
+              };
+              UserMessaging = {
+                ExtensionRecommendations = false;
+                FeatureRecommendations = false;
+                MoreFromMozilla = false;
+                SkipOnboarding = true;
+                WhatsNew = false;
+              };
+              # SanitizeOnShutdown = {
+              #   Cache = true;
+              #   Cookies = false;
+              #   Downloads = true;
+              #   FormData = true;
+              #   History = false;
+              #   Sessions = false;
+              #   SiteSettings = false;
+              #   OfflineApps = true;
+              #   Locked = true;
+              # };
 
-              /*
-              ---- GLOBAL EXTENSIONS ----
-              */
-              ExtensionSettings = {
-                "*".installation_mode = "normal_installed"; # blocks all addons except the ones specified below
-                "uBlock0@raymondhill.net" = {
-                  install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
-                  installation_mode = "force_installed";
+              "3rdparty".Extensions = {
+                "{aecec67f-0d10-4fa7-b7c7-609a2db280cf}".adminSettings = { # violentmonkey
+                  permissions = ["internal:privateBrowsingAllowed"];
+                  scripts = rec {
+                    "Simple YouTube Age Restriction Bypass" = {
+                      custom = {
+                        origInclude = true;
+                        origExclude = true;
+                        origMatch = true;
+                        origExcludeMatch = true;
+                        lastInstallURL = "https://raw.githubusercontent.com/zerodytrash/Simple-YouTube-Age-Restriction-Bypass/main/dist/Simple-YouTube-Age-Restriction-Bypass.user.js";
+                      };
+                      config = {
+                        enabled = 1;
+                        shouldUpdate = 1;
+                        removed = 0;
+                      };
+                    };
+                    "Bypass Instagram Login Redirects" = {
+                      custom = {
+                        origInclude = true;
+                        origExclude = true;
+                        origMatch = true;
+                        origExcludeMatch = true;
+                        lastInstallURL = "https://update.greasyfork.org/scripts/420604/Bypass Instagram Login Redirects.user.js";
+                      };
+                      config = {
+                        enabled = 1;
+                        shouldUpdate = 1;
+                        removed = 0;
+                      };
+                    };
+                  };
+                  settings = {
+                    isApplied = true;
+                    autoUpdate = 1;
+                    updateEnabledScriptsOnly = false;
+                    exportValues = true;
+                    closeAfterInstall = false;
+                    editAfterInstall = false;
+                    autoReload = true;
+                    importScriptData = true;
+                    importSettings = true;
+                    notifyUpdates = false;
+                    notifyUpdatesGlobal = false;
+                    defaultInjectInto = "auto";
+                    showAdvanced = true;
+                  };
                 };
                 "addon@darkreader.org" = {
-                  install_url = "https://addons.mozilla.org/firefox/downloads/latest/darkreader/latest.xpi";
-                  installation_mode = "force_installed";
+                  permissions = ["internal:privateBrowsingAllowed"];
+                  enabled = true;
+                  automation = {
+                    enabled = true;
+                    behavior = "OnOff";
+                    mode = "system";
+                  };
+                  detectDarkTheme = true;
+                  enabledByDefault = true;
+                  changeBrowserTheme = false;
+                  enableForProtectedPages = true;
+                  fetchNews = false;
+                  previewNewDesign = true;
                 };
-                "jid1-MnnxcxisBPnSXQ@jetpack" = {
-                  install_url = "https://addons.mozilla.org/firefox/downloads/latest/privacy-badger17/latest.xpi";
-                  installation_mode = "force_installed";
+                "uBlock0@raymondhill.net" = {
+                  permissions = ["internal:privateBrowsingAllowed"];
+                  adminSettings = {
+                    userSettings = rec {
+                      uiTheme = "dark";
+                      uiAccentCustom = true;
+                      uiAccentCustom0 = "#CA9EE6";
+                      cloudStorageEnabled = lib.mkForce false; # Security liability?
+                      userFilters = "twitch.tv##+js(twitch-videoad)";
+                      advancedUserEnabled = true;
+                      hiddenSettings.userResourcesLocation = "https://raw.githubusercontent.com/pixeltris/TwitchAdSolutions/master/video-swap-new/video-swap-new-ublock-origin.js";
+                      importedLists = [
+                        "https://gitflic.ru/project/magnolia1234/bypass-paywalls-clean-filters/blob/raw?file=bpc-paywall-filter.txt"
+                        "https://raw.githubusercontent.com/DandelionSprout/adfilt/master/BrowseWebsitesWithoutLoggingIn.txt"
+                        "https://raw.githubusercontent.com/DandelionSprout/adfilt/master/ClearURLs for uBo/clear_urls_uboified.txt"
+                        "https://raw.githubusercontent.com/DandelionSprout/adfilt/master/Dandelion Sprout's Anti-Malware List.txt"
+                        "https://raw.githubusercontent.com/DandelionSprout/adfilt/master/LegitimateURLShortener.txt"
+                        "https://raw.githubusercontent.com/iam-py-test/my_filters_001/main/antimalware.txt"
+                        "https://raw.githubusercontent.com/liamengland1/miscfilters/master/antipaywall.txt"
+                        "https://raw.githubusercontent.com/yokoffing/filterlists/main/annoyance_list.txt"
+                        "https://raw.githubusercontent.com/yokoffing/filterlists/main/privacy_essentials.txt"
+                      ];
+                      externalLists = lib.concatStringsSep "\n" importedLists;
+                      popupPanelSections = 31;
+                    };
+                    selectedFilterLists = [
+                      "ublock-filters"
+                      "ublock-badware"
+                      "ublock-privacy"
+                      "ublock-quick-fixes"
+                      "ublock-unbreak"
+                      "easylist"
+                      "adguard-generic"
+                      "adguard-mobile"
+                      "easyprivacy"
+                      "adguard-spyware"
+                      "adguard-spyware-url"
+                      "block-lan"
+                      "urlhaus-1"
+                      "curben-phishing"
+                      "plowe-0"
+                      "dpollock-0"
+                      "fanboy-cookiemonster"
+                      "ublock-cookies-easylist"
+                      "adguard-cookies"
+                      "ublock-cookies-adguard"
+                      "fanboy-social"
+                      "adguard-social"
+                      "fanboy-thirdparty_social"
+                      "easylist-chat"
+                      "easylist-newsletters"
+                      "easylist-notifications"
+                      "easylist-annoyances"
+                      "adguard-mobile-app-banners"
+                      "adguard-other-annoyances"
+                      "adguard-popup-overlays"
+                      "adguard-widgets"
+                      "ublock-annoyances"
+                      "DEU-0"
+                      "FRA-0"
+                      "NLD-0"
+                      "RUS-0"
+                      "https://raw.githubusercontent.com/yokoffing/filterlists/main/privacy_essentials.txt"
+                      "https://raw.githubusercontent.com/DandelionSprout/adfilt/master/LegitimateURLShortener.txt"
+                      "https://raw.githubusercontent.com/DandelionSprout/adfilt/master/ClearURLs for uBo/clear_urls_uboified.txt"
+                      "https://raw.githubusercontent.com/yokoffing/filterlists/main/annoyance_list.txt"
+                      "https://raw.githubusercontent.com/DandelionSprout/adfilt/master/BrowseWebsitesWithoutLoggingIn.txt"
+                      "https://gitflic.ru/project/magnolia1234/bypass-paywalls-clean-filters/blob/raw?file=bpc-paywall-filter.txt"
+                      "https://raw.githubusercontent.com/liamengland1/miscfilters/master/antipaywall.txt"
+                      "https://raw.githubusercontent.com/DandelionSprout/adfilt/master/Dandelion Sprout's Anti-Malware List.txt"
+                      "https://raw.githubusercontent.com/iam-py-test/my_filters_001/main/antimalware.txt"
+                    ];
+                  };
                 };
-                # "{d7742d87-e61d-4b78-b8a1-b469842139fa}" = {
-                #   install_url = "https://addons.mozilla.org/firefox/downloads/latest/vimium-ff/latest.xpi";
-                #   installation_mode = "force_installed";
-                # };
-                "{c2c003ee-bd69-42a2-b0e9-6f34222cb046}" = {
-                  install_url = "https://addons.mozilla.org/firefox/downloads/latest/auto-tab-discard/latest.xpi";
-                  installation_mode = "normal_installed";
-                };
-                "queryamoid@kaply.com" = {
-                  install_url = "https://github.com/mkaply/queryamoid/releases/download/v0.1/query_amo_addon_id-0.1-fx.xpi";
-                  installation_mode = "force_installed";
-                };
-                # add extensions here...
               };
 
               /*
@@ -58,6 +200,17 @@ in {
               */
               # Set preferences shared by all profiles.
               Preferences = {
+                # enable custom userchrome
+                "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
+                "svg.context-properties.content.enabled" = true;
+                "layout.css.color-mix.enabled" = true;
+                "browser.tabs.delayHidingAudioPlayingIconMS" = 0;
+                "layout.css.backdrop-filter.enabled" = true;
+                "browser.newtabpage.activity-stream.improvesearch.handoffToAwesomebar" = false;
+                "privacy.userContext.enabled" = true;
+                "privacy.userContext.ui.enabled" = true;
+                "privacy.userContext.longPressBehavior" = 2;
+
                 # Performance settings
                 "gfx.webrender.all" = true; # Force enable GPU acceleration
                 "media.ffmpeg.vaapi.enabled" = true;
@@ -96,6 +249,7 @@ in {
                 "privacy.clearOnShutdown.siteSettings" = lock-true;
 
                 # Block more unwanted stuff
+                "dom.block_multiple_popups" = lock-true;
                 "browser.privatebrowsing.forceMediaMemoryCache" = lock-true;
                 "browser.contentblocking.category" = {
                   Value = "strict";
@@ -143,6 +297,11 @@ in {
 
                 # General settings
                 "ui.key.accelKey" = 17; # Set CTRL as master key
+                "browser.aboutConfig.showWarning" = lock-false;
+                "browser.aboutwelcome.enabled" = lock-false;
+                "browser.tabs.firefox-view" = lock-false;
+                "browser.startup.homepage_override.mstone" = "ignore";
+                "trailhead.firstrun.didSeeAboutWelcome" = true; # Disable welcome splash
                 "browser.newtab.url" = "about:blank";
                 "browser.newtabpage.activity-stream.enabled" = lock-false;
                 "browser.newtabpage.activity-stream.telemetry" = lock-false;
@@ -177,12 +336,81 @@ in {
                 "extensions.screenshots.disabled" = lock-true;
                 "extensions.getAddons.showPane" = lock-false;
                 "extensions.htmlaboutaddons.recommendations.enabled" = lock-false;
-                "extensions.extensions.activeThemeID" = "firefox-alpenglow@mozilla.org";
+                "extensions.extensions.activeThemeID" = "firefox-compact-dark@mozilla.org";
                 # "extensions.update.enabled" = false;
                 "extensions.webcompat.enable_picture_in_picture_overrides" = true;
                 "extensions.webcompat.enable_shims" = true;
                 "extensions.webcompat.perform_injections" = true;
                 "extensions.webcompat.perform_ua_overrides" = true;
+
+                "extensions.autoDisableScopes" = {
+                  Value = 0;
+                  Status = "locked";
+                };
+                "extensions.enabledScopes" = {
+                  Value = 15;
+                  Status = "locked";
+                };
+                "extensions.allowPrivateBrowsingByDefault" = lock-true;
+                "extensions.webextensions.restrictedDomains" = {
+                  Value = "";
+                  Status = "locked";
+                };
+
+                # Do not tell what plugins we have enabled: https://mail.mozilla.org/pipermail/firefox-dev/2013-November/001186.html
+                "plugins.enumerable_names" = "";
+                "plugin.state.flash" = 0;
+                "browser.search.update" = false;
+                "extensions.getAddons.cache.enabled" = lock-false;
+                "extensions.ui.sitepermission.hidden" = lock-true;
+                "extensions.ui.locale.hidden" = lock-true;
+
+                "browser.uiCustomization.state" = builtins.toJSON {
+                  currentVersion = 20;
+                  newElementCount = 7;
+                  placements = {
+                    widget-overflow-fixed-list = [];
+                    unified-extensions-area = [];
+                    nav-bar = [
+                      "back-button"
+                      "forward-button"
+                      "stop-reload-button"
+                      "urlbar-container"
+                      "downloads-button"
+
+                      # Extensions
+                      "ublock0_raymondhill_net-browser-action"
+                      "_aecec67f-0d10-4fa7-b7c7-609a2db280cf_-browser-action"
+                      "addon_darkreader_org-browser-action"
+                    ];
+                    toolbar-menubar = ["menubar-items"];
+                    TabsToolbar = [
+                      "firefox-view-button"
+                      "tabbrowser-tabs"
+                      "new-tab-button"
+                      "alltabs-button"
+                    ];
+                    PersonalToolbar = ["personal-bookmarks" "managed-bookmarks"];
+                  };
+                  seen = [
+                    "developer-button"
+                    "save-to-pocket-button"
+                    "addon_darkreader_org-browser-action"
+                    "ublock0_raymondhill_net-browser-action"
+                    "_aecec67f-0d10-4fa7-b7c7-609a2db280cf_-browser-action"
+                    "_762f9885-5a13-4abd-9c77-433dcd38b8fd_-browser-action"
+                    "sponsorBlocker@ajay.app-browser-action"
+                    "firefox@betterttv.net-browser-action"
+                  ];
+                  dirtyAreaCache = [
+                    "nav-bar"
+                    "PersonalToolbar"
+                    "toolbar-menubar"
+                    "TabsToolbar"
+                    "unified-extensions-area"
+                    "widget-overflow-fixed-list"
+                  ];
+                };
               };
             };
           };
@@ -200,8 +428,14 @@ in {
               name = "default"; # name as listed in about:profiles
               isDefault = true; # can be omitted; true if profile ID is 0
               extensions = with pkgs.nur.repos.rycee.firefox-addons; [
-                # profile-switcher
+                ublock-origin
+                violentmonkey
+                darkreader
+                betterttv
+                sponsorblock
+                return-youtube-dislikes
               ];
+              settings = {};
               bookmarks = [
                 {
                   name = "Bookmarks Toolbar";
@@ -249,11 +483,12 @@ in {
                 privateDefault = "Startpage";
                 order = [
                   "Startpage"
+                  "Searx"
+                  "Brave"
                   "NixOS Packages"
                   "NixOS Options"
                   "NixOS Wiki"
                   "Home Manager Options"
-                  "Searx"
                   "Google"
                 ];
                 engines = {
@@ -265,6 +500,26 @@ in {
                     ];
                     icon = "''${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
                     definedAliases = ["@sp"];
+                  };
+                  "Brave" = {
+                    urls = [
+                      {
+                        template = "https://search.brave.com/search";
+                        params = [
+                          {
+                            name = "q";
+                            value = "{searchTerms}";
+                          }
+                        ];
+                      }
+                    ];
+                    definedAliases = ["@br"];
+                  };
+                  "Searx" = {
+                    urls = [{template = "https://searx.aicampground.com/?q={searchTerms}";}];
+                    iconUpdateURL = "https://nixos.wiki/favicon.png";
+                    updateInterval = 24 * 60 * 60 * 1000; # every day
+                    definedAliases = ["@sx"];
                   };
                   "NixOS Packages" = {
                     urls = [
@@ -327,22 +582,16 @@ in {
                     updateInterval = 24 * 60 * 60 * 1000; # Update every day.
                     definedAliases = ["@hm"];
                   };
-                  "Searx" = {
-                    urls = [{template = "https://searx.aicampground.com/?q={searchTerms}";}];
-                    iconUpdateURL = "https://nixos.wiki/favicon.png";
-                    updateInterval = 24 * 60 * 60 * 1000; # every day
-                    definedAliases = ["@sx"];
-                  };
                   "Bing".metaData.hidden = true;
                   "Ebay".metaData.hidden = true;
                   "Google".metaData.alias = "@g"; # builtin engines only support specifying one additional alias
                 };
               };
-              extraConfig = ''
-                lockPref("extensions.autoDisableScopes", 0);
-              '';
+              # userChrome = ''
+              # '';
+              # userContent = ''
+              # '';
             };
-            # add profiles here...
           };
         };
       };
