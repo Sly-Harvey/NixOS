@@ -19,7 +19,7 @@ in {
     ../modules/programs/shell/zsh
     ../modules/programs/browser/firefox
     ../modules/programs/editor/nixvim
-    ../modules/programs/editor/vscode
+    #../modules/programs/editor/vscode
     ../modules/programs/cli/starship
     ../modules/programs/cli/tmux
     ../modules/programs/cli/direnv
