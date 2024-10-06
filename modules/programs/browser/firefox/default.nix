@@ -56,54 +56,6 @@ in {
               # };
 
               "3rdparty".Extensions = {
-                "{aecec67f-0d10-4fa7-b7c7-609a2db280cf}".adminSettings = { # violentmonkey
-                  permissions = ["internal:privateBrowsingAllowed"];
-                  scripts = rec {
-                    "Simple YouTube Age Restriction Bypass" = {
-                      custom = {
-                        origInclude = true;
-                        origExclude = true;
-                        origMatch = true;
-                        origExcludeMatch = true;
-                        lastInstallURL = "https://raw.githubusercontent.com/zerodytrash/Simple-YouTube-Age-Restriction-Bypass/main/dist/Simple-YouTube-Age-Restriction-Bypass.user.js";
-                      };
-                      config = {
-                        enabled = 1;
-                        shouldUpdate = 1;
-                        removed = 0;
-                      };
-                    };
-                    "Bypass Instagram Login Redirects" = {
-                      custom = {
-                        origInclude = true;
-                        origExclude = true;
-                        origMatch = true;
-                        origExcludeMatch = true;
-                        lastInstallURL = "https://update.greasyfork.org/scripts/420604/Bypass Instagram Login Redirects.user.js";
-                      };
-                      config = {
-                        enabled = 1;
-                        shouldUpdate = 1;
-                        removed = 0;
-                      };
-                    };
-                  };
-                  settings = {
-                    isApplied = true;
-                    autoUpdate = 1;
-                    updateEnabledScriptsOnly = false;
-                    exportValues = true;
-                    closeAfterInstall = false;
-                    editAfterInstall = false;
-                    autoReload = true;
-                    importScriptData = true;
-                    importSettings = true;
-                    notifyUpdates = false;
-                    notifyUpdatesGlobal = false;
-                    defaultInjectInto = "auto";
-                    showAdvanced = true;
-                  };
-                };
                 "addon@darkreader.org" = {
                   permissions = ["internal:privateBrowsingAllowed"];
                   enabled = true;
@@ -121,21 +73,32 @@ in {
                 };
                 "uBlock0@raymondhill.net" = {
                   permissions = ["internal:privateBrowsingAllowed"];
+                  advancedSettings = [
+                    [
+                      "userResourcesLocation"
+                      "https://raw.githubusercontent.com/pixeltris/TwitchAdSolutions/master/video-swap-new/video-swap-new-ublock-origin.js"
+                    ]
+                  ];
                   adminSettings = {
+                    userFilters = lib.concatMapStrings (x: x + "\n") [
+                      "twitch.tv##+js(twitch-videoad)"
+                    ];
                     userSettings = rec {
                       uiTheme = "dark";
                       uiAccentCustom = true;
                       uiAccentCustom0 = "#CA9EE6";
                       cloudStorageEnabled = lib.mkForce false; # Security liability?
-                      userFilters = "twitch.tv##+js(twitch-videoad)";
                       advancedUserEnabled = true;
-                      hiddenSettings.userResourcesLocation = "https://raw.githubusercontent.com/pixeltris/TwitchAdSolutions/master/video-swap-new/video-swap-new-ublock-origin.js";
+                      userFiltersTrusted = true;
                       importedLists = [
+                        "https://easylist-downloads.adblockplus.org/antiadblockfilters.txt"
                         "https://gitflic.ru/project/magnolia1234/bypass-paywalls-clean-filters/blob/raw?file=bpc-paywall-filter.txt"
                         "https://raw.githubusercontent.com/DandelionSprout/adfilt/master/BrowseWebsitesWithoutLoggingIn.txt"
                         "https://raw.githubusercontent.com/DandelionSprout/adfilt/master/ClearURLs for uBo/clear_urls_uboified.txt"
                         "https://raw.githubusercontent.com/DandelionSprout/adfilt/master/Dandelion Sprout's Anti-Malware List.txt"
                         "https://raw.githubusercontent.com/DandelionSprout/adfilt/master/LegitimateURLShortener.txt"
+                        "https://raw.githubusercontent.com/OsborneLabs/Columbia/master/Columbia.txt"
+                        "https://raw.githubusercontent.com/bogachenko/fuckfuckadblock/master/fuckfuckadblock.txt?_=rawlist"
                         "https://raw.githubusercontent.com/iam-py-test/my_filters_001/main/antimalware.txt"
                         "https://raw.githubusercontent.com/liamengland1/miscfilters/master/antipaywall.txt"
                         "https://raw.githubusercontent.com/yokoffing/filterlists/main/annoyance_list.txt"
@@ -181,15 +144,19 @@ in {
                       "FRA-0"
                       "NLD-0"
                       "RUS-0"
-                      "https://raw.githubusercontent.com/yokoffing/filterlists/main/privacy_essentials.txt"
                       "https://raw.githubusercontent.com/DandelionSprout/adfilt/master/LegitimateURLShortener.txt"
-                      "https://raw.githubusercontent.com/DandelionSprout/adfilt/master/ClearURLs for uBo/clear_urls_uboified.txt"
-                      "https://raw.githubusercontent.com/yokoffing/filterlists/main/annoyance_list.txt"
                       "https://raw.githubusercontent.com/DandelionSprout/adfilt/master/BrowseWebsitesWithoutLoggingIn.txt"
-                      "https://gitflic.ru/project/magnolia1234/bypass-paywalls-clean-filters/blob/raw?file=bpc-paywall-filter.txt"
-                      "https://raw.githubusercontent.com/liamengland1/miscfilters/master/antipaywall.txt"
                       "https://raw.githubusercontent.com/DandelionSprout/adfilt/master/Dandelion Sprout's Anti-Malware List.txt"
+                      "https://raw.githubusercontent.com/yokoffing/filterlists/main/privacy_essentials.txt"
+                      "https://raw.githubusercontent.com/yokoffing/filterlists/main/annoyance_list.txt"
+                      "https://easylist-downloads.adblockplus.org/antiadblockfilters.txt"
+                      "https://raw.githubusercontent.com/liamengland1/miscfilters/master/antipaywall.txt"
+                      "https://gitflic.ru/project/magnolia1234/bypass-paywalls-clean-filters/blob/raw?file=bpc-paywall-filter.txt"
+                      "https://raw.githubusercontent.com/DandelionSprout/adfilt/master/ClearURLs for uBo/clear_urls_uboified.txt"
                       "https://raw.githubusercontent.com/iam-py-test/my_filters_001/main/antimalware.txt"
+                      "https://raw.githubusercontent.com/OsborneLabs/Columbia/master/Columbia.txt"
+                      "https://raw.githubusercontent.com/bogachenko/fuckfuckadblock/master/fuckfuckadblock.txt?_=rawlist"
+                      "user-filters"
                     ];
                   };
                 };
