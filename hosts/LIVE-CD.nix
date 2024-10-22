@@ -259,6 +259,6 @@
       experimental-features = ["nix-command" "flakes"];
       warn-dirty = false;
     };
-    package = pkgs.nixFlakes;
+    package = pkgs.nixVersions.stable;
   };
 }

@@ -247,7 +247,7 @@ in {
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
         "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
       ];
-      experimental-features = ["nix-command" "flakes" "repl-flake"];
+      experimental-features = ["nix-command" "flakes"];
       use-xdg-base-directories = false;
       warn-dirty = false;
       keep-outputs = true;
@@ -260,6 +260,6 @@ in {
       options = "--delete-older-than 3d";
     };
     optimise.automatic = true;
-    package = pkgs.nixFlakes;
+    package = pkgs.nixVersions.stable;
   };
 }
