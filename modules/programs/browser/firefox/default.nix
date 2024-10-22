@@ -57,7 +57,6 @@ in {
 
               "3rdparty".Extensions = {
                 "addon@darkreader.org" = {
-                  permissions = ["internal:privateBrowsingAllowed"];
                   enabled = true;
                   automation = {
                     enabled = true;
@@ -72,7 +71,6 @@ in {
                   previewNewDesign = true;
                 };
                 "uBlock0@raymondhill.net" = {
-                  permissions = ["internal:privateBrowsingAllowed"];
                   advancedSettings = [
                     [
                       "userResourcesLocation"
@@ -82,6 +80,7 @@ in {
                   adminSettings = {
                     userFilters = lib.concatMapStrings (x: x + "\n") [
                       "twitch.tv##+js(twitch-videoad)"
+                      "||1337x.vpnonly.site"
                     ];
                     userSettings = rec {
                       uiTheme = "dark";
@@ -349,6 +348,7 @@ in {
                       "ublock0_raymondhill_net-browser-action"
                       "_aecec67f-0d10-4fa7-b7c7-609a2db280cf_-browser-action"
                       "addon_darkreader_org-browser-action"
+                      "unified-extensions-button"
                     ];
                     toolbar-menubar = ["menubar-items"];
                     TabsToolbar = [
