@@ -1,7 +1,4 @@
-{
-  spicetify-nix,
-  ...
-}: {
+{spicetify-nix, ...}: {
   home-manager.sharedModules = [
     ({
       pkgs,
