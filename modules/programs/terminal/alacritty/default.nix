@@ -84,7 +84,7 @@
             class.instance = "Alacritty";
           };
 
-          shell = {
+          terminal.shell = {
             program = "${pkgs.zsh}/bin/zsh";
           };
 

@@ -1,5 +1,6 @@
 {pkgs, ...}: {
-  environment.systemPackages = [
-    pkgs.lutris
+  environment.systemPackages = with pkgs; [
+    wineWowPackages.staging
+    lutris
   ];
 }
