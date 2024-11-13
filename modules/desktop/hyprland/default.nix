@@ -91,10 +91,9 @@
             "XDG_SESSION_TYPE,wayland"
             "GDK_BACKEND,wayland,x11,*"
             "NIXOS_OZONE_WL,1"
+            "ELECTRON_OZONE_PLATFORM_HINT,auto"
             "MOZ_ENABLE_WAYLAND,1" # disable if You're having issues with firefox
-            "SDL_VIDEODRIVER,wayland"
             "OZONE_PLATFORM,wayland"
-            "CLUTTER_BACKEND,wayland"
             "QT_QPA_PLATFORM,wayland;xcb"
             "QT_WAYLAND_DISABLE_WINDOWDECORATION,1"
             "QT_QPA_PLATFORMTHEME,qt6ct"
@@ -150,8 +149,8 @@
             # allow_tearing = true; # Allow tearing for games (use immediate window rules for specific games or all titles)
           };
           decoration = {
+            shadow.enabled = false;
             rounding = 10;
-            drop_shadow = false;
             dim_special = 0.3;
             blur = {
               enabled = true;
