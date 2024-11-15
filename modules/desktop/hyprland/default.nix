@@ -1,5 +1,6 @@
 {
   inputs,
+  lib,
   pkgs,
   terminal,
   ...
@@ -25,7 +26,9 @@
     package = inputs.hyprland.packages.${pkgs.system}.hyprland;
   };
 
-  home-manager.sharedModules = [
+  home-manager.sharedModules = let
+    inherit (lib) getExe getExe';
+  in [
     ({...}: {
       imports = [
         inputs.hyprland.homeManagerModules.default
@@ -44,10 +47,8 @@
         playerctl
         slurp
         swappy
-        swww
         swaynotificationcenter
         waybar
-        wlsunset
         wtype
         wl-clipboard
       ];
@@ -80,7 +81,7 @@
           # "$launcher" = "pkill rofi || rofi -show drun -modi drun,filebrowser,run,window -theme $XDG_CONFIG_HOME/rofi/launchers/type-4/style-7.rasi";
           # "$launcher" = "pkill rofi || rofi -show drun -modi drun,filebrowser,run,window -theme $XDG_CONFIG_HOME/rofi/launchers/type-4/style-3.rasi";
           "$launcher" = "pkill rofi || rofi -show drun -modi drun,filebrowser,run,window -theme $XDG_CONFIG_HOME/rofi/launchers/type-2/style-2.rasi";
-          "$term" = "${pkgs.${terminal}}/bin/${terminal}";
+          "$term" = "${getExe pkgs.${terminal}}";
           "$editor" = "code --disable-gpu";
           "$file" = "$term -e lf";
           "$browser" = "firefox";
@@ -118,8 +119,8 @@
             # "blueman-applet"
             "nm-applet --indicator"
             "wl-clipboard-history -t"
-            "wl-paste --type text --watch cliphist store" # clipboard store text data
-            "wl-paste --type image --watch cliphist store" # clipboard store image data
+            "${getExe' pkgs.wl-clipboard "wl-paste"} --type text --watch cliphist store" # clipboard store text data
+            "${getExe' pkgs.wl-clipboard "wl-paste"} --type image --watch cliphist store" # clipboard store image data
             "rm '$XDG_CACHE_HOME/cliphist/db'" # Clear clipboard
             "$hyprScriptsDir/batterynotify.sh" # battery notification
             "polkit-agent-helper-1"
@@ -128,7 +129,7 @@
           input = {
             kb_layout = "gb,gb,de,fr";
             kb_variant = "extd,dvorak,,";
-            repeat_delay = 212;
+            repeat_delay = 300; # or 212
             repeat_rate = 30;
 
             follow_mouse = 1;
@@ -322,11 +323,17 @@
             "$mainMod SHIFT, h, resizeactive, -30 0"
             "$mainMod SHIFT, k, resizeactive, 0 -30"
             "$mainMod SHIFT, j, resizeactive, 0 30"
+
+            # Functional keybinds
+            ",XF86MonBrightnessDown,exec,light -U 20"
+            ",XF86MonBrightnessUp,exec,light -A 20"
+            ",XF86AudioLowerVolume,exec,pamixer -d 2"
+            ",XF86AudioRaiseVolume,exec,pamixer -i 2"
           ];
           bind =
             [
               # Night Mode (lower value means warmer temp)
-              "$mainMod, F9, exec, wlsunset -t 3000 -T 3900"
+              "$mainMod, F9, exec, ${getExe pkgs.wlsunset} -t 3000 -T 3900"
               "$mainMod, F10, exec, pkill wlsunset"
 
               # Overview plugin
@@ -348,7 +355,7 @@
               "$mainMod, E, exec, $file"
               "$mainMod, C, exec, $editor"
               "$mainMod, F, exec, $browser"
-              "$CONTROL ALT, DELETE, exec, $term -e '${pkgs.btop}/bin/btop2'"
+              "$CONTROL ALT, DELETE, exec, $term -e '${getExe pkgs.btop}'" # system monitor
 
               "$mainMod, A, exec, pkill -x rofi || $launcher" # launch desktop applications
               "$mainMod, Z, exec, pkill -x rofi || $hyprScriptsDir/emoji.sh" # launch emoji picker
@@ -375,19 +382,15 @@
               "$mainMod ALT, P, exec, $hyprScriptsDir/screenshot.sh p" # print all monitor outputs
 
               # Functional keybinds
-              ",xf86Sleep, exec, systemctl suspend"
-              ",XF86AudioMicMute,exec,pamixer --default-source -t"
-              ",XF86MonBrightnessDown,exec,light -U 20"
-              ",XF86MonBrightnessUp,exec,light -A 20"
-              ",XF86AudioMute,exec,pamixer -t"
-              ",XF86AudioLowerVolume,exec,pamixer -d 2"
-              ",XF86AudioRaiseVolume,exec,pamixer -i 2"
-              ",XF86AudioPlay,exec,playerctl play-pause"
-              ",XF86AudioPause,exec,playerctl play-pause"
-              ",xf86AudioNext,exec,playerctl next"
-              ",xf86AudioPrev,exec,playerctl previous"
-              # ",xf86AudioNext,exec,$hyprScriptsDir/MediaCtrl.sh --nxt"
-              # ",xf86AudioPrev,exec,$hyprScriptsDir/MediaCtrl.sh --prv"
+              ",xf86Sleep, exec, systemctl suspend" # Put computer into sleep mode
+              ",XF86AudioMicMute,exec,pamixer --default-source -t" # mute mic
+              ",XF86AudioMute,exec,pamixer -t" # mute audio
+              ",XF86AudioPlay,exec,playerctl play-pause" # Play/Pause media
+              ",XF86AudioPause,exec,playerctl play-pause" # Play/Pause media
+              ",xf86AudioNext,exec,playerctl next" # go to next media
+              ",xf86AudioPrev,exec,playerctl previous" # go to previous media
+              # ",xf86AudioNext,exec,$hyprScriptsDir/MediaCtrl.sh --nxt" # go to next media
+              # ",xf86AudioPrev,exec,$hyprScriptsDir/MediaCtrl.sh --prv" # go to previous media
 
               # to switch between windows in a floating workspace
               # "SUPER,Tab,cyclenext,
