@@ -410,7 +410,11 @@ in {
                   bookmarks = [
                     {
                       name = "Youtube";
-                      url = "https://www.youtube.com/";
+                      url = "https://www.youtube.com";
+                    }
+                    {
+                      name = "Twitch";
+                      url = "https://www.twitch.tv";
                     }
                     {
                       name = "Github";
