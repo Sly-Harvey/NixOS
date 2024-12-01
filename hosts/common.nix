@@ -172,6 +172,13 @@ in {
     })
   ];
 
+  /* New way of using nerdfonts
+  fonts.packages = with pkgs.nerd-fonts; [
+    jetbrains-mono
+    fira-code
+  ];
+  */
+
   nixpkgs = {
     config.allowUnfree = true;
     # config.allowUnfreePredicate = _: true;
@@ -202,6 +209,7 @@ in {
 
     # System
     killall
+    lm_sensors
     jq
     libsForQt5.qt5.qtgraphicaleffects # For sddm to function properly
     vulkan-tools

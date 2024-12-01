@@ -1,7 +1,4 @@
-{
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   home-manager.sharedModules = [
     (_: {
       home.file.".config/zsh/.p10k.zsh" = {
@@ -41,7 +38,8 @@
 
           # Key Bindings
           # bindkey -s ^t "tmux-sessionizer\n"
-          bindkey -s ^l "lf\n"
+          # bindkey '^f' "cd $(${pkgs.fd}/bin/fd . /mnt/seagate /mnt/seagate/dev/ /run /run/current-system ~/ --max-depth 2 | fzf)\n"
+          bindkey '^l' "lf\r"
           bindkey '^a' beginning-of-line
           bindkey '^e' end-of-line
 
