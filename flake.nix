@@ -29,7 +29,7 @@
   } @ inputs: let
     # User configuration
     username = "kepler"; # WARNING REPLACE THIS WITH YOUR USERNAME IF YOU ARE MANUALLY INSTALLING WITHOUT THE SCRIPT
-    terminal = "alacritty"; # or kitty
+    terminal = "kitty"; # alacritty or kitty
 
     # System configuration
     locale = "en_GB.UTF-8"; # REPLACE THIS WITH YOUR LOCALE

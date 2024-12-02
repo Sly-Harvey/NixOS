@@ -1,4 +1,5 @@
 {
+  lib,
   pkgs,
   ...
 }: {
@@ -13,7 +14,9 @@
         })
       ];
 
-      programs.alacritty = {
+      programs.alacritty = let
+        inherit (lib) getExe getExe';
+      in {
         enable = true;
         settings = {
           colors = {
@@ -85,7 +88,7 @@
           };
 
           terminal.shell = {
-            program = "${pkgs.zsh}/bin/zsh";
+            program = "${getExe pkgs.zsh}";
           };
 
           keyboard.bindings = [
@@ -97,7 +100,7 @@
             }
             */
             {
-              chars = "cd $(${pkgs.fd}/bin/fd . /mnt/seagate /mnt/seagate/dev/ /run /run/current-system ~/.local/ ~/ --max-depth 2 | fzf)\r";
+              chars = "cd $(${getExe pkgs.fd} . /mnt/seagate /mnt/seagate/dev/ /run /run/current-system ~/.local/ ~/ --max-depth 2 | fzf)\r";
               key = "F";
               mods = "Control";
             }

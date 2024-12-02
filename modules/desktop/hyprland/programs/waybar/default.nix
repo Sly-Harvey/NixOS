@@ -13,19 +13,25 @@
           {
             layer = "top";
             position = "top";
-            height = 15;
+            height = 33;
             exclusive = true;
             gtk-layer-shell = true;
             ipc = true;
             fixed-center = true;
-            margin-top = 3;
-            margin-left = 8;
-            margin-right = 8;
+            margin-top = 10;
+            margin-left = 10;
+            margin-right = 10;
+            margin-bottom = 0;
 
-            modules-left = ["hyprland/workspaces" "cava" "custom/r_end"];
-            modules-center = ["custom/l_end" "idle_inhibitor" "clock" "custom/r_end"];
-            modules-right = ["custom/l_end" "custom/gpuinfo" "cpu" "memory" "network" "bluetooth" "pulseaudio" "custom/r_end" "hyprland/language" "custom/r_end" "tray" "battery" "custom/l_end" "custom/power" "custom/padd"];
-            #"modules-right" = ["custom/l_end" "temperature" "cpu" "memory" "network" "bluetooth" "pulseaudio" "custom/r_end" "hyprland/language" "custom/r_end" "tray" "battery" "custom/l_end" "custom/power" "custom/r_end" "custom/padd" ];
+            # modules-left = ["custom/icon" "hyprland/workspaces" "cava" "custom/r_end"];
+            # modules-center = ["custom/l_end" "idle_inhibitor" "clock" "custom/r_end"];
+            # modules-right = ["custom/l_end" "custom/gpuinfo" "cpu" "memory" "network" "bluetooth" "pulseaudio" "custom/r_end" "hyprland/language" "custom/r_end" "tray" "battery" "custom/l_end" "custom/power" "custom/padd"];
+
+            # No padding
+            modules-left = ["hyprland/workspaces" "cava"];
+            modules-center = ["idle_inhibitor" "clock"];
+            modules-right = ["custom/gpuinfo" "cpu" "memory" "network" "bluetooth" "pulseaudio" "tray" "battery" "custom/power"];
+
             "custom/colour-temperature" = {
               format = "{} ";
               exec = "wl-gammarelay-rs watch {t}";
@@ -62,6 +68,10 @@
               interval = 86400; # once every day
               tooltip = true;
             };
+            "custom/icon" = {
+              format = " ";
+            };
+
             "mpris" = {
               format = "{player_icon} {title} - {artist}";
               format-paused = "{status_icon} <i>{title} - {artist}</i>";
@@ -90,7 +100,7 @@
               interval = 2;
             };
             "hyprland/language" = {
-              format = "{short} {variant}";
+              format = "{short}-{variant}";
               on-click = "~/.config/hypr/scripts/keyboardswitch.sh";
             };
             "hyprland/workspaces" = {
@@ -294,14 +304,12 @@
           }
         ];
         style = ''
-                          * {
-          font-family: "JetBrainsMono Nerd Font";
-          font-weight: bold;
-          min-height: 0;
-          /* set font-size to 100% if font scaling is set to 1.00 using nwg-look */
-          font-size: 97%;
-          font-feature-settings: '"zero", "ss01", "ss02", "ss03", "ss04", "ss05", "cv31"';
-          padding: 1px;
+          * {
+            font-family: "JetBrainsMono Nerd Font";
+            font-size: 14px;
+            font-feature-settings: '"zero", "ss01", "ss02", "ss03", "ss04", "ss05", "cv31"';
+            margin: 0px;
+            padding: 0px;
           }
 
           @define-color base   #1e1e2e;
@@ -353,23 +361,26 @@
           }
 
           /* This section can be use if you want to separate waybar modules */
-          .modules-left, .modules-center, .modules-right {
+          .modules-left {
           	background: @theme_base_color;
-           	border: 0.5px solid @overlay0;
-          	padding-top: 2px;
-          	padding-bottom: 2px;
-          	padding-right: 4px;
-          	padding-left: 4px;
+           	border: 1px solid @blue;
+          	padding-right: 15px;
+          	padding-left: 2px;
           	border-radius: 10px;
-
           }
-
-          .modules-left, .modules-right {
-            	border: 1px solid @blue;
-          	padding-top: 2px;
-          	padding-bottom: 2px;
-          	padding-right: 4px;
-          	padding-left: 4px;
+          .modules-center {
+          	background: @theme_base_color;
+            border: 0.5px solid @overlay0;	
+          	padding-right: 5px;
+          	padding-left: 5px;
+          	border-radius: 10px;
+          }
+          .modules-right {
+          	background: @theme_base_color;
+           	border: 1px solid @blue;
+          	padding-right: 15px;
+          	padding-left: 15px;
+          	border-radius: 10px;
           }
 
           #backlight,
@@ -462,6 +473,11 @@
 
           #clock {
             color: @yellow;
+          }
+
+          #custom-icon {
+            font-size: 15px; 
+            color: #cba6f7;
           }
 
           #custom-gpuinfo {

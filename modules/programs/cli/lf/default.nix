@@ -1,11 +1,14 @@
 {
+  lib,
   pkgs,
   ...
 }: {
   home-manager.sharedModules = [
     (_: {
       xdg.configFile."lf/icons".source = ./icons;
-      programs.lf = {
+      programs.lf = let
+        inherit (lib) getExe getExe';
+      in {
         enable = true;
         settings = {
           # period = 1; # dir update time in seconds
@@ -50,7 +53,7 @@
         };
         commands = {
           open-with-editor = ''$$EDITOR $f'';
-          dragon-out = ''%${pkgs.xdragon}/bin/xdragon -a -x "$fx"'';
+          dragon-out = ''%${getExe pkgs.xdragon} -a -x "$fx"'';
           mkdir = ''
             ''${{
                 printf "Directory Name: "
@@ -73,20 +76,20 @@
           unarchive = ''
             ''${{
                 case "$f" in
-                    *.zip) ${pkgs.unzip}/bin/unzip "$f" ;;
-                    *.7z) ${pkgs.p7zip}/bin/7z x "$f" ;;
-                    *.rar) ${pkgs.unrar}/bin/unrar x "$f" ;;
-                    *.tar) ${pkgs.gnutar}/bin/tar -xvf "$f" ;;
-                    *.tar.xz|*.txz) ${pkgs.gnutar}/bin/tar xJvf $f;;
-                    *.tar.gz|*.tgz) ${pkgs.gnutar}/bin/tar -xzvf "$f" ;;
-                    *.tar.bz|*.tar.bz2|*.tbz|*.tbz2) ${pkgs.gnutar}/bin/tar -xjvf "$f" ;;
+                    *.zip) ${getExe' pkgs.unzip "unzip"} "$f" ;;
+                    *.7z) ${getExe' pkgs.p7zip "7z"} x "$f" ;;
+                    *.rar) ${getExe' pkgs.unrar "unrar"} x "$f" ;;
+                    *.tar) ${getExe' pkgs.gnutar "tar"} -xvf "$f" ;;
+                    *.tar.xz|*.txz) ${getExe' pkgs.gnutar "tar"} xJvf $f;;
+                    *.tar.gz|*.tgz) ${getExe' pkgs.gnutar "tar"} -xzvf "$f" ;;
+                    *.tar.bz|*.tar.bz2|*.tbz|*.tbz2) ${getExe' pkgs.gnutar "tar"} -xjvf "$f" ;;
                     *) echo "Unsupported format" ;;
                 esac
               }}
           '';
           fzf = ''
             ''${{
-              res="$(find . | ${pkgs.fzf}/bin/fzf --reverse --header='Jump to location')"
+              res="$(find . | ${getExe pkgs.fzf} --reverse --header='Jump to location')"
               if [ -n "$res" ]; then
                   if [ -d "$res" ]; then
                       cmd="cd"
@@ -104,7 +107,7 @@
               while [ "$files" ]; do
                 file=''${files%%;*}
 
-                ${pkgs.trash-cli}/bin/trash-put "$(basename "$file")"
+                ${getExe' pkgs.trash-cli "trash-put"} "$(basename "$file")"
                 if [ "$files" = "$file" ]; then
                   files=\'\'
                 else
@@ -115,7 +118,7 @@
           '';
           restore_trash = ''
             ''${{
-                ${pkgs.trash-cli}/bin/trash-restore
+                ${getExe' pkgs.trash-cli "trash-restore"}
               }}
           '';
         };
@@ -127,15 +130,15 @@
             x=$4
             y=$5
 
-            if [[ "$( ${pkgs.file}/bin/file -Lb --mime-type "$file")" =~ ^image ]]; then
-                ${pkgs.kitty}/bin/kitty +kitten icat --silent --stdin no --transfer-mode file --place "''${w}x''${h}@''${x}x''${y}" "$file" < /dev/null > /dev/tty
+            if [[ "$( ${getExe pkgs.file} -Lb --mime-type "$file")" =~ ^image ]]; then
+                ${getExe pkgs.kitty} +kitten icat --silent --stdin no --transfer-mode file --place "''${w}x''${h}@''${x}x''${y}" "$file" < /dev/null > /dev/tty
                 exit 1
             fi
 
-            ${pkgs.pistol}/bin/pistol "$file"
+            ${getExe pkgs.pistol} "$file"
           '';
           cleaner = pkgs.writeShellScriptBin "clean.sh" ''
-            ${pkgs.kitty}/bin/kitty +kitten icat --clear --stdin no --silent --transfer-mode file < /dev/null > /dev/tty
+            ${getExe pkgs.kitty} +kitten icat --clear --stdin no --silent --transfer-mode file < /dev/null > /dev/tty
           '';
         in ''
           set cleaner ${cleaner}/bin/clean.sh
