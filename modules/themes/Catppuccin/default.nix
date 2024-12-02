@@ -17,8 +17,8 @@ in {
       services.hyprpaper = {
         enable = true;
         settings = {
-          preload = ["${../wallpapers/moon.png}"];
-          wallpaper = [",${../wallpapers/moon.png}"];
+          preload = ["${../wallpapers/cyberpunk.png}"];
+          wallpaper = [",${../wallpapers/cyberpunk.png}"];
         };
       };
 

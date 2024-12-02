@@ -365,7 +365,7 @@
           	background: @theme_base_color;
            	border: 1px solid @blue;
           	padding-right: 15px;
-          	padding-left: 3px;
+          	padding-left: 2px;
           	border-radius: 10px;
           }
           .modules-center {
