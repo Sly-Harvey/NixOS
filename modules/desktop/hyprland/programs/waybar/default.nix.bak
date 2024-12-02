@@ -68,14 +68,6 @@
               tooltip = true;
               max-length = 1000;
             };
-            "custom/updates" = {
-              exec = "~/.config/hypr/scripts/systemupdate.sh";
-              return-type = "json";
-              format = "󰮯 {}";
-              on-click = "~/.config/hypr/scripts/systemupdate.sh up";
-              interval = 86400; # once every day
-              tooltip = true;
-            };
             "mpris" = {
               format = "{player_icon} {title} - {artist}";
               format-paused = "{status_icon} <i>{title} - {artist}</i>";
