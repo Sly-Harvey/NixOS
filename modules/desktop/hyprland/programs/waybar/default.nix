@@ -1,6 +1,4 @@
-{
-  ...
-}: {
+{...}: {
   home-manager.sharedModules = [
     (_: {
       programs.waybar = {
@@ -23,11 +21,6 @@
             margin-right = 10;
             margin-bottom = 0;
 
-            # modules-left = ["custom/icon" "hyprland/workspaces" "cava" "custom/r_end"];
-            # modules-center = ["custom/l_end" "idle_inhibitor" "clock" "custom/r_end"];
-            # modules-right = ["custom/l_end" "custom/gpuinfo" "cpu" "memory" "network" "bluetooth" "pulseaudio" "custom/r_end" "hyprland/language" "custom/r_end" "tray" "battery" "custom/l_end" "custom/power" "custom/padd"];
-
-            # No padding
             modules-left = ["hyprland/workspaces" "cava"];
             modules-center = ["idle_inhibitor" "clock"];
             modules-right = ["custom/gpuinfo" "cpu" "memory" "network" "bluetooth" "pulseaudio" "tray" "battery" "custom/power"];
@@ -60,18 +53,9 @@
               tooltip = true;
               max-length = 1000;
             };
-            "custom/updates" = {
-              exec = "~/.config/hypr/scripts/systemupdate.sh";
-              return-type = "json";
-              format = "󰮯 {}";
-              on-click = "~/.config/hypr/scripts/systemupdate.sh up";
-              interval = 86400; # once every day
-              tooltip = true;
-            };
             "custom/icon" = {
               format = " ";
             };
-
             "mpris" = {
               format = "{player_icon} {title} - {artist}";
               format-paused = "{status_icon} <i>{title} - {artist}</i>";
@@ -257,50 +241,6 @@
               interval = 86400; # once every day
               tooltip = true;
             };
-
-            # modules for padding
-
-            "custom/l_end" = {
-              format = " ";
-              interval = "once";
-              tooltip = false;
-            };
-
-            "custom/r_end" = {
-              format = " ";
-              interval = "once";
-              tooltip = false;
-            };
-
-            "custom/sl_end" = {
-              format = " ";
-              interval = "once";
-              tooltip = false;
-            };
-
-            "custom/sr_end" = {
-              format = " ";
-              interval = "once";
-              tooltip = false;
-            };
-
-            "custom/rl_end" = {
-              format = " ";
-              interval = "once";
-              tooltip = false;
-            };
-
-            "custom/rr_end" = {
-              format = " ";
-              interval = "once";
-              tooltip = false;
-            };
-
-            "custom/padd" = {
-              format = "  ";
-              interval = "once";
-              tooltip = false;
-            };
           }
         ];
         style = ''
@@ -370,7 +310,7 @@
           }
           .modules-center {
           	background: @theme_base_color;
-            border: 0.5px solid @overlay0;	
+            border: 0.5px solid @overlay0;
           	padding-right: 5px;
           	padding-left: 5px;
           	border-radius: 10px;
@@ -476,7 +416,7 @@
           }
 
           #custom-icon {
-            font-size: 15px; 
+            font-size: 15px;
             color: #cba6f7;
           }
 

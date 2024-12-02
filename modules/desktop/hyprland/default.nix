@@ -51,6 +51,7 @@
         waybar
         wtype
         wl-clipboard
+        xdotool
       ];
 
       xdg.configFile."hypr/scripts" = {
@@ -369,11 +370,6 @@
               "$mainMod, V, exec, $hyprScriptsDir/ClipManager.sh" # Clipboard Manager
               "$mainMod, M, exec, pkill -x rofi || $hyprScriptsDir/rofimusic.sh" # online music
               "$mainMod SHIFT, M, exec, pkill -x rofi || $hyprScriptsDir/rofimusic.sh" # online music
-
-              # Waybar
-              "$mainMod, B, exec, killall -SIGUSR1 waybar" # Toggle hide/show waybar
-              "$mainMod CTRL, B, exec, $hyprScriptsDir/WaybarStyles.sh" # Waybar Styles Menu
-              "$mainMod ALT, B, exec, $hyprScriptsDir/WaybarLayout.sh" # Waybar Layout Menu
 
               # Screenshot/Screencapture
               "$mainMod, P, exec, $hyprScriptsDir/screenshot.sh s" # drag to snip an area / click on a window to print it
