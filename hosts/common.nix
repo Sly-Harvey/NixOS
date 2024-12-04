@@ -5,6 +5,9 @@
   pkgs-stable,
   username,
   terminal,
+  locale,
+  timezone,
+  kbdLayout,
   ...
 }: let
   sddm-themes = pkgs.callPackage ../modules/themes/sddm/themes.nix {};
@@ -33,13 +36,34 @@ in {
     ../modules/programs/misc/obs
   ];
 
+  users.users.${username} = {
+    isNormalUser = true;
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "kvm"
+      "input"
+      "disk"
+      "libvirtd"
+      "video"
+      "audio"
+    ];
+  };
+
   # Common home-manager options that are shared between all systems.
   home-manager.users.${username} = {pkgs, ...}: {
+    # Let Home Manager install and manage itself.
+    programs.home-manager.enable = true;
+
     xdg.enable = true;
     home.username = username;
     home.homeDirectory = "/home/${username}";
-
     home.stateVersion = "23.11"; # Please read the comment before changing.
+    home.sessionVariables = {
+      EDITOR = "nvim";
+      BROWSER = "firefox";
+      TERMINAL = terminal;
+    };
 
     # Packages that don't require configuration. If you're looking to configure a program see the /modules dir
     home.packages = with pkgs; [
@@ -64,8 +88,6 @@ in {
         echo "Hello ${username}!"
       '')
     ];
-    # Let Home Manager install and manage itself.
-    programs.home-manager.enable = true;
   };
 
   # Filesystems support
@@ -87,8 +109,8 @@ in {
         device = "nodev";
         efiSupport = true;
         useOSProber = true;
-        gfxmodeEfi = "1920x1080";
-        gfxmodeBios = "1920x1080";
+        gfxmodeEfi = "2715x1527"; # for 4k: 3840x2160
+        gfxmodeBios = "2715x1527"; # for 4k: 3840x2160
         theme = pkgs.stdenv.mkDerivation {
           pname = "distro-grub-themes";
           version = "3.1";
@@ -104,6 +126,26 @@ in {
     };
   };
 
+  # Timezone and locale
+  time.timeZone = timezone;
+  i18n.defaultLocale = locale;
+  i18n.extraLocaleSettings = {
+    LC_ADDRESS = locale;
+    LC_IDENTIFICATION = locale;
+    LC_MEASUREMENT = locale;
+    LC_MONETARY = locale;
+    LC_NAME = locale;
+    LC_NUMERIC = locale;
+    LC_PAPER = locale;
+    LC_TELEPHONE = locale;
+    LC_TIME = locale;
+  };
+  console.keyMap = kbdLayout; # Configure console keymap
+  services.xserver.xkb = {
+    layout = "gb";
+    variant = "";
+  };
+
   security = {
     polkit.enable = true;
     #sudo.wheelNeedsPassword = false;
@@ -116,6 +158,16 @@ in {
 
   # Enable dconf for home-manager
   programs.dconf.enable = true;
+
+  # Enable networking
+  networking = {
+    # hostName = hostname; # Define your hostname.
+    networkmanager.enable = true;
+    # wireless.enable = true; # Enables wireless support via wpa_supplicant.
+    # Configure network proxy if necessary
+    # networking.proxy.default = "http://user:password@proxy:port/";
+    # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+  };
 
   # Enable sddm login manager
   services.displayManager.sddm = {
@@ -157,6 +209,8 @@ in {
     wireplumber.enable = true;
   };
 
+  services.xserver.enable = true; # Enable the X11 windowing system.
+
   # Enable touchpad support (enabled default in most desktopManager).
   services.libinput.enable = true;
 
@@ -164,18 +218,6 @@ in {
   programs.zsh.enable = true;
   users.defaultUserShell = pkgs.zsh;
 
-  /*
-     fonts.packages = with pkgs; [
-    (nerdfonts.override {
-      fonts = [
-        "JetBrainsMono"
-        "FiraCode"
-      ];
-    })
-  ];
-  */
-
-  # New way of using nerdfonts
   fonts.packages = with pkgs.nerd-fonts; [
     jetbrains-mono
     fira-code
@@ -284,4 +326,12 @@ in {
     optimise.automatic = true;
     package = pkgs.nixVersions.stable;
   };
+
+  # This value determines the NixOS release from which the default
+  # settings for stateful data, like file locations and database versions
+  # on your system were taken. It‘s perfectly fine and recommended to leave
+  # this value at the release version of the first install of this system.
+  # Before changing this value read the documentation for this option
+  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
+  system.stateVersion = "23.11"; # Did you read the comment?
 }

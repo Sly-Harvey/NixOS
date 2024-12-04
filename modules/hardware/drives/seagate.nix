@@ -1,8 +1,8 @@
 # This module uses nouveau with NVK which is the nvidia open-source user-space driver and is not recommended to use as of 30/05/24 since it is very unstable
-{...}: {
+{lib, ...}: {
   fileSystems."/mnt/seagate" = {
     device = "/dev/disk/by-uuid/E212-7894";
-    fsType = "auto";
+    fsType = lib.mkForce "auto";
     options = [
       "X-mount.mkdir"
       "uid=1000"

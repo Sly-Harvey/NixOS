@@ -4,7 +4,6 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
-    nixpkgs-waybar-fix.url = "github:nixos/nixpkgs/c7b821ba2e1e635ba5a76d299af62821cbcb09f3";
     nur.url = "github:nix-community/NUR";
     nixvim = {
       url = "github:Sly-Harvey/nixvim";
@@ -26,14 +25,16 @@
     nixpkgs-stable,
     ...
   } @ inputs: let
+
     # User configuration
-    username = "kepler"; # WARNING REPLACE THIS WITH YOUR USERNAME IF YOU ARE MANUALLY INSTALLING WITHOUT THE SCRIPT
+    username = "kepler"; # WARNING REPLACE THIS WITH YOUR USERNAME IF MANUALLY INSTALLING
     terminal = "kitty"; # alacritty or kitty
 
     # System configuration
+    hostname = "nixos"; # CHOOSE A HOSTNAME HERE (default is fine)
     locale = "en_GB.UTF-8"; # REPLACE THIS WITH YOUR LOCALE
     timezone = "Europe/London"; # REPLACE THIS WITH YOUR TIMEZONE
-    hostname = "nixos"; # CHOOSE A HOSTNAME HERE (default is fine)
+    kbdLayout = "uk"; # REPLACE THIS WITH YOUR KEYBOARD LAYOUT
 
     arguments = {
       inherit
@@ -44,6 +45,7 @@
         locale
         timezone
         hostname
+        kbdLayout
         ;
     };
 
@@ -66,46 +68,6 @@
           // inputs; # Expose all inputs and arguments
         modules = [
           ./hosts/Default/configuration.nix
-        ];
-      };
-      Desktop = lib.nixosSystem {
-        inherit system;
-        specialArgs =
-          (arguments
-            // {
-              inherit inputs;
-              hostname = "NixOS-Desktop";
-            })
-          // inputs; # Expose all inputs and arguments
-        modules = [
-          ./hosts/Desktop/configuration.nix
-        ];
-      };
-      Laptop = lib.nixosSystem {
-        inherit system;
-        specialArgs =
-          (arguments
-            // {
-              inherit inputs;
-              hostname = "NixOS-Laptop";
-            })
-          // inputs; # Expose all inputs and arguments
-        modules = [
-          ./hosts/Laptop/configuration.nix
-        ];
-      };
-      Iso = lib.nixosSystem {
-        # Build with: nix build .#nixosConfigurations.Iso.config.system.build.isoImage. (cpu intensive)
-        inherit system;
-        specialArgs =
-          (arguments
-            // {
-              inherit inputs;
-              hostname = "NixOS-Installer";
-            })
-          // inputs; # Expose all inputs and arguments
-        modules = [
-            ./hosts/LIVE-CD.nix
         ];
       };
     };

@@ -47,7 +47,7 @@ cd ~/NixOS
 ## Building manually
 > [!IMPORTANT]
 > <p>When building manually from the flake make sure to place your hardware-configuration.nix in hosts/Default/<br>
-> then change the username variable in flake.nix with your username!!<br>
+> then change the username variable in flake.nix with your username!! THIS IS IMPORTANT<br>
 > afterwards run the command below</p>
 ```bash
 sudo nixos-rebuild switch --flake .#Default
