@@ -1,6 +1,7 @@
 {
   inputs,
   pkgs,
+  lib,
   pkgs-stable,
   username,
   terminal,
@@ -76,7 +77,7 @@ in {
   # Bootloader.
   boot = {
     tmp.cleanOnBoot = true;
-    kernelPackages = pkgs.linuxPackages_zen; # _zen_latest, _xanmod_latest _hardened, _rt, _OTHER_CHANNEL, etc.
+    kernelPackages = pkgs.linuxPackages_zen; # _latest, _zen, _xanmod_latest, _hardened, _rt, _OTHER_CHANNEL, etc.
     loader = {
       efi.canTouchEfiVariables = true;
       efi.efiSysMountPoint = "/boot";
@@ -163,7 +164,8 @@ in {
   programs.zsh.enable = true;
   users.defaultUserShell = pkgs.zsh;
 
-  fonts.packages = with pkgs; [
+  /*
+     fonts.packages = with pkgs; [
     (nerdfonts.override {
       fonts = [
         "JetBrainsMono"
@@ -171,13 +173,13 @@ in {
       ];
     })
   ];
+  */
 
-  /* New way of using nerdfonts
+  # New way of using nerdfonts
   fonts.packages = with pkgs.nerd-fonts; [
     jetbrains-mono
     fira-code
   ];
-  */
 
   nixpkgs = {
     config.allowUnfree = true;
@@ -198,6 +200,17 @@ in {
     XDG_BIN_HOME = "$HOME/.local/bin";
   };
 
+  systemd.services.lact = {
+    description = "AMDGPU Control Daemon";
+    after = ["multi-user.target"];
+    wantedBy = ["multi-user.target"];
+    serviceConfig = {
+      ExecStart = "${lib.getExe pkgs.lact} daemon";
+      Nice = -10;
+      Restart = "on-failure";
+    };
+  };
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
@@ -208,6 +221,7 @@ in {
     scripts.underwatt
 
     # System
+    lact
     killall
     lm_sensors
     jq
