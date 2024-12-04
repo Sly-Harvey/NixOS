@@ -44,8 +44,6 @@ cd ~/NixOS
 ```bash
 ./install.sh
 ```
-If the script fails keep running it until it works.
-I'm currently trying to fix this.
 ## Building manually
 > [!IMPORTANT]
 > <p>When building manually from the flake make sure to place your hardware-configuration.nix in hosts/Default/<br>
