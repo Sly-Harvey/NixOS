@@ -43,7 +43,7 @@ else
   done
 fi
 
-nix-shell --command "git -C $scriptdir add *"
+nix-shell --command "git -C $scriptdir add hosts/Default/hardware-configuration.nix"
 
 clear
 nix-shell --command "echo BUILDING! | figlet -cklnoW | lolcat -F 0.3 -p 2.5 -S 300"

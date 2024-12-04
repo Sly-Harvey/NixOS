@@ -246,6 +246,7 @@
             "workspace 4, class:^(krita)$"
             "workspace 4, title:(.*)(Godot)(.*)$"
             "workspace 4, title:(GNU Image Manipulation Program)(.*)$"
+            "workspace 5, class:^(kitty-rebuildScript)$"
             "workspace 9, class:^(Spotify)$"
             "workspace 9, title:(.*)(Spotify)(.*)$"
             "workspace 5, class:^(steam)$"
@@ -389,22 +390,8 @@
               # ",xf86AudioPrev,exec,$hyprScriptsDir/MediaCtrl.sh --prv" # go to previous media
 
               # to switch between windows in a floating workspace
-              # "SUPER,Tab,cyclenext,
-              # "SUPER,Tab,bringactivetotop,
-
-              # Switch workspaces with mainMod + [0-9]
-              /*
-                 "$mainMod, 1, workspace, 1"
-              "$mainMod, 2, workspace, 2"
-              "$mainMod, 3, workspace, 3"
-              "$mainMod, 4, workspace, 4"
-              "$mainMod, 5, workspace, 5"
-              "$mainMod, 6, workspace, 6"
-              "$mainMod, 7, workspace, 7"
-              "$mainMod, 8, workspace, 8"
-              "$mainMod, 9, workspace, 9"
-              "$mainMod, 0, workspace, 10"
-              */
+              "SUPER,Tab,cyclenext"
+              "SUPER,Tab,bringactivetotop"
 
               # Switch workspaces relative to the active workspace with mainMod + CTRL + [←→]
               "$mainMod CTRL, right, workspace, r+1"
@@ -429,6 +416,11 @@
               # Go to workspace 9 (Spotify) and 5 with mouse side buttons
               "$mainMod, mouse:275, workspace, 9"
               "$mainMod, mouse:276, workspace, 5"
+              "$mainMod SHIFT, mouse:275, movetoworkspace, 9"
+              "$mainMod SHIFT, mouse:276, movetoworkspace, 5"
+
+              # Rebuild NixOS with a KeyBind
+              "$mainMod CTRL ALT, KP_Divide, exec, kitty --class \"kitty-rebuildScript\" $hyprScriptsDir/rebuild.sh"
 
               # Scroll through existing workspaces with mainMod + scroll
               "$mainMod, mouse_down, workspace, e+1"
@@ -454,12 +446,17 @@
               "$mainMod ALT, S, movetoworkspacesilent, special"
               "$mainMod, S, togglespecialworkspace,"
             ]
-            ++ (builtins.concatLists (builtins.genList (x: [
-                "$mainMod, ${toString (x + 1)}, workspace, ${toString (x + 1)}"
-                "$mainMod SHIFT, ${toString (x + 1)}, movetoworkspace, ${toString (x + 1)}"
-                "$mainMod ALT, ${toString (x + 1)}, movetoworkspacesilent, ${toString (x + 1)}"
+            ++ (builtins.concatLists (builtins.genList (x: let
+                ws = let
+                  c = (x + 1) / 10;
+                in
+                  builtins.toString (x + 1 - (c * 10));
+              in [
+                "$mainMod, ${ws}, workspace, ${toString (x + 1)}"
+                "$mainMod SHIFT, ${ws}, movetoworkspace, ${toString (x + 1)}"
+                "$mainMod CTRL, ${ws}, movetoworkspacesilent, ${toString (x + 1)}"
               ])
-              9));
+              10));
           bindm = [
             # Move/Resize windows with mainMod + LMB/RMB and dragging
             "$mainMod, mouse:272, movewindow"
