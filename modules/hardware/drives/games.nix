@@ -1,4 +1,3 @@
-# This module uses nouveau with NVK which is the nvidia open-source user-space driver and is not recommended to use as of 30/05/24 since it is very unstable
 {...}: {
   fileSystems."/mnt/games" = {
     device = "/dev/disk/by-uuid/01DA12C1CBDE9100";
