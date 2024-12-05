@@ -94,8 +94,11 @@
             "GDK_BACKEND,wayland,x11,*"
             "NIXOS_OZONE_WL,1"
             "ELECTRON_OZONE_PLATFORM_HINT,auto"
-            "MOZ_ENABLE_WAYLAND,1" # disable if You're having issues with firefox
+            "MOZ_ENABLE_WAYLAND,1"
             "OZONE_PLATFORM,wayland"
+            "EGL_PLATFORM,wayland"
+            "CLUTTER_BACKEND,wayland"
+            "SDL_VIDEODRIVER,wayland"
             "QT_QPA_PLATFORM,wayland;xcb"
             "QT_WAYLAND_DISABLE_WINDOWDECORATION,1"
             "QT_QPA_PLATFORMTHEME,qt6ct"
@@ -212,13 +215,13 @@
           render = {
             explicit_sync = 2; # 0 = off, 1 = on, 2 = auto based on gpu driver.
             explicit_sync_kms = 2; # 0 = off, 1 = on, 2 = auto based on gpu driver.
-            direct_scanout = true; # Set to true for improved Fullscreen performance.
+            direct_scanout = false; # Set to true for less Fullscreen game lag (may cause glitches).
           };
           misc = {
             disable_hyprland_logo = true;
             mouse_move_focuses_monitor = true;
             vfr = true; # always keep on
-            vrr = true; # enable variable refresh rate (effective depending on hardware)
+            vrr = 1; # enable variable refresh rate (0=off, 1=on, 2=fullscreen only)
           };
           gestures = {
             workspace_swipe = true;
@@ -236,28 +239,21 @@
           windowrulev2 = [
             #"noanim, class:^(Rofi)$
             "tile,title:(.*)(Godot)(.*)$"
-            "workspace 2, class:^(firefox)$"
-            "workspace 1, class:^(Alacritty)$"
             "workspace 1, class:^(kitty)$"
-            "workspace 3, class:^(VSCodium)$"
-            "workspace 3, class:^(codium-url-handler)$"
-            "workspace 3, class:^(Code)$"
-            "workspace 3, class:^(code-url-handler)$"
-            "workspace 4, class:^(krita)$"
-            "workspace 4, title:(.*)(Godot)(.*)$"
-            "workspace 4, title:(GNU Image Manipulation Program)(.*)$"
-            "workspace 5, class:^(kitty-rebuildScript)$"
-            "workspace 9, class:^(Spotify)$"
-            "workspace 9, title:(.*)(Spotify)(.*)$"
-            "workspace 5, class:^(steam)$"
-            "workspace 10, class:^(factorio)$"
-
-            # Allow screen tearing for reduced input latency on some games.
-            #"immediate, class:^(cs2)$"
-            #"immediate, class:^(steam_app_0)$"
-            #"immediate, class:^(steam_app_1)$"
-            #"immediate, class:^(steam_app_2)$"
-            #"immediate, class:^(.*)(.exe)$"
+            "workspace 1, class:^(Alacritty)$"
+            "workspace 2, class:^(VSCodium)$"
+            "workspace 2, class:^(codium-url-handler)$"
+            "workspace 2, class:^(Code)$"
+            "workspace 2, class:^(code-url-handler)$"
+            "workspace 3, class:^(krita)$"
+            "workspace 3, title:(.*)(Godot)(.*)$"
+            "workspace 3, title:(GNU Image Manipulation Program)(.*)$"
+            "workspace 3, class:^(factorio)$"
+            "workspace 3, class:^(steam)$"
+            "workspace 5, class:^(firefox)$"
+            "workspace 6, class:^(Spotify)$"
+            "workspace 6, title:(.*)(Spotify)(.*)$"
+            "workspace 8, class:^(kitty-rebuildScript)$"
 
             "opacity 0.80 0.80,class:^(alacritty)$"
             "opacity 1.00 1.00,class:^(firefox)$"
@@ -272,6 +268,7 @@
             "opacity 0.80 0.80,class:^(Code)$"
             "opacity 0.80 0.80,class:^(code-url-handler)$"
             "opacity 0.80 0.80,class:^(kitty)$"
+            "opacity 0.80 0.80,class:^(kitty-rebuildScript)$"
             "opacity 0.80 0.80,class:^(org.kde.dolphin)$"
             "opacity 0.80 0.80,class:^(org.kde.ark)$"
             "opacity 0.80 0.80,class:^(nwg-look)$"
@@ -413,13 +410,13 @@
               "$mainMod, k, movefocus, u"
               "$mainMod, j, movefocus, d"
 
-              # Go to workspace 9 (Spotify) and 5 with mouse side buttons
-              "$mainMod, mouse:275, workspace, 9"
+              # Go to workspace 5 (FireFox) and 6 (Spotify) with mouse side buttons
               "$mainMod, mouse:276, workspace, 5"
-              "$mainMod SHIFT, mouse:275, movetoworkspace, 9"
+              "$mainMod, mouse:275, workspace, 6"
               "$mainMod SHIFT, mouse:276, movetoworkspace, 5"
-              "$mainMod CTRL, mouse:275, movetoworkspacesilent, 9"
+              "$mainMod SHIFT, mouse:275, movetoworkspace, 6"
               "$mainMod CTRL, mouse:276, movetoworkspacesilent, 5"
+              "$mainMod CTRL, mouse:275, movetoworkspacesilent, 6"
 
               # Rebuild NixOS with a KeyBind
               "$mainMod CTRL ALT, KP_Divide, exec, kitty --class \"kitty-rebuildScript\" $hyprScriptsDir/rebuild.sh"
@@ -445,6 +442,7 @@
               "$mainMod SHIFT $CONTROL, J, movewindow, d"
 
               # Special workspaces (scratchpad)
+              "$mainMod CTRL, S, movetoworkspacesilent, special"
               "$mainMod ALT, S, movetoworkspacesilent, special"
               "$mainMod, S, togglespecialworkspace,"
             ]
@@ -490,15 +488,27 @@
           monitor=desc:BNQ BenQ EL2870U PCK00489SL0,3840x2160@60,0x0,2,bitdepth,10
           monitor=desc:BNQ BenQ xl2420t 99D06760SL0,preferred,1920x0,1,transform,1 # 5 for fipped
 
-          workspace=1,monitor:DP-1,default:true
-          workspace=2,monitor:HDMI-A-1,default:true
-          workspace=3,monitor:HDMI-A-2,default:true
-          workspace=4,monitor:DP-1
-          workspace=5,monitor:DP-1
-          workspace=7,monitor:HDMI-A-1
-          workspace=8,monitor:HDMI-A-1
-          workspace=9,monitor:HDMI-A-1
-          workspace=10,monitor:DP-1
+          # workspace=1,monitor:DP-1,default:true
+          # workspace=2,monitor:DP-1
+          # workspace=3,monitor:DP-1
+          # workspace=4,monitor:DP-1
+          # workspace=5,monitor:HDMI-A-2,default:true
+          # workspace=6,monitor:HDMI-A-2
+          # workspace=7,monitor:HDMI-A-2
+          # workspace=8,monitor:HDMI-A-1,default:true
+          # workspace=9,monitor:HDMI-A-1
+          # workspace=10,monitor:DP-1
+
+          workspace=1,monitor:desc:BNQ BenQ EL2870U PCK00489SL0,default:true
+          workspace=2,monitor:desc:BNQ BenQ EL2870U PCK00489SL0
+          workspace=3,monitor:desc:BNQ BenQ EL2870U PCK00489SL0
+          workspace=4,monitor:desc:BNQ BenQ EL2870U PCK00489SL0
+          workspace=5,monitor:desc:BNQ BenQ EW277HDR 99J01861SL0,default:true
+          workspace=6,monitor:desc:BNQ BenQ EW277HDR 99J01861SL0
+          workspace=7,monitor:desc:BNQ BenQ EW277HDR 99J01861SL0
+          workspace=8,monitor:desc:BNQ BenQ xl2420t 99D06760SL0,default:true
+          workspace=9,monitor:desc:BNQ BenQ xl2420t 99D06760SL0
+          workspace=10,monitor:desc:BNQ BenQ EL2870U PCK00489SL0
         '';
       };
     })
