@@ -4,7 +4,7 @@
   config,
   ...
 }: let
-  nvidiaDriverChannel = config.boot.kernelPackages.nvidiaPackages.latest; # stable, latest, beta, etc.
+  nvidiaDriverChannel = config.boot.kernelPackages.nvidiaPackages.beta; # stable, latest, beta, etc.
 in {
   # Load nvidia driver for Xorg and Wayland
   services.xserver.videoDrivers = ["nvidia"]; # or "nvidiaLegacy470 etc.
@@ -32,7 +32,7 @@ in {
   hardware = {
     nvidia = {
       open = false;
-      nvidiaPersistenced = true;
+      # nvidiaPersistenced = true;
       nvidiaSettings = false;
       powerManagement.enable = true;
       modesetting.enable = true;

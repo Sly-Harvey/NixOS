@@ -418,6 +418,8 @@
               "$mainMod, mouse:276, workspace, 5"
               "$mainMod SHIFT, mouse:275, movetoworkspace, 9"
               "$mainMod SHIFT, mouse:276, movetoworkspace, 5"
+              "$mainMod CTRL, mouse:275, movetoworkspacesilent, 9"
+              "$mainMod CTRL, mouse:276, movetoworkspacesilent, 5"
 
               # Rebuild NixOS with a KeyBind
               "$mainMod CTRL ALT, KP_Divide, exec, kitty --class \"kitty-rebuildScript\" $hyprScriptsDir/rebuild.sh"
