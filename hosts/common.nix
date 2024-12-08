@@ -8,6 +8,7 @@
   locale,
   timezone,
   kbdLayout,
+  self,
   ...
 }: let
   sddm-themes = pkgs.callPackage ../modules/themes/sddm/themes.nix {};
@@ -240,6 +241,8 @@ in {
     XDG_CONFIG_HOME = "$HOME/.config";
     XDG_DATA_HOME = "$HOME/.local/share";
     XDG_BIN_HOME = "$HOME/.local/bin";
+
+    templates = "${self}/dev-templates";
   };
 
   systemd.services.lact = {

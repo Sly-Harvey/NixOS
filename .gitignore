@@ -1,5 +1,7 @@
-# Ignore build outputs from performing a nix-build or `nix build` command
-[Bb]ackup
-[Bb]ackup/*
+.direnv/
+target
 result
 result-*
+
+[Bb]ackup
+[Bb]ackup/*
