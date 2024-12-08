@@ -92,16 +92,21 @@ in {
           bind l select-pane -R
           bind k select-pane -U
           bind j select-pane -D
+          bind -n M-h select-pane -L
+          bind -n M-l select-pane -R
+          bind -n M-k select-pane -U
+          bind -n M-j select-pane -D
+
 
           # Resize panes
-          bind -n M-h resize-pane -L 2
-          bind -n M-l resize-pane -R 2
-          bind -n M-k resize-pane -U 2
-          bind -n M-j resize-pane -D 2
-          bind -n M-Left resize-pane -L 2
-          bind -n M-Right resize-pane -R 2
-          bind -n M-Up resize-pane -U 2
-          bind -n M-Down resize-pane -D 2
+          bind -n S-M-h resize-pane -L 2
+          bind -n S-M-l resize-pane -R 2
+          bind -n S-M-k resize-pane -U 2
+          bind -n S-M-j resize-pane -D 2
+          bind -n S-M-Left resize-pane -L 2
+          bind -n S-M-Right resize-pane -R 2
+          bind -n S-M-Up resize-pane -U 2
+          bind -n S-M-Down resize-pane -D 2
 
           # Splits
           bind | split-window -h -c "#{pane_current_path}"
@@ -111,6 +116,9 @@ in {
           # Select windows
           bind -n S-Left  previous-window
           bind -n S-Right next-window
+
+          bind -n C-M-h  previous-window
+          bind -n C-M-l next-window
 
           # vi mode
           bind-key -T copy-mode-vi v send-keys -X begin-selection

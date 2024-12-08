@@ -1,4 +1,8 @@
-{pkgs, ...}: let
+{
+  pkgs,
+  wallpaper,
+  ...
+}: let
   catppuccin-gtk = pkgs.catppuccin-gtk.overrideAttrs {
     src = pkgs.fetchFromGitHub {
       owner = "catppuccin";
@@ -17,8 +21,8 @@ in {
       services.hyprpaper = {
         enable = true;
         settings = {
-          preload = ["${../wallpapers/cyberpunk.png}"];
-          wallpaper = [",${../wallpapers/cyberpunk.png}"];
+          preload = ["${../wallpapers/${wallpaper}}"];
+          wallpaper = [",${../wallpapers/${wallpaper}}"];
         };
       };
 
