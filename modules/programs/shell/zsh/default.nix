@@ -115,16 +115,13 @@
               echo "Directory \"$1\" already exists!"
               return 1
             fi
-            mkdir $1 && cd $1
+            nix flake new $1 --template ${self}/dev-templates#c-cpp
+            cd $1
             cat ~/.config/zsh/templates/ListTemplate.txt >> CMakeLists.txt
             mkdir src
             mkdir include
             cat ~/.config/zsh/templates/HelloWorldTemplate.txt >> src/main.cpp
-            cat ~/.config/zsh/templates/shell.txt >> shell.nix
-            cat ~/.config/zsh/templates/envrc-nix.txt >> .envrc
             direnv allow
-            #echo "Created the following Directories and files."
-            ${pkgs.eza}/bin/eza --icons=auto --tree .
           }
 
           function crun {

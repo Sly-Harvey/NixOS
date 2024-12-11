@@ -171,11 +171,14 @@ in {
   };
 
   # Enable sddm login manager
-  services.displayManager.sddm = {
-    enable = true;
-    wayland.enable = true;
-    theme = "astronaut";
-    settings.Theme.CursorTheme = "Bibata-Modern-Classic";
+  services.displayManager = {
+    defaultSession = "hyprland";
+    sddm = {
+      enable = true;
+      wayland.enable = true;
+      theme = "astronaut";
+      settings.Theme.CursorTheme = "Bibata-Modern-Classic";
+    };
   };
 
   # Setup auth agent and keyring
@@ -228,7 +231,7 @@ in {
     config.allowUnfree = true;
     # config.allowUnfreePredicate = _: true;
     overlays = [
-      inputs.nur.overlay
+      inputs.nur.overlays.default
       pkgs-stable
     ];
   };
@@ -292,7 +295,18 @@ in {
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
+  /*
+     services.openssh = {
+    enable = true;
+    settings = {
+      PasswordAuthentication = true;
+      AllowUsers = null; # Allows all users by default. Can be [ "user1" "user2" ]
+      UseDns = true;
+      X11Forwarding = false;
+      PermitRootLogin = "prohibit-password"; # "yes", "without-password", "prohibit-password", "forced-commands-only", "no"
+    };
+  };
+  */
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
