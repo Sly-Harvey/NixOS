@@ -16,24 +16,20 @@
   ];
 
   nix.settings = {
-    substituters = ["https://hyprland.cachix.org/"];
+    substituters = ["https://hyprland.cachix.org"];
     trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
   };
 
   programs.hyprland = {
     enable = true;
+    # withUWSM = true;
     xwayland.enable = true;
-    package = inputs.hyprland.packages.${pkgs.system}.hyprland;
   };
 
   home-manager.sharedModules = let
     inherit (lib) getExe getExe';
   in [
     ({...}: {
-      imports = [
-        inputs.hyprland.homeManagerModules.default
-      ];
-
       home.packages = with pkgs; [
         # blueman
         hyprpaper
