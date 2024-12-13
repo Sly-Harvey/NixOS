@@ -17,8 +17,6 @@ in {
   imports = [
     inputs.home-manager.nixosModules.home-manager
 
-    ../modules/hardware/drives # Will still boot if these these drives are not found
-
     ../modules/programs/terminal/${terminal}
     ../modules/programs/shell/bash
     ../modules/programs/shell/zsh

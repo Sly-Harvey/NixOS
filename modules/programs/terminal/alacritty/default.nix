@@ -100,7 +100,7 @@
             }
             */
             {
-              chars = "cd $(${getExe pkgs.fd} . /mnt/seagate /mnt/seagate/dev/ /run /run/current-system ~/.local/ ~/ --max-depth 2 | fzf)\r";
+              chars = "cd $(${getExe pkgs.fd} . /mnt/work /mnt/work/dev/ /run /run/current-system ~/.local/ ~/ --max-depth 2 | fzf)\r";
               key = "F";
               mods = "Control";
             }
