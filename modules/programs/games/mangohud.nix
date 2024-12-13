@@ -40,12 +40,16 @@
         };
         settings = {
           no_display = true; # Hide hud by default (Show by holding right-shift then press F12)
-          fps_limit = 64;
+          fps_limit = [ 60 0 144 165 240 ];
+          fps_limit_method = "early"; # early = low input lag and cpu usage but less smooth, late = more smooth
+          vsync=1; # 1 = OFF, -1 = Default
+          gl_vsync=0; # 0 = OFF, -2 = Default, N > 1 = (Refresh Rate / N) = fps cap
+          # testing for gl_vsync: 1.045
 
           # keybinds
           toggle_hud = "Shift_R+F12";
           # toggle_hud_position="Shift_R+F11";
-          toggle_fps_limit = "Shift_L+F1";
+          toggle_fps_limit = "Shift_R+F1";
           # toggle_logging="Shift_L+F2";
           # reload_cfg="Shift_L+F4";
           # upload_log="Shift_L+F3";
