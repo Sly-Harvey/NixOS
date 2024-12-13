@@ -38,7 +38,7 @@
 
           # Key Bindings
           # bindkey -s ^t "tmux-sessionizer\n"
-          # bindkey '^f' "cd $(${pkgs.fd}/bin/fd . /mnt/work /mnt/work/dev/ /run /run/current-system ~/ --max-depth 2 | fzf)\n"
+          # bindkey '^f' "cd $(${pkgs.fd}/bin/fd . /mnt/work /mnt/work/Projects/ /run/current-system ~/ --max-depth 1 | fzf)\n"
           bindkey '^l' "lf\r"
           bindkey '^a' beginning-of-line
           bindkey '^e' end-of-line
@@ -234,20 +234,23 @@
           rebuild = "~/NixOS/install.sh";
 
           # Directory Shortcuts.
-          dev = "cd /mnt/work/dev/";
-          dots = "cd ~/.dotfiles/";
-          nixdir = "cd /mnt/work/dev/nix/";
-          cppdir = "cd /mnt/work/dev/C++/";
-          zigdir = "cd /mnt/work/dev/Zig/";
-          csdir = "cd /mnt/work/dev/C#/";
-          rustdir = "cd /mnt/work/dev/Rust/";
-          pydir = "cd /mnt/work/dev/Python/";
-          javadir = "cd /mnt/work/dev/Java/";
-          luadir = "cd /mnt/work/dev/lua/";
-          webdir = "cd /mnt/work/dev/Website/";
+          dots = "cd ~/NixOS/";
+          games = "cd /mnt/games/";
           work = "cd /mnt/work/";
           media = "cd /mnt/work/media/";
-          games = "cd /mnt/games/";
+          projects = "cd /mnt/work/Projects/";
+          proj = "cd /mnt/work/Projects/";
+          dev = "cd /mnt/work/Projects/";
+          # dev = "cd /mnt/work/dev/";
+          # nixdir = "cd /mnt/work/dev/nix/";
+          # cppdir = "cd /mnt/work/dev/C++/";
+          # zigdir = "cd /mnt/work/dev/Zig/";
+          # csdir = "cd /mnt/work/dev/C#/";
+          # rustdir = "cd /mnt/work/dev/Rust/";
+          # pydir = "cd /mnt/work/dev/Python/";
+          # javadir = "cd /mnt/work/dev/Java/";
+          # luadir = "cd /mnt/work/dev/lua/";
+          # webdir = "cd /mnt/work/dev/Website/";
         };
       };
     })
