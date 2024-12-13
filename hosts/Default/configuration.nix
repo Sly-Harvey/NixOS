@@ -10,6 +10,8 @@
 
     ../../modules/hardware/video/nvidia.nix # Enable nvidia proprietary drivers
     # ../../modules/hardware/video/amdgpu.nix # Enable amdgpu drivers
+
+    ../../modules/hardware/drives
     ./hardware-configuration.nix
   ];
 

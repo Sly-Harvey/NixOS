@@ -38,7 +38,7 @@
 
           # Key Bindings
           # bindkey -s ^t "tmux-sessionizer\n"
-          # bindkey '^f' "cd $(${pkgs.fd}/bin/fd . /mnt/seagate /mnt/seagate/dev/ /run /run/current-system ~/ --max-depth 2 | fzf)\n"
+          # bindkey '^f' "cd $(${pkgs.fd}/bin/fd . /mnt/work /mnt/work/dev/ /run /run/current-system ~/ --max-depth 2 | fzf)\n"
           bindkey '^l' "lf\r"
           bindkey '^a' beginning-of-line
           bindkey '^e' end-of-line
@@ -234,19 +234,19 @@
           rebuild = "~/NixOS/install.sh";
 
           # Directory Shortcuts.
-          dev = "cd /mnt/seagate/dev/";
+          dev = "cd /mnt/work/dev/";
           dots = "cd ~/.dotfiles/";
-          nixdir = "cd /mnt/seagate/dev/nix/";
-          cppdir = "cd /mnt/seagate/dev/C++/";
-          zigdir = "cd /mnt/seagate/dev/Zig/";
-          csdir = "cd /mnt/seagate/dev/C#/";
-          rustdir = "cd /mnt/seagate/dev/Rust/";
-          pydir = "cd /mnt/seagate/dev/Python/";
-          javadir = "cd /mnt/seagate/dev/Java/";
-          luadir = "cd /mnt/seagate/dev/lua/";
-          webdir = "cd /mnt/seagate/dev/Website/";
-          seagate = "cd /mnt/seagate/";
-          media = "cd /mnt/seagate/media/";
+          nixdir = "cd /mnt/work/dev/nix/";
+          cppdir = "cd /mnt/work/dev/C++/";
+          zigdir = "cd /mnt/work/dev/Zig/";
+          csdir = "cd /mnt/work/dev/C#/";
+          rustdir = "cd /mnt/work/dev/Rust/";
+          pydir = "cd /mnt/work/dev/Python/";
+          javadir = "cd /mnt/work/dev/Java/";
+          luadir = "cd /mnt/work/dev/lua/";
+          webdir = "cd /mnt/work/dev/Website/";
+          work = "cd /mnt/work/";
+          media = "cd /mnt/work/media/";
           games = "cd /mnt/games/";
         };
       };
