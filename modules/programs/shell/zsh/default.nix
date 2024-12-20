@@ -115,7 +115,7 @@
               echo "Directory \"$1\" already exists!"
               return 1
             fi
-            nix flake new $1 --template ${self}/dev-templates#c-cpp
+            nix flake new $1 --template ${self}/dev-shells#c-cpp
             cd $1
             cat ~/.config/zsh/templates/ListTemplate.txt >> CMakeLists.txt
             mkdir src

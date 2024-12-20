@@ -50,43 +50,48 @@ in {
   };
 
   # Common home-manager options that are shared between all systems.
-  home-manager.users.${username} = {pkgs, ...}: {
-    # Let Home Manager install and manage itself.
-    programs.home-manager.enable = true;
+  home-manager = {
+    useGlobalPkgs = true;
+    useUserPackages = true;
+    backupFileExtension = "backup";
+    users.${username} = {pkgs, ...}: {
+      # Let Home Manager install and manage itself.
+      programs.home-manager.enable = true;
 
-    xdg.enable = true;
-    home.username = username;
-    home.homeDirectory = "/home/${username}";
-    home.stateVersion = "23.11"; # Please read the comment before changing.
-    home.sessionVariables = {
-      EDITOR = "nvim";
-      BROWSER = "firefox";
-      TERMINAL = terminal;
+      xdg.enable = true;
+      home.username = username;
+      home.homeDirectory = "/home/${username}";
+      home.stateVersion = "23.11"; # Please read the comment before changing.
+      home.sessionVariables = {
+        EDITOR = "nvim";
+        BROWSER = "firefox";
+        TERMINAL = terminal;
+      };
+
+      # Packages that don't require configuration. If you're looking to configure a program see the /modules dir
+      home.packages = with pkgs; [
+        # Applications
+        #kate
+        xfce.thunar
+
+        # Terminal
+        eza
+        fzf
+        fd
+        git
+        gh
+        github-desktop
+        htop
+        nix-prefetch-scripts
+        neofetch
+        ripgrep
+        tldr
+        unzip
+        (pkgs.writeShellScriptBin "hello" ''
+          echo "Hello ${username}!"
+        '')
+      ];
     };
-
-    # Packages that don't require configuration. If you're looking to configure a program see the /modules dir
-    home.packages = with pkgs; [
-      # Applications
-      #kate
-      xfce.thunar
-
-      # Terminal
-      eza
-      fzf
-      fd
-      git
-      gh
-      github-desktop
-      htop
-      nix-prefetch-scripts
-      neofetch
-      ripgrep
-      tldr
-      unzip
-      (pkgs.writeShellScriptBin "hello" ''
-        echo "Hello ${username}!"
-      '')
-    ];
   };
 
   # Filesystems support

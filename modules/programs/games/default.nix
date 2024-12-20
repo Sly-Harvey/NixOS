@@ -7,8 +7,8 @@
     # ./prismlauncher.nix
   ];
   environment.systemPackages = with pkgs; [
-    ryujinx
     heroic
-    bottles
+    # ryujinx
+    # bottles
   ];
 }
