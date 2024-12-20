@@ -37,6 +37,15 @@
     timezone = "Europe/London"; # REPLACE THIS WITH YOUR TIMEZONE
     kbdLayout = "uk"; # REPLACE THIS WITH YOUR KEYBOARD LAYOUT
 
+    system = "x86_64-linux"; # most users will be on 64 bit pcs (unless yours is ancient)
+    lib = nixpkgs.lib;
+    pkgs-stable = _final: _prev: {
+      stable = import nixpkgs-stable {
+        inherit system;
+        config.allowUnfree = true;
+        config.nvidia.acceptLicense = true;
+      };
+    };
     arguments = {
       inherit
         pkgs-stable
@@ -50,191 +59,176 @@
         kbdLayout
         ;
     };
-
-    system = "x86_64-linux"; # most users will be on 64 bit pcs (unless yours is ancient)
-    lib = nixpkgs.lib;
-    pkgs-stable = _final: _prev: {
-      stable = import nixpkgs-stable {
-        inherit system;
-        config.allowUnfree = true;
-        config.nvidia.acceptLicense = true;
-      };
-    };
   in {
     nixosConfigurations = {
       Default = lib.nixosSystem {
         inherit system;
-        specialArgs =
-          (arguments
-            // {inherit inputs;})
-          // inputs; # Expose all inputs and arguments
-        modules = [
-          ./hosts/Default/configuration.nix
-        ];
+        specialArgs = (arguments // {inherit inputs;}) // inputs;
+        modules = [./hosts/Default/configuration.nix];
       };
     };
   }
   // { # To use a template do: nix flake init -t $templates#TEMPLATE_NAME"
     templates = rec {
-      default = ./dev-templates/empty;
+      default = ./dev-shells/empty;
       bun = {
-        path = ./dev-templates/bun;
+        path = ./dev-shells/bun;
         description = "Bun development environment";
       };
       c-cpp = {
-        path = ./dev-templates/c-cpp;
+        path = ./dev-shells/c-cpp;
         description = "C/C++ development environment";
       };
       clojure = {
-        path = ./dev-templates/clojure;
+        path = ./dev-shells/clojure;
         description = "Clojure development environment";
       };
       csharp = {
-        path = ./dev-templates/csharp;
+        path = ./dev-shells/csharp;
         description = "C# development environment";
       };
       cue = {
-        path = ./dev-templates/cue;
+        path = ./dev-shells/cue;
         description = "Cue development environment";
       };
       dhall = {
-        path = ./dev-templates/dhall;
+        path = ./dev-shells/dhall;
         description = "Dhall development environment";
       };
       elixir = {
-        path = ./dev-templates/elixir;
+        path = ./dev-shells/elixir;
         description = "Elixir development environment";
       };
       elm = {
-        path = ./dev-templates/elm;
+        path = ./dev-shells/elm;
         description = "Elm development environment";
       };
       empty = {
-        path = ./dev-templates/empty;
+        path = ./dev-shells/empty;
         description = "Empty dev template that you can customize at will";
       };
       gleam = {
-        path = ./dev-templates/gleam;
+        path = ./dev-shells/gleam;
         description = "Gleam development environment";
       };
       go = {
-        path = ./dev-templates/go;
+        path = ./dev-shells/go;
         description = "Go (Golang) development environment";
       };
       hashi = {
-        path = ./dev-templates/hashi;
+        path = ./dev-shells/hashi;
         description = "HashiCorp DevOps tools development environment";
       };
       haskell = {
-        path = ./dev-templates/haskell;
+        path = ./dev-shells/haskell;
         description = "Haskell development environment";
       };
       java = {
-        path = ./dev-templates/java;
+        path = ./dev-shells/java;
         description = "Java development environment";
       };
       jupyter = {
-        path = ./dev-templates/jupyter;
+        path = ./dev-shells/jupyter;
         description = "Jupyter development environment";
       };
       kotlin = {
-        path = ./dev-templates/kotlin;
+        path = ./dev-shells/kotlin;
         description = "Kotlin development environment";
       };
       latex = {
-        path = ./dev-templates/latex;
+        path = ./dev-shells/latex;
         description = "LaTeX development environment";
       };
       lean4 = {
-        path = ./dev-templates/lean4;
+        path = ./dev-shells/lean4;
         description = "Lean 4 development environment";
       };
       nickel = {
-        path = ./dev-templates/nickel;
+        path = ./dev-shells/nickel;
         description = "Nickel development environment";
       };
       nim = {
-        path = ./dev-templates/nim;
+        path = ./dev-shells/nim;
         description = "Nim development environment";
       };
       nix = {
-        path = ./dev-templates/nix;
+        path = ./dev-shells/nix;
         description = "Nix development environment";
       };
       node = {
-        path = ./dev-templates/node;
+        path = ./dev-shells/node;
         description = "Node.js development environment";
       };
       ocaml = {
-        path = ./dev-templates/ocaml;
+        path = ./dev-shells/ocaml;
         description = "OCaml development environment";
       };
       opa = {
-        path = ./dev-templates/opa;
+        path = ./dev-shells/opa;
         description = "Open Policy Agent development environment";
       };
       php = {
-        path = ./dev-templates/php;
+        path = ./dev-shells/php;
         description = "PHP development environment";
       };
       platformio = {
-        path = ./dev-templates/platformio;
+        path = ./dev-shells/platformio;
         description = "PlatformIO development environment";
       };
       protobuf = {
-        path = ./dev-templates/protobuf;
+        path = ./dev-shells/protobuf;
         description = "Protobuf development environment";
       };
       pulumi = {
-        path = ./dev-templates/pulumi;
+        path = ./dev-shells/pulumi;
         description = "Pulumi development environment";
       };
       purescript = {
-        path = ./dev-templates/purescript;
+        path = ./dev-shells/purescript;
         description = "Purescript development environment";
       };
       python = {
-        path = ./dev-templates/python;
+        path = ./dev-shells/python;
         description = "Python development environment";
       };
       r = {
-        path = ./dev-templates/r;
+        path = ./dev-shells/r;
         description = "R development environment";
       };
       ruby = {
-        path = ./dev-templates/ruby;
+        path = ./dev-shells/ruby;
         description = "Ruby development environment";
       };
       rust = {
-        path = ./dev-templates/rust;
+        path = ./dev-shells/rust;
         description = "Rust development environment";
       };
       rust-toolchain = {
-        path = ./dev-templates/rust-toolchain;
+        path = ./dev-shells/rust-toolchain;
         description = "Rust development environment with Rust version defined by a rust-toolchain.toml file";
       };
       scala = {
-        path = ./dev-templates/scala;
+        path = ./dev-shells/scala;
         description = "Scala development environment";
       };
       shell = {
-        path = ./dev-templates/shell;
+        path = ./dev-shells/shell;
         description = "Shell script development environment";
       };
       swi-prolog = {
-        path = ./dev-templates/swi-prolog;
+        path = ./dev-shells/swi-prolog;
         description = "Swi-prolog development environment";
       };
       swift = {
-        path = ./dev-templates/swift;
+        path = ./dev-shells/swift;
         description = "Swift development environment";
       };
       vlang = {
-        path = ./dev-templates/vlang;
+        path = ./dev-shells/vlang;
         description = "Vlang developent environment";
       };
       zig = {
-        path = ./dev-templates/zig;
+        path = ./dev-shells/zig;
         description = "Zig development environment";
       };
 
