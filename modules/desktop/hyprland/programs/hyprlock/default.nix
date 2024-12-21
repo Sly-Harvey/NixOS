@@ -1,4 +1,4 @@
-{wallpaper, ...}: {
+{...}: {
   home-manager.sharedModules = [
     (_: {
       programs.hyprlock = {

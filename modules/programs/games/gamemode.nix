@@ -1,3 +1,3 @@
-{ ...}: {
+{...}: {
   programs.gamemode.enable = true;
 }

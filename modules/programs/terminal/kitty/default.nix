@@ -1,13 +1,7 @@
-{
-  lib,
-  pkgs,
-  ...
-}: {
+{...}: {
   home-manager.sharedModules = [
     (_: {
-      programs.kitty = let
-        inherit (lib) mkIf getExe getExe';
-      in {
+      programs.kitty = {
         enable = true;
         font = {
           name = "JetBrainsMono Nerd Font";

@@ -1,4 +1,8 @@
-{self, pkgs, ...}: {
+{
+  self,
+  pkgs,
+  ...
+}: {
   home-manager.sharedModules = [
     (_: {
       home.file.".config/zsh/.p10k.zsh" = {

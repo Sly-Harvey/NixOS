@@ -1,4 +1,4 @@
-{ ...}: {
+{...}: {
   #  use later
   home-manager.sharedModules = [
     (_: {

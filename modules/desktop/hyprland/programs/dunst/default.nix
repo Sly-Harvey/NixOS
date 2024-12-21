@@ -1,7 +1,4 @@
-{
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   home-manager.sharedModules = [
     (_: {
       services.dunst = {
