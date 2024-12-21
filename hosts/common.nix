@@ -251,16 +251,8 @@ in {
     templates = "${self}/dev-templates";
   };
 
-  systemd.services.lact = {
-    description = "AMDGPU Control Daemon";
-    after = ["multi-user.target"];
-    wantedBy = ["multi-user.target"];
-    serviceConfig = {
-      ExecStart = "${lib.getExe pkgs.lact} daemon";
-      Nice = -10;
-      Restart = "on-failure";
-    };
-  };
+  systemd.packages = with pkgs; [ lact ];
+  systemd.services.lactd.wantedBy = ["multi-user.target"];
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
