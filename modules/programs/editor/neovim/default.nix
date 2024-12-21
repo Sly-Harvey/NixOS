@@ -1,4 +1,4 @@
-{ ...}: {
+{...}: {
   home-manager.sharedModules = [
     (_: {
       programs.neovim.enable = true;

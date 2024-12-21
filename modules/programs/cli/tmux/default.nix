@@ -1,7 +1,4 @@
-{
-  pkgs,
-  ...
-}: let
+{pkgs, ...}: let
   dreamsofcode-io-catppuccin-tmux =
     pkgs.tmuxPlugins.mkTmuxPlugin
     {

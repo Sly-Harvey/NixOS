@@ -15,7 +15,7 @@
       ];
 
       programs.alacritty = let
-        inherit (lib) getExe getExe';
+        inherit (lib) getExe;
       in {
         enable = true;
         settings = {

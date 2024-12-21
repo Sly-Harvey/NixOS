@@ -1,7 +1,6 @@
 {
   inputs,
   pkgs,
-  lib,
   pkgs-stable,
   username,
   terminal,
@@ -248,10 +247,10 @@ in {
     XDG_DATA_HOME = "$HOME/.local/share";
     XDG_BIN_HOME = "$HOME/.local/bin";
 
-    templates = "${self}/dev-templates";
+    templates = "${self}/dev-shells";
   };
 
-  systemd.packages = with pkgs; [ lact ];
+  systemd.packages = with pkgs; [lact];
   systemd.services.lactd.wantedBy = ["multi-user.target"];
 
   # List packages installed in system profile. To search, run:
