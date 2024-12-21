@@ -4,19 +4,8 @@
   config,
   pkgs,
   ...
-}: {
-  boot = {
-    kernelParams = [
-      "nouveau.config=NvGspRm=1"
-      "nouveau.config=NvModesetKms=0" # TODO Test
-      "nouveau.debug=info,VBIOS=info,gsp=debug" # TODO Remove
-      # "nouveau.modeset=1"
-    ];
-    kernelModules = ["nouveau"];
-    blacklistedKernelModules = ["nvidia" "nvidia_uvm" "nvidia_drm" "nvidia_modeset"];
-  };
-
-  environment.sessionVariables = {
+}: let
+  env = {
     NVK_I_WANT_A_BROKEN_VULKAN_DRIVER = "1"; # Adds support for my gpu (gtx 1080)
     # MESA_VK_VERSION_OVERRIDE = "1.3";
     # __GLX_VENDOR_LIBRARY_NAME = "mesa";
@@ -27,6 +16,20 @@
     WLR_RENDERER = "vulkan";
     __GL_GSYNC_ALLOWED = "1"; # GSync
   };
+in {
+  boot = {
+    kernelParams = [
+      "nouveau.config=NvGspRm=1"
+      "nouveau.config=NvModesetKms=0" # TODO Test
+      "nouveau.debug=info,VBIOS=info,gsp=debug" # TODO Remove
+      # "nouveau.modeset=1"
+    ];
+    kernelModules = ["nouveau"];
+    blacklistedKernelModules = ["nvidia" "nvidia_uvm"];
+  };
+
+  environment.sessionVariables = env;
+  environment.variables = env;
 
   services.xserver.videoDrivers = ["modesetting"]; # "modesetting" is better than "nouveau"
   # environment.variables.WLR_NO_HARDWARE_CURSORS = "1";
