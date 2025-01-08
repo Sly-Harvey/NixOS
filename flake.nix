@@ -37,7 +37,12 @@
     kbdLayout = "uk"; # REPLACE THIS WITH YOUR KEYBOARD LAYOUT
 
     system = "x86_64-linux"; # most users will be on 64 bit pcs (unless yours is ancient)
-    lib = nixpkgs.lib;
+    pkgs = import nixpkgs {
+      inherit system;
+      config.allowUnfree = true;
+      config.nvidia.acceptLicense = true;
+      overlays = [pkgs-stable];
+    };
     pkgs-stable = _final: _prev: {
       stable = import nixpkgs-stable {
         inherit system;
@@ -62,10 +67,22 @@
     {
       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
       nixosConfigurations = {
-        Default = lib.nixosSystem {
+        Default = nixpkgs.lib.nixosSystem {
           inherit system;
           specialArgs = (arguments // {inherit inputs;}) // inputs;
           modules = [./hosts/Default/configuration.nix];
+        };
+      };
+      devShells.${system} = {
+        default = pkgs.mkShell {
+          packages = with pkgs; [
+            git
+            nix
+            home-manager
+            figlet
+            lolcat
+          ];
+          NIX_CONFIG = "extra-experimental-features = nix-command flakes";
         };
       };
     }
