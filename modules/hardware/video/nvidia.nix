@@ -25,7 +25,7 @@ in {
   hardware = {
     nvidia = {
       open = false;
-      # nvidiaPersistenced = true;
+      nvidiaPersistenced = true;
       nvidiaSettings = false;
       powerManagement.enable = false; # This can cause sleep/suspend to fail.
       modesetting.enable = true;
