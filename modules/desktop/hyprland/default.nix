@@ -32,7 +32,6 @@
   in [
     ({...}: {
       home.packages = with pkgs; [
-        inputs.hyprland-qtutils.packages."${pkgs.system}".default # NOTE Temp until fixed upstream
         # blueman
         hyprpaper
         cliphist
