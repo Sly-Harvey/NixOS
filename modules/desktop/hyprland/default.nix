@@ -4,6 +4,8 @@
   pkgs,
   terminal,
   terminalFileManager,
+  kbdLayout,
+  kbdVariant,
   ...
 }: {
   imports = [
@@ -127,8 +129,8 @@
             #"systemctl start --user polkit-kde-authentication-agent-1"
           ];
           input = {
-            kb_layout = "gb,gb,ru";
-            kb_variant = "extd,dvorak,";
+            kb_layout = "${kbdLayout},gb,ru";
+            kb_variant = "${kbdVariant},dvorak,";
             repeat_delay = 300; # or 212
             repeat_rate = 30;
 

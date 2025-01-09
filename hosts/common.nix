@@ -8,6 +8,8 @@
   locale,
   timezone,
   kbdLayout,
+  kbdVariant,
+  consoleKeymap,
   self,
   ...
 }: let
@@ -147,10 +149,13 @@ in {
     LC_TELEPHONE = locale;
     LC_TIME = locale;
   };
-  console.keyMap = kbdLayout; # Configure console keymap
-  services.xserver.xkb = {
-    layout = "gb";
-    variant = "";
+  console.keyMap = consoleKeymap; # Configure console keymap
+  services.xserver = {
+    exportConfiguration = true; # Make sure /etc/X11/xkb is populated so localectl works correctly
+    xkb = {
+      layout = kbdLayout;
+      variant = kbdVariant;
+    };
   };
 
   security = {

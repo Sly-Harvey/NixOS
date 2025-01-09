@@ -35,7 +35,9 @@
     hostname = "NixOS"; # CHOOSE A HOSTNAME HERE
     locale = "en_GB.UTF-8"; # CHOOSE YOUR LOCALE
     timezone = "Europe/London"; # CHOOSE YOUR TIMEZONE
-    kbdLayout = "uk"; # CHOOSE YOUR KEYBOARD LAYOUT
+    kbdLayout = "gb"; # CHOOSE YOUR KEYBOARD LAYOUT (command: localectl list-x11-keymap-layouts)
+    kbdVariant = "extd"; # CHOOSE YOUR KEYBOARD LAYOUT VARIANT (Can leave empty or localectl list-x11-keymap-variants)
+    consoleKeymap = "uk"; # CHOOSE YOUR CONSOLE KEYMAP (Affects the tty?)
 
     system = "x86_64-linux"; # most users will be on 64 bit pcs
 
@@ -53,6 +55,8 @@
         timezone
         hostname
         kbdLayout
+        kbdVariant
+        consoleKeymap
         ;
     };
 
