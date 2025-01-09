@@ -26,17 +26,38 @@
     ...
   } @ inputs: let
     # User configuration
-    username = "kepler"; # WARNING REPLACE THIS WITH YOUR USERNAME IF MANUALLY INSTALLING
-    terminal = "kitty"; # alacritty or kitty
+    username = "kepler"; # no need to touch this since install.sh uses sed to replace this (otherwise if mangually installing then you need to change this yourself)
+    terminal = "kitty"; # kitty or alacritty
+    terminalFileManager = "yazi"; # yazi or lf
     wallpaper = "cyberpunk.png"; # see modules/themes/wallpapers
 
     # System configuration
-    hostname = "nixos"; # CHOOSE A HOSTNAME HERE (default is fine)
-    locale = "en_GB.UTF-8"; # REPLACE THIS WITH YOUR LOCALE
-    timezone = "Europe/London"; # REPLACE THIS WITH YOUR TIMEZONE
-    kbdLayout = "uk"; # REPLACE THIS WITH YOUR KEYBOARD LAYOUT
+    gpuDriver = "nvidia"; # CHOOSE YOUR GPU DRIVERS (nvidia or amdgpu) THIS IS IMPORTANT
+    hostname = "NixOS"; # CHOOSE A HOSTNAME HERE
+    locale = "en_GB.UTF-8"; # CHOOSE YOUR LOCALE
+    timezone = "Europe/London"; # CHOOSE YOUR TIMEZONE
+    kbdLayout = "uk"; # CHOOSE YOUR KEYBOARD LAYOUT
 
-    system = "x86_64-linux"; # most users will be on 64 bit pcs (unless yours is ancient)
+    system = "x86_64-linux"; # most users will be on 64 bit pcs
+
+    # When defining variables above, make sure to add them here.
+    specialArgs = {
+      inherit
+        pkgs-stable
+        username
+        terminal
+        terminalFileManager
+        wallpaper
+        system
+        gpuDriver
+        locale
+        timezone
+        hostname
+        kbdLayout
+        ;
+    };
+
+    # No need to mess with these (They're for the devShell)
     pkgs = import nixpkgs {
       inherit system;
       config.allowUnfree = true;
@@ -50,26 +71,12 @@
         config.nvidia.acceptLicense = true;
       };
     };
-    arguments = {
-      inherit
-        pkgs-stable
-        username
-        terminal
-        wallpaper
-        system
-        locale
-        timezone
-        hostname
-        kbdLayout
-        ;
-    };
   in
     {
-      formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
-      nixosConfigurations = {
+      nixosConfigurations = { # Define systems here
         Default = nixpkgs.lib.nixosSystem {
           inherit system;
-          specialArgs = (arguments // {inherit inputs;}) // inputs;
+          specialArgs = (specialArgs // {inherit inputs;}) // inputs;
           modules = [./hosts/Default/configuration.nix];
         };
       };
@@ -85,6 +92,7 @@
           NIX_CONFIG = "extra-experimental-features = nix-command flakes";
         };
       };
+      formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
     }
     // {
       # To use a template do: nix flake init -t $templates#TEMPLATE_NAME"

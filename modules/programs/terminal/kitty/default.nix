@@ -1,4 +1,5 @@
-{...}: {
+{pkgs, ...}: {
+  fonts.packages = with pkgs.nerd-fonts; [jetbrains-mono];
   home-manager.sharedModules = [
     (_: {
       programs.kitty = {
@@ -10,7 +11,6 @@
         themeFile = "Catppuccin-Mocha";
         settings = {
           # shell = "${getExe pkgs.tmux}";
-          term = "xterm-256color";
           # cursor_trail = 3; # Fancy cursor movements (especially in nixvim)
           # cursor_trail_decay = "0.08 0.3"; # Animation speed
           # cursor_trail_start_threshold = "4";

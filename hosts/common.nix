@@ -4,6 +4,7 @@
   pkgs-stable,
   username,
   terminal,
+  terminalFileManager,
   locale,
   timezone,
   kbdLayout,
@@ -25,13 +26,16 @@ in {
     ../modules/programs/cli/starship
     ../modules/programs/cli/tmux
     ../modules/programs/cli/direnv
-    ../modules/programs/cli/lf
+    ../modules/programs/cli/${terminalFileManager}
     ../modules/programs/cli/lazygit
     ../modules/programs/cli/cava
     ../modules/programs/cli/btop
     ../modules/programs/misc/mpv
     ../modules/programs/misc/spicetify
-    ../modules/programs/misc/obs
+    # ../modules/programs/misc/obs
+    # ../modules/programs/misc/nix-ld
+    # ../modules/programs/misc/tlp
+    # ../modules/programs/misc/virt-manager
   ];
 
   users.users.${username} = {
