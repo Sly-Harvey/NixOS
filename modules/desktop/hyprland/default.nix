@@ -3,6 +3,7 @@
   lib,
   pkgs,
   terminal,
+  terminalFileManager,
   ...
 }: {
   imports = [
@@ -80,7 +81,7 @@
           "$launcher" = "pkill rofi || rofi -show drun -modi drun,filebrowser,run,window -theme $XDG_CONFIG_HOME/rofi/launchers/type-2/style-2.rasi";
           "$term" = "${getExe pkgs.${terminal}}";
           "$editor" = "code --disable-gpu";
-          "$file" = "$term -e lf";
+          "$file" = "$term --class \"terminalFileManager\" -e ${terminalFileManager}";
           "$browser" = "firefox";
 
           env = [
@@ -250,7 +251,7 @@
             "workspace 5, class:^(firefox)$"
             "workspace 6, class:^(Spotify)$"
             "workspace 6, title:(.*)(Spotify)(.*)$"
-            "workspace 8, class:^(kitty-rebuildScript)$"
+            "workspace 8, class:^(rebuildScript)$"
 
             "opacity 0.80 0.80,class:^(alacritty)$"
             "opacity 1.00 1.00,class:^(firefox)$"
@@ -265,7 +266,8 @@
             "opacity 0.80 0.80,class:^(Code)$"
             "opacity 0.80 0.80,class:^(code-url-handler)$"
             "opacity 0.80 0.80,class:^(kitty)$"
-            "opacity 0.80 0.80,class:^(kitty-rebuildScript)$"
+            "opacity 0.80 0.80,class:^(terminalFileManager)$"
+            "opacity 0.80 0.80,class:^(rebuildScript)$"
             "opacity 0.80 0.80,class:^(org.kde.dolphin)$"
             "opacity 0.80 0.80,class:^(org.kde.ark)$"
             "opacity 0.80 0.80,class:^(nwg-look)$"
@@ -414,7 +416,7 @@
               "$mainMod CTRL, mouse:275, movetoworkspacesilent, 6"
 
               # Rebuild NixOS with a KeyBind
-              "$mainMod CTRL ALT, KP_Divide, exec, kitty --class \"kitty-rebuildScript\" $hyprScriptsDir/rebuild.sh"
+              "$mainMod CTRL ALT, KP_Divide, exec, $term --class \"rebuildScript\" -e $hyprScriptsDir/rebuild.sh"
 
               # Scroll through existing workspaces with mainMod + scroll
               "$mainMod, mouse_down, workspace, e+1"

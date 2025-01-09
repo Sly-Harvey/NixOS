@@ -1,5 +1,6 @@
 {
   pkgs,
+  gpuDriver,
   hostname,
   ...
 }: {
@@ -8,8 +9,7 @@
     ../../modules/desktop/hyprland # Enable hyprland window manager
     ../../modules/programs/games
 
-    ../../modules/hardware/video/nvidia.nix # Enable nvidia proprietary drivers
-    # ../../modules/hardware/video/amdgpu.nix # Enable amdgpu drivers
+    ../../modules/hardware/video/${gpuDriver}.nix # Enable gpu drivers defined in flake.nix
 
     ../../modules/hardware/drives
     ./hardware-configuration.nix

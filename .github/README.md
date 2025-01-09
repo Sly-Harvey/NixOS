@@ -30,11 +30,10 @@
 ![Screenshot](assets/preview.png)
 ![Screenshot](assets/preview2.png)
 
-# Install
+# Installation
 > [!Note]
-> <p>Default gpu drivers are nvidia.<br>
-> If you want to change this then edit the imports in ./hosts/Default/configuration.nix.</p>
-## Using the install script
+> <p>You should review the configuration variables in flake.nix before installing.</p>
+<!-- ## Using the install script -->
 ```bash
 nix run --experimental-features "nix-command flakes" nixpkgs#git clone https://github.com/Sly-Harvey/NixOS.git ~/NixOS
 ```
@@ -44,14 +43,14 @@ cd ~/NixOS
 ```bash
 ./install.sh
 ```
-## Building manually
+<!-- ## Building manually
 > [!IMPORTANT]
 > <p>When building manually from the flake make sure to place your hardware-configuration.nix in hosts/Default/<br>
 > then change the username variable in flake.nix with your username!! THIS IS IMPORTANT<br>
 > afterwards run the command below</p>
 ```bash
 sudo nixos-rebuild switch --flake .#Default
-```
+``` -->
 ### Credits/Inspiration
 https://github.com/JaKooLit/Hyprland-Dots<br>
 https://github.com/prasanthrangan/hyprdots

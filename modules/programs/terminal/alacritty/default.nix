@@ -1,19 +1,12 @@
 {
   lib,
   pkgs,
+  terminalFileManager,
   ...
 }: {
+  fonts.packages = with pkgs.nerd-fonts; [jetbrains-mono];
   home-manager.sharedModules = [
     (_: {
-      home.packages = with pkgs; [
-        (nerdfonts.override {
-          fonts = [
-            "JetBrainsMono"
-            # "FiraCode"
-          ];
-        })
-      ];
-
       programs.alacritty = let
         inherit (lib) getExe;
       in {
@@ -21,34 +14,78 @@
         settings = {
           colors = {
             draw_bold_text_with_bright_colors = true;
-            #primary = {
-            #  background = "0x1f1f28";
-            #  foreground = "0xdcd7ba";
-            #};
-            normal = {
-              black = "0x090618";
-              blue = "0x7e9cd8";
-              cyan = "0x6a9589";
-              green = "0x76946a";
-              magenta = "0x957fb8";
-              red = "0xc34043";
-              white = "0xc8c093";
-              yellow = "0xc0a36e";
+            primary = {
+              background = "#1e1e2e";
+              foreground = "#cdd6f4";
+              dim_foreground = "#7f849c";
+              bright_foreground = "#cdd6f4";
             };
-            bright = {
-              black = "0x727169";
-              blue = "0x7fb4ca";
-              cyan = "0x7aa89f";
-              green = "0x98bb6c";
-              magenta = "0x938aa9";
-              red = "0xe82424";
-              white = "0xdcd7ba";
-              yellow = "0xe6c384";
+            cursor = {
+              text = "#1e1e2e";
+              cursor = "#f5e0dc";
+            };
+            vi_mode_cursor = {
+              text = "#1e1e2e";
+              cursor = "#b4befe";
+            };
+            search = {
+              matches = {
+                foreground = "#1e1e2e";
+                background = "#a6adc8";
+              };
+              focused_match = {
+                foreground = "#1e1e2e";
+                background = "#a6e3a1";
+              };
+            };
+            footer_bar = {
+              foreground = "#1e1e2e";
+              background = "#a6adc8";
+            };
+            hints = {
+              start = {
+                foreground = "#1e1e2e";
+                background = "#f9e2af";
+              };
+              end = {
+                foreground = "#1e1e2e";
+                background = "#a6adc8";
+              };
             };
             selection = {
-              background = "0x2d4f67";
-              foreground = "0xc8c093";
+              text = "#1e1e2e";
+              background = "#f5e0dc";
             };
+            normal = {
+              black = "#45475a";
+              red = "#f38ba8";
+              green = "#a6e3a1";
+              yellow = "#f9e2af";
+              blue = "#89b4fa";
+              magenta = "#f5c2e7";
+              cyan = "#94e2d5";
+              white = "#bac2de";
+            };
+            bright = {
+              black = "#585b70";
+              red = "#f38ba8";
+              green = "#a6e3a1";
+              yellow = "#f9e2af";
+              blue = "#89b4fa";
+              magenta = "#f5c2e7";
+              cyan = "#94e2d5";
+              white = "#a6adc8";
+            };
+            indexed_colors = [
+              {
+                index = 16;
+                color = "#fab387";
+              }
+              {
+                index = 17;
+                color = "#f5e0dc";
+              }
+            ];
           };
 
           font = {
@@ -94,7 +131,7 @@
           keyboard.bindings = [
             /*
                {
-              chars = "lf\r";
+              chars = "${terminalFileManager}\r";
               key = "L";
               mods = "Control|Alt";
             }
