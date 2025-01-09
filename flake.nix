@@ -26,7 +26,7 @@
     ...
   } @ inputs: let
     # User configuration
-    username = "kepler"; # no need to touch this since install.sh uses sed to replace this (otherwise if mangually installing then you need to change this yourself)
+    username = "kepler"; # no need to touch this since install.sh uses sed to replace this (otherwise if manually installing then you need to change this yourself)
     terminal = "kitty"; # kitty or alacritty
     terminalFileManager = "yazi"; # yazi or lf
     wallpaper = "cyberpunk.png"; # see modules/themes/wallpapers
