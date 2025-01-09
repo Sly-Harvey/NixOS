@@ -21,7 +21,7 @@
           preview = {
             # wrap = "yes";
             tab_size = 4;
-            image_filter = "lanczos3"; # from fast to slow but high quality: nearest, triangle catmull-rom, lanczos3
+            image_filter = "triangle"; # from fast to slow but high quality: nearest, triangle, catmull-rom, lanczos3
             max_width = 1920; # maybe 1000
             max_height = 1080; # maybe 1000
             # max_width = 1500;
