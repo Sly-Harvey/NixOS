@@ -17,12 +17,11 @@
     devShells = forEachSupportedSystem ({pkgs}: {
       default = pkgs.mkShell {
         venvDir = ".venv";
-        packages = with pkgs;
-          [python311]
-          ++ (with pkgs.python311Packages; [
-            pip
+        packages = with pkgs; [ # Python and pip is already in the venv
+          (with pkgs.python312Packages; [
             venvShellHook
-          ]);
+          ])
+        ];
       };
     });
   };
