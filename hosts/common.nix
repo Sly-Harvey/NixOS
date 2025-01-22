@@ -340,8 +340,8 @@ in {
     gc = {
       # Garbage Collection
       automatic = true;
-      dates = "weekly";
-      options = "--delete-older-than 3d";
+      dates = "daily";
+      options = "--delete-older-than 10d";
     };
     optimise.automatic = true;
     package = pkgs.nixVersions.stable;
