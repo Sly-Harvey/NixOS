@@ -1,7 +1,7 @@
 {
   inputs,
   pkgs,
-  pkgs-stable,
+  overlays,
   username,
   terminal,
   terminalFileManager,
@@ -241,10 +241,7 @@ in {
   nixpkgs = {
     config.allowUnfree = true;
     # config.allowUnfreePredicate = _: true;
-    overlays = [
-      inputs.nur.overlays.default
-      pkgs-stable
-    ];
+    inherit overlays;
   };
 
   environment.sessionVariables = {
