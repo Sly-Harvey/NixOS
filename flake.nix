@@ -24,66 +24,54 @@
     nixpkgs-stable,
     ...
   } @ inputs: let
-    # User configuration
-    username = "kepler"; # no need to touch this since install.sh uses sed to replace this (otherwise if manually installing then you need to change this yourself)
-    terminal = "kitty"; # kitty or alacritty
-    terminalFileManager = "yazi"; # yazi or lf
-    wallpaper = "cyberpunk.png"; # see modules/themes/wallpapers
+    settings = {
+      # User configuration
+      username = "kepler"; # no need to touch this since install.sh uses sed to replace this (otherwise if manually installing then you need to change this yourself)
+      terminal = "kitty"; # kitty or alacritty
+      terminalFileManager = "yazi"; # yazi or lf
+      wallpaper = "cyberpunk.png"; # see modules/themes/wallpapers
 
-    # System configuration
-    gpuDriver = "nvidia"; # CHOOSE YOUR GPU DRIVERS (nvidia or amdgpu) THIS IS IMPORTANT
-    hostname = "NixOS"; # CHOOSE A HOSTNAME HERE
-    locale = "en_GB.UTF-8"; # CHOOSE YOUR LOCALE
-    timezone = "Europe/London"; # CHOOSE YOUR TIMEZONE
-    kbdLayout = "gb"; # CHOOSE YOUR KEYBOARD LAYOUT (command: localectl list-x11-keymap-layouts)
-    kbdVariant = "extd"; # CHOOSE YOUR KEYBOARD LAYOUT VARIANT (Can leave empty or localectl list-x11-keymap-variants)
-    consoleKeymap = "uk"; # CHOOSE YOUR CONSOLE KEYMAP (Affects the tty?)
+      # System configuration
+      system = "x86_64-linux"; # most users will be on 64 bit pcs
+      gpuDriver = "nvidia"; # CHOOSE YOUR GPU DRIVERS (nvidia or amdgpu) THIS IS IMPORTANT
+      hostname = "NixOS"; # CHOOSE A HOSTNAME HERE
+      locale = "en_GB.UTF-8"; # CHOOSE YOUR LOCALE
+      timezone = "Europe/London"; # CHOOSE YOUR TIMEZONE
+      kbdLayout = "gb"; # CHOOSE YOUR KEYBOARD LAYOUT (command: localectl list-x11-keymap-layouts)
+      kbdVariant = "extd"; # CHOOSE YOUR KEYBOARD LAYOUT VARIANT (Can leave empty or localectl list-x11-keymap-variants)
+      consoleKeymap = "uk"; # CHOOSE YOUR CONSOLE KEYMAP (Affects the tty?)
 
-    system = "x86_64-linux"; # most users will be on 64 bit pcs
-
-    # When defining variables above, make sure to add them here.
-    specialArgs = {
-      inherit
-        pkgs-stable
-        username
-        terminal
-        terminalFileManager
-        wallpaper
-        system
-        gpuDriver
-        locale
-        timezone
-        hostname
-        kbdLayout
-        kbdVariant
-        consoleKeymap
-        ;
-    };
-
-    # No need to mess with these (They're for the devShell)
-    pkgs = import nixpkgs {
-      inherit system;
-      config.allowUnfree = true;
-      config.nvidia.acceptLicense = true;
-      overlays = [pkgs-stable];
-    };
-    pkgs-stable = _final: _prev: {
-      stable = import nixpkgs-stable {
-        inherit system;
-        config.allowUnfree = true;
-        config.nvidia.acceptLicense = true;
-      };
+      overlays = [
+        inputs.nur.overlays.default
+        (
+          _final: _prev: {
+            stable = import nixpkgs-stable {
+              system = settings.system;
+              config.allowUnfree = true;
+              config.nvidia.acceptLicense = true;
+            };
+          }
+        )
+      ];
     };
   in
     {
-      nixosConfigurations = { # Define systems here
+      nixosConfigurations = {
+        # Define systems here
         Default = nixpkgs.lib.nixosSystem {
-          inherit system;
-          specialArgs = (specialArgs // {inherit inputs;}) // inputs;
+          system = settings.system;
+          specialArgs = (settings // {inherit inputs;}) // inputs;
           modules = [./hosts/Default/configuration.nix];
         };
       };
-      devShells.${system} = {
+      devShells.${settings.system} = let
+        pkgs = import nixpkgs {
+          system = settings.system;
+          config.allowUnfree = true;
+          config.nvidia.acceptLicense = true;
+          overlays = settings.overlays;
+        };
+      in {
         default = pkgs.mkShell {
           packages = with pkgs; [
             git
