@@ -280,8 +280,8 @@
             "opacity 0.80 0.80,class:^(hu.kramo.Cartridges)$" #Cartridges-Gtk
             "opacity 0.80 0.80,class:^(com.obsproject.Studio)$" #Obs-Qt
             "opacity 0.80 0.80,class:^(gnome-boxes)$" #Boxes-Gtk
-            "opacity 0.80 0.80,class:^(discord)$" #Discord-Electron
-            "opacity 0.80 0.80,class:^(WebCord)$" #WebCord-Electron
+            "opacity 0.90 0.90,class:^(discord)$" #Discord-Electron
+            "opacity 0.90 0.90,class:^(WebCord)$" #WebCord-Electron
             "opacity 0.80 0.80,class:^(app.drey.Warp)$" #Warp-Gtk
             "opacity 0.80 0.80,class:^(net.davidotek.pupgui2)$" #ProtonUp-Qt
             "opacity 0.80 0.80,class:^(yad)$" #Protontricks-Gtk
