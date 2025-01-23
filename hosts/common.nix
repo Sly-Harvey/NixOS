@@ -32,9 +32,10 @@ in {
     ../modules/programs/cli/lazygit
     ../modules/programs/cli/cava
     ../modules/programs/cli/btop
-    ../modules/programs/misc/mpv
-    ../modules/programs/misc/spicetify
-    # ../modules/programs/misc/obs
+    ../modules/programs/media/mpv
+    ../modules/programs/media/spicetify
+    ../modules/programs/media/discord
+    # ../modules/programs/media/obs
     # ../modules/programs/misc/nix-ld
     # ../modules/programs/misc/tlp
     # ../modules/programs/misc/virt-manager
