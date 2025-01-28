@@ -37,8 +37,8 @@
       hostname = "NixOS"; # CHOOSE A HOSTNAME HERE
       locale = "en_GB.UTF-8"; # CHOOSE YOUR LOCALE
       timezone = "Europe/London"; # CHOOSE YOUR TIMEZONE
-      kbdLayout = "gb"; # CHOOSE YOUR KEYBOARD LAYOUT (command: localectl list-x11-keymap-layouts)
-      kbdVariant = "extd"; # CHOOSE YOUR KEYBOARD LAYOUT VARIANT (Can leave empty or localectl list-x11-keymap-variants)
+      kbdLayout = "gb"; # CHOOSE YOUR KEYBOARD LAYOUT
+      kbdVariant = "extd"; # CHOOSE YOUR KEYBOARD LAYOUT VARIANT (Can leave empty)
       consoleKeymap = "uk"; # CHOOSE YOUR CONSOLE KEYMAP (Affects the tty?)
 
       overlays = [
