@@ -421,23 +421,44 @@ in {
                       url = "https://github.com/";
                     }
                     {
-                      name = "NixOS pkgs";
-                      url = "https://search.nixos.org/packages";
+                      name = "Lloyds Bank";
+                      url = "https://www.lloydsbank.com/";
                     }
                     {
-                      name = "NixOS Wiki";
-                      url = "https://nixos.wiki";
-                    }
-                    {
-                      name = "NixOS Configs";
-                      url = "https://nixos.wiki/wiki/Configuration_Collection";
+                      name = "NixOS";
+                      bookmarks = [
+                        {
+                          name = "NixOS Wiki";
+                          url = "https://wiki.nixos.org/wiki/NixOS_Wiki";
+                        }
+                        {
+                          name = "NixOS Packages";
+                          url = "https://search.nixos.org/packages";
+                        }
+                        {
+                          name = "NixOS Options";
+                          url = "https://search.nixos.org/options";
+                        }
+                        {
+                          name = "NixOS Configs";
+                          url = "https://wiki.nixos.org/wiki/Configuration_Collection";
+                        }
+                        {
+                          name = "Nix Docs";
+                          url = "https://noogle.dev/";
+                        }
+                        {
+                          name = "Learn Nix";
+                          url = "https://nix.dev/";
+                        }
+                      ];
                     }
                     {
                       name = "Search Engines";
                       bookmarks = [
                         {
                           name = "Startpage";
-                          url = "https://www.startpage.com/do/mypage.pl?prfe=358f0310b1c47c53e468bbed228d921438352de61d9ea4fcad92c335685a8e4de5118de1f91f06960587d38d76310c444d27766f935be9bb7dfa8fbc7f0b8207fbcd0a23600e2f957b79e6b3";
+                          url = "https://www.startpage.com/do/mypage.pl?prfe=c602752472dd4a3d8286a7ce441403da08e5c4656092384ed3091a946a5a4a4c99962d0935b509f2866ff1fdeaa3c33a007d4d26e89149869f2f7d0bdfdb1b51aa7ae7f5f17ff4a233ff313d";
                         }
                         {
                           name = "SearX";
@@ -450,7 +471,7 @@ in {
               ];
               search = {
                 force = true;
-                default = "Google";
+                default = "Startpage";
                 privateDefault = "Startpage";
                 order = [
                   "Startpage"
@@ -466,7 +487,7 @@ in {
                   "Startpage" = {
                     urls = [
                       {
-                        template = "https://www.startpage.com/sp/search?query={searchTerms}&prfe=dea8b8a2e1126185da987128a196ee5c47cdf324dce146f96b3b9157ab1f9e7166ae05d134c935eccc20f54e46222c8f1bb60faece00557b02e7a4e1fe397bc0f6750fbd3f7f580b241188&abp=-1";
+                        template = "https://www.startpage.com/sp/search?query={searchTerms}&prfe=c602752472dd4a3d8286a7ce441403da08e5c4656092384ed3091a946a5a4a4c99962d0935b509f2866ff1fdeaa3c33a007d4d26e89149869f2f7d0bdfdb1b51aa7ae7f5f17ff4a233ff313d";
                       }
                     ];
                     icon = "''${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
