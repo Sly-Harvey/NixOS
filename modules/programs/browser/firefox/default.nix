@@ -293,7 +293,7 @@ in {
                 "browser.newtabpage.activity-stream.improvesearch.topSiteSearchShortcuts.searchEngines" = "";
                 "browser.protections_panel.infoMessage.seen" = true;
                 "browser.ssb.enabled" = true;
-                "browser.toolbars.bookmarks.visibility" = "newtab";
+                "browser.toolbars.bookmarks.visibility" = "newtab"; # always, never, newtab
                 #"browser.urlbar.placeholderName" = "Google";
                 "browser.urlbar.suggest.openpage" = false;
                 "datareporting.policy.dataSubmissionEnable" = false;
@@ -415,6 +415,10 @@ in {
                     {
                       name = "Twitch";
                       url = "https://www.twitch.tv";
+                    }
+                    {
+                      name = "Netflix";
+                      url = "https://www.netflix.com";
                     }
                     {
                       name = "Github";
