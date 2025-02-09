@@ -1,10 +1,17 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  lib,
+  terminal,
+  ...
+}: {
   home-manager.sharedModules = [
     (_: {
-      programs.rofi = {
+      programs.rofi = let
+        inherit (lib) getExe;
+      in {
         enable = true;
         package = pkgs.rofi-wayland;
-        terminal = "${pkgs.alacritty}/bin/alacritty";
+        terminal = "${getExe pkgs.${terminal}}";
       };
       home.file.".config/rofi/config-music.rasi".source = ./config-music.rasi;
       home.file.".config/rofi/config-long.rasi".source = ./config-long.rasi;
