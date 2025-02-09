@@ -432,6 +432,10 @@ in {
                       name = "NixOS";
                       bookmarks = [
                         {
+                          name = "Search NixOS";
+                          url = "https://mynixos.com/";
+                        }
+                        {
                           name = "NixOS Wiki";
                           url = "https://wiki.nixos.org/wiki/NixOS_Wiki";
                         }
