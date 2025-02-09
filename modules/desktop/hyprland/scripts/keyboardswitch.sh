@@ -1,13 +1,12 @@
 #!/usr/bin/env sh
 
-ScrDir=`dirname "$(realpath "$0")"`
-source $ScrDir/globalcontrol.sh
+scrDir=$(dirname "$(realpath "$0")")
+source $scrDir/globalcontrol.sh
 
-hyprctl devices -j | jq -r '.keyboards[].name' | while read keyName
-do
-    hyprctl switchxkblayout "$keyName" next
-done
+hyprctl switchxkblayout all next
 
 layMain=$(hyprctl -j devices | jq '.keyboards' | jq '.[] | select (.main == true)' | awk -F '"' '{if ($2=="active_keymap") print $4}')
-dunstify "t1" -i ~/.config/dunst/icons/keyboard.svg -a "$layMain" -r 91190 -t 800
+
+# dunstify "${layMain}" -i ~/.config/hypr/icons/keyboard.svg -a "Keyboard Layout" -r 91190 -t 800
+notify-send -a "Keyboard Layout" -r 91190 -t 800 -i "$XDG_CONFIG_HOME/hypr/icons/keyboard.svg" "${layMain}"
 
