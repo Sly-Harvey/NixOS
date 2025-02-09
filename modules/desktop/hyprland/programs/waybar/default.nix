@@ -11,7 +11,6 @@
           {
             layer = "top";
             position = "top";
-            height = 33;
             exclusive = true;
             passthrough = false;
             gtk-layer-shell = true;
@@ -25,7 +24,7 @@
             modules-left = ["hyprland/workspaces" "cava"];
             modules-center = ["clock" "custom/notification"];
             # modules-center = ["idle_inhibitor" "clock"];
-            modules-right = ["custom/gpuinfo" "cpu" "memory" "network" "bluetooth" "pulseaudio" "tray" "battery" "custom/power"];
+            modules-right = ["custom/gpuinfo" "cpu" "memory" "pulseaudio" "network" "bluetooth" "tray" "battery"];
 
             "custom/notification" = {
               tooltip = false;
@@ -100,14 +99,14 @@
               max-length = 30;
             };
             "temperature" = {
-              hwmon-path = "/sys/class/hwmon/hwmon2/temp1_input";
-              critical-threshold = 80;
+              hwmon-path = "/sys/class/hwmon/hwmon1/temp1_input";
+              critical-threshold = 83;
               format = "{icon} {temperatureC}°C";
               format-icons = ["" "" ""];
-              interval = 2;
+              interval = 10;
             };
             "hyprland/language" = {
-              format = "{short}-{variant}";
+              format = "{short}"; # can use {short} and {variant}
               on-click = "~/.config/hypr/scripts/keyboardswitch.sh";
             };
             "hyprland/workspaces" = {
@@ -146,7 +145,8 @@
             };
 
             "clock" = {
-              format = "{:%R 󰃭 %d·%m·%y}";
+              format = "{:%a %d %b %R}";
+              # format = "{:%R 󰃭 %d·%m·%y}";
               format-alt = "{:%I:%M %p}";
               tooltip-format = "<tt>{calendar}</tt>";
               calendar = {
@@ -186,12 +186,12 @@
             };
 
             "backlight" = {
-              device = "intel_backlight";
+              interval = 2;
               format = "{icon} {percent}%";
               format-icons = ["" "" "" "" "" "" "" "" ""];
-              on-scroll-up = "brightnessctl set 1%+";
-              on-scroll-down = "brightnessctl set 1%-";
-              min-length = 6;
+              on-scroll-up = "brightnessctl set 5%+";
+              on-scroll-down = "brightnessctl set 5%-";
+              smooth-scrolling-threshold = 1;
             };
 
             "network" = {
@@ -208,15 +208,16 @@
             "bluetooth" = {
               format = "";
               format-disabled = ""; # an empty format will hide the module
-              format-connected = " {num_connections}";
-              tooltip-format = " {device_alias}";
+              format-connected = " {num_connections}";
+              tooltip-format = " {device_alias}";
               tooltip-format-connected = "{device_enumerate}";
-              tooltip-format-enumerate-connected = " {device_alias}";
+              tooltip-format-enumerate-connected = " {device_alias}";
+              on-click = "blueman-manager";
             };
 
             "pulseaudio" = {
               format = "{icon} {volume}";
-              format-muted = "🔇";
+              format-muted = " ";
               on-click = "pavucontrol -t 3";
               tooltip-format = "{icon} {desc} // {volume}%";
               scroll-step = 5;
@@ -233,7 +234,7 @@
 
             "pulseaudio#microphone" = {
               format = "{format_source}";
-              format-source = "";
+              format-source = " {volume}%";
               format-source-muted = "";
               on-click = "pavucontrol -t 4";
               tooltip-format = "{format_source} {source_desc} // {source_volume}%";
@@ -252,7 +253,8 @@
                 critical = 20;
               };
               format = "{icon} {capacity}%";
-              format-charging = " {capacity}%";
+              # format-charging = " {capacity}%";
+              format-charging = " {capacity}%";
               format-plugged = " {capacity}%";
               format-alt = "{time} {icon}";
               format-icons = ["󰂎" "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹"];
@@ -457,16 +459,16 @@
           }
 
           #custom-gpuinfo {
-            color: @green;
+            color: @maroon;
           }
 
           #cpu {
-            color: @teal;
+            color: @yellow;
           }
 
           #custom-keyboard,
           #memory {
-            color: @sky;
+            color: @green;
           }
 
           #disk {
@@ -583,7 +585,7 @@
           }
 
           #pulseaudio {
-            color: @sapphire;
+            color: @lavender;
           }
 
           #pulseaudio.bluetooth {
@@ -602,7 +604,7 @@
           }
 
           #network {
-            color: @teal;
+            color: @blue;
           }
           #network.disconnected,
           #network.disabled {
