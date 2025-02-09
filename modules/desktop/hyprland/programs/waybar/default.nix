@@ -13,6 +13,7 @@
             position = "top";
             height = 33;
             exclusive = true;
+            passthrough = false;
             gtk-layer-shell = true;
             ipc = true;
             fixed-center = true;
@@ -22,8 +23,30 @@
             margin-bottom = 0;
 
             modules-left = ["hyprland/workspaces" "cava"];
-            modules-center = ["idle_inhibitor" "clock"];
+            modules-center = ["clock" "custom/notification"];
+            # modules-center = ["idle_inhibitor" "clock"];
             modules-right = ["custom/gpuinfo" "cpu" "memory" "network" "bluetooth" "pulseaudio" "tray" "battery" "custom/power"];
+
+            "custom/notification" = {
+              tooltip = false;
+              format = "{icon}";
+              format-icons = {
+                notification = "<span foreground='red'><sup></sup></span>";
+                none = "";
+                dnd-notification = "<span foreground='red'><sup></sup></span>";
+                dnd-none = "";
+                inhibited-notification = "<span foreground='red'><sup></sup></span>";
+                inhibited-none = "";
+                dnd-inhibited-notification = "<span foreground='red'><sup></sup></span>";
+                dnd-inhibited-none = "";
+              };
+              return-type = "json";
+              exec-if = "which swaync-client";
+              exec = "swaync-client -swb";
+              on-click = "swaync-client -t -sw";
+              on-click-right = "swaync-client -d -sw";
+              escape = true;
+            };
 
             "custom/colour-temperature" = {
               format = "{} ";
@@ -296,8 +319,15 @@
             opacity: 0.2;
           }
 
-          #waybar.empty #window {
-            background: none;
+          tooltip {
+            background: #1e1e2e;
+            border-radius: 8px;
+          }
+
+          tooltip label {
+            color: #cad3f5;
+            margin-right: 5px;
+            margin-left: 5px;
           }
 
           /* This section can be use if you want to separate waybar modules */
@@ -405,6 +435,12 @@
 
           #custom-updates {
             color: @blue
+          }
+
+          #custom-notification {
+            color: #dfdfdf;
+            padding: 0px 5px;
+            border-radius: 5px;
           }
 
           #language {
