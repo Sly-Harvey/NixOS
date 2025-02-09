@@ -78,7 +78,6 @@ in {
         xfce.thunar
 
         # Terminal
-        eza
         fzf
         fd
         git

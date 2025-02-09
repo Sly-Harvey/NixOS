@@ -116,7 +116,7 @@
             "hyprpaper"
             "sleep 1 && waybar"
             "swaync"
-            "pamixer --set-volume 50"
+            "pamixer --set-volume 40"
             # "dunst"
             # "blueman-applet"
             "nm-applet --indicator"
@@ -129,8 +129,8 @@
             #"systemctl start --user polkit-kde-authentication-agent-1"
           ];
           input = {
-            kb_layout = "${kbdLayout},gb,ru";
-            kb_variant = "${kbdVariant},dvorak,";
+            kb_layout = "${kbdLayout},ru";
+            kb_variant = "${kbdVariant},";
             repeat_delay = 300; # or 212
             repeat_rate = 30;
 
@@ -344,7 +344,7 @@
               "ALT, return, fullscreen" # toggle the window on focus to fullscreen
               "$mainMod ALT, L, exec, hyprlock" # lock screen
               "$mainMod, backspace, exec, wlogout -b 4" # logout menu
-              "$CONTROL, ESCAPE, exec, killall waybar || waybar" # toggle waybar
+              "$CONTROL, ESCAPE, exec, pkill waybar || waybar" # toggle waybar
 
               "$mainMod, Return, exec, $term"
               "$mainMod, T, exec, $term"
