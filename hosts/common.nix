@@ -33,9 +33,6 @@ in {
     ../modules/programs/cli/cava
     ../modules/programs/cli/btop
     ../modules/programs/media/mpv
-    ../modules/programs/media/spicetify
-    ../modules/programs/media/discord
-    # ../modules/programs/media/obs
     # ../modules/programs/misc/nix-ld
     # ../modules/programs/misc/tlp
     # ../modules/programs/misc/virt-manager
@@ -110,6 +107,7 @@ in {
   boot = {
     tmp.cleanOnBoot = true;
     kernelPackages = pkgs.linuxPackages_latest; # _latest, _zen, _xanmod_latest, _hardened, _rt, _OTHER_CHANNEL, etc.
+    # kernelPackages = pkgs.linuxKernel.packages.linux_6_12;
     loader = {
       efi.canTouchEfiVariables = true;
       efi.efiSysMountPoint = "/boot";
