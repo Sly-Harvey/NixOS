@@ -2,7 +2,7 @@
 ## /* ---- 💫 https://github.com/JaKooLit 💫 ---- */  ##
 # Playerctl
 
-music_icon="$HOME/.config/swaync/icons/music.png"
+music_icon="$XDG_CONFIG_HOME/hypr/icons/music.png"
 
 # Play the next track
 play_next() {
@@ -34,7 +34,7 @@ show_music_notification() {
     if [[ "$status" == "Playing" ]]; then
         song_title=$(playerctl metadata title)
         song_artist=$(playerctl metadata artist)
-        notify-send -e -u low -i "$music_icon" "Now Playing:" "$song_title\nby $song_artist"
+        notify-send -e -u low -i "$music_icon" "Now Playing:" "$song_title by $song_artist"
     elif [[ "$status" == "Paused" ]]; then
         notify-send -e -u low -i "$music_icon" "Playback Paused"
     fi
@@ -42,20 +42,20 @@ show_music_notification() {
 
 # Get media control action from command line argument
 case "$1" in
-    "--nxt")
+    "next")
         play_next
         ;;
-    "--prv")
+    "previous")
         play_previous
         ;;
-    "--pause")
+    "play-pause")
         toggle_play_pause
         ;;
-    "--stop")
+    "stop")
         stop_playback
         ;;
     *)
-        echo "Usage: $0 [--nxt|--prv|--pause|--stop]"
+        echo "Usage: $0 [next|previous|play-pause|stop]"
         exit 1
         ;;
 esac

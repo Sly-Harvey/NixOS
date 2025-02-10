@@ -382,8 +382,11 @@
               ",XF86AudioPause,exec,playerctl play-pause" # Play/Pause media
               ",xf86AudioNext,exec,playerctl next" # go to next media
               ",xf86AudioPrev,exec,playerctl previous" # go to previous media
-              # ",xf86AudioNext,exec,$hyprScriptsDir/MediaCtrl.sh --nxt" # go to next media
-              # ",xf86AudioPrev,exec,$hyprScriptsDir/MediaCtrl.sh --prv" # go to previous media
+
+              # ",xf86AudioNext,exec,$hyprScriptsDir/MediaCtrl.sh next" # go to next media
+              # ",xf86AudioPrev,exec,$hyprScriptsDir/MediaCtrl.sh previous" # go to previous media
+              # ",XF86AudioPlay,exec,$hyprScriptsDir/MediaCtrl.sh play-pause" # go to next media
+              # ",XF86AudioPause,exec,$hyprScriptsDir/MediaCtrl.sh play-pause" # go to next media
 
               # to switch between windows in a floating workspace
               "SUPER,Tab,cyclenext"
