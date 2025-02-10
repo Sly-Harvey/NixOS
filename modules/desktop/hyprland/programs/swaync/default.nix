@@ -99,7 +99,7 @@
               "collapse-button-label": "",
               "show-per-app": true,
               "show-per-app-icon": true,
-              "show-per-app-label": false
+              "show-per-app-label": true
             },
             "dnd": {
               "text": " Do Not Disturb"
