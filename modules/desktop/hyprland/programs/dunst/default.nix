@@ -1,6 +1,7 @@
 {pkgs, ...}: {
   home-manager.sharedModules = [
     (_: {
+      xdg.configFile."dunst/icons".source = ./icons;
       services.dunst = {
         enable = true;
         iconTheme = {

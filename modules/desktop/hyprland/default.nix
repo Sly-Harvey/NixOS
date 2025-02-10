@@ -289,6 +289,7 @@
             "opacity 0.80 0.80,class:^(io.gitlab.theevilskeleton.Upscaler)$" #Upscaler-Gtk
 
             "opacity 0.80 0.70,class:^(pavucontrol)$"
+            "opacity 0.80 0.70,class:^(org.pulseaudio.pavucontrol)$"
             "opacity 0.80 0.70,class:^(blueman-manager)$"
             "opacity 0.80 0.70,class:^(nm-applet)$"
             "opacity 0.80 0.70,class:^(nm-connection-editor)$"

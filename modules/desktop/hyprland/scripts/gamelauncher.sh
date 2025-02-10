@@ -12,7 +12,8 @@ SteamLib="${XDG_DATA_HOME:-$HOME/.local/share}/Steam/config/libraryfolders.vdf"
 SteamThumb="${XDG_DATA_HOME:-$HOME/.local/share}/Steam/appcache/librarycache"
 
 if [ ! -f $SteamLib ] || [ ! -d $SteamThumb ] || [ ! -f $RofiConf ] ; then
-    dunstify "t1" -a "Steam library not found!" -r 91190 -t 2200
+    # dunstify "t1" -a "Steam library not found!" -r 91190 -t 2200
+    notify-send -a "System" -r 91190 -t 2200 "Steam library not found!"
     exit 1
 fi
 
@@ -54,6 +55,7 @@ done | rofi -dmenu -theme-str "${r_override}" -theme $RofiConf)
 if [ ! -z "$RofiSel" ] ; then
     launchid=`echo "$GameList" | grep "$RofiSel" | cut -d '|' -f 2`
     steam -silent -applaunch "${launchid} [gamemoderun %command%]" &
-    dunstify -a "Launching ${RofiSel}..." -i ${SteamThumb}/${launchid}_header.jpg -r 91190 -t 2200
+    # dunstify -a "Launching ${RofiSel}..." -i ${SteamThumb}/${launchid}_header.jpg -r 91190 -t 2200
+    notify-send -a "System" -r 91190 -t 2200 -i "${SteamThumb}/${launchid}_header.jpg" "Launching ${RofiSel}..."
 fi
 
