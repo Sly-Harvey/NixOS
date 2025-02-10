@@ -43,7 +43,7 @@ esac
 rm "$temp_screenshot"
 
 if [ -f "$save_dir/$save_file" ] ; then
-    dunstify -a Sreenshot -r 91190 -t 2200 -i "$save_dir/$save_file" "saved in $save_dir"
-    #dunstify -a "saved in $save_dir" -i "$save_dir/$save_file" -r 91190 -t 2200
+    notify-send -a Screenshot -r 91190 -t 2200 -i "${save_dir}/${save_file}" "saved in ${save_dir}"
+    # dunstify -a Sreenshot -r 91190 -t 2200 -i "$save_dir/$save_file" "saved in $save_dir"
 fi
 
