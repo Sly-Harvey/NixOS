@@ -34,7 +34,7 @@
   in [
     ({...}: {
       home.packages = with pkgs; [
-        # blueman
+        blueman
         hyprpaper
         cliphist
         grimblast
@@ -118,7 +118,7 @@
             "swaync"
             "pamixer --set-volume 40"
             # "dunst"
-            # "blueman-applet"
+            "blueman-applet"
             "nm-applet --indicator"
             "wl-clipboard-history -t"
             "${getExe' pkgs.wl-clipboard "wl-paste"} --type text --watch cliphist store" # clipboard store text data

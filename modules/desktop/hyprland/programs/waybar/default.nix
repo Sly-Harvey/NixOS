@@ -207,7 +207,7 @@
 
             "bluetooth" = {
               format = "";
-              format-disabled = ""; # an empty format will hide the module
+              # format-disabled = ""; # an empty format will hide the module
               format-connected = " {num_connections}";
               tooltip-format = " {device_alias}";
               tooltip-format-connected = "{device_enumerate}";
