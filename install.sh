@@ -47,7 +47,7 @@ nix develop --command bash -c "git -C $scriptdir add hosts/Default/hardware-conf
 
 clear
 nix develop --command bash -c "echo BUILDING! | figlet -cklnoW | lolcat -F 0.3 -p 2.5 -S 300"
-nix develop --command bash -c "sudo nixos-rebuild switch --flake "$scriptdir#Default" || exit 1"
+nix develop --command bash -c "sudo nixos-rebuild switch --flake "$scriptdir#Default"" || exit 1
 echo "success!"
 echo "Make sure to reboot if this is your first time using this script!"
 
