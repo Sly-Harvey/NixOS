@@ -350,12 +350,12 @@ in {
       keep-outputs = true;
       keep-derivations = true;
     };
-    gc = {
+      #gc = {
       # Garbage Collection
-      automatic = true;
-      dates = "daily";
-      options = "--delete-older-than 10d";
-    };
+      #automatic = true;
+      #dates = "daily";
+      #options = "--delete-older-than 10d";
+    #};
     optimise.automatic = true;
     package = pkgs.nixVersions.stable;
   };
