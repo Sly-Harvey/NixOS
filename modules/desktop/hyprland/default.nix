@@ -34,12 +34,12 @@
   in [
     ({...}: {
       home.packages = with pkgs; [
-        blueman
         hyprpaper
         cliphist
         grimblast
         libnotify
-        light
+        # light
+        brightnessctl
         networkmanagerapplet
         pamixer
         pavucontrol
@@ -118,7 +118,6 @@
             "swaync"
             "pamixer --set-volume 40"
             # "dunst"
-            "blueman-applet"
             "nm-applet --indicator"
             "wl-clipboard-history -t"
             "${getExe' pkgs.wl-clipboard "wl-paste"} --type text --watch cliphist store" # clipboard store text data
@@ -291,6 +290,7 @@
             "opacity 0.80 0.70,class:^(pavucontrol)$"
             "opacity 0.80 0.70,class:^(org.pulseaudio.pavucontrol)$"
             "opacity 0.80 0.70,class:^(blueman-manager)$"
+            "opacity 0.80 0.70,class:^(.blueman-manager-wrapped)$"
             "opacity 0.80 0.70,class:^(nm-applet)$"
             "opacity 0.80 0.70,class:^(nm-connection-editor)$"
             "opacity 0.80 0.70,class:^(org.kde.polkit-kde-authentication-agent-1)$"
@@ -307,6 +307,7 @@
             "float,class:^(io.gitlab.theevilskeleton.Upscaler)$" #Upscaler-Gtk
             "float,class:^(pavucontrol)$"
             "float,class:^(blueman-manager)$"
+            "float,class:^(.blueman-manager-wrapped)$"
             "float,class:^(nm-applet)$"
             "float,class:^(nm-connection-editor)$"
             "float,class:^(org.kde.polkit-kde-authentication-agent-1)$"
@@ -325,8 +326,8 @@
             "$mainMod SHIFT, j, resizeactive, 0 30"
 
             # Functional keybinds
-            ",XF86MonBrightnessDown,exec,light -U 20"
-            ",XF86MonBrightnessUp,exec,light -A 20"
+            ",XF86MonBrightnessDown,exec,brightnessctl set 2%-"
+            ",XF86MonBrightnessUp,exec,brightnessctl set +2%"
             ",XF86AudioLowerVolume,exec,pamixer -d 2"
             ",XF86AudioRaiseVolume,exec,pamixer -i 2"
           ];

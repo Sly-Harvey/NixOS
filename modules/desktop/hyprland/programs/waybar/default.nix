@@ -1,4 +1,4 @@
-{...}: {
+{pkgs, ...}: {
   home-manager.sharedModules = [
     (_: {
       programs.waybar = {
@@ -24,7 +24,7 @@
             modules-left = ["hyprland/workspaces" "cava"];
             modules-center = ["clock" "custom/notification"];
             # modules-center = ["idle_inhibitor" "clock"];
-            modules-right = ["custom/gpuinfo" "cpu" "memory" "pulseaudio" "network" "bluetooth" "tray" "battery"];
+            modules-right = ["custom/gpuinfo" "cpu" "memory" "pulseaudio" "backlight" "network" "bluetooth" "tray" "battery"];
 
             "custom/notification" = {
               tooltip = false;
@@ -186,12 +186,10 @@
             };
 
             "backlight" = {
-              interval = 2;
               format = "{icon} {percent}%";
               format-icons = ["" "" "" "" "" "" "" "" ""];
-              on-scroll-up = "brightnessctl set 5%+";
-              on-scroll-down = "brightnessctl set 5%-";
-              smooth-scrolling-threshold = 1;
+              on-scroll-up = "${pkgs.brightnessctl}/bin/brightnessctl set 2%+";
+              on-scroll-down = "${pkgs.brightnessctl}/bin/brightnessctl set 2%-";
             };
 
             "network" = {
@@ -201,12 +199,13 @@
               tooltip-format = "󱘖 {ipaddr}  {bandwidthUpBytes}  {bandwidthDownBytes}";
               format-linked = "󱘖 {ifname} (No IP)";
               format-disconnected = " Disconnected";
-              format-alt = "󰤨 {signalStrength}%";
+              # format-alt = "󰤨 {signalStrength}%";
+              on-click = "nm-connection-editor";
               interval = 5;
             };
 
             "bluetooth" = {
-              format = "";
+              format = "";
               # format-disabled = ""; # an empty format will hide the module
               format-connected = " {num_connections}";
               tooltip-format = " {device_alias}";
@@ -411,7 +410,7 @@
 
           #bluetooth,
           #backlight {
-            color: @blue;
+            color: @lavender;
           }
 
           #battery {
