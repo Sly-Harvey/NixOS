@@ -169,6 +169,13 @@ in {
   # Enable dconf for home-manager
   programs.dconf.enable = true;
 
+  # Enable bluetooth
+  services.blueman.enable = true;
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+  };
+
   # Enable networking
   networking = {
     # hostName = hostname; # Define your hostname.
