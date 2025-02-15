@@ -76,7 +76,9 @@
               max-length = 1000;
             };
             "custom/icon" = {
-              format = " ";
+              # format = " ";
+              exec = "echo ' '";
+              format = "{}";
             };
             "mpris" = {
               format = "{player_icon} {title} - {artist}";
@@ -196,12 +198,11 @@
               # "interface" = "wlp2*"; # (Optional) To force the use of this interface
               format-wifi = "󰤨 {essid}";
               format-ethernet = "󱘖 Wired";
-              tooltip-format = "󱘖 {ipaddr}  {bandwidthUpBytes}  {bandwidthDownBytes}";
               format-linked = "󱘖 {ifname} (No IP)";
-              format-disconnected = " Disconnected";
+              format-disconnected = "󰤮 Disconnected";
+              tooltip-format = "󱘖 {ipaddr}  {bandwidthUpBytes}  {bandwidthDownBytes}";
               # format-alt = "󰤨 {signalStrength}%";
               on-click = "nm-connection-editor";
-              interval = 5;
             };
 
             "bluetooth" = {
