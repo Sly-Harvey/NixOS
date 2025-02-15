@@ -174,6 +174,7 @@ in {
   hardware.bluetooth = {
     enable = true;
     powerOnBoot = true;
+    settings.General.Experimental = true;
   };
 
   # Enable networking
@@ -319,6 +320,16 @@ in {
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
 
+  programs = {
+    nh = {
+      enable = true;
+      clean = {
+        enable = true;
+        extraArgs = "--keep-since 10d --keep 3";
+      };
+      flake = "/home/${username}/NixOS";
+    };
+  };
   nix = {
     # Nix Package Manager Settings
     settings = {
