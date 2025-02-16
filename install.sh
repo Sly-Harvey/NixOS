@@ -47,7 +47,7 @@ if [ ! -f "$scriptdir/hosts/Default/hardware-configuration.nix" ]; then
   else
     # Generate new config
     clear
-    nix develop --command bash -c "echo GENERATING CONFIG! | figlet -cklno | lolcat -F 0.3 -p 2.5 -S 300"
+    nix develop --experimental-features 'nix-command flakes' --command bash -c "echo GENERATING CONFIG! | figlet -cklno | lolcat -F 0.3 -p 2.5 -S 300"
     for host in "$scriptdir"/hosts/*/; do
       host=${host%*/}
       sudo nixos-generate-config --show-hardware-config >"$host/hardware-configuration.nix"
@@ -55,11 +55,11 @@ if [ ! -f "$scriptdir/hosts/Default/hardware-configuration.nix" ]; then
   fi
 fi
 
-nix develop --command bash -c "git -C $scriptdir add hosts/Default/hardware-configuration.nix"
+nix develop --experimental-features 'nix-command flakes' --command bash -c "git -C $scriptdir add hosts/Default/hardware-configuration.nix"
 
 clear
-nix develop --command bash -c "echo BUILDING! | figlet -cklnoW | lolcat -F 0.3 -p 2.5 -S 300"
-nix develop --command bash -c "sudo nixos-rebuild switch --flake "$scriptdir#Default"" || exit 1
+nix develop --experimental-features 'nix-command flakes' --command bash -c "echo BUILDING! | figlet -cklnoW | lolcat -F 0.3 -p 2.5 -S 300"
+nix develop --experimental-features 'nix-command flakes' --command bash -c "sudo nixos-rebuild switch --flake "$scriptdir#Default"" || exit 1
 echo "success!"
 echo "Make sure to reboot if this is your first time using this script!"
 

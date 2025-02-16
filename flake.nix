@@ -26,7 +26,7 @@
   } @ inputs: let
     settings = {
       # User configuration
-      username = "kepler"; # no need to touch this since install.sh uses sed to replace this (otherwise if manually installing then you need to change this yourself)
+      username = "error"; # no need to touch this since install.sh uses sed to replace this (otherwise if manually installing then you need to change this yourself)
       terminal = "kitty"; # kitty or alacritty
       terminalFileManager = "yazi"; # yazi or lf
       wallpaper = "Train.jpg"; # see modules/themes/wallpapers
@@ -80,7 +80,7 @@
             figlet
             lolcat
           ];
-          NIX_CONFIG = "extra-experimental-features = nix-command flakes";
+          NIX_CONFIG = "experimental-features = nix-command flakes";
         };
       };
       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
