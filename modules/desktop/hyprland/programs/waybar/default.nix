@@ -195,14 +195,16 @@
             };
 
             "network" = {
+              # on-click = "nm-connection-editor";
               # "interface" = "wlp2*"; # (Optional) To force the use of this interface
-              format-wifi = "󰤨 {essid}";
+              format-wifi = "󰤨 Wi-Fi";
+              # format-wifi = "󰤨 {essid}";
               format-ethernet = "󱘖 Wired";
               format-linked = "󱘖 {ifname} (No IP)";
-              format-disconnected = "󰤮 Disconnected";
+              format-disconnected = "󰤮 Off";
+              # format-disconnected = "󰤮 Disconnected";
+              format-alt = "󰤨 {signalStrength}%";
               tooltip-format = "󱘖 {ipaddr}  {bandwidthUpBytes}  {bandwidthDownBytes}";
-              # format-alt = "󰤨 {signalStrength}%";
-              on-click = "nm-connection-editor";
             };
 
             "bluetooth" = {
@@ -411,7 +413,7 @@
 
           #bluetooth,
           #backlight {
-            color: @lavender;
+            color: @blue;
           }
 
           #battery {
