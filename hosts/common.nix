@@ -77,6 +77,7 @@ in {
         # Applications
         #kate
         xfce.thunar
+        xfce.thunar-volman
 
         # Terminal
         fzf
