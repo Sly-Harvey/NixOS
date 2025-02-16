@@ -22,8 +22,8 @@
             margin-bottom = 0;
 
             modules-left = ["hyprland/workspaces" "cava"];
-            modules-center = ["clock" "custom/notification"];
-            # modules-center = ["idle_inhibitor" "clock"];
+            # modules-center = ["clock" "custom/notification"];
+            modules-center = ["idle_inhibitor" "clock"];
             modules-right = ["custom/gpuinfo" "cpu" "memory" "pulseaudio" "backlight" "network" "bluetooth" "tray" "battery"];
 
             "custom/notification" = {
