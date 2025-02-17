@@ -3,6 +3,7 @@
   pkgs,
   overlays,
   username,
+  browser,
   editor,
   terminal,
   terminalFileManager,
@@ -24,10 +25,8 @@ in {
     ../modules/programs/terminal/${terminal}
     ../modules/programs/shell/bash
     ../modules/programs/shell/zsh
-    ../modules/programs/browser/firefox
-    ../modules/programs/browser/zen-browser
+    ../modules/programs/browser/${browser}
     ../modules/programs/editor/${editor}
-    #../modules/programs/editor/vscode
     ../modules/programs/cli/starship
     ../modules/programs/cli/tmux
     ../modules/programs/cli/direnv
@@ -36,8 +35,8 @@ in {
     ../modules/programs/cli/cava
     ../modules/programs/cli/btop
     ../modules/programs/media/mpv
+    ../modules/programs/misc/tlp
     # ../modules/programs/misc/nix-ld
-    # ../modules/programs/misc/tlp
     # ../modules/programs/misc/virt-manager
   ];
 
