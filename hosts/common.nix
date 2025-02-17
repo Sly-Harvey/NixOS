@@ -25,6 +25,7 @@ in {
     ../modules/programs/shell/bash
     ../modules/programs/shell/zsh
     ../modules/programs/browser/firefox
+    ../modules/programs/browser/zen-browser
     ../modules/programs/editor/${editor}
     #../modules/programs/editor/vscode
     ../modules/programs/cli/starship
