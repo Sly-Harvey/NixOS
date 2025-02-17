@@ -17,6 +17,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nur.url = "github:nix-community/NUR";
+    zen-browser = {
+      url = "github:youwen5/zen-browser-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nvchad4nix = {
       url = "github:nix-community/nix4nvchad";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -35,6 +39,7 @@
       terminal = "kitty"; # kitty or alacritty
       terminalFileManager = "yazi"; # yazi or lf
       wallpaper = "Train.jpg"; # see modules/themes/wallpapers
+      zen-browser = inputs.zen-browser.packages."x86_64-linux".default;
 
       # System configuration
       system = "x86_64-linux"; # most users will be on 64 bit pcs
