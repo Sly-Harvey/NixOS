@@ -43,6 +43,7 @@ cd ~/NixOS
 ```bash
 ./install.sh
 ```
+##### SUPER + SHIFT + K for a list of keybinds
 <!-- ## Building manually
 > [!IMPORTANT]
 > <p>When building manually from the flake make sure to place your hardware-configuration.nix in hosts/Default/<br>
