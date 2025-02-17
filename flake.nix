@@ -36,6 +36,7 @@
       # User configuration
       username = "error"; # no need to touch this since install.sh uses sed to replace this (otherwise if manually installing then you need to change this yourself)
       editor = "nixvim"; # nixvim, vscode, emacs, nvchad, neovim
+      browser = "firefox"; # firefox, zen-browser
       terminal = "kitty"; # kitty or alacritty
       terminalFileManager = "yazi"; # yazi or lf
       wallpaper = "Train.jpg"; # see modules/themes/wallpapers
