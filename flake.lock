@@ -445,6 +445,44 @@
         "type": "github"
       }
     },
+    "nvchad-starter": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1736643544,
+        "narHash": "sha256-PoThdeLgPIFrqVMgwOyWsPDD01K4qEFT6Q5LHz6n5DM=",
+        "owner": "NvChad",
+        "repo": "starter",
+        "rev": "c3d1fb646a04aaa97b2929b90269f8a7bf8e8dc4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NvChad",
+        "ref": "main",
+        "repo": "starter",
+        "type": "github"
+      }
+    },
+    "nvchad4nix": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "nvchad-starter": "nvchad-starter"
+      },
+      "locked": {
+        "lastModified": 1739512621,
+        "narHash": "sha256-am7Cn2BSFyRZOIz4HzRycNKBivBguNUfI+dd0Jjh/2U=",
+        "owner": "nix-community",
+        "repo": "nix4nvchad",
+        "rev": "2e6fe4ac7bf1f08da746b3100766a7f6aad6b2ca",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "nix4nvchad",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "home-manager": "home-manager",
@@ -452,6 +490,7 @@
         "nixpkgs-stable": "nixpkgs-stable",
         "nixvim": "nixvim",
         "nur": "nur",
+        "nvchad4nix": "nvchad4nix",
         "spicetify-nix": "spicetify-nix"
       }
     },
