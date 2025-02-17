@@ -14,6 +14,7 @@
     ./programs/wlogout
     ./programs/rofi
     ./programs/dunst
+    ./programs/hypridle
     ./programs/hyprlock
     ./programs/swaync
   ];
@@ -241,7 +242,7 @@
             "workspace 1, class:^(Alacritty)$"
             "workspace 2, class:^(VSCodium)$"
             "workspace 2, class:^(codium-url-handler)$"
-            "workspace 2, class:^(Code)$"
+            "workspace 2, class:^(code)$"
             "workspace 2, class:^(code-url-handler)$"
             "workspace 3, class:^(krita)$"
             "workspace 3, title:(.*)(Godot)(.*)$"
@@ -261,9 +262,9 @@
             "opacity 0.80 0.80,class:^(steamwebhelper)$"
             "opacity 0.80 0.80,class:^(Spotify)$"
             "opacity 0.80 0.80,title:(.*)(Spotify)(.*)$"
-            # "opacity 0.80 0.80,class:^(VSCodium)$"
-            # "opacity 0.80 0.80,class:^(codium-url-handler)$"
-            "opacity 0.80 0.80,class:^(Code)$"
+            "opacity 0.80 0.80,class:^(VSCodium)$"
+            "opacity 0.80 0.80,class:^(codium-url-handler)$"
+            "opacity 0.80 0.80,class:^(code)$"
             "opacity 0.80 0.80,class:^(code-url-handler)$"
             "opacity 0.80 0.80,class:^(kitty)$"
             "opacity 0.80 0.80,class:^(terminalFileManager)$"

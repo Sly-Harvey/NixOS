@@ -19,7 +19,7 @@
           catppuccin.catppuccin-vsc
           catppuccin.catppuccin-vsc-icons
           # asvetliakov.vscode-neovim
-          vscodevim.vim
+          # vscodevim.vim
           tamasfe.even-better-toml
           # redhat.vscode-yaml
           # vadimcn.vscode-lldb
