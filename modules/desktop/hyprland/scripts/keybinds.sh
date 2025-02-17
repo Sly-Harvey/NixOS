@@ -13,7 +13,6 @@ get_nix_value() {
     grep "$1" "$HOME/NixOS/flake.nix" | sed -E 's/.*"([^"]+)".*/\1/'
 }
 
-_editor=$(get_nix_value "editor =")
 _terminal=$(get_nix_value "terminal =")
 _terminal_FM=$(get_nix_value "terminalFileManager =")
 
@@ -31,7 +30,6 @@ yad \
   "SUPER Return" "Launch terminal" "$_terminal" \
   "SUPER T" "Launch terminal" "$_terminal" \
   "SUPER E" "Launch file manager" "$_terminal_FM" \
-  "SUPER C" "Launch text editor" "$_editor" \
   "SUPER F" "Launch browser" "Firefox" \
   "CTRL ALT Delete" "Open system monitor" "$_terminal -e 'btop'" \
   "SUPER A" "Launch application menu" "\$launcher" \
