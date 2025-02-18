@@ -219,6 +219,8 @@
           misc = {
             disable_hyprland_logo = true;
             mouse_move_focuses_monitor = true;
+            swallow_regex = "^(Alacritty|kitty)$";
+            enable_swallow = true;
             vfr = true; # always keep on
             vrr = 1; # enable variable refresh rate (0=off, 1=on, 2=fullscreen only)
           };
