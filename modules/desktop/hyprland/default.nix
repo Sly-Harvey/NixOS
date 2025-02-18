@@ -224,7 +224,7 @@
             vfr = true; # always keep on
             vrr = 1; # enable variable refresh rate (0=off, 1=on, 2=fullscreen only)
           };
-          xwayland.force_zero_scaling = false;
+          xwayland.force_zero_scaling = true;
           gestures = {
             workspace_swipe = true;
             workspace_swipe_fingers = 3;
