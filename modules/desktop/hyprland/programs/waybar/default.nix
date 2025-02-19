@@ -222,7 +222,7 @@
               format-muted = " ";
               on-click = "pavucontrol -t 3";
               tooltip-format = "{icon} {desc} // {volume}%";
-              scroll-step = 5;
+              scroll-step = 4;
               format-icons = {
                 headphone = "";
                 hands-free = "";
