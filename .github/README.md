@@ -43,10 +43,10 @@ cd ~/NixOS
 ```bash
 ./install.sh
 ```
-##### SUPER + SHIFT + K for a list of keybinds
+For a list of keybinds press Super + Shift + K
 <details>
 <summary>How to use the dev-shells</summary>
-<!-- ##### here is how to use a dev-shell template as defined in dev-shells/default.nix: -->
+
 ```bash
 nix flake init -t ~/NixOS#NAME
 ```
@@ -55,6 +55,7 @@ or
 nix flake new -t ~/NixOS#NAME PROJECT_NAME
 ```
 </details>
+
 <!-- ## Building manually
 > [!IMPORTANT]
 > <p>When building manually from the flake make sure to place your hardware-configuration.nix in hosts/Default/<br>
