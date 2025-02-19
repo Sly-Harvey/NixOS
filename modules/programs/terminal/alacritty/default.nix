@@ -1,7 +1,6 @@
 {
   lib,
   pkgs,
-  terminalFileManager,
   ...
 }: {
   fonts.packages = with pkgs.nerd-fonts; [jetbrains-mono];
@@ -129,13 +128,6 @@
           };
 
           keyboard.bindings = [
-            /*
-               {
-              chars = "${terminalFileManager}\r";
-              key = "L";
-              mods = "Control|Alt";
-            }
-            */
             {
               chars = "cd $(${getExe pkgs.fd} . /mnt/work /mnt/work/dev/ /run /run/current-system ~/.local/ ~/ --max-depth 2 | fzf)\r";
               key = "F";
