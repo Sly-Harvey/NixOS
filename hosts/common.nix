@@ -36,6 +36,7 @@ in {
     ../modules/programs/cli/btop
     ../modules/programs/media/mpv
     ../modules/programs/misc/tlp
+    ../modules/programs/misc/thunar
     # ../modules/programs/misc/nix-ld
     # ../modules/programs/misc/virt-manager
   ];
@@ -77,8 +78,6 @@ in {
       home.packages = with pkgs; [
         # Applications
         #kate
-        xfce.thunar
-        xfce.thunar-volman
 
         # Terminal
         fzf
