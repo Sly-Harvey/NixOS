@@ -115,6 +115,22 @@
               done
            fi
           }
+
+          function fnew {
+            if [ -d "$1" ]; then
+              echo "Directory \"$1\" already exists!"
+              return 1
+            fi
+            nix flake new $1 --template ${self}/dev-shells#$2
+            cd $1
+            direnv allow
+          }
+
+          function finit {
+            nix flake init --template ${self}/dev-shells#$1
+            direnv allow
+          }
+
           function cgen {
             if [ -d "$1" ]; then
               echo "Directory \"$1\" already exists!"
@@ -132,29 +148,15 @@
           function crun {
             #VAR=''${1:-.}
             mkdir build 2> /dev/null
-            nix-shell --run "cmake -B build"
-            nix-shell --run "cmake --build build"
+            cmake -B build
+            cmake --build build
             build/main
-          }
-
-          function crun-mingw {
-            #VAR=''${1:-.}
-            mkdir build-mingw 2> /dev/null
-            nix-shell --run "x86_64-w64-mingw32-cmake -B build-mingw"
-            nix-shell --run "make -C build-mingw"
-            build-mingw/main.exe
           }
 
           function cbuild {
             mkdir build 2> /dev/null
-            nix-shell --run "cmake -B build"
-            nix-shell --run "cmake --build build"
-          }
-
-          function cbuild-mingw {
-            mkdir build-mingw 2> /dev/null
-            nix-shell --run "x86_64-w64-mingw32-cmake -B build-mingw"
-            nix-shell --run "make -C build-mingw"
+            cmake -B build
+            cmake --build build
           }
         '';
         envExtra = ''
