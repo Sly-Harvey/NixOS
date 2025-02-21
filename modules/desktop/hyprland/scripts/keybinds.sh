@@ -68,6 +68,7 @@ yad \
   "SUPER ALT K" "Change keyboard layout" "Scripts/keyboardswitch.sh" \
   "SUPER SHIFT N" "Open notification panel" "swaync-client -t -sw" \
   "SUPER SHIFT Q" "Open notification panel" "swaync-client -t -sw" \
+  "SUPER CTRL ALT KP_Divide" "Rebuild" "exec, $_terminal -e Scripts/rebuild.sh" \
   "SUPER G" "Launch game launcher" "Scripts/gamelauncher.sh" \
   "SUPER ALT G" "Enable game mode" "Scripts/gamemode.sh" \
   "SUPER V" "Clipboard manager" "Scripts/ClipManager.sh" \
