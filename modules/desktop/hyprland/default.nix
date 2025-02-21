@@ -242,6 +242,7 @@
             "tile,title:(.*)(Godot)(.*)$"
             "workspace 1, class:^(kitty)$"
             "workspace 1, class:^(Alacritty)$"
+            "workspace 1, class:^(org.wezfurlong.wezterm)$"
             "workspace 2, class:^(VSCodium)$"
             "workspace 2, class:^(codium-url-handler)$"
             "workspace 2, class:^(code)$"
@@ -257,6 +258,7 @@
             "workspace 8, class:^(rebuildScript)$"
 
             "opacity 0.80 0.80,class:^(alacritty)$"
+            "opacity 0.80 0.80,class:^(org.wezfurlong.wezterm)$"
             "opacity 1.00 1.00,class:^(firefox)$"
             "opacity 0.90 0.90,class:^(Brave-browser)$"
             "opacity 0.80 0.80,class:^(Steam)$"
