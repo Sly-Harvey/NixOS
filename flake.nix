@@ -18,7 +18,7 @@
     };
     nur.url = "github:nix-community/NUR";
     zen-browser = {
-      url = "github:youwen5/zen-browser-flake";
+      url = "github:maximoffua/zen-browser.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nvchad4nix = {
