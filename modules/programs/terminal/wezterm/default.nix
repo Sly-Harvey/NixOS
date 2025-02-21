@@ -63,6 +63,11 @@
                 mods = "CTRL|SHIFT",
                 action = wezterm.action({ CopyTo = "ClipboardAndPrimarySelection" }),
               },
+              {
+                key = "t",
+                mods = "CTRL",
+                action = wezterm.action.SpawnCommandInNewWindow({ args = { os.getenv("SHELL"), "-c", "tmux-sessionizer" }}),
+              },
               },
                 window_close_confirmation = "NeverPrompt",
               }
