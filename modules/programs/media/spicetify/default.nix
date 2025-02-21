@@ -1,14 +1,15 @@
-{spicetify-nix, lib, ...}: {
+{
+  spicetify-nix,
+  lib,
+  ...
+}: {
   # allow spotify to be installed if you don't have unfree enabled already
   nixpkgs.config.allowUnfreePredicate = pkg:
     builtins.elem (lib.getName pkg) [
       "spotify"
     ];
   home-manager.sharedModules = [
-    ({
-      pkgs,
-      ...
-    }: let
+    ({pkgs, ...}: let
       spicePkgs = spicetify-nix.legacyPackages.${pkgs.system};
     in {
       # import the flake's module for your system
