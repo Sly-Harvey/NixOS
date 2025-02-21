@@ -50,10 +50,11 @@ For a list of keybinds press Super + Shift + K
 ```bash
 nix flake init -t ~/NixOS#NAME
 ```
-or
+or use the "new" keyword to initialise a new directory
 ```bash
 nix flake new -t ~/NixOS#NAME PROJECT_NAME
 ```
+where NAME is any of the templates defined in dev-shells/default.nix
 </details>
 
 <!-- ## Building manually
