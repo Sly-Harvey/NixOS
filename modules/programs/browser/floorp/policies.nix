@@ -89,24 +89,34 @@ in {
       install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
     };
     "addon@darkreader.org" = {
-      installation_mode = "normal_installed";
+      installation_mode = "force_installed";
       install_url = "https://addons.mozilla.org/firefox/downloads/latest/darkreader/latest.xpi";
     };
     "firemonkey@eros.man" = {
-      installation_mode = "normal_installed";
+      installation_mode = "force_installed";
       install_url = "https://addons.mozilla.org/firefox/downloads/latest/firemonkey/latest.xpi";
     };
     "sponsorBlocker@ajay.app" = {
-      installation_mode = "normal_installed";
+      installation_mode = "force_installed";
       install_url = "https://addons.mozilla.org/firefox/downloads/latest/sponsorblock/latest.xpi";
     };
     "{762f9885-5a13-4abd-9c77-433dcd38b8fd}" = {
-      installation_mode = "normal_installed";
+      installation_mode = "force_installed";
       install_url = "https://addons.mozilla.org/firefox/downloads/latest/return-youtube-dislikes/latest.xpi";
     };
     "frankerfacez@frankerfacez.com" = {
-      installation_mode = "normal_installed";
+      installation_mode = "force_installed";
       install_url = "https://addons.mozilla.org/firefox/downloads/latest/frankerfacez/latest.xpi";
+    };
+    # Catppuccin theme
+    "{8446b178-c865-4f5c-8ccc-1d7887811ae3}" = {
+      installation_mode = "force_installed";
+      install_url = "https://addons.mozilla.org/firefox/downloads/latest/catppuccin-mocha-lavender-git/latest.xpi";
+    };
+    # View Xpi Id's in Firefox Extension Store
+    "queryamoid@kaply.com" = {
+      installation_mode = "force_installed";
+      install_url = "https://github.com/mkaply/queryamoid/releases/download/v0.2/query_amo_addon_id-0.2-fx.xpi";
     };
   };
   "3rdparty".Extensions = {

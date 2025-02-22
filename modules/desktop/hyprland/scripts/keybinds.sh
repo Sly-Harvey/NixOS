@@ -8,11 +8,19 @@ if pidof yad >/dev/null; then
   pkill yad
 fi
 
-# scriptdir=$(realpath "$(dirname "$0")")
+# get_nix_value() {
+#     grep "$1" "$HOME/NixOS/flake.nix" | sed -E 's/.*"([^"]+)".*/\1/'
+# }
 get_nix_value() {
-    grep "$1" "$HOME/NixOS/flake.nix" | sed -E 's/.*"([^"]+)".*/\1/'
+    awk '
+    /settings = {/ {inside_settings=1; next} 
+    inside_settings && /}/ {inside_settings=0} 
+    inside_settings && $0 ~ key {print gensub(/.*"([^"]+)".*/, "\\1", "g", $0)}
+    ' key="$1" "$HOME/NixOS/flake.nix"
 }
 
+
+_browser=$(get_nix_value "browser =")
 _terminal=$(get_nix_value "terminal =")
 _terminal_FM=$(get_nix_value "terminalFileManager =")
 
@@ -30,7 +38,7 @@ yad \
   "SUPER Return" "Launch terminal" "$_terminal" \
   "SUPER T" "Launch terminal" "$_terminal" \
   "SUPER E" "Launch file manager" "$_terminal_FM" \
-  "SUPER F" "Launch browser" "Firefox" \
+  "SUPER F" "Launch browser" "$_browser" \
   "CTRL ALT Delete" "Open system monitor" "$_terminal -e 'btop'" \
   "SUPER A" "Launch application menu" "\$launcher" \
   "SUPER SPACE" "Launch application menu" "\$launcher" \

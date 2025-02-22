@@ -21,6 +21,7 @@ pushd "$scriptdir" &>/dev/null || exit
 # Delete dirs that conflict with home-manager (skip symlinks)
 paths=(
   ~/.mozilla/firefox/profiles.ini
+  ~/.zen/profiles.ini
   ~/.gtkrc-*
   ~/.config/gtk-*
   ~/.config/cava
