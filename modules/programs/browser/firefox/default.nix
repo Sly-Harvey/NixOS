@@ -214,6 +214,28 @@ in {
                 "privacy.clearOnShutdown.sessions" = lock-true;
                 "privacy.clearOnShutdown.siteSettings" = lock-true;
 
+                # Block telemetry
+                "toolkit.telemetry.enabled" = lock-false;
+                "toolkit.telemetry.unified" = lock-false;
+                "toolkit.telemetry.server" = "data:,";
+                "toolkit.telemetry.archive.enabled" = lock-false;
+                "toolkit.telemetry.newProfilePing.enabled" = lock-false;
+                "toolkit.telemetry.shutdownPingSender.enabled" = lock-false;
+                "toolkit.telemetry.updatePing.enabled" = lock-false;
+                "toolkit.telemetry.bhrPing.enabled" = lock-false;
+                "toolkit.telemetry.coverage.opt-out" = lock-true;
+                "toolkit.telemetry.firstShutdownPing.enabled" = lock-false;
+                "browser.newtabpage.activity-stream.telemetry" = lock-false;
+                "browser.ping-centre.telemetry" = lock-false;
+
+                # Permissions
+                # 0=always ask (default), 1=allow, 2=block
+                "permissions.default.geo" = 2;
+                "permissions.default.camera" = 2;
+                "permissions.default.microphone" = 0;
+                "permissions.default.desktop-notification" = 2;
+                "permissions.default.xr" = 2; # Virtual Reality
+
                 # Block more unwanted stuff
                 "dom.block_multiple_popups" = lock-true;
                 "browser.privatebrowsing.forceMediaMemoryCache" = lock-true;
@@ -233,17 +255,11 @@ in {
                 "layout.word_select.eat_space_to_next_word" = lock-false;
                 "browser.shell.checkDefaultBrowser" = lock-false;
                 "signon.rememberSignons" = lock-false;
-                "toolkit.telemetry.unified" = lock-false;
-                "toolkit.telemetry.enabled" = lock-false;
-                "toolkit.telemetry.server" = "data:,";
-                "toolkit.telemetry.archive.enabled" = lock-false;
-                "toolkit.telemetry.coverage.opt-out" = lock-true;
                 "toolkit.coverage.opt-out" = lock-true;
                 "toolkit.coverage.endpoint.base" = "";
                 "experiments.supported" = lock-false;
                 "experiments.enabled" = lock-false;
                 "experiments.manifest.uri" = "";
-                "browser.ping-centre.telemetry" = lock-false;
                 "datareporting.healthreport.uploadEnabled" = lock-false;
                 "datareporting.healthreport.service.enabled" = lock-false;
                 "datareporting.policy.dataSubmissionEnabled" = lock-false;
@@ -270,7 +286,6 @@ in {
                 "trailhead.firstrun.didSeeAboutWelcome" = true; # Disable welcome splash
                 "browser.newtab.url" = "about:blank";
                 "browser.newtabpage.activity-stream.enabled" = lock-false;
-                "browser.newtabpage.activity-stream.telemetry" = lock-false;
                 "browser.newtabpage.enhanced" = lock-false;
                 "browser.newtabpage.introShown" = lock-true;
                 "browser.newtabpage.pinned" = false;

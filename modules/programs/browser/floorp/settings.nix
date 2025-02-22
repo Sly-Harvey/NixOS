@@ -20,6 +20,7 @@ in {
   "floorp.extensions.allowPrivateBrowsingByDefault.is.enabled" = true;
   "floorp.Tree-type.verticaltab.optimization" = true;
   "floorp.verticaltab.hover.enabled" = true;
+  "browser.newtabpage.activity-stream.floorp.background.type" = 0; # 0 = none, 1 = random, 3 = folder, 4 = custom
 
   # enable custom userchrome
   "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
@@ -156,7 +157,7 @@ in {
   "browser.aboutwelcome.enabled" = lock-false;
   "browser.tabs.firefox-view" = lock-false;
   "browser.startup.homepage_override.mstone" = "ignore";
-  "trailhead.firstrun.didSeeAboutWelcome" = true; # Disable welcome splash
+  "trailhead.firstrun.didSeeAboutWelcome" = lock-true; # Disable welcome splash
   "browser.newtab.url" = "about:blank";
   "browser.newtabpage.activity-stream.enabled" = lock-false;
   "browser.newtabpage.enhanced" = lock-false;
@@ -179,7 +180,7 @@ in {
   "browser.newtabpage.activity-stream.feeds.snippets" = false;
   "browser.newtabpage.activity-stream.improvesearch.topSiteSearchShortcuts.havePinned" = "";
   "browser.newtabpage.activity-stream.improvesearch.topSiteSearchShortcuts.searchEngines" = "";
-  "browser.protections_panel.infoMessage.seen" = true;
+  "browser.protections_panel.infoMessage.seen" = lock-true;
   "browser.ssb.enabled" = true;
   "browser.toolbars.bookmarks.visibility" = "newtab"; # always, never, newtab
   #"browser.urlbar.placeholderName" = "Google";
