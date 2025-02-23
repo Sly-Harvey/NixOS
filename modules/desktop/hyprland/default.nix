@@ -107,13 +107,11 @@
             "NIXPKGS_ALLOW_UNFREE,1"
           ];
           exec-once = [
-            #"[workspace 1 silent] firefox"
-            #"[workspace 2 silent] alacritty"
-            #"[workspace 5 silent] spotify"
-            #"[workspace special silent] firefox --new-instance -P private"
-            #"[workspace special silent] alacritty"
-            #"[workspace 8 silent] alacritty -e cava"
-            #"[workspace 9 silent] alacritty -e cava"
+            #"[workspace 1 silent] ${terminal}"
+            #"[workspace 5 silent] ${browser}"
+            #"[workspace 6 silent] spotify"
+            #"[workspace special silent] ${browser} --new-instance -P private"
+            #"[workspace special silent] ${terminal}"
 
             "hyprpaper"
             "sleep 1 && waybar"
@@ -127,7 +125,6 @@
             "rm '$XDG_CACHE_HOME/cliphist/db'" # Clear clipboard
             "$hyprScriptsDir/batterynotify.sh" # battery notification
             "polkit-agent-helper-1"
-            #"systemctl start --user polkit-kde-authentication-agent-1"
           ];
           input = {
             kb_layout = "${kbdLayout},ru";

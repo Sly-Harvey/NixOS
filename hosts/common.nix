@@ -70,7 +70,7 @@ in {
       home.stateVersion = "23.11"; # Please read the comment before changing.
       home.sessionVariables = {
         EDITOR = "nvim";
-        BROWSER = "firefox";
+        BROWSER = browser;
         TERMINAL = terminal;
       };
 
@@ -285,14 +285,13 @@ in {
     lm_sensors
     jq
     libsForQt5.qt5.qtgraphicaleffects # For sddm to function properly
-    vulkan-tools
     sddm-themes.astronaut
     # sddm-themes.sugar-dark
     # sddm-themes.tokyo-night
 
     # Development
-    devbox # faster nix-shells
-    shellify # faster nix-shells
+    # devbox # faster nix-shells
+    # shellify # faster nix-shells
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
