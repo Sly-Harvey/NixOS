@@ -54,6 +54,10 @@
             name = "Learn Nix";
             url = "https://nix.dev/";
           }
+          {
+            name = "NixOS & Flakes Book";
+            url = "https://nixos-and-flakes.thiscute.world/";
+          }
         ];
       }
       {
