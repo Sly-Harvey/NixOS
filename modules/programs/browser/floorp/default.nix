@@ -18,6 +18,7 @@
             settings = import ./settings.nix;
             bookmarks = import ./bookmarks.nix;
             search = import ./search.nix {inherit pkgs;};
+            # userChrome = builtins.readFile ./userChrome.css;
             extraConfig = ''
               ${builtins.readFile "${betterfox}/Fastfox.js"}
               ${builtins.readFile "${betterfox}/Peskyfox.js"}

@@ -509,6 +509,7 @@
         "nur": "nur",
         "nvchad4nix": "nvchad4nix",
         "spicetify-nix": "spicetify-nix",
+        "thunderbird-catppuccin": "thunderbird-catppuccin",
         "zen-browser": "zen-browser"
       }
     },
@@ -560,6 +561,22 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
+        "type": "github"
+      }
+    },
+    "thunderbird-catppuccin": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1730465032,
+        "narHash": "sha256-07gT37m1+OhRTbUk51l0Nhx+I+tl1il5ayx2ow23APY=",
+        "owner": "catppuccin",
+        "repo": "thunderbird",
+        "rev": "0289f3bd9566f9666682f66a3355155c0d0563fc",
+        "type": "github"
+      },
+      "original": {
+        "owner": "catppuccin",
+        "repo": "thunderbird",
         "type": "github"
       }
     },
