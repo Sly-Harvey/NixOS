@@ -21,6 +21,7 @@
 in {
   imports = [
     inputs.home-manager.nixosModules.home-manager
+    inputs.nix-index-database.nixosModules.nix-index
 
     ../modules/programs/terminal/${terminal}
     ../modules/programs/shell/bash
@@ -40,6 +41,8 @@ in {
     # ../modules/programs/misc/nix-ld
     # ../modules/programs/misc/virt-manager
   ];
+
+  programs.nix-index-database.comma.enable = true;
 
   users.users.${username} = {
     isNormalUser = true;
