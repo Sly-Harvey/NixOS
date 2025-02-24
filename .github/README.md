@@ -57,6 +57,17 @@ nix flake new -t ~/NixOS#NAME PROJECT_NAME
 where NAME is any of the templates defined in dev-shells/default.nix
 </details>
 
+<details>
+<summary>Star History</summary>
+<a href="https://github.com/Sly-Harvey/NixOS/stargazers">
+ <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=Sly-Harvey/NixOS&type=Date&theme=dark" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=Sly-Harvey/NixOS&type=Date" />
+   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=Sly-Harvey/NixOS&type=Date" />
+ </picture>
+</a>
+</details>
+
 <!-- ## Building manually
 > [!IMPORTANT]
 > <p>When building manually from the flake make sure to place your hardware-configuration.nix in hosts/Default/<br>
@@ -65,8 +76,6 @@ where NAME is any of the templates defined in dev-shells/default.nix
 ```bash
 sudo nixos-rebuild switch --flake .#Default
 ``` -->
-[![Star History Chart](https://api.star-history.com/svg?repos=sly-harvey/nixos,chrollorifat/NixOS&type=Date)](https://star-history.com/#sly-harvey/nixos&chrollorifat/NixOS&Date)
-
 
 ### Credits/Inspiration
 https://github.com/JaKooLit/Hyprland-Dots<br>
