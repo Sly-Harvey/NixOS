@@ -65,6 +65,9 @@ where NAME is any of the templates defined in dev-shells/default.nix
 ```bash
 sudo nixos-rebuild switch --flake .#Default
 ``` -->
+[![Star History Chart](https://api.star-history.com/svg?repos=sly-harvey/nixos,chrollorifat/NixOS&type=Date)](https://star-history.com/#sly-harvey/nixos&chrollorifat/NixOS&Date)
+
+
 ### Credits/Inspiration
 https://github.com/JaKooLit/Hyprland-Dots<br>
 https://github.com/prasanthrangan/hyprdots
