@@ -63,8 +63,6 @@ yad \
   "XF86AudioPlay" "Play/Pause media" "playerctl play-pause" \
   "XF86AudioNext" "Next media track" "playerctl next" \
   "XF86AudioPrev" "Previous media track" "playerctl previous" \
-  "SUPER Q" "Close active window" "dontkillsteam.sh" \
-  "ALT F4" "Close active window" "dontkillsteam.sh" \
   "SUPER Delete" "Exit Hyprland session" "exit" \
   "SUPER W" "Toggle floating window" "togglefloating" \
   "SUPER SHIFT G" "Toggle window group" "togglegroup" \
@@ -72,20 +70,21 @@ yad \
   "SUPER ALT L" "Lock screen" "hyprlock" \
   "SUPER Backspace" "Power menu" "wlogout -b 4" \
   "CTRL Escape" "Toggle Waybar" "pkill waybar || waybar" \
-  "SUPER Z" "Launch emoji picker" "Scripts/emoji.sh" \
-  "SUPER ALT K" "Change keyboard layout" "Scripts/keyboardswitch.sh" \
   "SUPER SHIFT N" "Open notification panel" "swaync-client -t -sw" \
   "SUPER SHIFT Q" "Open notification panel" "swaync-client -t -sw" \
-  "SUPER CTRL ALT KP_Divide" "Rebuild" "exec, $_terminal -e Scripts/rebuild.sh" \
-  "SUPER G" "Launch game launcher" "Scripts/gamelauncher.sh" \
-  "SUPER ALT G" "Enable game mode" "Scripts/gamemode.sh" \
-  "SUPER V" "Clipboard manager" "Scripts/ClipManager.sh" \
-  "SUPER M" "Online music" "Scripts/rofimusic.sh" \
-  "SUPER SHIFT M" "Online music" "Scripts/rofimusic.sh" \
-  "SUPER P" "Screenshot (select area)" "Scripts/screenshot.sh s" \
-  "SUPER CTRL P" "Screenshot (frozen screen)" "Scripts/screenshot.sh sf" \
-  "SUPER Print" "Screenshot (current monitor)" "Scripts/screenshot.sh m" \
-  "SUPER ALT P" "Screenshot (all monitors)" "Scripts/screenshot.sh p" \
+  "SUPER Q" "Close active window" "scripts/dontkillsteam.sh" \
+  "ALT F4" "Close active window" "scripts/dontkillsteam.sh" \
+  "SUPER Z" "Launch emoji picker" "scripts/emoji.sh" \
+  "SUPER ALT K" "Change keyboard layout" "scripts/keyboardswitch.sh" \
+  "SUPER CTRL ALT KP_Divide" "Rebuild system" "$_terminal -e scripts/rebuild.sh" \
+  "SUPER G" "Launch game launcher" "scripts/gamelauncher.sh" \
+  "SUPER ALT G" "Enable game mode" "scripts/gamemode.sh" \
+  "SUPER V" "Clipboard manager" "scripts/ClipManager.sh" \
+  "SUPER M" "Online music" "scripts/rofimusic.sh" \
+  "SUPER P" "Screenshot (select area)" "scripts/screenshot.sh s" \
+  "SUPER CTRL P" "Screenshot (frozen screen)" "scripts/screenshot.sh sf" \
+  "SUPER Print" "Screenshot (current monitor)" "scripts/screenshot.sh m" \
+  "SUPER ALT P" "Screenshot (all monitors)" "scripts/screenshot.sh p" \
   "SUPER SHIFT CTRL ←" "Move window left" "movewindow l" \
   "SUPER SHIFT CTRL →" "Move window right" "movewindow r" \
   "SUPER SHIFT CTRL ↑" "Move window up" "movewindow u" \

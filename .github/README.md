@@ -43,7 +43,7 @@ cd ~/NixOS
 ```bash
 ./install.sh
 ```
-For a list of keybinds press Super + Shift + K
+For a list of keybinds press Super + ? or Super + Ctrl + K
 <details>
 <summary>How to use the dev-shells</summary>
 
