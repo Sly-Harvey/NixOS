@@ -26,7 +26,7 @@
       home.packages = with pkgs; [
         krita
         gimp
-        okular # pdf viwer
+        kdePackages.okular # pdf viwer
         # godot_4
         # unityhub
         # gparted
