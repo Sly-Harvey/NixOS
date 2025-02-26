@@ -42,8 +42,8 @@ yad \
   "CTRL ALT Delete" "Open system monitor" "$_terminal -e 'btop'" \
   "SUPER A" "Launch application menu" "\$launcher" \
   "SUPER SPACE" "Launch application menu" "\$launcher" \
-  "SUPER F9" "Enable night mode" "wlsunset -t 3000 -T 3900" \
-  "SUPER F10" "Disable night mode" "pkill wlsunset" \
+  "SUPER F9" "Enable night mode" "hyprsunset --temperature 2500" \
+  "SUPER F10" "Disable night mode" "pkill hyprsunset" \
   "SUPER, Left Click" "Move window with mouse" "movewindow" \
   "SUPER, Right Click" "Resize window with mouse" "resizewindow" \
   "SUPER SHIFT →" "Resize window right" "resizeactive 30 0" \
