@@ -7,6 +7,7 @@
   editor,
   terminal,
   terminalFileManager,
+  sddmTheme,
   locale,
   timezone,
   kbdLayout,
@@ -16,7 +17,9 @@
   self,
   ...
 }: let
-  sddm-themes = pkgs.callPackage ../modules/themes/sddm/themes.nix {};
+  sddm-themes = pkgs.callPackage ../modules/themes/sddm/themes.nix {
+    theme = sddmTheme;
+  };
   scripts = pkgs.callPackage ../modules/scripts {};
 in {
   imports = [
@@ -200,9 +203,15 @@ in {
     defaultSession = "hyprland";
     sddm = {
       enable = true;
+      package = pkgs.kdePackages.sddm;
       wayland.enable = true;
-      theme = "astronaut";
+      theme = "sddm-astronaut-theme";
       settings.Theme.CursorTheme = "Bibata-Modern-Classic";
+      extraPackages = with pkgs; [
+        kdePackages.qtmultimedia
+        kdePackages.qtsvg
+        kdePackages.qtvirtualkeyboard
+      ];
     };
   };
 
@@ -272,7 +281,9 @@ in {
     killall
     lm_sensors
     jq
-    libsForQt5.qt5.qtgraphicaleffects # For sddm to function properly
+    pkgs.kdePackages.qtsvg
+    pkgs.kdePackages.qtmultimedia
+    pkgs.kdePackages.qtvirtualkeyboard
     sddm-themes.astronaut
     # sddm-themes.sugar-dark
     # sddm-themes.tokyo-night
