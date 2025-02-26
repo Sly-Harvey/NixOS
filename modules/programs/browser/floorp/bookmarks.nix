@@ -24,6 +24,31 @@
         url = "https://www.lloydsbank.com/";
       }
       {
+        name = "Physics";
+        bookmarks = [
+          {
+            name = "Qubits";
+            url = "https://arxiv.org/pdf/1904.06560";
+          }
+          {
+            name = "Multi-Qubits";
+            url = "https://arxiv.org/pdf/2502.16479";
+          }
+          {
+            name = "Cryogenic Modeling";
+            url = "https://arxiv.org/pdf/2502.01945";
+          }
+          {
+            name = "Nuclear Spin Engineering";
+            url = "https://arxiv.org/pdf/2502.18450";
+          }
+          {
+            name = "Mixed State Entanglement";
+            url = "https://arxiv.org/pdf/2502.18446";
+          }
+        ];
+      }
+      {
         name = "NixOS";
         bookmarks = [
           {
