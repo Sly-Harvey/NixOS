@@ -57,8 +57,8 @@ in {
         theme = {
           name = "${catppuccin}-compact";
           package = catppuccin-gtk.override {
-            accents = ["mauve"];
-            variant = "mocha";
+            accents = [accent];
+            variant = variant;
             size = "compact";
           };
         };
