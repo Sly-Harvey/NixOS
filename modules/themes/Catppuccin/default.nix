@@ -3,6 +3,11 @@
   wallpaper,
   ...
 }: let
+  variant = "mocha";
+  accent = "mauve";
+  catppuccin-kvantum-pkg = pkgs.catppuccin-kvantum.override {inherit variant accent;};
+  catppuccin = "catppuccin-${variant}-${accent}";
+
   catppuccin-gtk = pkgs.catppuccin-gtk.overrideAttrs {
     src = pkgs.fetchFromGitHub {
       owner = "catppuccin";
@@ -11,12 +16,13 @@
       fetchSubmodules = true;
       hash = "sha256-q5/VcFsm3vNEw55zq/vcM11eo456SYE5TQA3g2VQjGc=";
     };
-
     postUnpack = "";
   };
 in {
   home-manager.sharedModules = [
     ({config, ...}: {
+      home.packages = [catppuccin-kvantum-pkg];
+
       # Set wallpaper
       services.hyprpaper = {
         enable = true;
@@ -43,12 +49,13 @@ in {
       qt = {
         enable = true;
         platformTheme.name = "gtk";
+        style.name = "kvantum";
       };
 
       gtk = {
         enable = true;
         theme = {
-          name = "catppuccin-mocha-mauve-compact";
+          name = "${catppuccin}-compact";
           package = catppuccin-gtk.override {
             accents = ["mauve"];
             variant = "mocha";
@@ -74,6 +81,10 @@ in {
         "gtk-4.0/assets".source = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/assets";
         "gtk-4.0/gtk.css".source = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/gtk.css";
         "gtk-4.0/gtk-dark.css".source = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/gtk-dark.css";
+        "Kvantum/${catppuccin}".source = "${catppuccin-kvantum-pkg}/share/Kvantum/${catppuccin}";
+        "Kvantum/kvantum.kvconfig".source = (pkgs.formats.ini {}).generate "kvantum.kvconfig" {
+          General.theme = catppuccin;
+        };
       };
     })
   ];
