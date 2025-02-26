@@ -350,8 +350,8 @@
               "$mainMod CTRL, K, exec, $hyprScriptsDir/keybinds.sh"
 
               # Night Mode (lower value means warmer temp)
-              "$mainMod, F9, exec, ${getExe pkgs.wlsunset} -t 3000 -T 3900"
-              "$mainMod, F10, exec, pkill wlsunset"
+              "$mainMod, F9, exec, ${getExe pkgs.hyprsunset} --temperature 2500"
+              "$mainMod, F10, exec, pkill hyprsunset"
 
               # Window/Session actions
               "$mainMod, Q, exec, $hyprScriptsDir/dontkillsteam.sh" # killactive, kill the window on focus
