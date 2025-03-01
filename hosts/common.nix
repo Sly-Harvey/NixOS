@@ -91,6 +91,7 @@ in {
         htop
         nix-prefetch-scripts
         neofetch
+        microfetch
         ripgrep
         tldr
         unzip
