@@ -69,7 +69,10 @@ in {
 
       xdg.enable = true;
       home.username = username;
-      home.homeDirectory = "/home/${username}";
+      home.homeDirectory =
+        if pkgs.stdenv.isDarwin
+        then "/Users/${username}"
+        else "/home/${username}";
       home.stateVersion = "23.11"; # Please read the comment before changing.
       home.sessionVariables = {
         EDITOR = "nvim";
@@ -90,7 +93,7 @@ in {
         github-desktop
         htop
         nix-prefetch-scripts
-        neofetch
+        # neofetch
         microfetch
         ripgrep
         tldr

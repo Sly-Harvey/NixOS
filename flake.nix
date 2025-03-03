@@ -99,7 +99,7 @@
         # overlays = settings.overlays;
       };
     in {
-      default = pkgs.mkShell {
+      default = pkgs.mkShellNoCC {
         packages = with pkgs; [
           git
           nix
