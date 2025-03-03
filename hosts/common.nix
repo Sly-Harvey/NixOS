@@ -285,8 +285,7 @@ in {
     pkgs.kdePackages.qtmultimedia
     pkgs.kdePackages.qtvirtualkeyboard
     sddm-themes.astronaut
-    # sddm-themes.sugar-dark
-    # sddm-themes.tokyo-night
+    # libsForQt5.qt5.qtgraphicaleffects
 
     # Development
     # devbox # faster nix-shells
