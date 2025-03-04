@@ -9,6 +9,7 @@
       programs.floorp = {
         enable = true;
         policies = import ./policies.nix {inherit lib;};
+        languagePacks = ["en-GB" "en-US"];
         profiles = {
           default = {
             # choose a profile name; directory is /home/<user>/.mozilla/firefox/profile_0
@@ -19,6 +20,7 @@
             bookmarks = import ./bookmarks.nix;
             search = import ./search.nix {inherit pkgs;};
             # userChrome = builtins.readFile ./userChrome.css;
+            # userContent = builtins.readFile ./userContent.css;
             extraConfig = ''
               ${builtins.readFile "${betterfox}/Fastfox.js"}
               ${builtins.readFile "${betterfox}/Peskyfox.js"}
@@ -49,10 +51,6 @@
               lockPref("browser.newtabpage.activity-stream.floorp.newtab.releasenote.hide", true);
               lockPref("browser.search.separatePrivateDefault", true);
             '';
-            # userChrome = ''
-            # '';
-            # userContent = ''
-            # '';
           };
         };
       };

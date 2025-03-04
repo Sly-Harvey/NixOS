@@ -41,7 +41,6 @@
   programs.hyprland = {
     enable = true;
     # withUWSM = true;
-    xwayland.enable = true;
   };
 
   home-manager.sharedModules = let
@@ -80,7 +79,6 @@
       #test later systemd.user.targets.hyprland-session.Unit.Wants = [ "xdg-desktop-autostart.target" ];
       wayland.windowManager.hyprland = {
         enable = true;
-        xwayland.enable = true;
         plugins = [
           # inputs.hyprland-plugins.packages.${pkgs.system}.hyprwinwrap
         ];
@@ -234,7 +232,7 @@
             vfr = true; # always keep on
             vrr = 1; # enable variable refresh rate (0=off, 1=on, 2=fullscreen only)
           };
-          xwayland.force_zero_scaling = true;
+          xwayland.force_zero_scaling = false;
           gestures = {
             workspace_swipe = true;
             workspace_swipe_fingers = 3;
@@ -405,8 +403,8 @@
               # ",XF86AudioPause,exec,$hyprScriptsDir/MediaCtrl.sh play-pause" # go to next media
 
               # to switch between windows in a floating workspace
-              "SUPER,Tab,cyclenext"
-              "SUPER,Tab,bringactivetotop"
+              "$mainMod, Tab, cyclenext"
+              "$mainMod, Tab, bringactivetotop"
 
               # Switch workspaces relative to the active workspace with mainMod + CTRL + [←→]
               "$mainMod CTRL, right, workspace, r+1"
