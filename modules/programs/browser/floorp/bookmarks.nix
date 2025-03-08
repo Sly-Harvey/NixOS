@@ -24,6 +24,10 @@
         url = "https://www.lloydsbank.com/";
       }
       {
+        name = "ChatGPT";
+        url = "https://chatgpt.com/";
+      }
+      {
         name = "Physics";
         bookmarks = [
           {
