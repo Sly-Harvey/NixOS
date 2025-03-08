@@ -1,47 +1,33 @@
-{
-  lib,
-  pkgs,
-  config,
-  ...
-}:
-with lib; let
-  cfg = config.drivers.intel;
-in {
-  options.drivers.intel = {
-    enable = mkEnableOption "Enable Intel Graphics Drivers";
+{pkgs, ...}: {
+  nixpkgs.config.packageOverrides = pkgs: {
+    vaapiIntel = pkgs.vaapiIntel.override {enableHybridCodec = true;};
   };
 
-  config = mkIf cfg.enable {
-    nixpkgs.config.packageOverrides = pkgs: {
-      vaapiIntel = pkgs.vaapiIntel.override {enableHybridCodec = true;};
-      services.xserver.videoDrivers = [ "modesetting" ];
-    };
+  boot.kernelParams = [
+    "intel_pstate=active"
+    "i915.enable_guc=2" # Enable GuC/HuC firmware loading
+    "i915.enable_psr=1" # Panel Self Refresh for power savings
+    "i915.enable_fbc=1" # Framebuffer compression
+    "i915.fastboot=1" # Skip unnecessary mode sets at boot
+    "mem_sleep_default=deep" # Allow deepest sleep states
+    "i915.enable_dc=2" # Display power saving
+    "nvme.noacpi=1" # Helps with NVME power consumption
+  ];
 
-    # OpenGL
-    hardware.graphics = {
-      extraPackages = with pkgs; [
-        intel-media-driver
-        vaapiIntel
-        vaapiVdpau
-        libvdpau-va-gl
-      ];
-    };
+  # Load the driver
+  services.xserver.videoDrivers = ["modesetting"];
 
-
-    boot.kernelParams = [
-        "intel_pstate=active"
-        "i915.enable_guc=2"       # Enable GuC/HuC firmware loading
-        "i915.enable_psr=1"       # Panel Self Refresh for power savings
-        "i915.enable_fbc=1"       # Framebuffer compression
-        "i915.fastboot=1"         # Skip unnecessary mode sets at boot
-        "mem_sleep_default=deep"  # Allow deepest sleep states
-        "i915.enable_dc=2" # Display power saving
-        "nvme.noacpi=1" # Helps with NVME power consumption
+  # OpenGL
+  hardware.graphics = {
+    extraPackages = with pkgs; [
+      intel-media-driver
+      vaapiIntel
+      vaapiVdpau
+      libvdpau-va-gl
     ];
-
-    # Thermal Management
-    services.thermald.enable = true;
-    services.throttled.enable = true;
-
   };
+
+  # Thermal and Noise Management
+  services.thermald.enable = true;
+  services.throttled.enable = true;
 }
