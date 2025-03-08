@@ -42,14 +42,14 @@
       metaFile="$out/share/sddm/themes/sddm-astronaut-theme/metadata.desktop"
       if [ -f "$metaFile" ]; then
         substituteInPlace "$metaFile" \
-          --replace "ConfigFile=Themes/astronaut.conf" "ConfigFile=Themes/${theme}.conf" 
+          --replace "ConfigFile=Themes/astronaut.conf" "ConfigFile=Themes/${theme}.conf"
       fi
       substituteInPlace "$out/share/sddm/themes/sddm-astronaut-theme/Themes/black_hole.conf" \
-        --replace "ScreenPadding=\"5\"" "ScreenPadding=\"\"" 
+        --replace "ScreenPadding=\"5\"" "ScreenPadding=\"\""
       substituteInPlace "$out/share/sddm/themes/sddm-astronaut-theme/Themes/astronaut.conf" \
-        --replace "PartialBlur=\"true\"" "PartialBlur=\"false\"" 
+        --replace "PartialBlur=\"true\"" "PartialBlur=\"false\""
       substituteInPlace "$out/share/sddm/themes/sddm-astronaut-theme/Themes/purple_leaves.conf" \
-        --replace "PartialBlur=\"true\"" "PartialBlur=\"false\"" 
+        --replace "PartialBlur=\"true\"" "PartialBlur=\"false\""
        runHook postInstall
     '';
 
@@ -61,7 +61,8 @@
       echo ${pkgs.kdePackages.qtvirtualkeyboard} >> $out/nix-support/propagated-user-env-packages
     '';
   };
-  /* astronaut = stdenv.mkDerivation rec {
+  /*
+     astronaut = stdenv.mkDerivation rec {
     pname = "sddm-astronaut-theme";
     version = "468a100460d5feaa701c2215c737b55789cba0fc";
     dontBuild = true;
@@ -75,7 +76,8 @@
       rev = "${version}";
       sha256 = "1h20b7n6a4pbqnrj22y8v5gc01zxs58lck3bipmgkpyp52ip3vig";
     };
-  }; */
+  };
+  */
   sugar-dark = stdenv.mkDerivation rec {
     pname = "sddm-sugar-dark-theme";
     version = "v1.2";

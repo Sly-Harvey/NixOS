@@ -1,6 +1,6 @@
 {
   pkgs,
-  gpuDriver,
+  videoDriver,
   hostname,
   ...
 }: {
@@ -8,7 +8,7 @@
     ../common.nix
     ../../modules/desktop/hyprland # Enable hyprland window manager
 
-    ../../modules/hardware/video/${gpuDriver}.nix # Enable gpu drivers defined in flake.nix
+    ../../modules/hardware/video/${videoDriver}.nix # Enable gpu drivers defined in flake.nix
 
     ../../modules/programs/games
     ../../modules/programs/media/discord

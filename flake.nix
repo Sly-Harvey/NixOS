@@ -55,7 +55,7 @@
       wallpaper = "Train.jpg"; # see modules/themes/wallpapers
 
       # System configuration
-      gpuDriver = "nvidia"; # CHOOSE YOUR GPU DRIVERS (nvidia or amd or intel) THIS IS IMPORTANT
+      videoDriver = "nvidia"; # CHOOSE YOUR GPU DRIVERS (nvidia or amdgpu or intel) THIS IS IMPORTANT
       hostname = "NixOS"; # CHOOSE A HOSTNAME HERE
       locale = "en_GB.UTF-8"; # CHOOSE YOUR LOCALE
       timezone = "Europe/London"; # CHOOSE YOUR TIMEZONE
