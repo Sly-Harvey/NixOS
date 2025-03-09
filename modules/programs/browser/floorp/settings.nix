@@ -225,19 +225,28 @@ in {
     newElementCount = 7;
     placements = {
       widget-overflow-fixed-list = [];
-      unified-extensions-area = [];
+      unified-extensions-area = [
+        "ublock0_raymondhill_net-browser-action"
+        "firemonkey_eros_man-browser-action"
+        "addon_darkreader_org-browser-action"
+        "queryamoid_kaply_com-browser-action"
+        # "_aecec67f-0d10-4fa7-b7c7-609a2db280cf_-browser-action"
+      ];
       nav-bar = [
         "back-button"
         "forward-button"
         "stop-reload-button"
         "urlbar-container"
+        # "developer-button"
         "downloads-button"
+        "unified-extensions-button"
 
         # Extensions
         "ublock0_raymondhill_net-browser-action"
-        "_aecec67f-0d10-4fa7-b7c7-609a2db280cf_-browser-action"
+        "firemonkey_eros_man-browser-action"
         "addon_darkreader_org-browser-action"
-        "unified-extensions-button"
+        # "queryamoid_kaply_com-browser-action"
+        # "_aecec67f-0d10-4fa7-b7c7-609a2db280cf_-browser-action"
       ];
       toolbar-menubar = ["menubar-items"];
       TabsToolbar = [
@@ -248,23 +257,5 @@ in {
       ];
       PersonalToolbar = ["personal-bookmarks" "managed-bookmarks"];
     };
-    seen = [
-      "developer-button"
-      "save-to-pocket-button"
-      "addon_darkreader_org-browser-action"
-      "ublock0_raymondhill_net-browser-action"
-      "_aecec67f-0d10-4fa7-b7c7-609a2db280cf_-browser-action"
-      "_762f9885-5a13-4abd-9c77-433dcd38b8fd_-browser-action"
-      "sponsorBlocker@ajay.app-browser-action"
-      "firefox@betterttv.net-browser-action"
-    ];
-    dirtyAreaCache = [
-      "nav-bar"
-      "PersonalToolbar"
-      "toolbar-menubar"
-      "TabsToolbar"
-      "unified-extensions-area"
-      "widget-overflow-fixed-list"
-    ];
   };
 }
