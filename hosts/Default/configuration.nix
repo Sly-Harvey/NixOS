@@ -18,18 +18,18 @@
     ../../modules/desktop/hyprland # Enable hyprland window manager
 
     ../../modules/programs/games
-    ../../modules/programs/terminal/${terminal}
-    ../../modules/programs/shell/bash
-    ../../modules/programs/shell/zsh
-    ../../modules/programs/browser/${browser}
-    ../../modules/programs/editor/${editor}
+    ../../modules/programs/browser/${browser} # Set browser defined in flake.nix
+    ../../modules/programs/terminal/${terminal} # Set terminal defined in flake.nix
+    ../../modules/programs/editor/${editor} # Set editor defined in flake.nix
+    ../../modules/programs/cli/${terminalFileManager} # Set file-manager defined in flake.nix
     ../../modules/programs/cli/starship
     ../../modules/programs/cli/tmux
     ../../modules/programs/cli/direnv
-    ../../modules/programs/cli/${terminalFileManager}
     ../../modules/programs/cli/lazygit
     ../../modules/programs/cli/cava
     ../../modules/programs/cli/btop
+    ../../modules/programs/shell/bash
+    ../../modules/programs/shell/zsh
     ../../modules/programs/media/discord
     ../../modules/programs/media/spicetify
     ../../modules/programs/media/thunderbird
@@ -47,7 +47,7 @@
       home.packages = with pkgs; [
         krita
         gimp
-        kdePackages.okular # pdf viwer
+        # kdePackages.okular # pdf viwer
         # godot_4
         # unityhub
         # gparted
@@ -55,10 +55,11 @@
     })
   ];
 
+  # Define system packages here
   environment.systemPackages = with pkgs; [
   ];
 
-  networking.hostName = hostname; # Define your hostname.
+  networking.hostName = hostname; # Set hostname defined in flake.nix
 
   # Stream my Language lessons to my devices via vlc media player
   services.minidlna = {
