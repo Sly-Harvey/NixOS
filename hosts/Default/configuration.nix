@@ -55,15 +55,11 @@
     })
   ];
 
-  networking.hostName = hostname; # Set hostname defined in flake.nix
-
   # Define system packages here
   environment.systemPackages = with pkgs; [
-    # lact
   ];
 
-  # systemd.packages = with pkgs; [lact];
-  # systemd.services.lactd.wantedBy = ["multi-user.target"];
+  networking.hostName = hostname; # Set hostname defined in flake.nix
 
   # Stream my Language lessons to my devices via vlc media player
   services.minidlna = {
