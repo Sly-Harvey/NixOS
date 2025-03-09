@@ -37,6 +37,7 @@
       TimeoutStopSec = 10;
     };
   };
+  services.displayManager.defaultSession = "hyprland";
 
   programs.hyprland = {
     enable = true;
