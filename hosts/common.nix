@@ -4,9 +4,7 @@
   overlays,
   username,
   browser,
-  editor,
   terminal,
-  terminalFileManager,
   sddmTheme,
   locale,
   timezone,
@@ -25,24 +23,6 @@ in {
   imports = [
     inputs.home-manager.nixosModules.home-manager
     inputs.nix-index-database.nixosModules.nix-index
-
-    ../modules/programs/terminal/${terminal}
-    ../modules/programs/shell/bash
-    ../modules/programs/shell/zsh
-    ../modules/programs/browser/${browser}
-    ../modules/programs/editor/${editor}
-    ../modules/programs/cli/starship
-    ../modules/programs/cli/tmux
-    ../modules/programs/cli/direnv
-    ../modules/programs/cli/${terminalFileManager}
-    ../modules/programs/cli/lazygit
-    ../modules/programs/cli/cava
-    ../modules/programs/cli/btop
-    ../modules/programs/media/mpv
-    ../modules/programs/misc/tlp
-    ../modules/programs/misc/thunar
-    # ../modules/programs/misc/nix-ld
-    # ../modules/programs/misc/virt-manager
   ];
 
   programs.nix-index-database.comma.enable = true;
@@ -204,7 +184,6 @@ in {
 
   # Enable sddm login manager
   services.displayManager = {
-    defaultSession = "hyprland";
     sddm = {
       enable = true;
       package = pkgs.kdePackages.sddm;
@@ -268,8 +247,8 @@ in {
     templates = "${self}/dev-shells";
   };
 
-  systemd.packages = with pkgs; [lact];
-  systemd.services.lactd.wantedBy = ["multi-user.target"];
+  # systemd.packages = with pkgs; [lact];
+  # systemd.services.lactd.wantedBy = ["multi-user.target"];
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -281,7 +260,7 @@ in {
     scripts.underwatt
 
     # System
-    lact
+    # lact
     killall
     lm_sensors
     jq
