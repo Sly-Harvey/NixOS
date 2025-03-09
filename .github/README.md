@@ -32,7 +32,8 @@
 
 # Installation
 > [!Note]
-> <p>You should review the configuration variables in flake.nix before installing.</p>
+> <p>You should review the configuration variables in flake.nix before installing.<br>
+> Also check out the imports at the top of hosts/Default/configuration.nix</p>
 <!-- ## Using the install script -->
 ```bash
 nix run --experimental-features "nix-command flakes" nixpkgs#git clone https://github.com/Sly-Harvey/NixOS.git ~/NixOS
