@@ -46,8 +46,8 @@
   } @ inputs: let
     settings = {
       # User configuration
-      username = "error"; # no need to touch this since install.sh uses sed to replace this (otherwise if manually installing then you need to change this yourself)
-      editor = "nixvim"; # nixvim, vscode, emacs, nvchad, neovim
+      username = "error"; # no need to touch this since install.sh uses sed to replace this
+      editor = "nixvim"; # nixvim, vscode, nvchad, neovim, emacs (WIP)
       browser = "floorp"; # firefox, floorp, zen
       terminal = "kitty"; # kitty, alacritty, wezterm
       terminalFileManager = "yazi"; # yazi or lf
