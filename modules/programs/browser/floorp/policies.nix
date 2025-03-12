@@ -81,6 +81,12 @@
       installation_mode = "force_installed";
       install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
     };
+    "extension@one-tab.com" = {
+      private_browsing = true;
+      default_area = "navbar";
+      installation_mode = "force_installed";
+      install_url = "https://addons.mozilla.org/firefox/downloads/latest/onetab/latest.xpi";
+    };
     "firemonkey@eros.man" = {
       private_browsing = true;
       default_area = "navbar";
