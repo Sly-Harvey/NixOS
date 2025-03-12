@@ -226,6 +226,7 @@ in {
     placements = {
       widget-overflow-fixed-list = [];
       unified-extensions-area = [
+        # "extension_one-tab_com-browser-action"
         "ublock0_raymondhill_net-browser-action"
         "firemonkey_eros_man-browser-action"
         "addon_darkreader_org-browser-action"
