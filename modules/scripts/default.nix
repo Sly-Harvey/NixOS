@@ -1,6 +1,26 @@
-{pkgs, ...}: {
-  tmux-sessionizer = pkgs.callPackage ./tmux-sessionizer.nix {};
-  collect-garbage = pkgs.callPackage ./collect-garbage.nix {};
-  driverinfo = pkgs.callPackage ./driverinfo.nix {};
-  underwatt = pkgs.callPackage ./underwatt.nix {};
+{
+  pkgs,
+  lib,
+  ...
+}: let
+  # Get all .nix files except default.nix
+  scriptFiles = lib.filterAttrs (
+    name: type:
+      type == "regular" && lib.hasSuffix ".nix" name && name != "default.nix"
+  ) (builtins.readDir ./.);
+
+  # Build a list of derivations
+  scriptDerivations =
+    lib.mapAttrsToList (
+      name: _: let
+        scriptName = lib.removeSuffix ".nix" name;
+        drv = pkgs.callPackage (./. + "/${name}") {};
+      in
+        if lib.isDerivation drv
+        then drv
+        else throw "Script ${scriptName} from ${name} is not a derivation, got: ${builtins.toString drv}"
+    )
+    scriptFiles;
+in {
+  environment.systemPackages = scriptDerivations;
 }

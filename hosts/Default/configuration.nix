@@ -14,6 +14,7 @@
     ../../modules/hardware/drives
 
     ../common.nix
+    ../../modules/scripts
 
     ../../modules/desktop/hyprland # Enable hyprland window manager
 
