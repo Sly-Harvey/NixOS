@@ -89,6 +89,12 @@
   services.gvfs.enable = true;
   services.udisks2.enable = true;
 
+  services.scx = {
+    enable = true;
+    package = pkgs.scx.rustscheds;
+    scheduler = "scx_lavd"; # https://github.com/sched-ext/scx/blob/main/scheds/rust/README.md
+  };
+
   # Bootloader.
   boot = {
     tmp.cleanOnBoot = true;
