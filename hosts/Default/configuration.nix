@@ -47,6 +47,7 @@
   home-manager.sharedModules = [
     (_: {
       home.packages = with pkgs; [
+        # (pkgs.callPackage ../../pkgs/pokego.nix {})
         krita
         gimp
         # kdePackages.okular # pdf viwer
