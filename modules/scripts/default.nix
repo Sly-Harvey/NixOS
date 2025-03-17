@@ -3,24 +3,35 @@
   lib,
   ...
 }: let
-  # Get all .nix files except default.nix
-  scriptFiles = lib.filterAttrs (
-    name: type:
-      type == "regular" && lib.hasSuffix ".nix" name && name != "default.nix"
-  ) (builtins.readDir ./.);
+  # Recursively find all .nix files, excluding default.nix only at the top level
+  findNixFiles = isTopLevel: path: let
+    entries = builtins.readDir path;
+    files =
+      if isTopLevel
+      then lib.filterAttrs (name: type: type == "regular" && lib.hasSuffix ".nix" name && name != "default.nix") entries
+      else lib.filterAttrs (name: type: type == "regular" && lib.hasSuffix ".nix" name) entries;
+    filePaths = map (name: path + "/${name}") (lib.attrNames files);
+    # Find subdirectories to recurse into
+    dirs = lib.filterAttrs (name: type: type == "directory") entries;
+    subDirPaths = map (name: path + "/${name}") (lib.attrNames dirs);
+    subFiles = lib.concatMap (findNixFiles false) subDirPaths;
+  in
+    filePaths ++ subFiles;
 
-  # Build a list of derivations
+  nixFiles = findNixFiles true ./.;
+
+  # Convert each .nix file into a derivation, with validation
+  # scriptDerivations = builtins.filter lib.isDerivation (map (file: pkgs.callPackage file {}) nixFiles);
   scriptDerivations =
-    lib.mapAttrsToList (
-      name: _: let
-        scriptName = lib.removeSuffix ".nix" name;
-        drv = pkgs.callPackage (./. + "/${name}") {};
+    map (
+      file: let
+        drv = pkgs.callPackage file {};
       in
         if lib.isDerivation drv
         then drv
-        else throw "Script ${scriptName} from ${name} is not a derivation, got: ${builtins.toString drv}"
+        else throw "Script from ${toString file} is not a derivation, got: ${builtins.toString drv}"
     )
-    scriptFiles;
+    nixFiles;
 in {
   environment.systemPackages = scriptDerivations;
 }
