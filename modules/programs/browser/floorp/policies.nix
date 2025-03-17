@@ -82,7 +82,7 @@
       install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
     };
     "extension@one-tab.com" = {
-      private_browsing = true;
+      private_browsing = false;
       default_area = "navbar";
       installation_mode = "force_installed";
       install_url = "https://addons.mozilla.org/firefox/downloads/latest/onetab/latest.xpi";
@@ -140,11 +140,13 @@
       enabledByDefault = true;
       changeBrowserTheme = false;
       enableForProtectedPages = true;
-      fetchNews = false;
+      fetchNews = true;
+      syncSitesFixes = true;
       previewNewDesign = true;
+      # previewNewestDesign = true; # TODO: test
+
       # Catppuccin mocha theme
-      /*
-         theme = {
+      /* theme = {
         mode = 1;
         brightness = 100;
         contrast = 100;
@@ -157,16 +159,16 @@
         stylesheet = "";
         darkSchemeBackgroundColor = "#1e1e2e";
         darkSchemeTextColor = "#cdd6f4";
-        lightSchemeBackgroundColor = "#dcdad7";
-        lightSchemeTextColor = "#181a1b";
+        lightSchemeBackgroundColor = "#eff1f5";
+        lightSchemeTextColor = "#4c4f69";
         scrollbarColor = "";
-        selectionColor = "#585b70";
-        styleSystemControls = false;
+        selectionColor = "#585b70"; # For the light scheme: #acb0be
+        styleSystemControls = true;
         lightColorScheme = "Default";
         darkColorScheme = "Default";
         immediateModify = false;
-      };
-      */
+      }; */
+
       # enabledFor = [];
       # disabledFor = [];
     };
