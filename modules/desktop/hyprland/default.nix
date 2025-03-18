@@ -13,10 +13,10 @@
     ./programs/waybar
     ./programs/wlogout
     ./programs/rofi
-    ./programs/dunst
     ./programs/hypridle
     ./programs/hyprlock
     ./programs/swaync
+    # ./programs/dunst
   ];
 
   nix.settings = {
@@ -60,7 +60,6 @@
         pamixer
         pavucontrol
         playerctl
-        swaynotificationcenter
         waybar
         wtype
         wl-clipboard
@@ -122,14 +121,13 @@
             #"[workspace 1 silent] ${terminal}"
             #"[workspace 5 silent] ${browser}"
             #"[workspace 6 silent] spotify"
-            #"[workspace special silent] ${browser} --new-instance -P private"
+            #"[workspace special silent] ${browser} --private-window"
             #"[workspace special silent] ${terminal}"
 
             "hyprpaper"
             "sleep 1 && waybar"
             "swaync"
             "pamixer --set-volume 40"
-            # "dunst"
             "nm-applet --indicator"
             "wl-clipboard-history -t"
             "${getExe' pkgs.wl-clipboard "wl-paste"} --type text --watch cliphist store" # clipboard store text data

@@ -63,7 +63,7 @@ fi
 
 shift $((OPTIND -1))
 step="${2:-1}"
-icodir="~/.config/dunst/icons/vol"
+icodir="$HOME/.config/hypr/icons/notifications/vol"
 
 case $1 in
     i) pamixer $srce -i ${step}
