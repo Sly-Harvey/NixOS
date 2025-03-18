@@ -17,7 +17,7 @@ function send_notification {
     brightness=`brightnessctl info | grep -oP "(?<=\()\d+(?=%)" | cat`
     brightinfo=$(brightnessctl info | awk -F "'" '/Device/ {print $2}')
     angle="$(((($brightness + 2) / 5) * 5))"
-    ico="~/.config/dunst/icons/vol/vol-${angle}.svg"
+    ico="$HOME/.config/hypr/icons/notifications/vol/vol-${angle}.svg"
     bar=$(seq -s "." $(($brightness / 15)) | sed 's/[0-9]//g')
     notify-send -a "System" -r 91190 -t 800 -i "${ico}" "${brightness}${bar}" "${brightinfo}"
     # dunstify "t2" -i $ico -a "$brightness$bar" "$brightinfo" -r 91190 -t 800
