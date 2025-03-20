@@ -71,7 +71,7 @@
           ConsoleJanitor.enabled = false;
           ConsoleShortcuts.enabled = false;
           CopyEmojiMarkdown.enabled = false;
-          CopyFileContents.enabled = false;
+          CopyFileContents.enabled = true;
           CopyUserURLs.enabled = false;
           CrashHandler.enabled = true;
           CtrlEnterSend.enabled = false;
@@ -81,7 +81,7 @@
           Decor.enabled = false;
           DisableCallIdle.enabled = false;
           DontRoundMyTimestamps.enabled = false;
-          EmoteCloner.enabled = false;
+          EmoteCloner.enabled = true;
           Experiments.enabled = true;
           F8Break.enabled = false;
           FakeNitro.enabled = true;
@@ -114,7 +114,16 @@
           MessageClickActions.enabled = false;
           MessageLatency.enabled = false;
           MessageLinkEmbeds.enabled = false;
-          MessageLogger.enabled = false;
+          # MessageLogger.enabled = false;
+          MessageLogger = {
+            enabled = true;
+            logDeletes = true;
+            collapseDeleted = false; # default: false
+            logEdits = false; # default: true
+            inlineEdits = false; # default: true
+            ignoreBots = true; # default: false
+            ignoreSelf = true; # default: false
+          };
           MessageTags.enabled = false;
           MoreCommands.enabled = false;
           MoreKaomoji.enabled = false;
@@ -159,7 +168,11 @@
           ReactErrorDecoder.enabled = false;
           ReadAllNotificationsButton.enabled = false;
           RelationshipNotifier.enabled = false;
-          ReplaceGoogleSearch.enabled = false;
+          ReplaceGoogleSearch = {
+            enabled = true;
+            customEngineName = "Startpage";
+            customEngineURL = "https://www.startpage.com/sp/search?prfe=c602752472dd4a3d8286a7ce441403da08e5c4656092384ed3091a946a5a4a4c99962d0935b509f2866ff1fdeaa3c33a007d4d26e89149869f2f7d0bdfdb1b51aa7ae7f5f17ff4a233ff313d&query=";
+          };
           ReplyTimestamp.enabled = false;
           RevealAllSpoilers.enabled = false;
           ReverseImageSearch.enabled = true;
@@ -174,14 +187,19 @@
           ShowAllMessageButtons.enabled = false;
           ShowConnections.enabled = false;
           ShowHiddenChannels.enabled = false;
-          ShowHiddenThings.enabled = false;
+          ShowHiddenThings.enabled = true;
           ShowMeYourName.enabled = false;
           ShowTimeoutDuration.enabled = false;
           SilentMessageToggle.enabled = false;
-          SilentTyping.enabled = false;
+          SilentTyping = {
+            enabled = true;
+            showIcon = true;
+            contextMenu = true;
+            isEnabled = false; # Enable/Disable by default
+          };
           SortFriendRequests.enabled = false;
           SpotifyControls.enabled = false;
-          SpotifyCrack.enabled = false;
+          SpotifyCrack.enabled = true;
           SpotifyShareCommands.enabled = false;
           StartupTimings.enabled = false;
           StickerPaste.enabled = false;
