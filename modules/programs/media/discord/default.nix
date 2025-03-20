@@ -186,7 +186,11 @@
           ShikiCodeblocks.enabled = false;
           ShowAllMessageButtons.enabled = false;
           ShowConnections.enabled = false;
-          ShowHiddenChannels.enabled = false;
+          ShowHiddenChannels = {
+            enabled = false;
+            hideUnreads = true;
+            showMode = 1;
+          };
           ShowHiddenThings.enabled = true;
           ShowMeYourName.enabled = false;
           ShowTimeoutDuration.enabled = false;
