@@ -20,7 +20,7 @@
         }
       ];
       # icon = "''${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
-      iconUpdateURL = "https://www.startpage.com/sp/cdn/favicons/favicon-gradient.ico";
+      icon = "https://www.startpage.com/sp/cdn/favicons/favicon-gradient.ico";
       definedAliases = ["@sp"];
       updateInterval = 24 * 60 * 60 * 1000;
     };
@@ -36,13 +36,13 @@
           ];
         }
       ];
-      iconUpdateURL = "https://brave.com/static-assets/images/brave-logo-sans-text.svg";
+      icon = "https://brave.com/static-assets/images/brave-logo-sans-text.svg";
       definedAliases = ["@br"];
       updateInterval = 24 * 60 * 60 * 1000;
     };
     "Searx" = {
       urls = [{template = "https://searx.aicampground.com/?q={searchTerms}";}];
-      # iconUpdateURL = "https://nixos.wiki/favicon.png";
+      # icon = "https://nixos.wiki/favicon.png";
       icon = builtins.fetchurl {
         url = "https://raw.githubusercontent.com/searxng/searxng/edf6d96625444b5b214b4ca0e2885467ed265411/src/brand/searxng-wordmark.svg";
         sha256 = "sha256:0lnc0cf7rgl6a54zm4i5z3i3npp87bg9kmwf5mii88gys980y32g";
@@ -89,7 +89,7 @@
     };
     "NixOS Wiki" = {
       urls = [{template = "https://nixos.wiki/index.php?search={searchTerms}";}];
-      iconUpdateURL = "https://wiki.nixos.org/favicon.ico";
+      icon = "https://wiki.nixos.org/favicon.ico";
       updateInterval = 24 * 60 * 60 * 1000; # every day
       definedAliases = ["@nw"];
     };
