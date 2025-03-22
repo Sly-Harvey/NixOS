@@ -31,7 +31,7 @@
 <!-- ![Screenshot](assets/preview2.png) -->
 <img src="assets/preview1.png" width = "50%"/><img src="assets/preview2.png" width = "50%"/>
 <img src="assets/preview3.png" width = "50%"/><img src="assets/preview4.png" width = "50%"/>
-<img src="assets/preview5.png" width = "50%"/><img src="assets/preview6.png" width = "50%"/>
+<img src="assets/preview5.png" width = "50%"/><img src="assets/example.png" width = "50%"/>
 
 # Installation
 > [!Note]
