@@ -84,12 +84,12 @@
             url = "https://nix.dev/";
           }
           {
-            name = "Interactive Nix Lessons";
-            url = "https://nixcloud.io/tour/?id=introduction/nix";
-          }
-          {
             name = "NixOS & Flakes Book";
             url = "https://nixos-and-flakes.thiscute.world/";
+          }
+          {
+            name = "Interactive Nix Lessons";
+            url = "https://nixcloud.io/tour/?id=introduction/nix";
           }
         ];
       }
