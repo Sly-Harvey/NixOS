@@ -6,10 +6,8 @@
 }: {
   home-manager.sharedModules = [
     (_: {
-      home.file.".config/zsh/.p10k.zsh" = {
-        source = ./.p10k.zsh;
-      };
-      home.file.".config/zsh/templates" = {
+      xdg.configFile."zsh/.p10k.zsh".source = ./.p10k.zsh;
+      xdg.configFile."zsh/templates" = {
         source = ./templates;
         recursive = true;
       };
@@ -21,17 +19,20 @@
         history.size = 100000;
         history.path = "\${XDG_DATA_HOME}/zsh/history";
         dotDir = ".config/zsh";
-        #plugins = [
-        #  {
-        #    name = "romkatv/powerlevel10k";
-        #    src = pkgs.zsh-powerlevel10k;
-        #    file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
-        #  }
-        #];
+        # plugins = [
+        #   {
+        #     name = "powerlevel10k";
+        #     file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
+        #     src = pkgs.zsh-powerlevel10k;
+        #   }
+        # ];
         oh-my-zsh = {
-          # Plug-ins
           enable = true;
-          plugins = ["git" "gitignore" "aliases" "z"];
+          plugins = [
+            "git"
+            "gitignore"
+            "z"
+          ];
         };
         initExtra = ''
           # Powerlevel10k Zsh theme
@@ -160,7 +161,7 @@
           }
         '';
         envExtra = ''
-                # Defaults
+          # Defaults
           export XMONAD_CONFIG_DIR="''${XDG_CONFIG_HOME:-$HOME/.config}/xmonad" # xmonad.hs is expected to stay here
           export XMONAD_DATA_DIR="''${XDG_DATA_HOME:-$HOME/.local/share}/xmonad"
           export XMONAD_CACHE_DIR="''${XDG_CACHE_HOME:-$HOME/.cache}/xmonad"
@@ -169,44 +170,6 @@
           --color=bg+:#363a4f,bg:#24273a,spinner:#f4dbd6,hl:#ed8796 \
           --color=fg:#cad3f5,header:#ed8796,info:#c6a0f6,pointer:#f4dbd6 \
           --color=marker:#f4dbd6,fg+:#cad3f5,prompt:#c6a0f6,hl+:#ed8796"
-
-          if [ -z "$XDG_CONFIG_HOME" ] ; then
-              export XDG_CONFIG_HOME="$HOME/.config"
-          fi
-          if [ -z "$XDG_DATA_HOME" ] ; then
-              export XDG_DATA_HOME="$HOME/.local/share"
-          fi
-          if [ -z "$XDG_CACHE_HOME" ] ; then
-              export XDG_CACHE_HOME="$HOME/.cache"
-          fi
-
-          # path+=("$HOME/.local/bin")
-          # export PATH="$PATH:''${$(find $HOME/.local/bin -maxdepth 1 -type d -printf %p:)%%:}"
-
-          ### PATH
-          if [ -d "$HOME/.bin" ] ;
-            then PATH="$HOME/.bin:$PATH"
-          fi
-
-          if [ -d "$HOME/.local/bin" ] ;
-            then PATH="$HOME/.local/bin:$PATH"
-          fi
-
-          if [ -d "$HOME/.emacs.d/bin" ] ;
-            then PATH="$HOME/.emacs.d/bin:$PATH"
-          fi
-
-          if [ -d "$HOME/Applications" ] ;
-            then PATH="$HOME/Applications:$PATH"
-          fi
-
-          if [ -d "/var/lib/flatpak/exports/bin/" ] ;
-            then PATH="/var/lib/flatpak/exports/bin/:$PATH"
-          fi
-
-          if [ -d "$HOME/.config/emacs/bin/" ] ;
-            then PATH="$HOME/.config/emacs/bin/:$PATH"
-          fi
         '';
         shellGlobalAliases = {
           UUID = "$(uuidgen | tr -d \\n)";
