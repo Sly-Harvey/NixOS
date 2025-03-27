@@ -192,6 +192,7 @@
           advancedUserEnabled = true;
           userFiltersTrusted = true;
           importedLists = [
+            "https://raw.githubusercontent.com/reek/anti-adblock-killer/master/anti-adblock-killer-filters.txt"
             "https://easylist-downloads.adblockplus.org/antiadblockfilters.txt"
             "https://gitflic.ru/project/magnolia1234/bypass-paywalls-clean-filters/blob/raw?file=bpc-paywall-filter.txt"
             "https://raw.githubusercontent.com/DandelionSprout/adfilt/master/BrowseWebsitesWithoutLoggingIn.txt"
@@ -245,12 +246,13 @@
           "FRA-0"
           "NLD-0"
           "RUS-0"
+          "https://raw.githubusercontent.com/reek/anti-adblock-killer/master/anti-adblock-killer-filters.txt"
+          "https://easylist-downloads.adblockplus.org/antiadblockfilters.txt"
+          "https://raw.githubusercontent.com/DandelionSprout/adfilt/master/Dandelion Sprout's Anti-Malware List.txt"
           "https://raw.githubusercontent.com/DandelionSprout/adfilt/master/LegitimateURLShortener.txt"
           "https://raw.githubusercontent.com/DandelionSprout/adfilt/master/BrowseWebsitesWithoutLoggingIn.txt"
-          "https://raw.githubusercontent.com/DandelionSprout/adfilt/master/Dandelion Sprout's Anti-Malware List.txt"
           "https://raw.githubusercontent.com/yokoffing/filterlists/main/privacy_essentials.txt"
           "https://raw.githubusercontent.com/yokoffing/filterlists/main/annoyance_list.txt"
-          "https://easylist-downloads.adblockplus.org/antiadblockfilters.txt"
           "https://raw.githubusercontent.com/liamengland1/miscfilters/master/antipaywall.txt"
           "https://gitflic.ru/project/magnolia1234/bypass-paywalls-clean-filters/blob/raw?file=bpc-paywall-filter.txt"
           "https://raw.githubusercontent.com/DandelionSprout/adfilt/master/ClearURLs for uBo/clear_urls_uboified.txt"
