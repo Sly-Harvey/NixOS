@@ -17,7 +17,7 @@ currentUser=$(logname)
 pushd "$HOME/NixOS" &>/dev/null || exit 0
 
 # replace username variable in flake.nix with $USER
-sed -i -e 's/username = \".*\"/username = \"'$currentUser'\"/' "$scriptdir/flake.nix"
+sed -i -e "s/username = \".*\"/username = \"$currentUser\"/" "$scriptdir/flake.nix"
 
 if [ ! -f "$scriptdir/hosts/Default/hardware-configuration.nix" ]; then
   if [ -f "/etc/nixos/hardware-configuration.nix" ]; then
@@ -28,7 +28,7 @@ if [ ! -f "$scriptdir/hosts/Default/hardware-configuration.nix" ]; then
   else
     # Generate new config
     clear
-    nix develop $scriptdir --command bash -c "echo GENERATING CONFIG! | figlet -cklno | lolcat -F 0.3 -p 2.5 -S 300"
+    nix develop "$scriptdir" --command bash -c "echo GENERATING CONFIG! | figlet -cklno | lolcat -F 0.3 -p 2.5 -S 300"
     for host in "$scriptdir"/hosts/*/; do
       host=${host%*/}
       sudo nixos-generate-config --show-hardware-config >"$host/hardware-configuration.nix"
