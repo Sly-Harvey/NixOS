@@ -1,5 +1,5 @@
 {
-  spicetify-nix,
+  inputs,
   lib,
   ...
 }: {
@@ -10,10 +10,10 @@
     ];
   home-manager.sharedModules = [
     ({pkgs, ...}: let
-      spicePkgs = spicetify-nix.legacyPackages.${pkgs.system};
+      spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.system};
     in {
       # import the flake's module for your system
-      imports = [spicetify-nix.homeManagerModules.default];
+      imports = [inputs.spicetify-nix.homeManagerModules.default];
 
       # configure spicetify :)
       programs.spicetify = {
