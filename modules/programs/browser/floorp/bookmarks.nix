@@ -20,10 +20,6 @@
         url = "https://github.com/";
       }
       {
-        name = "Lloyds Bank";
-        url = "https://www.lloydsbank.com/";
-      }
-      {
         name = "ChatGPT";
         url = "https://chatgpt.com/";
       }
