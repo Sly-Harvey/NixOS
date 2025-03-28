@@ -9,9 +9,5 @@
       config.allowUnfree = true;
       config.nvidia.acceptLicense = true;
     };
-
-    # example = prev.example.overrideAttrs (oldAttrs: let ... in {
-    # ...
-    # });
   };
 }
