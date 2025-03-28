@@ -12,28 +12,27 @@
         enable = true;
         package = pkgs.rofi-wayland;
         terminal = "${getExe pkgs.${terminal}}";
+        plugins = with pkgs; [
+          rofi-emoji-wayland # https://github.com/Mange/rofi-emoji 🤯
+          rofi-games # https://github.com/Rolv-Apneseth/rofi-games 🎮
+        ];
       };
-      home.file.".config/rofi/config-music.rasi".source = ./config-music.rasi;
-      home.file.".config/rofi/config-long.rasi".source = ./config-long.rasi;
-      home.file.".config/rofi/config-wallpaper.rasi".source = ./config-wallpaper.rasi;
-      home.file.".config/rofi/launchers" = {
+      xdg.configFile."rofi/config-music.rasi".source = ./config-music.rasi;
+      xdg.configFile."rofi/config-long.rasi".source = ./config-long.rasi;
+      xdg.configFile."rofi/config-wallpaper.rasi".source = ./config-wallpaper.rasi;
+      xdg.configFile."rofi/launchers" = {
         source = ./launchers;
         recursive = true;
       };
-      home.file.".config/rofi/colors" = {
+      xdg.configFile."rofi/colors" = {
         source = ./colors;
         recursive = true;
       };
-      home.file.".config/rofi/pywal-color" = {
-        source = ./pywal-color;
-        recursive = true;
-      };
-
-      home.file.".config/rofi/assets" = {
+      xdg.configFile."rofi/assets" = {
         source = ./assets;
         recursive = true;
       };
-      home.file.".config/rofi/resolution" = {
+      xdg.configFile."rofi/resolution" = {
         source = ./resolution;
         recursive = true;
       };
