@@ -48,7 +48,7 @@
     inherit (self) outputs;
     settings = {
       # User configuration
-      username = "error"; # no need to touch this since install.sh uses sed to replace this
+      username = "error"; # automatically set with install.sh and rebuild.sh via the logname command
       editor = "nixvim"; # nixvim, vscode, nvchad, neovim, emacs (WIP)
       browser = "floorp"; # firefox, floorp, zen
       terminal = "kitty"; # kitty, alacritty, wezterm
@@ -78,7 +78,7 @@
     nixosConfigurations = {
       Default = nixpkgs.lib.nixosSystem {
         system = forAllSystems (system: system);
-        specialArgs = settings // {inherit self inputs outputs;};
+        specialArgs = {inherit self inputs outputs;} // settings;
         modules = [./hosts/Default/configuration.nix];
       };
     };

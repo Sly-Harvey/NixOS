@@ -36,7 +36,7 @@ for file in "${paths[@]}"; do
 done
 
 # replace username variable in flake.nix with $USER
-sed -i -e 's/username = \".*\"/username = \"'$currentUser'\"/' "$scriptdir/flake.nix"
+sed -i -e "s/username = \".*\"/username = \"$currentUser\"/" "$scriptdir/flake.nix"
 
 # rm -f $scriptdir/hosts/Default/hardware-configuration.nix &>/dev/null
 if [ ! -f "$scriptdir/hosts/Default/hardware-configuration.nix" ]; then
@@ -60,7 +60,7 @@ nix develop --experimental-features 'nix-command flakes' --command bash -c "git 
 
 clear
 nix develop --experimental-features 'nix-command flakes' --command bash -c "echo BUILDING! | figlet -cklnoW | lolcat -F 0.3 -p 2.5 -S 300"
-nix develop --experimental-features 'nix-command flakes' --command bash -c "sudo nixos-rebuild switch --flake "$scriptdir#Default"" || exit 1
+nix develop --experimental-features 'nix-command flakes' --command bash -c "sudo nixos-rebuild switch --flake \"$scriptdir#Default\"" || exit 1
 echo "success!"
 echo "Make sure to reboot if this is your first time using this script!"
 
