@@ -47,13 +47,11 @@
   home-manager.sharedModules = [
     (_: {
       home.packages = with pkgs; [
-        # (pkgs.callPackage ../../pkgs/pokego.nix {})
+        # pokego # Overlayed
+        # lact # Overlayed [LONG COMPILE]
         krita
         gimp
-        # kdePackages.okular # pdf viwer
-        # godot_4
-        # unityhub
-        # gparted
+        github-desktop
       ];
     })
   ];

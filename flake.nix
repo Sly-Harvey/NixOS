@@ -73,7 +73,7 @@
     forAllSystems = nixpkgs.lib.genAttrs systems;
   in {
     templates = import ./dev-shells;
-    overlays = import ./overlays {inherit inputs;};
+    overlays = import ./overlays {inherit inputs settings;};
     formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.alejandra);
     nixosConfigurations = {
       Default = nixpkgs.lib.nixosSystem {

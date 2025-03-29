@@ -1,5 +1,5 @@
 {
-  pkgs,
+  lib,
   fetchFromGitHub,
   buildGoModule,
 }:
@@ -22,7 +22,7 @@ buildGoModule {
     "-extldflags -static"
   ];
 
-  meta = with pkgs.lib; {
+  meta = with lib; {
     description = "Command-line tool that lets you display Pokémon sprites in color directly in your terminal.";
     homepage = "https://github.com/rubiin/pokego";
     mainProgram = "pokego";
