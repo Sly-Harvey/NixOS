@@ -68,7 +68,6 @@
         fd
         git
         gh
-        github-desktop
         htop
         nix-prefetch-scripts
         # neofetch
@@ -256,12 +255,10 @@
     lm_sensors
     jq
     bibata-cursors
+    sddm-astronaut # Overlayed
     pkgs.kdePackages.qtsvg
     pkgs.kdePackages.qtmultimedia
     pkgs.kdePackages.qtvirtualkeyboard
-    (pkgs.callPackage ../pkgs/sddm-themes/astronaut.nix {
-      theme = sddmTheme;
-    })
     # libsForQt5.qt5.qtgraphicaleffects
 
     # devenv
