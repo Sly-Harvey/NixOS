@@ -17,7 +17,6 @@ declare -A no_shuffle=(
 )
 
 declare -A shuffle=(
-  ["Korean Drama OST 📻🎶"]="https://youtube.com/playlist?list=PLUge_o9AIFp4HuA-A3e3ZqENh63LuRRlQ"
   ["Pop 📻🎶"]="https://youtube.com/playlist?list=PLMC9KNkIncKtPzgY-5rmhvj7fax8fdxoj"
   # ["Classics UK 🎻🎶"]="https://stream3.hippynet.co.uk:8008/stream.mp3"
   ["Dance 📻🎶"]="https://dancewave.online:443/dance.mp3"
@@ -45,7 +44,7 @@ notification() {
 
 # Main function
 main() {
-  r_override="entry{placeholder:'Search Music...';}listview{lines:9;}"
+  r_override="entry{placeholder:'Search Music...';}listview{lines:10;}"
   choice=$(printf "%s\n" "${!menu_options[@]}" | rofi -dmenu -theme-str "$r_override" -theme ~/.config/rofi/launchers/type-2/style-2.rasi -i -p "")
 
   if [ -z "$choice" ]; then
