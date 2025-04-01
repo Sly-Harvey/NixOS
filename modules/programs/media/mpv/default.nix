@@ -3,7 +3,6 @@
     ({config, ...}: {
       programs.mpv = {
         enable = true;
-        defaultProfiles = ["gpu-hq"];
         scripts = with pkgs.mpvScripts; [
           thumbnail
           mpris
@@ -101,12 +100,8 @@
         };
         config = {
           osc = "no";
-          watch-later-directory = "${config.xdg.stateHome}/mpv/watch_later";
           resume-playback-check-mtime = true;
-          audio-device = "pipewire";
-          # because ao=pipewire doesn't work for audio-only files for whatever reason...
-          # TODO: hopefully remove it when it's fixed upstream
-          ao = "pipewire";
+          # ao = "alsa";
           audio-file-auto = "fuzzy";
           sub-auto = "fuzzy";
           # gpu-context = "waylandvk";
@@ -116,7 +111,7 @@
           screenshot-webp-lossless = true;
           screenshot-directory = "${config.home.homeDirectory}/Pictures/Screenshots/mpv";
           screenshot-sw = true;
-          cache-dir = "${config.xdg.cacheHome}/mpv";
+          # cache-dir = "${config.xdg.cacheHome}/mpv";
           input-default-bindings = false;
         };
       };
