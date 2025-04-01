@@ -29,7 +29,7 @@ yad \
   --title="Hyprland Keybinds" \
   --no-buttons \
   --list \
-  --width=740 \
+  --width=745 \
   --height=920 \
   --column=Key: \
   --column=Description: \
@@ -40,11 +40,11 @@ yad \
   "SUPER E" "Launch file manager" "$_terminal_FM" \
   "SUPER F" "Launch browser" "$_browser" \
   "CTRL ALT Delete" "Open system monitor" "$_terminal -e 'btop'" \
-  "SUPER A" "Launch application menu" "\$launcher" \
-  "SUPER SPACE" "Launch application menu" "\$launcher" \
+  "SUPER A" "Launch application menu" "scripts/rofi.sh drun" \
+  "SUPER SPACE" "Launch application menu" "scripts/rofi.sh drun" \
   "SUPER F9" "Enable night mode" "hyprsunset --temperature 2500" \
   "SUPER F10" "Disable night mode" "pkill hyprsunset" \
-  "SUPER CTRL C" "Colour picker" "hyprpicker --autocopy --format=hex" \
+  "SUPER CTRL C" "Colour picker" "hyprpicker --autocopy" \
   "SUPER, Left Click" "Move window with mouse" "movewindow" \
   "SUPER, Right Click" "Resize window with mouse" "resizewindow" \
   "SUPER SHIFT →" "Resize window right" "resizeactive 30 0" \
@@ -75,10 +75,10 @@ yad \
   "SUPER SHIFT Q" "Open notification panel" "swaync-client -t -sw" \
   "SUPER Q" "Close active window" "scripts/dontkillsteam.sh" \
   "ALT F4" "Close active window" "scripts/dontkillsteam.sh" \
-  "SUPER Z" "Launch emoji picker" "scripts/emoji.sh" \
+  "SUPER Z" "Launch emoji picker" "scripts/rofi.sh emoji" \
   "SUPER ALT K" "Change keyboard layout" "scripts/keyboardswitch.sh" \
   "SUPER CTRL ALT KP_Divide" "Rebuild system" "$_terminal -e scripts/rebuild.sh" \
-  "SUPER G" "Launch game launcher" "scripts/gamelauncher.sh" \
+  "SUPER G" "Game launcher" "scripts/rofi.sh games" \
   "SUPER ALT G" "Enable game mode" "scripts/gamemode.sh" \
   "SUPER V" "Clipboard manager" "scripts/ClipManager.sh" \
   "SUPER M" "Online music" "scripts/rofimusic.sh" \
@@ -103,5 +103,5 @@ yad \
   "SUPER ↓" "Move focus down" "movefocus d" \
   "ALT Tab" "Move focus down" "movefocus d" \
   "SUPER 1-0" "Switch to workspace 1-10" "workspace 1-10" \
-  "SUPER SHIFT 1-0" "Move window to workspace 1-10" "movetoworkspace 1-10" \
-  "SUPER SHIFT 1-0" "Silently move window to workspace 1-10" "movetoworkspacesilent 1-10" \
+  "SUPER SHIFT 1-0" "Move to workspace 1-10" "movetoworkspace 1-10" \
+  "SUPER SHIFT 1-0" "Silently move to workspace 1-10" "movetoworkspacesilent 1-10" \
