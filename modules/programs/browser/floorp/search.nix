@@ -1,6 +1,6 @@
 {pkgs, ...}: {
   force = true;
-  default = "google";
+  default = "Google";
   privateDefault = "Startpage";
   order = [
     "Startpage"
@@ -10,7 +10,7 @@
     "NixOS Options"
     "NixOS Wiki"
     "Home Manager Options"
-    "google"
+    "Google"
   ];
   engines = let
     icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
@@ -129,8 +129,8 @@
         "@ng"
       ];
     };
-    "bing".metaData.hidden = true;
+    "Bing".metaData.hidden = true;
     "Ebay".metaData.hidden = true;
-    "google".metaData.alias = "@g"; # builtin engines only support specifying one additional alias
+    "Google".metaData.alias = "@g"; # builtin engines only support specifying one additional alias
   };
 }
