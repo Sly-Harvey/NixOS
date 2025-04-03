@@ -73,6 +73,8 @@ where NAME is any of the templates defined in dev-shells/default.nix
 </details>
 
 ### Credits/Inspiration
-https://github.com/JaKooLit/Hyprland-Dots<br>
-https://github.com/prasanthrangan/hyprdots<br>
-https://www.youtube.com/@vimjoyer
+| Credit                                                              |  Reason                                |
+|---------------------------------------------------------------------|----------------------------------------|
+| [Hyprland-Dots](https://github.com/JaKooLit/Hyprland-Dots)          | Script and Waybar templates            |
+| [HyDE](https://github.com/HyDE-Project/HyDE)                        | Some more useful scripts               |
+| [VimJoyer](https://www.youtube.com/@vimjoyer)                       | Short, simple, concise guides and info |
