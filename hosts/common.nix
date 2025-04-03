@@ -70,7 +70,6 @@
         gh
         htop
         nix-prefetch-scripts
-        # neofetch
         microfetch
         ripgrep
         tldr

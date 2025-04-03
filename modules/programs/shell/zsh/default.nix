@@ -187,7 +187,7 @@
           tree = "${pkgs.eza}/bin/eza --icons=auto --tree"; # dir tree
           vc = "code --disable-gpu"; # gui code editor
           nv = "nvim";
-          nf = "${pkgs.neofetch}/bin/neofetch";
+          nf = "${pkgs.microfetch}/bin/microfetch";
           cp = "cp -iv";
           mv = "mv -iv";
           rm = "rm -vI";
