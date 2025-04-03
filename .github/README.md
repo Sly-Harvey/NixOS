@@ -74,4 +74,5 @@ where NAME is any of the templates defined in dev-shells/default.nix
 
 ### Credits/Inspiration
 https://github.com/JaKooLit/Hyprland-Dots<br>
-https://github.com/prasanthrangan/hyprdots
+https://github.com/prasanthrangan/hyprdots<br>
+https://www.youtube.com/@vimjoyer
