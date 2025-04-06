@@ -335,7 +335,7 @@
       keep-derivations = true;
     };
     optimise.automatic = true;
-    package = pkgs.nixVersions.stable;
+    package = pkgs.nixVersions.latest;
   };
 
   # This value determines the NixOS release from which the default
