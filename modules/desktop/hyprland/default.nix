@@ -67,10 +67,6 @@
         yad
       ];
 
-      xdg.configFile."hypr/scripts" = {
-        source = ./scripts;
-        recursive = true;
-      };
       xdg.configFile."hypr/icons" = {
         source = ./icons;
         recursive = true;
@@ -87,7 +83,6 @@
           variables = ["--all"];
         };
         settings = {
-          "$scripts" = "$XDG_CONFIG_HOME/hypr/scripts";
           "$mainMod" = "SUPER";
           "$term" = "${getExe pkgs.${terminal}}";
           "$editor" = "code --disable-gpu";
@@ -129,7 +124,7 @@
             "${getExe' pkgs.wl-clipboard "wl-paste"} --type text --watch cliphist store" # clipboard store text data
             "${getExe' pkgs.wl-clipboard "wl-paste"} --type image --watch cliphist store" # clipboard store image data
             "rm '$XDG_CACHE_HOME/cliphist/db'" # Clear clipboard
-            "$scripts/batterynotify.sh" # battery notification
+            "${./scripts/batterynotify.sh}" # battery notification
             "polkit-agent-helper-1"
           ];
           input = {
@@ -339,17 +334,17 @@
           bind =
             [
               # Keybinds help menu
-              "$mainMod, question, exec, $scripts/keybinds.sh"
-              "$mainMod, slash, exec, $scripts/keybinds.sh"
-              "$mainMod CTRL, K, exec, $scripts/keybinds.sh"
+              "$mainMod, question, exec, ${./scripts/keybinds.sh}"
+              "$mainMod, slash, exec, ${./scripts/keybinds.sh}"
+              "$mainMod CTRL, K, exec, ${./scripts/keybinds.sh}"
 
               # Night Mode (lower value means warmer temp)
               "$mainMod, F9, exec, ${getExe pkgs.hyprsunset} --temperature 2500"
               "$mainMod, F10, exec, pkill hyprsunset"
 
               # Window/Session actions
-              "$mainMod, Q, exec, $scripts/dontkillsteam.sh" # killactive, kill the window on focus
-              "ALT, F4, exec, $scripts/dontkillsteam.sh" # killactive, kill the window on focus
+              "$mainMod, Q, exec, ${./scripts/dontkillsteam.sh}" # killactive, kill the window on focus
+              "ALT, F4, exec, ${./scripts/dontkillsteam.sh}" # killactive, kill the window on focus
               "$mainMod, delete, exit" # kill hyperland session
               "$mainMod, W, togglefloating" # toggle the window on focus to float
               "$mainMod SHIFT, G, togglegroup" # toggle the window on focus to float
@@ -366,24 +361,24 @@
               "$CONTROL ALT, DELETE, exec, $term -e '${getExe pkgs.btop}'" # System Monitor
               "$mainMod CTRL, C, exec, hyprpicker --autocopy --format=hex" # Colour Picker
 
-              "$mainMod, A, exec, pkill -x rofi || $scripts/rofi.sh drun" # launch desktop applications
-              "$mainMod, SPACE, exec, pkill -x rofi || $scripts/rofi.sh drun" # launch desktop applications
-              "$mainMod, Z, exec, pkill -x rofi || $scripts/rofi.sh emoji" # launch emoji picker
-              # "$mainMod, tab, exec, pkill -x rofi || $scripts/rofi.sh window" # switch between desktop applications
-              # "$mainMod, R, exec, pkill -x rofi || $scripts/rofi.sh file" # brrwse system files
-              "$mainMod ALT, K, exec, $scripts/keyboardswitch.sh" # change keyboard layout
+              "$mainMod, A, exec, pkill -x rofi || ${./scripts/rofi.sh} drun" # launch desktop applications
+              "$mainMod, SPACE, exec, pkill -x rofi || ${./scripts/rofi.sh} drun" # launch desktop applications
+              "$mainMod, Z, exec, pkill -x rofi || ${./scripts/rofi.sh} emoji" # launch emoji picker
+              # "$mainMod, tab, exec, pkill -x rofi || ${./scripts/rofi.sh} window" # switch between desktop applications
+              # "$mainMod, R, exec, pkill -x rofi || ${./scripts/rofi.sh} file" # brrwse system files
+              "$mainMod ALT, K, exec, ${./scripts/keyboardswitch.sh}" # change keyboard layout
               "$mainMod SHIFT, N, exec, swaync-client -t -sw" # swayNC panel
               "$mainMod SHIFT, Q, exec, swaync-client -t -sw" # swayNC panel
-              "$mainMod, G, exec, $scripts/rofi.sh games" # game launcher
-              "$mainMod ALT, G, exec, $scripts/gamemode.sh" # disable hypr effects for gamemode
-              "$mainMod, V, exec, $scripts/ClipManager.sh" # Clipboard Manager
-              "$mainMod, M, exec, pkill -x rofi || $scripts/rofimusic.sh" # online music
+              "$mainMod, G, exec, ${./scripts/rofi.sh} games" # game launcher
+              "$mainMod ALT, G, exec, ${./scripts/gamemode.sh}" # disable hypr effects for gamemode
+              "$mainMod, V, exec, ${./scripts/ClipManager.sh}" # Clipboard Manager
+              "$mainMod, M, exec, pkill -x rofi || ${./scripts/rofimusic.sh}" # online music
 
               # Screenshot/Screencapture
-              "$mainMod, P, exec, $scripts/screenshot.sh s" # drag to snip an area / click on a window to print it
-              "$mainMod CTRL, P, exec, $scripts/screenshot.sh sf" # frozen screen, drag to snip an area / click on a window to print it
-              "$mainMod, print, exec, $scripts/screenshot.sh m" # print focused monitor
-              "$mainMod ALT, P, exec, $scripts/screenshot.sh p" # print all monitor outputs
+              "$mainMod, P, exec, ${./scripts/screenshot.sh} s" # drag to snip an area / click on a window to print it
+              "$mainMod CTRL, P, exec, ${./scripts/screenshot.sh} sf" # frozen screen, drag to snip an area / click on a window to print it
+              "$mainMod, print, exec, ${./scripts/screenshot.sh} m" # print focused monitor
+              "$mainMod ALT, P, exec, ${./scripts/screenshot.sh} p" # print all monitor outputs
 
               # Functional keybinds
               ",xf86Sleep, exec, systemctl suspend" # Put computer into sleep mode
@@ -394,10 +389,10 @@
               ",xf86AudioNext,exec,playerctl next" # go to next media
               ",xf86AudioPrev,exec,playerctl previous" # go to previous media
 
-              # ",xf86AudioNext,exec,$scripts/MediaCtrl.sh next" # go to next media
-              # ",xf86AudioPrev,exec,$scripts/MediaCtrl.sh previous" # go to previous media
-              # ",XF86AudioPlay,exec,$scripts/MediaCtrl.sh play-pause" # go to next media
-              # ",XF86AudioPause,exec,$scripts/MediaCtrl.sh play-pause" # go to next media
+              # ",xf86AudioNext,exec,${./scripts/MediaCtrl.sh} next" # go to next media
+              # ",xf86AudioPrev,exec,${./scripts/MediaCtrl.sh} previous" # go to previous media
+              # ",XF86AudioPlay,exec,${./scripts/MediaCtrl.sh} play-pause" # go to next media
+              # ",XF86AudioPause,exec,${./scripts/MediaCtrl.sh} play-pause" # go to next media
 
               # to switch between windows in a floating workspace
               "$mainMod, Tab, cyclenext"
@@ -432,7 +427,7 @@
               "$mainMod CTRL, mouse:275, movetoworkspacesilent, 6"
 
               # Rebuild NixOS with a KeyBind
-              "$mainMod CTRL ALT, KP_Divide, exec, [workspace 8] $term -e $scripts/rebuild.sh"
+              "$mainMod CTRL ALT, KP_Divide, exec, [workspace 8] $term -e ${./scripts/rebuild.sh}"
 
               # Scroll through existing workspaces with mainMod + scroll
               "$mainMod, mouse_down, workspace, e+1"
