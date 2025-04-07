@@ -6,7 +6,7 @@ nvidia_gpu=$(nvidia-smi --query-gpu=gpu_name --format=csv,noheader,nounits | hea
 # Function to execute the AMD GPU Python script and use its output
 execute_amd_script() {
   local amd_output
-  amd_output=$(python3 ~/.config/hypr/scripts/amdgpu.py)
+  amd_output=$(python3 ${XDG_CONFIG_HOME:-$HOME/.config}/hypr/scripts/amdgpu.py)
   echo "$amd_output"
 }
 
