@@ -9,8 +9,8 @@ if pidof rofi > /dev/null; then
 fi
 
 # define the config files
-keybinds_conf="$HOME/.config/hypr/hyprland.conf"
-rofi_theme="$XDG_CONFIG_HOME/rofi/launchers/type-4/style-4.rasi"
+keybinds_conf="${XDG_CONFIG_HOME:-$HOME/.config}/hypr/hyprland.conf"
+rofi_theme="${XDG_CONFIG_HOME:-$HOME/.config}/rofi/launchers/type-4/style-4.rasi"
 r_override="entry{placeholder:'Search KeyBinds...';}"
 msg='☣️ NOTE ☣️: Clicking with Mouse or Pressing ENTER will have NO function'
 

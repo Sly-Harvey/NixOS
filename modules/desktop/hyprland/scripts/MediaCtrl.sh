@@ -2,7 +2,7 @@
 ## /* ---- 💫 https://github.com/JaKooLit 💫 ---- */  ##
 # Playerctl
 
-music_icon="$XDG_CONFIG_HOME/hypr/icons/music.png"
+music_icon="${XDG_CONFIG_HOME:-$HOME/.config}/hypr/icons/music.png"
 
 # Play the next track
 play_next() {

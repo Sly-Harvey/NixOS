@@ -165,7 +165,7 @@ Check $0 --help for options.
 EOF
 if $verbose; then for line in "Verbose Mode is ON..." "" "" "" ""  ; do echo $line ; done;
 current_pid=$$
-pids=$(pgrep -f "/bin/bash $HOME/.config/hypr/scripts/batterynotify.sh" )
+pids=$(pgrep -f "/bin/bash ${XDG_CONFIG_HOME:-$HOME/.config}/hypr/scripts/batterynotify.sh" )
 for pid in $pids ; do if [ $pid -ne $current_pid ] ;then kill -STOP $pid ;notify-send -a "Battery Notify" -t 2000 -r 9889 -u "CRITICAL" "Debugging STARTED, Pausing Regular Process" ;fi ; done  ; trap resume_processes SIGINT ; fi
     fn_status_change  # initiate the function
     last_notified_percentage=$battery_percentage
