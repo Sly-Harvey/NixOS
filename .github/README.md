@@ -27,11 +27,16 @@
    </div>
 </h1>
 
-![Screenshot](assets/preview6.png)
 ![Screenshot](assets/preview1.png)
-<!-- <img src="assets/preview1.png" width = "50%"/><img src="assets/preview2.png" width = "50%"/> -->
-<!-- <img src="assets/preview3.png" width = "50%"/><img src="assets/preview4.png" width = "50%"/> -->
-<!-- <img src="assets/preview5.png" width = "50%"/><img src="assets/preview6.png" width = "50%"/> -->
+![Screenshot](assets/preview2.png)
+<details>
+<summary>More Previews</summary>
+
+![Screenshot](assets/preview3.png)
+![Screenshot](assets/preview4.png)
+![Screenshot](assets/preview5.png)
+
+</details>
 
 # Installation
 > [!Note]
