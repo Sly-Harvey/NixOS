@@ -4,12 +4,19 @@
   # virt-manager
   programs.virt-manager.enable = true;
 
+  services = {
+    qemuGuest.enable = true;
+    spice-vdagentd.enable = true;
+    spice-webdavd.enable = true;
+  };
+
   # packages
   environment.systemPackages = with pkgs; [
     virt-viewer
     spice
     spice-gtk
     spice-protocol
+    spice-vdagent
     win-virtio
     win-spice
   ];
