@@ -6,9 +6,8 @@
 set -e
 
 # Check if running in NixOS live ISO
-if ! grep -q "boot=live" /proc/cmdline; then
+if [ ! -f "/etc/nixos" ] || [ -d "/run/booted-system" ]; then
   echo -e "${RED}Error: This script must be run in the NixOS live ISO environment.${NC}"
-  echo "Kernel command line lacks 'boot=live', indicating this is not a live boot."
   echo "Please boot the NixOS live ISO and try again."
   exit 1
 fi
@@ -317,6 +316,9 @@ if [ "$editor" != "none" ]; then
 else
   echo -e "${GREEN}Skipping flake.nix editing as requested or no editor available.${NC}"
 fi
+
+# replace username variable in flake.nix with $USER
+sed -i -e "s/username = \".*\"/username = \"$username\"/" /mnt/etc/nixos/flake.nix
 
 # Run nixos-install
 echo -e "\n${GREEN}Running nixos-install...${NC}"
