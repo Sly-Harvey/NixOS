@@ -296,15 +296,16 @@ if [ -n "$part_swap" ]; then
   swapon "$part_swap"
 fi
 
-# Clone custom flake
-echo -e "\n${GREEN}Cloning custom flake...${NC}"
-mkdir -p /mnt/etc/nixos
-git clone https://github.com/Sly-Harvey/NixOS /mnt/etc/nixos
-
 # Generate hardware configuration
 echo -e "\n${GREEN}Generating hardware configuration...${NC}"
 # mkdir -p /mnt/etc/nixos/hosts/Default
-nixos-generate-config --show-hardware-config > /mnt/etc/nixos/hosts/Default/hardware-configuration.nix
+nixos-generate-config --show-hardware-config > ./hosts/Default/hardware-configuration.nix
+
+# Clone custom flake
+echo -e "\n${GREEN}Copying flake to /etc/nixos...${NC}"
+mkdir -p /mnt/etc/nixos
+cp -r ./ /mnt/etc/nixos
+# git clone https://github.com/Sly-Harvey/NixOS /mnt/etc/nixos
 
 # Edit flake.nix
 if [ "$editor" != "none" ]; then
