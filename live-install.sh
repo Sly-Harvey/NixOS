@@ -296,17 +296,6 @@ if [ -n "$part_swap" ]; then
   swapon "$part_swap"
 fi
 
-# Generate hardware configuration
-echo -e "\n${GREEN}Generating hardware configuration...${NC}"
-# mkdir -p /mnt/etc/nixos/hosts/Default
-nixos-generate-config --show-hardware-config > ./hosts/Default/hardware-configuration.nix
-
-# Clone custom flake
-echo -e "\n${GREEN}Copying flake to /etc/nixos...${NC}"
-mkdir -p /mnt/etc/nixos
-cp -r ./ /mnt/etc/nixos
-# git clone https://github.com/Sly-Harvey/NixOS /mnt/etc/nixos
-
 # Edit flake.nix
 if [ "$editor" != "none" ]; then
   echo -e "\n${GREEN}Opening flake.nix in $editor for customization...${NC}"
@@ -318,8 +307,20 @@ else
   echo -e "${GREEN}Skipping flake.nix editing as requested or no editor available.${NC}"
 fi
 
+# Generate hardware configuration
+echo -e "\n${GREEN}Generating hardware configuration...${NC}"
+# mkdir -p /mnt/etc/nixos/hosts/Default
+nixos-generate-config --show-hardware-config > ./hosts/Default/hardware-configuration.nix
+
 # replace username variable in flake.nix with $USER
-sed -i -e "s/username = \".*\"/username = \"$username\"/" /mnt/etc/nixos/flake.nix
+echo -e "\n${GREEN}Setting username...${NC}"
+sed -i -e "s/username = \".*\"/username = \"$username\"/" ./flake.nix
+
+# Copy flake to /etc/nixos
+echo -e "\n${GREEN}Copying flake to /etc/nixos...${NC}"
+mkdir -p /mnt/etc/nixos
+cp -r ./ /mnt/etc/nixos
+# git clone https://github.com/Sly-Harvey/NixOS /mnt/etc/nixos
 
 # Run nixos-install
 echo -e "\n${GREEN}Running nixos-install...${NC}"
