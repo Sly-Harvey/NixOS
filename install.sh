@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # If in the live environment then start the live-install.sh script
-if [ -d "/iso" ] && mount | grep -q "on / type tmpfs"; then
+if [ -d "/iso" ] || [ "$(findmnt -o FSTYPE -n /)" = "tmpfs" ]; then
   sudo ./live-install.sh
   exit 0
 fi

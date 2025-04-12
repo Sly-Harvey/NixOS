@@ -11,7 +11,7 @@ GREEN='\033[0;32m'
 NC='\033[0m' # No Color
 
 # Check if running in NixOS live ISO
-if [ ! -d "/iso" ]; then
+if [ ! -d "/iso" ] || [ "$(findmnt -o FSTYPE -n /)" != "tmpfs" ]; then
   echo -e "${RED}Error: This script must be run in the NixOS live ISO environment.${NC}"
   echo "Please boot the NixOS live ISO and try again."
   exit 1
