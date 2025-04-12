@@ -285,6 +285,26 @@ else
   root_device="$part_root"
 fi
 
+# Generate hardware configuration (must be before formatting)
+echo -e "\n${GREEN}Generating hardware configuration...${NC}"
+nixos-generate-config --root /mnt --show-hardware-config > ./hosts/Default/hardware-configuration.nix
+
+# If LUKS is enabled, append LUKS configuration to hardware-configuration.nix
+if [ "$luks_enabled" = "yes" ]; then
+  echo -e "\n${GREEN}Configuring LUKS for initrd...${NC}"
+  cat >> ./hosts/Default/hardware-configuration.nix << EOF
+
+  # LUKS configuration for initrd
+  boot.initrd.luks.devices = {
+    luks-root = {
+      device = "$part_root";
+      preLVM = true;
+      allowDiscards = true;
+    };
+  };
+EOF
+fi
+
 # Format partitions
 echo -e "\n${GREEN}Formatting partitions...${NC}"
 mkfs.fat -F32 "$part_boot"
