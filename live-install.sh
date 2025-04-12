@@ -316,6 +316,8 @@ nixos-generate-config --show-hardware-config > ./hosts/Default/hardware-configur
 echo -e "\n${GREEN}Setting username...${NC}"
 sed -i -e "s/username = \".*\"/username = \"$username\"/" ./flake.nix
 
+git add *
+
 # Copy flake to /etc/nixos
 echo -e "\n${GREEN}Copying flake to /etc/nixos...${NC}"
 mkdir -p /mnt/etc/nixos
