@@ -68,7 +68,7 @@ while true; do
     echo -e "${RED}Invalid disk. Please try again.${NC}"
   fi
 done
-disk="/dev/$disk"
+# disk="/dev/$disk"
 
 # 3. Filesystem for root partition
 echo -e "\n${GREEN}Choose filesystem for root partition:${NC}"
@@ -191,7 +191,7 @@ fi
 # Display summary and confirm
 echo -e "\n${GREEN}Installation Summary:${NC}"
 echo "Partitioning: $partitioning"
-echo "Disk: $disk"
+echo "Disk: /dev/$disk"
 echo "Filesystem: $filesystem"
 echo "LUKS Encryption: $luks_enabled"
 echo "Username: $username"
@@ -217,15 +217,15 @@ echo -e "\n${GREEN}Setting up disk partitions...${NC}"
 if [ "$partitioning" = "auto" ]; then
   # Automatic partitioning: 512M EFI, 2G swap, rest for root
   echo "Creating automatic partition layout..."
-  wipefs -a "$disk"
-  parted -s "$disk" \
+  wipefs -a "/dev/$disk"
+  parted -s "/dev/$disk" \
     mklabel gpt \
     mkpart primary fat32 1MiB 513MiB \
     set 1 esp on \
     mkpart primary linux-swap 513MiB 2561MiB \
     mkpart primary 2561MiB 100%
   # Set partition variables
-  if [[ "$disk" =~ nvme ]]; then
+  if [[ "/dev/$disk" =~ nvme ]]; then
     part_boot="${disk}p1"
     part_swap="${disk}p2"
     part_root="${disk}p3"
@@ -238,7 +238,7 @@ else
   # Manual partitioning with cfdisk
   echo "Launching cfdisk for manual partitioning..."
   echo "Please create partitions, including EFI, root, and optionally a swap. Save and quit when done."
-  cfdisk "$disk"
+  cfdisk "/dev/$disk"
   echo -e "\n${GREEN}Partitioning complete. Please specify partition assignments:${NC}"
   echo "Available partitions:"
   lsblk -o NAME,SIZE,MODEL | grep -v loop
