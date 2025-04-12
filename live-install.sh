@@ -149,6 +149,49 @@ while true; do
   fi
 done
 
+# 8. Set editor for flake.nix
+default_editor=$(check_editors)
+if [ "$default_editor" = "none" ]; then
+  echo -e "${RED}No editors found (vim, nano, vi). Falling back to installation without editing flake.nix.${NC}"
+  editor="none"
+else
+  echo -e "\n${GREEN}Choose an editor to customize flake.nix:${NC}"
+  echo "1) $default_editor (default)"
+  echo "2) vim"
+  echo "3) nano"
+  echo "4) vi"
+  echo "5) Skip editing"
+  while true; do
+    read -p "Enter choice (1-5, default 1): " editor_choice
+    editor_choice=${editor_choice:-1}
+    case $editor_choice in
+      1) editor="$default_editor"; break;;
+      2) editor="vim"; break;;
+      3) editor="nano"; break;;
+      4) editor="vi"; break;;
+      5) editor="none"; break;;
+      *) echo -e "${RED}Invalid choice. Enter 1-5.${NC}";;
+    esac
+    # Verify editor exists
+    if [ "$editor" != "none" ] && ! command -v "$editor" &>/dev/null; then
+      echo -e "${RED}Editor $editor not found. Please choose another.${NC}"
+    else
+      break
+    fi
+  done
+fi
+
+# 9. Edit flake.nix
+if [ "$editor" != "none" ]; then
+  echo -e "\n${GREEN}Opening flake.nix in $editor for customization...${NC}"
+  echo "Edit the 'settings' block to customize username, editor, browser, hostname, etc."
+  echo "Save and exit when done (e.g., :wq for vim, Ctrl+O then Ctrl+X for nano)."
+  read -p "Press Enter to continue..."
+  $editor ./flake.nix
+else
+  echo -e "${GREEN}Skipping flake.nix editing as requested or no editor available.${NC}"
+fi
+
 # Display summary and confirm
 echo -e "\n${GREEN}Installation Summary:${NC}"
 echo "Partitioning: $partitioning"
@@ -156,7 +199,6 @@ echo "Disk: $disk"
 echo "Filesystem: $filesystem"
 echo "LUKS Encryption: $luks_enabled"
 echo "Username: $username"
-echo "Flake Editor: $editor"
 if [ "$partitioning" = "manual" ]; then
   echo "Note: You will assign EFI, root, and swap partitions after cfdisk."
 fi
@@ -262,49 +304,6 @@ mkdir -p /mnt/boot
 mount "$part_boot" /mnt/boot
 if [ -n "$part_swap" ]; then
   swapon "$part_swap"
-fi
-
-# Set editor for flake.nix
-default_editor=$(check_editors)
-if [ "$default_editor" = "none" ]; then
-  echo -e "${RED}No editors found (vim, nano, vi). Falling back to installation without editing flake.nix.${NC}"
-  editor="none"
-else
-  echo -e "\n${GREEN}Choose an editor to customize flake.nix:${NC}"
-  echo "1) $default_editor (default)"
-  echo "2) vim"
-  echo "3) nano"
-  echo "4) vi"
-  echo "5) Skip editing"
-  while true; do
-    read -p "Enter choice (1-5, default 1): " editor_choice
-    editor_choice=${editor_choice:-1}
-    case $editor_choice in
-      1) editor="$default_editor"; break;;
-      2) editor="vim"; break;;
-      3) editor="nano"; break;;
-      4) editor="vi"; break;;
-      5) editor="none"; break;;
-      *) echo -e "${RED}Invalid choice. Enter 1-5.${NC}";;
-    esac
-    # Verify editor exists
-    if [ "$editor" != "none" ] && ! command -v "$editor" &>/dev/null; then
-      echo -e "${RED}Editor $editor not found. Please choose another.${NC}"
-    else
-      break
-    fi
-  done
-fi
-
-# Edit flake.nix
-if [ "$editor" != "none" ]; then
-  echo -e "\n${GREEN}Opening flake.nix in $editor for customization...${NC}"
-  echo "Edit the 'settings' block to customize username, editor, browser, hostname, etc."
-  echo "Save and exit when done (e.g., :wq for vim, Ctrl+O then Ctrl+X for nano)."
-  read -p "Press Enter to continue..."
-  $editor ./flake.nix
-else
-  echo -e "${GREEN}Skipping flake.nix editing as requested or no editor available.${NC}"
 fi
 
 # Generate hardware configuration
