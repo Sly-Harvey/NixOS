@@ -23,12 +23,10 @@ if [ "$(id -u)" != "0" ]; then
   exit 1
 fi
 
-# Enable flakes in the live environment
 export NIX_CONFIG="experimental-features = nix-command flakes"
 
 echo -e "${GREEN}Welcome to my NixOS installer!${NC}"
 
-# Function to check for available editors
 check_editors() {
   local editors=("vim" "nano" "vi")
   for editor in "${editors[@]}"; do
@@ -40,83 +38,40 @@ check_editors() {
   echo "none"
 }
 
+select_disk() {
+  if [ "$partitioning" = "manual" ]; then
+    echo -e "\n${GREEN}Select the disk to launch cfdisk with:${NC}"
+  else
+    echo -e "\n${GREEN}Select the disk to install NixOS on:${NC}"
+  fi
+  echo "Available disks:"
+  lsblk -d -o NAME,SIZE,MODEL | grep -v loop
+  while true; do
+    read -p "Enter disk name (e.g., sda, nvme0n1): " disk
+    if [ -b "/dev/$disk" ]; then
+      break
+    else
+      echo -e "${RED}Invalid disk. Please try again.${NC}"
+    fi
+  done
+  # disk="/dev/$disk"
+}
+
+cleanup() {
+  echo -e "\n${GREEN}Cleaning up...${NC}"
+  umount -R /mnt
+  if [ -n "$part_swap" ]; then
+    swapoff "/dev/$part_swap"
+  fi
+  if [ "$luks_enabled" = "yes" ]; then
+    cryptsetup luksClose luks-root
+  fi
+}
+
 # Start of prompts
 echo -e "\n${GREEN}Let's configure your NixOS installation.${NC}"
 
-# 1. Partitioning method
-echo -e "\n${GREEN}Choose partitioning method:${NC}"
-echo "1) Automatic (for single OS or clean disk)"
-echo "2) Manual (for dual-boot or custom layouts, launches cfdisk)"
-while true; do
-  read -p "Enter choice (1 or 2): " part_choice
-  case $part_choice in
-    1) partitioning="auto"; break;;
-    2) partitioning="manual"; break;;
-    *) echo -e "${RED}Invalid choice. Enter 1 or 2.${NC}";;
-  esac
-done
-
-# 2. Disk selection
-echo -e "\n${GREEN}Select the disk to install NixOS on:${NC}"
-echo "Available disks:"
-lsblk -d -o NAME,SIZE,MODEL | grep -v loop
-while true; do
-  read -p "Enter disk name (e.g., sda, nvme0n1): " disk
-  if [ -b "/dev/$disk" ]; then
-    break
-  else
-    echo -e "${RED}Invalid disk. Please try again.${NC}"
-  fi
-done
-# disk="/dev/$disk"
-
-# 3. Filesystem for root partition
-echo -e "\n${GREEN}Choose filesystem for root partition:${NC}"
-echo "1) ext4"
-echo "2) btrfs"
-while true; do
-  read -p "Enter choice (1 or 2): " fs_choice
-  case $fs_choice in
-    1) filesystem="ext4"; break;;
-    2) filesystem="btrfs"; break;;
-    *) echo -e "${RED}Invalid choice. Enter 1 or 2.${NC}";;
-  esac
-done
-
-# 4. LUKS encryption
-echo -e "\n${GREEN}Enable LUKS encryption for root partition?${NC}"
-echo "1) Yes"
-echo "2) No"
-while true; do
-  read -p "Enter choice (1 or 2): " luks_choice
-  case $luks_choice in
-    1) luks_enabled="yes"; break;;
-    2) luks_enabled="no"; break;;
-    *) echo -e "${RED}Invalid choice. Enter 1 or 2.${NC}";;
-  esac
-done
-
-# 5. LUKS password (if enabled)
-if [ "$luks_enabled" = "yes" ]; then
-  echo -e "\n${GREEN}Set LUKS encryption password:${NC}"
-  while true; do
-    read -s -p "Enter LUKS password: " luks_password
-    echo
-    read -s -p "Confirm LUKS password: " luks_password_confirm
-    echo
-    if [ "$luks_password" = "$luks_password_confirm" ]; then
-      if [ -z "$luks_password" ]; then
-        echo -e "${RED}LUKS password cannot be empty. Try again.${NC}"
-      else
-        break
-      fi
-    else
-      echo -e "${RED}Passwords do not match. Try again.${NC}"
-    fi
-  done
-fi
-
-# 6. Username
+# 1. Username
 echo -e "\n${GREEN}Set up a user account:${NC}"
 while true; do
   read -p "Enter username: " username
@@ -127,7 +82,7 @@ while true; do
   fi
 done
 
-# 7. User password
+# 2. User password
 echo -e "\n${GREEN}Set password for $username:${NC}"
 while true; do
   read -s -p "Enter password: " password
@@ -145,7 +100,7 @@ while true; do
   fi
 done
 
-# 8. Set editor for flake.nix
+# 3. Set editor for flake.nix
 default_editor=$(check_editors)
 if [ "$default_editor" = "none" ]; then
   echo -e "${RED}No editors found (vim, nano, vi). Falling back to installation without editing flake.nix.${NC}"
@@ -177,31 +132,41 @@ else
   done
 fi
 
-# 9. Edit flake.nix
+# 4. Edit flake.nix
 if [ "$editor" != "none" ]; then
   echo -e "\n${GREEN}Opening flake.nix in $editor for customization...${NC}"
   echo "Edit the 'settings' block to customize username, editor, browser, hostname, etc."
-  echo "Save and exit when done (e.g., :wq for vim, Ctrl+O then Ctrl+X for nano)."
+  echo "Save and exit when done (e.g., :wq for vim & vi, Ctrl+O then Ctrl+X for nano)."
   read -p "Press Enter to continue..."
   $editor ./flake.nix
 else
   echo -e "${GREEN}Skipping flake.nix editing as requested or no editor available.${NC}"
 fi
 
+# 5. Partitioning method
+echo -e "\n${GREEN}Choose partitioning method:${NC}"
+echo "1) Automatic (for single OS or clean disk)"
+echo "2) Manual (for dual-boot or custom layouts, launches cfdisk)"
+while true; do
+  read -p "Enter choice (1 or 2): " part_choice
+  case $part_choice in
+    1) partitioning="auto"; break;;
+    2) partitioning="manual"; break;;
+    *) echo -e "${RED}Invalid choice. Enter 1 or 2.${NC}";;
+  esac
+done
+
 # Display summary and confirm
 echo -e "\n${GREEN}Summary:${NC}"
-echo "Partitioning: $partitioning"
-echo "Disk: /dev/$disk"
-echo "Filesystem: $filesystem"
-echo "LUKS Encryption: $luks_enabled"
 echo "Username: $username"
 echo "User Password: [hidden]"
-if [ "$luks_enabled" = "yes" ]; then
-  echo "LUKS Password: [hidden]"
-fi
+echo "Partitioning: $partitioning"
 if [ "$partitioning" = "manual" ]; then
   read -p "Proceed to manual partitioning? (y/N): " confirm
+  select_disk
 else
+  select_disk
+  echo "Warning: This will erase all data on chosen drive."
   read -p "Proceed with installation? (y/N): " confirm
 fi
 if [[ ! "$confirm" =~ ^[yY]$ ]]; then
@@ -272,6 +237,52 @@ else
   fi
 fi
 
+# Filesystem for root partition
+echo -e "\n${GREEN}Choose a filesystem for root partition:${NC}"
+echo "1) ext4"
+echo "2) btrfs"
+while true; do
+  read -p "Enter choice (1 or 2): " fs_choice
+  case $fs_choice in
+    1) filesystem="ext4"; break;;
+    2) filesystem="btrfs"; break;;
+    *) echo -e "${RED}Invalid choice. Enter 1 or 2.${NC}";;
+  esac
+done
+
+# LUKS encryption
+echo -e "\n${GREEN}Enable LUKS encryption for root partition?${NC}"
+echo "1) Yes"
+echo "2) No"
+while true; do
+  read -p "Enter choice (1 or 2): " luks_choice
+  case $luks_choice in
+    1) luks_enabled="yes"; break;;
+    2) luks_enabled="no"; break;;
+    *) echo -e "${RED}Invalid choice. Enter 1 or 2.${NC}";;
+  esac
+done
+
+# LUKS password (if enabled)
+if [ "$luks_enabled" = "yes" ]; then
+  echo -e "\n${GREEN}Set LUKS encryption password:${NC}"
+  while true; do
+    read -s -p "Enter LUKS password: " luks_password
+    echo
+    read -s -p "Confirm LUKS password: " luks_password_confirm
+    echo
+    if [ "$luks_password" = "$luks_password_confirm" ]; then
+      if [ -z "$luks_password" ]; then
+        echo -e "${RED}LUKS password cannot be empty. Try again.${NC}"
+      else
+        break
+      fi
+    else
+      echo -e "${RED}Passwords do not match. Try again.${NC}"
+    fi
+  done
+fi
+
 # Set up LUKS if enabled
 if [ "$luks_enabled" = "yes" ]; then
   echo -e "\n${GREEN}Setting up LUKS encryption...${NC}"
@@ -318,21 +329,27 @@ git add *
 echo -e "\n${GREEN}Copying flake to /etc/nixos...${NC}"
 mkdir -p /mnt/etc/nixos
 cp -r ./ /mnt/etc/nixos
-# git clone https://github.com/Sly-Harvey/NixOS /mnt/etc/nixos
+
+# Clear and display summary
+clear
+echo -e "\n${GREEN}Summary:${NC}"
+echo "Username: $username"
+echo "User Password: [hidden]"
+echo "Partitioning: $partitioning"
+echo "Disk: /dev/$disk"
+echo "Filesystem: $filesystem"
+echo "LUKS Encryption: $luks_enabled"
+if [ "$luks_enabled" = "yes" ]; then
+  echo "LUKS Password: [hidden]"
+fi
+echo
 
 # Run nixos-install
-echo -e "\n${GREEN}Running nixos-install...${NC}"
+echo -e "\n${GREEN}Installing system...${NC}"
 nixos-install --flake /mnt/etc/nixos#Default --no-root-passwd
 nixos-enter --root /mnt -c "echo $password | passwd --stdin $username"
 
-# Clean up
-echo -e "\n${GREEN}Cleaning up...${NC}"
-umount -R /mnt
-if [ -n "$part_swap" ]; then
-  swapoff "/dev/$part_swap"
-fi
-if [ "$luks_enabled" = "yes" ]; then
-  cryptsetup luksClose luks-root
-fi
+# Run cleanup
+cleanup
 
 echo -e "\n${GREEN}Installation complete! Reboot to start your new NixOS system.${NC}"
