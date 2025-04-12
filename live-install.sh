@@ -28,11 +28,6 @@ export NIX_CONFIG="experimental-features = nix-command flakes"
 
 echo -e "${GREEN}Welcome to my NixOS installer!${NC}"
 
-list_disks() {
-  echo "Available disks:"
-  lsblk -d -o NAME,SIZE,MODEL | grep -v loop
-}
-
 # Function to check for available editors
 check_editors() {
   local editors=("vim" "nano" "vi")
@@ -63,7 +58,8 @@ done
 
 # 2. Disk selection
 echo -e "\n${GREEN}Select the disk to install NixOS on:${NC}"
-list_disks
+echo "Available disks:"
+lsblk -d -o NAME,SIZE,MODEL | grep -v loop
 while true; do
   read -p "Enter disk name (e.g., sda, nvme0n1): " disk
   if [ -b "/dev/$disk" ]; then
@@ -244,10 +240,11 @@ else
   echo "Please create partitions, including EFI, root, and optionally a swap. Save and quit when done."
   cfdisk "$disk"
   echo -e "\n${GREEN}Partitioning complete. Please specify partition assignments:${NC}"
-  list_disks
+  echo "Available partitions:"
+  lsblk -o NAME,SIZE,MODEL | grep -v loop
   # Prompt for EFI partition
   while true; do
-    read -p "Enter EFI partition (e.g., ${disk}1, ${disk}p1): " part_boot
+    read -p "Enter EFI partition (e.g., sda1, nvme0n1p1): " part_boot
     if [ -b "/dev/$part_boot" ]; then
       break
     else
@@ -256,7 +253,7 @@ else
   done
   # Prompt for root partition
   while true; do
-    read -p "Enter root partition (e.g., ${disk}2, ${disk}p2): " part_root
+    read -p "Enter root partition (e.g., sda2, nvme0n1p2): " part_root
     if [ -b "/dev/$part_root" ] && [ "/dev/$part_root" != "/dev/$part_boot" ]; then
       break
     else
@@ -265,7 +262,7 @@ else
   done
   # Prompt for swap partition (optional)
   echo "Swap partition is optional. Leave blank to skip."
-  read -p "Enter swap partition (e.g., ${disk}3, ${disk}p3, or blank): " part_swap
+  read -p "Enter swap partition (e.g., sda3, nvme0n1p3, or blank): " part_swap
   if [ -n "$part_swap" ] && [ ! -b "/dev/$part_swap" ]; then
     echo -e "${RED}Invalid swap partition. Skipping swap.${NC}"
     part_swap=""
@@ -278,58 +275,38 @@ fi
 # Set up LUKS if enabled
 if [ "$luks_enabled" = "yes" ]; then
   echo -e "\n${GREEN}Setting up LUKS encryption...${NC}"
-  echo -n "$luks_password" | cryptsetup luksFormat "$part_root" -
-  echo -n "$luks_password" | cryptsetup luksOpen "$part_root" luks-root -
+  echo -n "$luks_password" | cryptsetup luksFormat "/dev/$part_root" -
+  echo -n "$luks_password" | cryptsetup luksOpen "/dev/$part_root" luks-root -
   root_device="/dev/mapper/luks-root"
 else
-  root_device="$part_root"
-fi
-
-# Generate hardware configuration (must be before formatting)
-echo -e "\n${GREEN}Generating hardware configuration...${NC}"
-nixos-generate-config --root /mnt --show-hardware-config > ./hosts/Default/hardware-configuration.nix
-
-# If LUKS is enabled, append LUKS configuration to hardware-configuration.nix
-if [ "$luks_enabled" = "yes" ]; then
-  echo -e "\n${GREEN}Configuring LUKS for initrd...${NC}"
-  cat >> ./hosts/Default/hardware-configuration.nix << EOF
-
-  # LUKS configuration for initrd
-  boot.initrd.luks.devices = {
-    luks-root = {
-      device = "$part_root";
-      preLVM = true;
-      allowDiscards = true;
-    };
-  };
-EOF
+  root_device="/dev/$part_root"
 fi
 
 # Format partitions
 echo -e "\n${GREEN}Formatting partitions...${NC}"
-mkfs.fat -F32 "$part_boot"
+mkfs.fat -F32 "/dev/$part_boot"
 if [ "$filesystem" = "ext4" ]; then
   mkfs.ext4 -F "$root_device"
 elif [ "$filesystem" = "btrfs" ]; then
   mkfs.btrfs -f "$root_device"
 fi
 if [ -n "$part_swap" ]; then
-  mkswap "$part_swap"
+  mkswap "/dev/$part_swap"
 fi
 
 # Mount filesystems
 echo -e "\n${GREEN}Mounting filesystems...${NC}"
 mount "$root_device" /mnt
 mkdir -p /mnt/boot
-mount "$part_boot" /mnt/boot
+mount "/dev/$part_boot" /mnt/boot
 if [ -n "$part_swap" ]; then
-  swapon "$part_swap"
+  swapon "/dev/$part_swap"
 fi
 
 # Generate hardware configuration
 echo -e "\n${GREEN}Generating hardware configuration...${NC}"
 # mkdir -p /mnt/etc/nixos/hosts/Default
-nixos-generate-config --show-hardware-config > ./hosts/Default/hardware-configuration.nix
+nixos-generate-config --root /mnt --show-hardware-config > ./hosts/Default/hardware-configuration.nix
 
 # replace username variable in flake.nix with $USER
 echo -e "\n${GREEN}Setting username...${NC}"
@@ -346,12 +323,13 @@ cp -r ./ /mnt/etc/nixos
 # Run nixos-install
 echo -e "\n${GREEN}Running nixos-install...${NC}"
 nixos-install --flake /mnt/etc/nixos#Default --no-root-passwd
+nixos-enter --root /mnt -c "echo $password | passwd --stdin $username"
 
 # Clean up
 echo -e "\n${GREEN}Cleaning up...${NC}"
 umount -R /mnt
 if [ -n "$part_swap" ]; then
-  swapoff "$part_swap"
+  swapoff "/dev/$part_swap"
 fi
 if [ "$luks_enabled" = "yes" ]; then
   cryptsetup luksClose luks-root
