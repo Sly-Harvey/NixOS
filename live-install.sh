@@ -162,9 +162,9 @@ else
     editor_choice=${editor_choice:-1}
     case $editor_choice in
       1) editor="$default_editor"; break;;
-      2) editor="vim"; break;;
-      3) editor="nano"; break;;
-      4) editor="vi"; break;;
+      2) editor="vim +52"; break;;
+      3) editor="nano +52"; break;;
+      4) editor="vi +52"; break;;
       5) editor="none"; break;;
       *) echo -e "${RED}Invalid choice. Enter 1-5.${NC}";;
     esac
