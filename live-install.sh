@@ -189,28 +189,28 @@ else
 fi
 
 # Display summary and confirm
-echo -e "\n${GREEN}Installation Summary:${NC}"
+echo -e "\n${GREEN}Summary:${NC}"
 echo "Partitioning: $partitioning"
 echo "Disk: /dev/$disk"
 echo "Filesystem: $filesystem"
 echo "LUKS Encryption: $luks_enabled"
 echo "Username: $username"
-if [ "$partitioning" = "manual" ]; then
-  echo "Note: You will assign EFI, root, and swap partitions after cfdisk."
-fi
+echo "User Password: [hidden]"
 if [ "$luks_enabled" = "yes" ]; then
   echo "LUKS Password: [hidden]"
 fi
-echo "User Password: [hidden]"
-echo "Note: Hostname and other settings can be customized in flake.nix during editing."
-read -p "Proceed with installation? (y/N): " confirm
+if [ "$partitioning" = "manual" ]; then
+  read -p "Proceed to manual partitioning? (y/N): " confirm
+else
+  read -p "Proceed with installation? (y/N): " confirm
+fi
 if [[ ! "$confirm" =~ ^[yY]$ ]]; then
   echo -e "${RED}Installation aborted.${NC}"
   exit 1
 fi
 
 # Begin installation steps
-echo -e "\n${GREEN}Starting installation...${NC}"
+# echo -e "\n${GREEN}Starting installation...${NC}"
 
 # Handle partitioning
 echo -e "\n${GREEN}Setting up disk partitions...${NC}"
