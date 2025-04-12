@@ -320,29 +320,13 @@ echo -e "\n${GREEN}Generating hardware configuration...${NC}"
 nixos-generate-config --root /mnt --show-hardware-config > ./hosts/Default/hardware-configuration.nix
 
 # replace username variable in flake.nix with $USER
-echo -e "\n${GREEN}Setting username...${NC}"
 sed -i -e "s/username = \".*\"/username = \"$username\"/" ./flake.nix
-
 git add *
 
 # Copy flake to /etc/nixos
 echo -e "\n${GREEN}Copying flake to /etc/nixos...${NC}"
 mkdir -p /mnt/etc/nixos
 cp -r ./ /mnt/etc/nixos
-
-# Clear and display summary
-clear
-echo -e "\n${GREEN}Summary:${NC}"
-echo "Username: $username"
-echo "User Password: [hidden]"
-echo "Partitioning: $partitioning"
-echo "Disk: /dev/$disk"
-echo "Filesystem: $filesystem"
-echo "LUKS Encryption: $luks_enabled"
-if [ "$luks_enabled" = "yes" ]; then
-  echo "LUKS Password: [hidden]"
-fi
-echo
 
 # Run nixos-install
 echo -e "\n${GREEN}Installing system...${NC}"
