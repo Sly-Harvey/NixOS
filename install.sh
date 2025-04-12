@@ -51,6 +51,11 @@ if [ ! -f "$scriptdir/hosts/Default/hardware-configuration.nix" ]; then
       host=${host%*/}
       cat "/etc/nixos/hardware-configuration.nix" >"$host/hardware-configuration.nix"
     done
+  elif [ -f "/etc/nixos/hosts/Default/hardware-configuration.nix" ]; then
+    for host in "$scriptdir"/hosts/*/; do
+      host=${host%*/}
+      cat "/etc/nixos/hosts/Default/hardware-configuration.nix" >"$host/hardware-configuration.nix"
+    done
   else
     # Generate new config
     clear
