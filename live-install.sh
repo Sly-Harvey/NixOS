@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
-# Interactive NixOS installer for custom flake
-# Run this script as root in the NixOS live environment
+# Interactive NixOS installer for my NixOS flake
+# This script is automatically called from install.sh
+# But you can run it manually too in the NixOS live environment.
 
 set -e
 
