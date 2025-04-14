@@ -54,8 +54,16 @@ cd ~/NixOS
 ```bash
 ./install.sh
 ```
-For a list of keybinds press Super + ? or Super + Ctrl + K
-<details>
+For a list of keybinds press **Super + ?** or **Super + Ctrl + K**
+
+# Rebuilding
+There are 4 ways to rebuild.<br>
+1) Press **Super + U**.
+2) Run `rebuild` in the terminal
+3) Execute the `install.sh` script again.
+4) Run `sudo nixos-rebuild switch` to rebuild from `/etc/nixos`. For a custom directory, use the `--flake` option.
+
+<!-- <details>
 <summary>How to use the dev-shells</summary>
 
 ```bash
@@ -66,7 +74,21 @@ or use the "new" keyword to initialise a new directory
 nix flake new -t ~/NixOS#NAME PROJECT_NAME
 ```
 where NAME is any of the templates defined in dev-shells/default.nix
-</details>
+</details> -->
+
+<!-- <details> -->
+<!-- <summary>Credits/Inspiration</summary> -->
+
+### Credits/Inspiration
+| Credit                                                              |  Reason                                |
+|---------------------------------------------------------------------|----------------------------------------|
+| [Hyprland-Dots](https://github.com/JaKooLit/Hyprland-Dots)          | Script and Waybar templates            |
+| [HyDE](https://github.com/HyDE-Project/HyDE)                        | Some more useful scripts               |
+| [rofi](https://github.com/adi1090x/rofi)                            | Rofi launcher templates                |
+| [dev-templates](https://github.com/the-nix-way/dev-templates)       | Development templates                  |
+| [Vimjoyer](https://www.youtube.com/@vimjoyer)                       | Short, simple, concise guides and info |
+
+<!-- </details> -->
 
 <details>
 <summary>Star History</summary>
@@ -78,12 +100,3 @@ where NAME is any of the templates defined in dev-shells/default.nix
  </picture>
 </a>
 </details>
-
-### Credits/Inspiration
-| Credit                                                              |  Reason                                |
-|---------------------------------------------------------------------|----------------------------------------|
-| [Hyprland-Dots](https://github.com/JaKooLit/Hyprland-Dots)          | Script and Waybar templates            |
-| [HyDE](https://github.com/HyDE-Project/HyDE)                        | Some more useful scripts               |
-| [rofi](https://github.com/adi1090x/rofi)                            | Rofi launcher templates                |
-| [dev-templates](https://github.com/the-nix-way/dev-templates)       | Development templates                  |
-| [Vimjoyer](https://www.youtube.com/@vimjoyer)                       | Short, simple, concise guides and info |
