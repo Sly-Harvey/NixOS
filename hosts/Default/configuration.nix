@@ -39,7 +39,7 @@
     ../../modules/programs/misc/tlp
     ../../modules/programs/misc/thunar
     # ../../modules/programs/misc/nix-ld
-    # ../../modules/programs/misc/virt-manager
+    ../../modules/programs/misc/virt-manager
     # ../../modules/programs/misc/lact # gpu power and fan control (WIP)
   ];
 
