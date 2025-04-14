@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+# Colors for output
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+NC='\033[0m' # No Color
+
 if [[ $EUID -eq 0 ]]; then
   echo "This script should not be executed as root! Exiting..."
   exit 1
@@ -46,4 +51,4 @@ sudo nixos-rebuild switch --flake "$flake"
 # git restore --staged "$flake"/hosts/Default/hardware-configuration.nix &>/dev/null
 
 echo
-read -rsn1 -p"Press any key to continue"
+read -rsn1 -p"$(echo -e "${GREEN}Press any key to continue${NC}")"
