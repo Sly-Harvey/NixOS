@@ -319,7 +319,7 @@ echo -e "\n${GREEN}Generating hardware configuration...${NC}"
 # mkdir -p /mnt/etc/nixos/hosts/Default
 nixos-generate-config --root /mnt --show-hardware-config > ./hosts/Default/hardware-configuration.nix
 
-# replace username variable in flake.nix with $USER
+# replace username variable in flake.nix with chosen username
 sed -i -e "s/username = \".*\"/username = \"$username\"/" ./flake.nix
 git add *
 
