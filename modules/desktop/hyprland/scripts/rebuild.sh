@@ -19,6 +19,7 @@ else
   echo "Error: flake not found. ensure flake.nix exists in either $HOME/NixOS or /etc/nixos"
   exit 1
 fi
+echo "Rebuilding from $flake"
 currentUser=$(logname)
 
 # replace username variable in flake.nix with $USER
@@ -29,13 +30,11 @@ if [ -f "/etc/nixos/hardware-configuration.nix" ]; then
 elif [ -f "/etc/nixos/hosts/Default/hardware-configuration.nix" ]; then
   cat "/etc/nixos/hosts/Default/hardware-configuration.nix" >"$flake/hosts/Default/hardware-configuration.nix"
 else
-  read -p "No hardware config found, generate another? (Y/n): " confirm
-  if [[ "$confirm" =~ ^[nN]$ ]]; then
-    echo "Aborted."
-    exit 1
-  fi
-  clear
-  nix develop "$flake" --command bash -c "echo GENERATING CONFIG! | figlet -cklno | lolcat -F 0.3 -p 2.5 -S 300"
+  # read -p "No hardware config found, generate another? (Y/n): " confirm
+  # if [[ "$confirm" =~ ^[nN]$ ]]; then
+  #   echo "Aborted."
+  #   exit 1
+  # fi
   sudo nixos-generate-config --show-hardware-config >"$flake/hosts/Default/hardware-configuration.nix"
 fi
 
