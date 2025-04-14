@@ -19,10 +19,7 @@ if [[ ! "$(grep -i nixos </etc/os-release)" ]]; then
   exit 1
 fi
 
-scriptdir=$(realpath "$(dirname "$0")")
 currentUser=$(logname)
-
-pushd "$scriptdir" &>/dev/null || exit
 
 # Delete dirs that conflict with home-manager (skip symlinks)
 paths=(
@@ -42,37 +39,26 @@ for file in "${paths[@]}"; do
 done
 
 # replace username variable in flake.nix with $USER
-sed -i -e "s/username = \".*\"/username = \"$currentUser\"/" "$scriptdir/flake.nix"
+sed -i -e "s/username = \".*\"/username = \"$currentUser\"/" "./flake.nix"
 
-# rm -f $scriptdir/hosts/Default/hardware-configuration.nix &>/dev/null
-if [ ! -f "$scriptdir/hosts/Default/hardware-configuration.nix" ]; then
+# rm -f ./hosts/Default/hardware-configuration.nix &>/dev/null
+if [ ! -f "./hosts/Default/hardware-configuration.nix" ]; then
   if [ -f "/etc/nixos/hardware-configuration.nix" ]; then
-    for host in "$scriptdir"/hosts/*/; do
-      host=${host%*/}
-      cat "/etc/nixos/hardware-configuration.nix" >"$host/hardware-configuration.nix"
-    done
+    cat "/etc/nixos/hardware-configuration.nix" >"./hosts/Default/hardware-configuration.nix"
   elif [ -f "/etc/nixos/hosts/Default/hardware-configuration.nix" ]; then
-    for host in "$scriptdir"/hosts/*/; do
-      host=${host%*/}
-      cat "/etc/nixos/hosts/Default/hardware-configuration.nix" >"$host/hardware-configuration.nix"
-    done
+    cat "/etc/nixos/hosts/Default/hardware-configuration.nix" >"./hosts/Default/hardware-configuration.nix"
   else
     # Generate new config
     clear
     nix develop --experimental-features 'nix-command flakes' --command bash -c "echo GENERATING CONFIG! | figlet -cklno | lolcat -F 0.3 -p 2.5 -S 300"
-    for host in "$scriptdir"/hosts/*/; do
-      host=${host%*/}
-      sudo nixos-generate-config --show-hardware-config >"$host/hardware-configuration.nix"
-    done
+    sudo nixos-generate-config --show-hardware-config >"./hosts/Default/hardware-configuration.nix"
   fi
 fi
 
-nix develop --experimental-features 'nix-command flakes' --command bash -c "git -C $scriptdir add hosts/Default/hardware-configuration.nix"
+nix develop --experimental-features 'nix-command flakes' --command bash -c "git -C . add hosts/Default/hardware-configuration.nix"
 
 clear
 nix develop --experimental-features 'nix-command flakes' --command bash -c "echo BUILDING! | figlet -cklnoW | lolcat -F 0.3 -p 2.5 -S 300"
-nix develop --experimental-features 'nix-command flakes' --command bash -c "sudo nixos-rebuild switch --flake \"$scriptdir#Default\"" || exit 1
+nix develop --experimental-features 'nix-command flakes' --command bash -c "sudo nixos-rebuild switch --flake ." || exit 1
 echo "success!"
 echo "Make sure to reboot if this is your first time using this script!"
-
-popd "$scriptdir" &>/dev/null || exit

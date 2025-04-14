@@ -11,43 +11,40 @@ if [[ ! "$(grep -i nixos </etc/os-release)" ]]; then
   exit 1
 fi
 
-scriptdir=$HOME/NixOS
+if [ -d "$HOME/NixOS" ]; then
+  flake=$HOME/NixOS
+elif [ -d "/etc/nixos/hosts/Default" ]; then
+  flake=/etc/nixos
+else
+  echo "Error: flake not found. ensure flake.nix exists in either $HOME/NixOS or /etc/nixos"
+  exit 1
+fi
 currentUser=$(logname)
 
-pushd "$HOME/NixOS" &>/dev/null || exit 0
-
 # replace username variable in flake.nix with $USER
-sed -i -e "s/username = \".*\"/username = \"$currentUser\"/" "$scriptdir/flake.nix"
+sed -i -e "s/username = \".*\"/username = \"$currentUser\"/" "$flake/flake.nix"
 
-if [ ! -f "$scriptdir/hosts/Default/hardware-configuration.nix" ]; then
-  if [ -f "/etc/nixos/hardware-configuration.nix" ]; then
-    for host in "$scriptdir"/hosts/*/; do
-      host=${host%*/}
-      cat "/etc/nixos/hardware-configuration.nix" >"$host/hardware-configuration.nix"
-    done
-  elif [ -f "/etc/nixos/hosts/Default/hardware-configuration.nix" ]; then
-    for host in "$scriptdir"/hosts/*/; do
-      host=${host%*/}
-      cat "/etc/nixos/hosts/Default/hardware-configuration.nix" >"$host/hardware-configuration.nix"
-    done
-  else
-    # Generate new config
-    clear
-    nix develop "$scriptdir" --command bash -c "echo GENERATING CONFIG! | figlet -cklno | lolcat -F 0.3 -p 2.5 -S 300"
-    for host in "$scriptdir"/hosts/*/; do
-      host=${host%*/}
-      sudo nixos-generate-config --show-hardware-config >"$host/hardware-configuration.nix"
-    done
+if [ -f "/etc/nixos/hardware-configuration.nix" ]; then
+  cat "/etc/nixos/hardware-configuration.nix" >"$flake/hosts/Default/hardware-configuration.nix"
+elif [ -f "/etc/nixos/hosts/Default/hardware-configuration.nix" ]; then
+  cat "/etc/nixos/hosts/Default/hardware-configuration.nix" >"$flake/hosts/Default/hardware-configuration.nix"
+else
+  read -p "No hardware config found, generate another? (Y/n): " confirm
+  if [[ "$confirm" =~ ^[nN]$ ]]; then
+    echo "Aborted."
+    exit 1
   fi
+  clear
+  nix develop "$flake" --command bash -c "echo GENERATING CONFIG! | figlet -cklno | lolcat -F 0.3 -p 2.5 -S 300"
+  sudo nixos-generate-config --show-hardware-config >"$flake/hosts/Default/hardware-configuration.nix"
 fi
-git -C "$scriptdir" add hosts/Default/hardware-configuration.nix
 
-# nh os switch "$scriptdir" --hostname Default
-sudo nixos-rebuild switch --flake "$scriptdir#Default"
-rm ~/NixOS/hosts/Default/hardware-configuration.nix &>/dev/null
-git restore --staged ~/NixOS/hosts/Default/hardware-configuration.nix &>/dev/null
+sudo git -C "$flake" add hosts/Default/hardware-configuration.nix
+
+# nh os switch "$flake"
+sudo nixos-rebuild switch --flake "$flake"
+# rm "$flake"/hosts/Default/hardware-configuration.nix &>/dev/null
+# git restore --staged "$flake"/hosts/Default/hardware-configuration.nix &>/dev/null
 
 echo
 read -rsn1 -p"Press any key to continue"
-
-popd "$HOME/NixOS" &>/dev/null || exit 0
