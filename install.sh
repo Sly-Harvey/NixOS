@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+# If in the live environment then start the live-install.sh script
+if [ -d "/iso" ] || [ "$(findmnt -o FSTYPE -n /)" = "tmpfs" ]; then
+  sudo ./live-install.sh
+  exit 0
+fi
+
 # Check if running as root. If root, script will exit.
 if [[ $EUID -eq 0 ]]; then
   echo "This script should not be executed as root! Exiting..."
@@ -9,7 +15,7 @@ fi
 # Check if using NixOS. If not using NixOS, script will exit.
 if [[ ! "$(grep -i nixos </etc/os-release)" ]]; then
   echo "This installation script only works on NixOS! Download an iso at https://nixos.org/download/"
-  echo "Keep in mind that this script is not intended for use while in the live environment."
+  echo "You can either use this script in the live environment or booted into a system."
   exit 1
 fi
 
@@ -44,6 +50,11 @@ if [ ! -f "$scriptdir/hosts/Default/hardware-configuration.nix" ]; then
     for host in "$scriptdir"/hosts/*/; do
       host=${host%*/}
       cat "/etc/nixos/hardware-configuration.nix" >"$host/hardware-configuration.nix"
+    done
+  elif [ -f "/etc/nixos/hosts/Default/hardware-configuration.nix" ]; then
+    for host in "$scriptdir"/hosts/*/; do
+      host=${host%*/}
+      cat "/etc/nixos/hosts/Default/hardware-configuration.nix" >"$host/hardware-configuration.nix"
     done
   else
     # Generate new config
