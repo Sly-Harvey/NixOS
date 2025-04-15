@@ -314,11 +314,13 @@ mount "/dev/$part_boot" /mnt/boot
 if [ -n "$part_swap" ]; then
   swapon "/dev/$part_swap"
 fi
+echo "Done."
 
 # Generate hardware configuration
 echo -e "\n${GREEN}Generating hardware configuration...${NC}"
 # mkdir -p /mnt/etc/nixos/hosts/Default
 nixos-generate-config --root /mnt --show-hardware-config > ./hosts/Default/hardware-configuration.nix
+echo "Done."
 
 # replace username variable in flake.nix with chosen username
 sed -i -e "s/username = \".*\"/username = \"$username\"/" ./flake.nix
@@ -328,6 +330,7 @@ git add *
 echo -e "\n${GREEN}Copying flake to /etc/nixos...${NC}"
 mkdir -p /mnt/etc/nixos
 cp -r ./ /mnt/etc/nixos
+echo "Done."
 
 # Run nixos-install
 echo -e "\n${GREEN}Installing system...${NC}"
