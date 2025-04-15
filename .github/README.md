@@ -63,7 +63,7 @@ There are 4 ways to rebuild.<br>
 3) Execute the `install.sh` script again.
 4) Run `sudo nixos-rebuild switch` to rebuild from `/etc/nixos`. For a custom directory, use the `--flake` option.
 
-<!-- <details>
+<!-- <!-- <details> -->
 <summary>How to use the dev-shells</summary>
 
 - Go to the project directory that you want the dev-shell in and run the command:
@@ -80,7 +80,7 @@ The above commands will initialise a flake.nix and flake.lock file in your proje
 ```bash
 nix develop ./flake.nix
 ```
-</details> -->
+<!-- </details> -->
 
 <!-- <details> -->
 <!-- <summary>Credits/Inspiration</summary> -->
