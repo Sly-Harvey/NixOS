@@ -5,7 +5,6 @@
   username,
   browser,
   terminal,
-  sddmTheme,
   locale,
   timezone,
   kbdLayout,

@@ -12,7 +12,7 @@
       else lib.filterAttrs (name: type: type == "regular" && lib.hasSuffix ".nix" name) entries;
     filePaths = map (name: path + "/${name}") (lib.attrNames files);
     # Find subdirectories to recurse into
-    dirs = lib.filterAttrs (name: type: type == "directory") entries;
+    dirs = lib.filterAttrs (_name: type: type == "directory") entries;
     subDirPaths = map (name: path + "/${name}") (lib.attrNames dirs);
     subFiles = lib.concatMap (findNixFiles false) subDirPaths;
   in
