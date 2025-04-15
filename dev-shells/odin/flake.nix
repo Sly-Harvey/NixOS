@@ -1,5 +1,5 @@
 {
-  description = "A Nix-flake-based Haxe development environment";
+  description = "A Nix-flake-based Odin development environment";
 
   inputs.nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1.*.tar.gz";
 
@@ -19,7 +19,7 @@
     {
       devShells = forEachSupportedSystem ({ pkgs }: {
         default = pkgs.mkShell {
-          packages = with pkgs; [ haxe ];
+          packages = with pkgs; [ odin ];
         };
       });
     };
