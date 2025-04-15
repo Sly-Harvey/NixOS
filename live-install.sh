@@ -334,7 +334,7 @@ echo "Done."
 
 # Run nixos-install
 echo -e "\n${GREEN}Installing system...${NC}"
-nixos-install --flake /mnt/etc/nixos --no-root-passwd
+nixos-install --flake /mnt/etc/nixos#Default --no-root-passwd
 nixos-enter --root /mnt -c "echo $password | passwd --stdin $username"
 
 # Run cleanup

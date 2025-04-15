@@ -59,6 +59,6 @@ nix develop --experimental-features 'nix-command flakes' --command bash -c "git 
 
 clear
 nix develop --experimental-features 'nix-command flakes' --command bash -c "echo BUILDING! | figlet -cklnoW | lolcat -F 0.3 -p 2.5 -S 300"
-nix develop --experimental-features 'nix-command flakes' --command bash -c "sudo nixos-rebuild switch --flake ." || exit 1
+nix develop --experimental-features 'nix-command flakes' --command bash -c "sudo nixos-rebuild switch --flake .#Default" || exit 1
 echo "success!"
 echo "Make sure to reboot if this is your first time using this script!"

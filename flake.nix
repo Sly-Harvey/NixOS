@@ -75,7 +75,7 @@
     overlays = import ./overlays {inherit inputs settings;};
     formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.alejandra);
     nixosConfigurations = {
-      "${settings.hostname}" = nixpkgs.lib.nixosSystem {
+      Default = nixpkgs.lib.nixosSystem {
         system = forAllSystems (system: system);
         specialArgs = {inherit self inputs outputs;} // settings;
         modules = [./hosts/Default/configuration.nix];
