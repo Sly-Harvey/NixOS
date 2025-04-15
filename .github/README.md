@@ -60,7 +60,7 @@ There are 4 ways to rebuild.<br>
 1) Press **Super + U**.
 2) Run `rebuild` in the terminal
 3) Execute the `install.sh` script again.
-4) Run `sudo nixos-rebuild switch` to rebuild from `/etc/nixos`. For a custom directory, use the `--flake` option.
+4) Run `sudo nixos-rebuild switch --flake ~/NixOS#Default` if you installed from the live iso then use /etc/nixos#Default 
 
 For a list of keybinds press **Super + ?** or **Super + Ctrl + K**
 
