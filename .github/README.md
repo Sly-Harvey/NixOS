@@ -1,7 +1,7 @@
 <h1 align="center">
    <img src="assets/nixos-logo.png" width="100px" /> 
    <br>
-      My NixOS system
+      My NixOS System
    <br>
       <img src="https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/palette/macchiato.png" width="600px" /> <br>
    <div align="center">
@@ -63,22 +63,23 @@ There are 4 ways to rebuild.<br>
 3) Execute the `install.sh` script again.
 4) Run `sudo nixos-rebuild switch` to rebuild from `/etc/nixos`. For a custom directory, use the `--flake` option.
 
- <details>
- <summary>How to use the dev-shells</summary>
+<details>
+<summary>How to Use the Development Shells</summary>
 
-- Go to the project directory that you want the dev-shell in and run the command:
+- To initialise a new project from a template:
 ```bash
 nix flake init -t ~/NixOS#NAME
 ```
-- or use the "new" keyword to initialise a new directory
+- Alternatively, use the `new` keyword to create a new directory:
 ```bash
 nix flake new -t ~/NixOS#NAME PROJECT_NAME
 ```
-where NAME is any of the templates defined in dev-shells/default.nix
-The above commands will initialise a flake.nix and flake.lock file in your project directory.
-##### To "Enter" the dev-shell, go to the project directory and run the following command:
+Replace `NAME` with any template defined in `dev-shells/default.nix`.<br>
+These commands will generate a flake.nix and flake.lock file in your project directory.<br>
+To enter the development shell:
+- Use direnv if configured, or navigate to the project directory and run:
 ```bash
-nix develop ./flake.nix
+nix develop
 ```
 </details> 
 
