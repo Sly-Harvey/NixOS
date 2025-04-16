@@ -95,11 +95,7 @@
   # Bootloader.
   boot = {
     tmp.cleanOnBoot = true;
-    # kernelPackages = pkgs.linuxPackages_latest; # _latest, _zen, _xanmod_latest, _hardened, _rt, _OTHER_CHANNEL, etc.
-    kernelPackages = pkgs.linuxKernel.packages.linux_6_12;
-    extraModulePackages = with config.boot.kernelPackages; [
-      rtl88xxau-aircrack # Driver to ensure Wi-Fi adapters work
-    ];
+    kernelPackages = pkgs.linuxPackages_latest; # _latest, _zen, _xanmod_latest, _hardened, _rt, _OTHER_CHANNEL, etc.
     loader = {
       efi.canTouchEfiVariables = true;
       efi.efiSysMountPoint = "/boot";

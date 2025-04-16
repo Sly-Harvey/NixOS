@@ -24,7 +24,7 @@ else
   echo "Error: flake not found. ensure flake.nix exists in either $HOME/NixOS or /etc/nixos"
   exit 1
 fi
-echo "Rebuilding from $flake"
+echo -e "${GREEN}Rebuilding from $flake${NC}"
 currentUser=$(logname)
 
 # replace username variable in flake.nix with $USER
