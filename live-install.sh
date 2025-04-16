@@ -339,10 +339,12 @@ nixos-enter --root /mnt -c "echo $password | passwd --stdin $username"
 # echo "$password" | passwd -R /mnt --stdin "$username"
 
 # Copy flake to ~/NixOS
-echo -e "\n${GREEN}Copying flake to /home/$username...${NC}"
+echo -e "\n${GREEN}Copying flake to /home/$username/NixOS...${NC}"
 mkdir -p "/mnt/home/$username/NixOS"
-cp -r ./ "/mnt/home/$username/NixOS"
-nixos-enter --root /mnt -c "chown -R $username:users /home/$username/NixOS"
+cp -r ./ "/mnt/home/$username/NixOS/"
+uid=$(awk -F: -v user="$username" '$1 == user {print $3}' /mnt/etc/passwd)
+gid=$(awk -F: -v user="$username" '$1 == user {print $4}' /mnt/etc/passwd)
+chown -R "$uid:$gid" "/mnt/home/$username/NixOS"
 echo "Done."
 
 # Run cleanup
