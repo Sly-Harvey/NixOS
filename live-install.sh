@@ -335,7 +335,15 @@ echo "Done."
 # Run nixos-install
 echo -e "\n${GREEN}Installing system...${NC}"
 nixos-install --flake /mnt/etc/nixos#Default --no-root-passwd
+
+# Copy flake to /etc/nixos
+echo -e "\n${GREEN}Copying flake to /home/$username...${NC}"
+mkdir -p "/mnt/home/$username/NixOS"
+cp -r ./ "/mnt/home/$username/NixOS"
+echo "Done."
+
 nixos-enter --root /mnt -c "echo $password | passwd --stdin $username"
+# echo "$password" | passwd -R /mnt --stdin "$username"
 
 # Run cleanup
 cleanup
