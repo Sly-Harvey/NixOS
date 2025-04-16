@@ -202,7 +202,7 @@
           list-gens = "sudo nix-env --list-generations --profile /nix/var/nix/profiles/system/";
           find-store-path = ''function { nix-shell -p $1 --command "nix eval -f \"<nixpkgs>\" --raw $1" }'';
           update-input = "nix flake update $@";
-          rebuild = "${../../../desktop/hyprland/scripts/rebuild.sh}";
+          rebuild = "sudo ${../../../desktop/hyprland/scripts/rebuild.sh}";
           sysup = "sudo nixos-rebuild switch --flake ~/NixOS --upgrade-all --show-trace";
 
           # Directory Shortcuts.

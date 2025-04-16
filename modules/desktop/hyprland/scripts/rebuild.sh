@@ -5,8 +5,9 @@ RED='\033[0;31m'
 GREEN='\033[0;32m'
 NC='\033[0m' # No Color
 
-if [[ $EUID -eq 0 ]]; then
-  echo "This script should not be executed as root! Exiting..."
+# Ensure script is run as root
+if [ $EUID != "0" ]; then
+  echo "This script must be run as root. Try sudo $0" >&2
   exit 1
 fi
 
@@ -31,16 +32,16 @@ currentUser=$(logname)
 sed -i -e "s/username = \".*\"/username = \"$currentUser\"/" "$flake/flake.nix"
 
 if [ -f "/etc/nixos/hardware-configuration.nix" ]; then
-  cat "/etc/nixos/hardware-configuration.nix" >"$flake/hosts/Default/hardware-configuration.nix"
+  cat "/etc/nixos/hardware-configuration.nix" | tee "$flake/hosts/Default/hardware-configuration.nix" >/dev/null
 elif [ -f "/etc/nixos/hosts/Default/hardware-configuration.nix" ]; then
-  cat "/etc/nixos/hosts/Default/hardware-configuration.nix" >"$flake/hosts/Default/hardware-configuration.nix"
+  cat "/etc/nixos/hosts/Default/hardware-configuration.nix" | tee "$flake/hosts/Default/hardware-configuration.nix" >/dev/null
 else
   # read -p "No hardware config found, generate another? (Y/n): " confirm
   # if [[ "$confirm" =~ ^[nN]$ ]]; then
   #   echo "Aborted."
   #   exit 1
   # fi
-  sudo nixos-generate-config --show-hardware-config >"$flake/hosts/Default/hardware-configuration.nix"
+  sudo nixos-generate-config --show-hardware-config | tee "$flake/hosts/Default/hardware-configuration.nix"
 fi
 
 sudo git -C "$flake" add hosts/Default/hardware-configuration.nix
