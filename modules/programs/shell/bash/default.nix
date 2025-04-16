@@ -135,7 +135,7 @@
       update-input = "nix flake lock --update-input $@";
       rebuild = "${../../../desktop/hyprland/scripts/rebuild.sh}";
       build-iso = "nix build .#nixosConfigurations.iso.config.system.build.isoImage";
-      sysup = "sudo nixos-rebuild switch --flake ~/NixOS --upgrade-all --show-trace";
+      sysup = "sudo nixos-rebuild switch --flake ~/NixOS#Default --upgrade-all --show-trace";
 
       # Directory Shortcuts.
       dots = "cd ~/NixOS/";

@@ -39,14 +39,14 @@ for file in "${paths[@]}"; do
 done
 
 # replace username variable in flake.nix with $USER
-sed -i -e "s/username = \".*\"/username = \"$currentUser\"/" "./flake.nix"
+sudo sed -i -e "s/username = \".*\"/username = \"$currentUser\"/" "./flake.nix"
 
 # rm -f ./hosts/Default/hardware-configuration.nix &>/dev/null
 if [ ! -f "./hosts/Default/hardware-configuration.nix" ]; then
   if [ -f "/etc/nixos/hardware-configuration.nix" ]; then
-    cat "/etc/nixos/hardware-configuration.nix" >"./hosts/Default/hardware-configuration.nix"
+    cat "/etc/nixos/hardware-configuration.nix" | sudo tee "./hosts/Default/hardware-configuration.nix" >/dev/null
   elif [ -f "/etc/nixos/hosts/Default/hardware-configuration.nix" ]; then
-    cat "/etc/nixos/hosts/Default/hardware-configuration.nix" >"./hosts/Default/hardware-configuration.nix"
+    cat "/etc/nixos/hosts/Default/hardware-configuration.nix" | sudo tee "./hosts/Default/hardware-configuration.nix" >/dev/null
   else
     # Generate new config
     clear
