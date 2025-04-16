@@ -9,7 +9,7 @@ pkgs.writeShellScriptBin "tmux-sessionizer" ''
   if [[ $# -eq 1 ]]; then
       selected="$1"
   else
-      selected=$(realpath $(${lib.getExe pkgs.fd} --min-depth 1 --max-depth 1 --type d . ~/ ~/git-clone/ /mnt/ /mnt/*/Projects/ /mnt/*/Media/ /mnt/*/Pimsleur/ /mnt/*/Languages/ | $fzf))
+      selected=$(realpath $(${lib.getExe pkgs.fd} --min-depth 1 --max-depth 1 --type d . ~/ /etc/nixos/ ~/git-clone/ /mnt/ /mnt/*/Projects/ /mnt/*/Media/ /mnt/*/Pimsleur/ /mnt/*/Languages/ | $fzf))
   fi
 
   if [[ -z "$selected" ]]; then
