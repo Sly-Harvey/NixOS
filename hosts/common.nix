@@ -304,7 +304,7 @@
   nix = {
     # Nix Package Manager Settings
     settings = {
-      auto-optimise-store = true;
+      auto-optimise-store = true; # May make rebuilds longer
       substituters = [
         "https://cache.nixos.org/"
         "https://nix-community.cachix.org/"
