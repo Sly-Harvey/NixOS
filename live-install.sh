@@ -55,11 +55,16 @@ select_disk() {
       echo -e "${RED}Invalid disk. Please try again.${NC}"
     fi
   done
-  # disk="/dev/$disk"
 }
 
 cleanup() {
   echo -e "\n${GREEN}Cleaning up...${NC}"
+  if [ -n "$home_mapped_device" ]; then
+    umount /mnt/home 2>/dev/null || true
+    if [ "$home_encrypted" = "yes" ]; then
+      cryptsetup luksClose luks-home 2>/dev/null || true
+    fi
+  fi
   umount -R /mnt
   if [ -n "$part_swap" ]; then
     swapoff "/dev/$part_swap"
@@ -124,8 +129,7 @@ else
       5) editor="none"; break;;
       *) echo -e "${RED}Invalid choice. Enter 1-5.${NC}";;
     esac
-    # Verify editor exists
-    if [ "$editor" != "none" ] && ! command -v "$editor" &>/dev/null; then
+    if [ "$editor" != "none" ] && ! command -v "${editor%% *}" &>/dev/null; then
       echo -e "${RED}Editor $editor not found. Please choose another.${NC}"
     else
       break
@@ -175,9 +179,6 @@ if [[ ! "$confirm" =~ ^[yY]$ ]]; then
   exit 1
 fi
 
-# Begin installation steps
-# echo -e "\n${GREEN}Starting installation...${NC}"
-
 # Handle partitioning
 echo -e "\n${GREEN}Setting up disk partitions...${NC}"
 if [ "$partitioning" = "auto" ]; then
@@ -190,7 +191,6 @@ if [ "$partitioning" = "auto" ]; then
     set 1 esp on \
     mkpart primary linux-swap 513MiB 2561MiB \
     mkpart primary 2561MiB 100%
-  # Set partition variables
   if [[ "/dev/$disk" =~ nvme ]]; then
     part_boot="${disk}p1"
     part_swap="${disk}p2"
@@ -201,9 +201,8 @@ if [ "$partitioning" = "auto" ]; then
     part_root="${disk}3"
   fi
 else
-  # Manual partitioning with cfdisk
   echo "Launching cfdisk for manual partitioning..."
-  echo "Please create partitions, including EFI, root, and optionally a swap. Save and quit when done."
+  echo "Please create partitions, including EFI, root, and optionally home and swap. Save and quit when done."
   cfdisk "/dev/$disk"
   echo -e "\n${GREEN}Partitioning complete. Please specify partition assignments:${NC}"
   echo "Available partitions:"
@@ -226,14 +225,27 @@ else
       echo -e "${RED}Invalid or same as EFI partition. Try again.${NC}"
     fi
   done
+  # Prompt for home partition (optional)
+  echo "Home partition is optional. Leave blank to skip."
+  read -p "Enter home partition (e.g., sda3, nvme0n1p3 or blank): " part_home
+  if [ -n "$part_home" ]; then
+    if [ -b "/dev/$part_home" ] && [ "/dev/$part_home" != "/dev/$part_boot" ] && [ "/dev/$part_home" != "/dev/$part_root" ]; then
+      : # Valid partition
+    else
+      echo -e "${RED}Invalid home partition or same as EFI or root. Skipping separate home.${NC}"
+      part_home=""
+    fi
+  else
+    part_home=""
+  fi
   # Prompt for swap partition (optional)
   echo "Swap partition is optional. Leave blank to skip."
-  read -p "Enter swap partition (e.g., sda3, nvme0n1p3, or blank): " part_swap
+  read -p "Enter swap partition (e.g., sda4, nvme0n1p4, or blank): " part_swap
   if [ -n "$part_swap" ] && [ ! -b "/dev/$part_swap" ]; then
     echo -e "${RED}Invalid swap partition. Skipping swap.${NC}"
     part_swap=""
-  elif [ "/dev/$part_swap" = "/dev/$part_boot" ] || [ "/dev/$part_swap" = "/dev/$part_root" ]; then
-    echo -e "${RED}Swap cannot be same as EFI or root. Skipping swap.${NC}"
+  elif [ -n "$part_swap" ] && { [ "/dev/$part_swap" = "/dev/$part_boot" ] || [ "/dev/$part_swap" = "/dev/$part_root" ] || [ "/dev/$part_swap" = "/dev/$part_home" ]; }; then
+    echo -e "${RED}Swap cannot be same as EFI, root, or home. Skipping swap.${NC}"
     part_swap=""
   fi
 fi
@@ -251,7 +263,7 @@ while true; do
   esac
 done
 
-# LUKS encryption
+# LUKS encryption for root
 echo -e "\n${GREEN}Enable LUKS encryption for root partition?${NC}"
 echo "1) Yes"
 echo "2) No"
@@ -264,9 +276,9 @@ while true; do
   esac
 done
 
-# LUKS password (if enabled)
+# LUKS password for root (if enabled)
 if [ "$luks_enabled" = "yes" ]; then
-  echo -e "\n${GREEN}Set LUKS encryption password:${NC}"
+  echo -e "\n${GREEN}Set LUKS encryption password for root:${NC}"
   while true; do
     read -s -p "Enter LUKS password: " luks_password
     echo
@@ -284,14 +296,163 @@ if [ "$luks_enabled" = "yes" ]; then
   done
 fi
 
-# Set up LUKS if enabled
+# Set up LUKS for root (if enabled)
 if [ "$luks_enabled" = "yes" ]; then
-  echo -e "\n${GREEN}Setting up LUKS encryption...${NC}"
+  echo -e "\n${GREEN}Setting up LUKS encryption for root...${NC}"
   echo -n "$luks_password" | cryptsetup luksFormat "/dev/$part_root" -
   echo -n "$luks_password" | cryptsetup luksOpen "/dev/$part_root" luks-root -
   root_device="/dev/mapper/luks-root"
 else
   root_device="/dev/$part_root"
+fi
+
+# Set up home partition (manual partitioning only)
+if [ "$partitioning" = "manual" ] && [ -n "$part_home" ]; then
+  echo -e "\n${GREEN}Setting up home partition...${NC}"
+  home_device="/dev/$part_home"
+  # Check if it's a LUKS device
+  if blkid -p "$home_device" | grep -q 'TYPE="crypto_LUKS"'; then
+    echo "Home partition is encrypted with LUKS."
+    # Ask for password to unlock
+    while true; do
+      read -s -p "Enter LUKS password to unlock home partition: " home_luks_password
+      echo
+      if echo -n "$home_luks_password" | cryptsetup luksOpen "$home_device" luks-home -; then
+        break
+      else
+        echo -e "${RED}Incorrect password. Try again.${NC}"
+      fi
+    done
+    home_mapped_device="/dev/mapper/luks-home"
+    home_encrypted="yes"
+  else
+    # Not encrypted
+    home_encrypted="no"
+    # Check if it has a filesystem
+    if blkid "$home_device" | grep -q "TYPE="; then
+      echo "Home partition has a filesystem."
+      read -p "Do you want to reuse it without formatting? (Y/n): " reuse_home
+      if [[ ! "$reuse_home" =~ ^[nN]$ ]]; then
+        # Reuse without formatting
+        home_mapped_device="$home_device"
+      else
+        echo -e "\n${GREEN}Enable LUKS encryption for home partition?${NC}"
+        echo "1) Yes"
+        echo "2) No"
+        while true; do
+          read -p "Enter choice (1 or 2): " home_luks_choice
+          case $home_luks_choice in
+            1) home_luks_enabled="yes"; break;;
+            2) home_luks_enabled="no"; break;;
+            *) echo -e "${RED}Invalid choice. Enter 1 or 2.${NC}";;
+          esac
+        done
+        if [ "$home_luks_enabled" = "yes" ]; then
+          echo -e "\n${GREEN}Setting up LUKS for home partition...${NC}"
+          if [ "$luks_enabled" = "yes" ]; then
+            echo "Do you want to use the same password as the root partition?"
+            echo "1) Yes"
+            echo "2) No"
+            while true; do
+              read -p "Enter choice (1 or 2): " same_password_choice
+              case $same_password_choice in
+                1) home_luks_password="$luks_password"; break;;
+                2) break;;
+                *) echo -e "${RED}Invalid choice. Enter 1 or 2.${NC}";;
+              esac
+            done
+          fi
+          if [ -z "$home_luks_password" ]; then
+            while true; do
+              read -s -p "Enter LUKS password for home partition: " home_luks_password
+              echo
+              read -s -p "Confirm LUKS password: " home_luks_password_confirm
+              echo
+              if [ "$home_luks_password" = "$home_luks_password_confirm" ]; then
+                if [ -z "$home_luks_password" ]; then
+                  echo -e "${RED}Password cannot be empty. Try again.${NC}"
+                else
+                  break
+                fi
+              else
+                echo -e "${RED}Passwords do not match. Try again.${NC}"
+              fi
+            done
+          fi
+          echo -n "$home_luks_password" | cryptsetup luksFormat "$home_device" -
+          echo -n "$home_luks_password" | cryptsetup luksOpen "$home_device" luks-home -
+          home_mapped_device="/dev/mapper/luks-home"
+          home_encrypted="yes"
+        else
+          home_mapped_device="$home_device"
+        fi
+        echo "Formatting home partition with $filesystem"
+        if [ "$filesystem" = "ext4" ]; then
+          mkfs.ext4 -F "$home_mapped_device"
+        elif [ "$filesystem" = "btrfs" ]; then
+          mkfs.btrfs -f "$home_mapped_device"
+        fi
+      fi
+    else
+      echo "Home partition has no filesystem."
+      echo -e "\n${GREEN}Enable LUKS encryption for home partition?${NC}"
+      echo "1) Yes"
+      echo "2) No"
+      while true; do
+        read -p "Enter choice (1 or 2): " home_luks_choice
+        case $home_luks_choice in
+          1) home_luks_enabled="yes"; break;;
+          2) home_luks_enabled="no"; break;;
+          *) echo -e "${RED}Invalid choice. Enter 1 or 2.${NC}";;
+        esac
+      done
+      if [ "$home_luks_enabled" = "yes" ]; then
+        echo -e "\n${GREEN}Setting up LUKS for home partition...${NC}"
+        if [ "$luks_enabled" = "yes" ]; then
+          echo "Do you want to use the same password as the root partition?"
+          echo "1) Yes"
+          echo "2) No"
+          while true; do
+            read -p "Enter choice (1 or 2): " same_password_choice
+            case $same_password_choice in
+              1) home_luks_password="$luks_password"; break;;
+              2) break;;
+              *) echo -e "${RED}Invalid choice. Enter 1 or 2.${NC}";;
+            esac
+          done
+        fi
+        if [ -z "$home_luks_password" ]; then
+          while true; do
+            read -s -p "Enter LUKS password for home partition: " home_luks_password
+            echo
+            read -s -p "Confirm LUKS password: " home_luks_password_confirm
+            echo
+            if [ "$home_luks_password" = "$home_luks_password_confirm" ]; then
+              if [ -z "$home_luks_password" ]; then
+                echo -e "${RED}Password cannot be empty. Try again.${NC}"
+              else
+                break
+              fi
+            else
+              echo -e "${RED}Passwords do not match. Try again.${NC}"
+            fi
+          done
+        fi
+        echo -n "$home_luks_password" | cryptsetup luksFormat "$home_device" -
+        echo -n "$home_luks_password" | cryptsetup luksOpen "$home_device" luks-home -
+        home_mapped_device="/dev/mapper/luks-home"
+        home_encrypted="yes"
+      else
+        home_mapped_device="$home_device"
+      fi
+      echo "Formatting home partition with $filesystem"
+      if [ "$filesystem" = "ext4" ]; then
+        mkfs.ext4 -F "$home_mapped_device"
+      elif [ "$filesystem" = "btrfs" ]; then
+        mkfs.btrfs -f "$home_mapped_device"
+      fi
+    fi
+  fi
 fi
 
 # Format partitions
@@ -311,6 +472,10 @@ echo -e "\n${GREEN}Mounting filesystems...${NC}"
 mount "$root_device" /mnt
 mkdir -p /mnt/boot
 mount "/dev/$part_boot" /mnt/boot
+if [ -n "$home_mapped_device" ]; then
+  mkdir -p /mnt/home
+  mount "$home_mapped_device" /mnt/home
+fi
 if [ -n "$part_swap" ]; then
   swapon "/dev/$part_swap"
 fi
@@ -318,25 +483,23 @@ echo "Done."
 
 # Generate hardware configuration
 echo -e "\n${GREEN}Generating hardware configuration...${NC}"
-# mkdir -p /mnt/etc/nixos/hosts/Default
 nixos-generate-config --root /mnt --show-hardware-config > ./hosts/Default/hardware-configuration.nix
 echo "Done."
 
-# replace username variable in flake.nix with chosen username
+# Replace username variable in flake.nix
 sed -i -e "s/username = \".*\"/username = \"$username\"/" ./flake.nix
 git add *
 
 # Copy flake to /etc/nixos
-echo -e "\n${GREEN}Copying flake to /etc/nixos...${NC}"
+# echo -e "\n${GREEN}Copying flake to /etc/nixos...${NC}"
 mkdir -p /mnt/etc/nixos
 cp -r ./ /mnt/etc/nixos
-echo "Done."
+# echo "Done."
 
 # Run nixos-install
 echo -e "\n${GREEN}Installing system...${NC}"
 nixos-install --flake /mnt/etc/nixos#Default --no-root-passwd
 nixos-enter --root /mnt -c "echo $password | passwd --stdin $username"
-# echo "$password" | passwd -R /mnt --stdin "$username"
 
 # Copy flake to ~/NixOS
 echo -e "\n${GREEN}Copying flake to /home/$username/NixOS...${NC}"
