@@ -43,7 +43,7 @@
 > <p>You should review the configuration variables in `flake.nix` before installing.<br>
 > Also, check the imports at the top of `hosts/Default/configuration.nix`</p>
 You can use the `install.sh` script while booted into a system or in the live installer.<br>
-If you prefer the latter, you can obtain an ISO from https://nixos.org/download.<br>
+If you prefer the latter, you can obtain an ISO from https://nixos.org/download/#nixos-iso.<br>
 The minimal ISO is recommended, but you can use any.
 ```bash
 git clone https://github.com/Sly-Harvey/NixOS.git ~/NixOS
