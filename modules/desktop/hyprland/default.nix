@@ -242,7 +242,6 @@
             #"noanim, class:^(Rofi)$
             "tile,title:(.*)(Godot)(.*)$"
             "workspace 1, class:^(kitty|Alacritty|org.wezfurlong.wezterm)$"
-            "workspace 2, class:^(VSCodium)$"
             "workspace 2, class:^(code|VSCodium|code-url-handler|codium-url-handler)$"
             "workspace 3, class:^(krita)$"
             "workspace 3, title:(.*)(Godot)(.*)$"
@@ -358,6 +357,7 @@
               "$mainMod, E, exec, $fileManager"
               "$mainMod, C, exec, $editor"
               "$mainMod, F, exec, $browser"
+              "$mainMod SHIFT, S, exec, spotify"
               "$CONTROL ALT, DELETE, exec, $term -e '${getExe pkgs.btop}'" # System Monitor
               "$mainMod CTRL, C, exec, hyprpicker --autocopy --format=hex" # Colour Picker
 
