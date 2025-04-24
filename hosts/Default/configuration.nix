@@ -17,6 +17,7 @@
     ../../modules/scripts
 
     ../../modules/desktop/hyprland # Enable hyprland window manager
+    # ../../modules/desktop/i3-gaps # Enable i3 window manager
 
     ../../modules/programs/games
     ../../modules/programs/browser/${browser} # Set browser defined in flake.nix
@@ -62,7 +63,7 @@
 
   networking.hostName = hostname; # Set hostname defined in flake.nix
 
-  # Stream my Language lessons to my devices via vlc media player
+  # Stream my media to my devices via the network
   services.minidlna = {
     enable = true;
     openFirewall = true;
@@ -70,8 +71,12 @@
       friendly_name = "NixOS-DLNA";
       media_dir = [
         # A = Audio, P = Pictures, V, = Videos, PV = Pictures and Videos.
-        "/mnt/work/Pimsleur"
         # "A,/mnt/work/Pimsleur/Russian"
+        "/mnt/work/Pimsleur"
+        "/mnt/work/Media/Films"
+        "/mnt/work/Media/Series"
+        "/mnt/work/Media/Videos"
+        "/mnt/work/Media/Music"
       ];
       inotify = "yes";
       log_level = "error";

@@ -10,7 +10,6 @@
   kbdLayout,
   kbdVariant,
   consoleKeymap,
-  config,
   self,
   ...
 }: {

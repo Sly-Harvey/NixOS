@@ -1,0 +1,224 @@
+include-file = ~/.config/polybar/rose-pine.ini
+
+[bar/toph]
+monitor = ${env:MONITOR:}
+width = 100%
+height = 28pt
+# no round corner
+radius = 0
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+top = true
+
+line-size = 0pt
+padding-left = 1
+padding-right = 1
+
+module-margin = 0
+
+font-0 = JetBrainsMono Nerd Font:size=14;4
+
+modules-left = xworkspaces playerctl
+modules-center = xwindow
+modules-right = wlan eth pulseaudio battery memory cpu date
+
+cursor-click = pointer
+cursor-scroll = ns-resize
+
+enable-ipc = true
+
+separator = " | "
+separator-foreground = ${colors.disabled}
+
+border-size = 4
+border-color = ${colors.background}
+
+[module/i3]
+type = internal/i3
+enable-scroll = false
+show-urgent = true
+strip-wsnumbers = true
+index-sort = true
+enable-click = true
+fuzzy-match = true
+pin-workspaces = true
+
+ws-icon-0 = 1;1
+ws-icon-1 = 2;2
+ws-icon-2 = 3;3
+ws-icon-3 = 4;4
+ws-icon-4 = 5;5
+ws-icon-5 = 6;6
+ws-icon-6 = 7;7
+ws-icon-7 = 8;8
+ws-icon-8 = 9;9
+ws-icon-9 = 10;10
+ws-icon-default =
+
+[module/xworkspaces]
+type = internal/xworkspaces
+
+pin-workspaces = true
+enable-scroll = false
+
+label-active = %name%
+label-active-color = ${colors.color2}
+label-active-underline= ${colors.color2}
+label-active-padding = 1
+
+
+label-occupied = %name%
+label-occupied-padding = 1
+
+label-urgent = %name%
+label-urgent-color = ${colors.color2}
+label-urgent-padding = 1
+
+label-empty = %name%
+label-empty-foreground = ${colors.color6}
+label-empty-padding = 1
+
+; focused workspace
+label-focused =  %icon%
+label-focused-foreground = ${colors.Gold}
+label-focused-background = ${colors.background-alt}
+label-focused-padding = 1
+
+label-unfocused =  %icon%
+label-unfocused-foreground = ${colors.foreground}
+label-unfocused-padding = 1
+
+; visible workspace in another monitor
+label-visible =   %icon%
+label-visible-foreground = ${colors.Iris}
+label-visible-padding = 1
+
+label-separator = ""
+label-separator-padding = 0
+
+[module/pulseaudio]
+type = internal/pulseaudio
+
+format-volume-prefix = "󰕾 "
+format-volume-prefix-foreground = ${colors.Gold}
+format-volume = <label-volume>
+
+label-volume = %percentage%%
+
+label-muted = "󰕾 0%"
+label-muted-foreground = ${colors.disabled}
+
+[module/memory]
+type = internal/memory
+interval = 2
+format-prefix = "󰍛 "
+format-prefix-foreground = ${colors.Foam}
+label = %percentage_used:2%%
+
+[module/cpu]
+type = internal/cpu
+interval = 2
+format-prefix = "󰯳 "
+format-prefix-foreground = ${colors.Iris}
+label = %percentage:2%%
+
+[module/battery]
+type = internal/battery
+full-at = 100
+low-at = 10
+battery = BAT0
+adapter = AC
+poll-interval = 5
+time-format = %H:%M
+
+format-charging = <animation-charging>  <label-charging>
+format-discharging = <ramp-capacity>  <label-discharging>
+
+label-charging-foreground = ${colors.Foam}
+label-charging = %percentage%%
+label-discharging = %percentage%%
+
+label-full-foreground = ${colors.Pine}
+label-full =   %percentage%%
+label-low-foreground = ${colors.alert}
+label-low =   %percentage%%
+
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
+
+bar-capacity-width = 10
+
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
+animation-charging-3 = 
+animation-charging-4 = 
+; Framerate in milliseconds
+animation-charging-framerate = 2500
+
+animation-discharging-0 = 
+animation-discharging-1 = 
+animation-discharging-2 = 
+animation-discharging-3 = 
+animation-discharging-4 = 
+animation-discharging-framerate = 500
+
+[network-base]
+type = internal/network
+interval = 5
+format-connected = <label-connected>
+format-disconnected = <label-disconnected>
+label-disconnected = 󰖪
+label-disconnected-foreground = ${colors.disabled}
+
+[module/wlan]
+inherit = network-base
+interface-type = wireless
+format-connected-prefix = "󰖩 "
+format-connected-prefix-foreground = ${colors.Rose}
+; click the icon to edit network connection
+label-connected = %{A1:nm-connection-editor:}%essid%%{A}
+
+[module/eth]
+inherit = network-base
+interface-type = wired
+format-connected-prefix = "󰈁 "
+format-connected-prefix-foreground = ${colors.Rose}
+; click the icon to edit network connection
+label-connected = %{A1:nm-connection-editor:}%ifname%%{A}
+; label-connected = %ifname% %local_ip%
+
+[module/date]
+type = internal/date
+interval = 1
+time = "%a, %d %b %H:%M"
+label = %time%
+
+[module/xwindow]
+type = internal/xwindow
+label = %title:0:40:%
+
+[module/playerctl]
+type = custom/script
+# refresh music info every 3 seconds, check if player is active every 2.5 seconds
+interval = 3
+interval-if = 2.75
+
+exec = ~/.config/polybar/bin/music-info.sh &
+# only execute the script if the the player is active
+execif = ~/.config/polybar/bin/playerctl-status.sh &
+
+
+format-prefix = "  "
+format-prefix-foreground = ${colors.Rose}
+
+label = %{A1:playerctl play-pause &:}󰐎%{A}  %output:0:25:% %{A1:playerctl previous &:}󰒮%{A} %{A1:playerctl next &:}󰒭%{A}
+
+[settings]
+screenchange-reload = true
+pseudo-transparency = true
