@@ -23,7 +23,6 @@
       enable = true;
       package = pkgs.i3-gaps;
       extraPackages = with pkgs; [
-        # picom
         dmenu # application launcher most people use
         rofi
         polybar
@@ -35,7 +34,7 @@
   };
   home-manager.sharedModules = [
     (_: {
-      # imports = [./polybar.nix];
+      imports = [./picom.nix];
       xsession.windowManager.i3 = {
         enable = true;
         package = pkgs.i3-gaps;
@@ -53,11 +52,11 @@
           };
           bars = [];
           startup = [
-            # {
-            #   command = "picom";
-            #   always = false;
-            #   notification = false;
-            # }
+            {
+              command = "systemctl --user restart picom";
+              always = true;
+              notification = false;
+            }
             {
               command = "~/.config/polybar/bin/polybar.sh";
               always = true;
