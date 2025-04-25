@@ -1,4 +1,5 @@
 {pkgs, ...}: {
+  fonts.packages = with pkgs.nerd-fonts; [jetbrains-mono];
   home-manager.sharedModules = [
     (_: {
       programs.waybar = {
@@ -11,6 +12,7 @@
           {
             layer = "top";
             position = "top";
+            height = 32; # 35
             exclusive = true;
             passthrough = false;
             gtk-layer-shell = true;
