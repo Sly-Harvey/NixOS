@@ -23,12 +23,16 @@
       enable = true;
       package = pkgs.i3-gaps;
       extraPackages = with pkgs; [
-        dmenu # application launcher most people use
-        rofi
-        polybar
         i3status # gives you the default i3 status bar
         i3lock # default i3 screen locker
         i3blocks # if you are planning on using i3blocks over i3status
+        dmenu
+        rofi
+        polybar
+        cava
+        # xorg.xrandr
+        # edid-decode
+        # vim.xxd
       ];
     };
   };
@@ -58,7 +62,7 @@
               notification = false;
             }
             {
-              command = "~/.config/polybar/bin/polybar.sh";
+              command = "~/.config/polybar/scripts/polybar.sh";
               always = true;
               notification = false;
             }
