@@ -1,7 +1,6 @@
 {
   pkgs,
   terminal,
-  wallpaper,
   ...
 }: {
   fonts.packages = with pkgs.nerd-fonts; [jetbrains-mono];
