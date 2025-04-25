@@ -7,8 +7,8 @@ echo -n " " # Add spacing before first workspace
 for ws in "${WORKSPACES[@]}"; do
   if [ "$ws" -eq "$FOCUSED" ]; then
     echo -n "%{F#cba6f7}$ws%{F-} "
-  elif echo "$EXISTING" | grep -q "$ws"; then
-    echo -n "%{F#89b4fa}$ws%{F-} "
+  # elif echo "$EXISTING" | grep -q "$ws"; then
+  #   echo -n "%{F#89b4fa}$ws%{F-} "
   else
     echo -n "%{F#6c7086}$ws%{F-} "
   fi
