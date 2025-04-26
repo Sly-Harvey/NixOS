@@ -159,8 +159,8 @@
             blur = {
               enabled = true;
               special = true;
-              size = 6;
-              passes = 3;
+              size = 6; # 6
+              passes = 2; # 3
               new_optimizations = true;
               ignore_opacity = true;
               xray = false;
@@ -238,7 +238,7 @@
             new_on_top = true;
             mfact = 0.5;
           };
-          windowrulev2 = [
+          windowrule = [
             #"noanim, class:^(Rofi)$
             "tile,title:(.*)(Godot)(.*)$"
             "workspace 1, class:^(kitty|Alacritty|org.wezfurlong.wezterm)$"
@@ -252,8 +252,10 @@
             "workspace 6, class:^(Spotify)$"
             "workspace 6, title:(.*)(Spotify)(.*)$"
 
-            "opacity 0.80 0.80,class:^(alacritty)$"
-            "opacity 0.80 0.80,class:^(org.wezfurlong.wezterm)$"
+            # Can use FLOAT FLOAT for active and inactive or just FLOAT
+            "opacity 0.80 0.80,class:^(kitty|alacritty|Alacritty|org.wezfurlong.wezterm)$"
+            "opacity 0.90 0.90,class:^(gcr-prompter)$" # keyring prompt
+            "opacity 0.90 0.90,title:^(Hyprland Polkit Agent)$" # polkit prompt
             "opacity 1.00 1.00,class:^(firefox)$"
             "opacity 0.90 0.90,class:^(Brave-browser)$"
             "opacity 0.80 0.80,class:^(Steam)$"
@@ -265,7 +267,6 @@
             "opacity 0.80 0.80,class:^(codium-url-handler)$"
             "opacity 0.80 0.80,class:^(code)$"
             "opacity 0.80 0.80,class:^(code-url-handler)$"
-            "opacity 0.80 0.80,class:^(kitty)$"
             "opacity 0.80 0.80,class:^(terminalFileManager)$"
             "opacity 0.80 0.80,class:^(org.kde.dolphin)$"
             "opacity 0.80 0.80,class:^(org.kde.ark)$"
