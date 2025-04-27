@@ -167,14 +167,14 @@ echo "Username: $username"
 echo "User Password: [hidden]"
 echo "Partitioning: $partitioning"
 if [ "$partitioning" = "manual" ]; then
-  read -p "Proceed to manual partitioning? (y/N): " confirm
-  select_disk
+  echo "Please create partitions, including EFI, root, and optionally home and swap. Write and quit when done."
+  read -p "Launch cfdisk for manual partitioning? (Y/n): " confirm
 else
   select_disk
   echo "Warning: This will erase all data on chosen drive."
-  read -p "Proceed with installation? (y/N): " confirm
+  read -p "Proceed with installation? (Y/n): " confirm
 fi
-if [[ ! "$confirm" =~ ^[yY]$ ]]; then
+if [[ "$confirm" =~ ^[nN]$ ]]; then
   echo -e "${RED}Installation aborted.${NC}"
   exit 1
 fi
@@ -201,8 +201,8 @@ if [ "$partitioning" = "auto" ]; then
     part_root="${disk}3"
   fi
 else
+  select_disk
   echo "Launching cfdisk for manual partitioning..."
-  echo "Please create partitions, including EFI, root, and optionally home and swap. Save and quit when done."
   cfdisk "/dev/$disk"
   echo -e "\n${GREEN}Partitioning complete. Please specify partition assignments:${NC}"
   echo "Available partitions:"
