@@ -167,6 +167,7 @@ echo "Username: $username"
 echo "User Password: [hidden]"
 echo "Partitioning: $partitioning"
 if [ "$partitioning" = "manual" ]; then
+  echo 
   echo "Please create partitions, including EFI, root, and optionally home and swap. Write and quit when done."
   read -p "Launch cfdisk for manual partitioning? (Y/n): " confirm
 else
