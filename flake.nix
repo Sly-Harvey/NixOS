@@ -81,23 +81,5 @@
         modules = [./hosts/Default/configuration.nix];
       };
     };
-    devShells = forAllSystems (system: let
-      pkgs = import nixpkgs {
-        system = system;
-        config.allowUnfree = true;
-        config.nvidia.acceptLicense = true;
-        # overlays = settings.overlays;
-      };
-    in {
-      default = pkgs.mkShellNoCC {
-        packages = with pkgs; [
-          git
-          nix
-          figlet
-          lolcat
-        ];
-        NIX_CONFIG = "experimental-features = nix-command flakes";
-      };
-    });
   };
 }
