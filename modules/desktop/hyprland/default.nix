@@ -241,16 +241,16 @@
           windowrule = [
             #"noanim, class:^(Rofi)$
             "tile,title:(.*)(Godot)(.*)$"
-            "workspace 1, class:^(kitty|Alacritty|org.wezfurlong.wezterm)$"
-            "workspace 2, class:^(code|VSCodium|code-url-handler|codium-url-handler)$"
-            "workspace 3, class:^(krita)$"
-            "workspace 3, title:(.*)(Godot)(.*)$"
-            "workspace 3, title:(GNU Image Manipulation Program)(.*)$"
-            "workspace 3, class:^(factorio)$"
-            "workspace 3, class:^(steam)$"
-            "workspace 5, class:^(firefox|floorp|zen)$"
-            "workspace 6, class:^(Spotify)$"
-            "workspace 6, title:(.*)(Spotify)(.*)$"
+            # "workspace 1, class:^(kitty|Alacritty|org.wezfurlong.wezterm)$"
+            # "workspace 2, class:^(code|VSCodium|code-url-handler|codium-url-handler)$"
+            # "workspace 3, class:^(krita)$"
+            # "workspace 3, title:(.*)(Godot)(.*)$"
+            # "workspace 3, title:(GNU Image Manipulation Program)(.*)$"
+            # "workspace 3, class:^(factorio)$"
+            # "workspace 3, class:^(steam)$"
+            # "workspace 5, class:^(firefox|floorp|zen)$"
+            # "workspace 6, class:^(Spotify)$"
+            # "workspace 6, title:(.*)(Spotify)(.*)$"
 
             # Can use FLOAT FLOAT for active and inactive or just FLOAT
             "opacity 0.80 0.80,class:^(kitty|alacritty|Alacritty|org.wezfurlong.wezterm)$"
@@ -487,6 +487,7 @@
           monitor=desc:BNQ BenQ EL2870U PCK00489SL0,3840x2160@60,0x0,2,bitdepth,10
           monitor=desc:BNQ BenQ xl2420t 99D06760SL0,preferred,1920x0,1,transform,1 # 5 for fipped
 
+          # Binds workspaces to my monitors only (find desc with: hyprctl monitors)
           workspace=1,monitor:desc:BNQ BenQ EL2870U PCK00489SL0,default:true
           workspace=2,monitor:desc:BNQ BenQ EL2870U PCK00489SL0
           workspace=3,monitor:desc:BNQ BenQ EL2870U PCK00489SL0
