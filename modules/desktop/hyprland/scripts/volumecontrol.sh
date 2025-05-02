@@ -1,11 +1,5 @@
 #!/usr/bin/env sh
 
-ScrDir=`dirname "$(realpath "$0")"`
-source $ScrDir/globalcontrol.sh
-
-
-# define functions
-
 function print_error
 {
 cat << "EOF"
@@ -58,9 +52,7 @@ if [ $OPTIND -eq 1 ] ; then
     print_error
 fi
 
-
 # set device action
-
 shift $((OPTIND -1))
 step="${2:-1}"
 icodir="$HOME/.config/hypr/icons/notifications/vol"

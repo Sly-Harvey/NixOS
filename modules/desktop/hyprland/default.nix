@@ -65,6 +65,8 @@
         wl-clipboard
         xdotool
         yad
+        # socat # for autowaybar.sh
+        # jq # for autowaybar.sh
       ];
 
       xdg.configFile."hypr/icons" = {
@@ -116,16 +118,17 @@
             #"[workspace special silent] ${terminal}"
 
             "hyprpaper"
-            "sleep 1 && waybar"
+            "waybar"
             "swaync"
-            "pamixer --set-volume 46"
             "nm-applet --indicator"
             "wl-clipboard-history -t"
             "${getExe' pkgs.wl-clipboard "wl-paste"} --type text --watch cliphist store" # clipboard store text data
             "${getExe' pkgs.wl-clipboard "wl-paste"} --type image --watch cliphist store" # clipboard store image data
             "rm '$XDG_CACHE_HOME/cliphist/db'" # Clear clipboard
             "${./scripts/batterynotify.sh}" # battery notification
+            # "${./scripts/autowaybar.sh}" # uncomment packages at the top
             "polkit-agent-helper-1"
+            "pamixer --set-volume 50"
           ];
           input = {
             kb_layout = "${kbdLayout},ru";
@@ -350,7 +353,7 @@
               "$mainMod SHIFT, G, togglegroup" # toggle the window on focus to float
               "ALT, return, fullscreen" # toggle the window on focus to fullscreen
               "$mainMod ALT, L, exec, hyprlock" # lock screen
-              "$mainMod, backspace, exec, wlogout -b 4" # logout menu
+              "$mainMod, backspace, exec, pkill -x wlogout || wlogout -b 4" # logout menu
               "$CONTROL, ESCAPE, exec, pkill waybar || waybar" # toggle waybar
 
               "$mainMod, Return, exec, $term"

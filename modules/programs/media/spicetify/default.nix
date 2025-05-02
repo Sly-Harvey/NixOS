@@ -20,13 +20,23 @@
         enable = true;
         theme = spicePkgs.themes.catppuccin;
         colorScheme = "mocha";
-
         enabledExtensions = with spicePkgs.extensions; [
           adblock
           shuffle # shuffle+ (special characters are sanitized out of ext names)
+          keyboardShortcut # vimium-like navigation 
+          copyLyrics # copy lyrics with selection
+          # autoVolume
+          # showQueueDuration
           # fullAppDisplay
           # hidePodcasts
         ];
+        # enabledCustomApps = with spicePkgs.apps; [
+        #   reddit
+        #   lyricsPlus
+        #   marketplace
+        #   localFiles
+        #   ncsVisualizer
+        # ];
       };
     })
   ];
