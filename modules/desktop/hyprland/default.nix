@@ -419,16 +419,16 @@
               "$mainMod, k, movefocus, u"
               "$mainMod, j, movefocus, d"
 
-              # Go to workspace 5 (FireFox) and 6 (Spotify) with mouse side buttons
-              "$mainMod, mouse:276, workspace, 5"
-              "$mainMod, mouse:275, workspace, 6"
-              "$mainMod SHIFT, mouse:276, movetoworkspace, 5"
-              "$mainMod SHIFT, mouse:275, movetoworkspace, 6"
-              "$mainMod CTRL, mouse:276, movetoworkspacesilent, 5"
-              "$mainMod CTRL, mouse:275, movetoworkspacesilent, 6"
+              # Go to workspace 6 and 7 with mouse side buttons
+              "$mainMod, mouse:276, workspace, 6"
+              "$mainMod, mouse:275, workspace, 7"
+              "$mainMod SHIFT, mouse:276, movetoworkspace, 6"
+              "$mainMod SHIFT, mouse:275, movetoworkspace, 7"
+              "$mainMod CTRL, mouse:276, movetoworkspacesilent, 6"
+              "$mainMod CTRL, mouse:275, movetoworkspacesilent, 7"
 
               # Rebuild NixOS with a KeyBind
-              "$mainMod, U, exec, [workspace 8] $term -e ${./scripts/rebuild.sh}"
+              "$mainMod, U, exec, [workspace 5] $term -e ${./scripts/rebuild.sh}"
 
               # Scroll through existing workspaces with mainMod + scroll
               "$mainMod, mouse_down, workspace, e+1"
