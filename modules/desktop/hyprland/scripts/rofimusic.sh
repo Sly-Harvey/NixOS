@@ -6,19 +6,19 @@ iDIR="$HOME/.config/hypr/icons"
 # My playlists
 # Added _s for easy searching
 declare -A no_shuffle=(
-  ["_Limo 🎵"]="https://youtube.com/playlist?list=PLLosUj2DlL27b3e4j6k84Bae4uDj7Jgpy"
-  ["_Classics 🎵"]="https://youtube.com/playlist?list=PLLosUj2DlL25PeM3YDfOqjrNRb6qhGruh"
-  ["_80s 90s 2000s 🎵"]="https://youtube.com/playlist?list=PLLosUj2DlL26gkV6hzGrmlSiLA1EzBmnI"
-  ["_Carriageway 🎵"]="https://youtube.com/playlist?list=PLLosUj2DlL248qtltzreF9fTmQsQY4iYV"
-  ["_Motorway 🎵"]="https://youtube.com/playlist?list=PLLosUj2DlL25AAqr1jHInZNlZgHhk2gAl"
-  ["_Metal 🎵"]="https://youtube.com/playlist?list=PLLosUj2DlL25HL6fVPEdR_HBKmmnj4V7k"
-  ["_Hard Rock 🎵"]="https://youtube.com/playlist?list=PLLosUj2DlL24P-FtCGNXOsYMYSw9kYpXn"
-  ["_Rock 🎵"]="https://youtube.com/playlist?list=PLLosUj2DlL24GsFtEVBPieGAWn5FfEDB3"
+  ["_Headbangers 🎵"]="https://youtube.com/playlist?list=PLLosUj2DlL27g7BfUwAEoBr2Cr5EY0aP8"
+  ["_Motorway 🎵"]="https://youtube.com/playlist?list=PLLosUj2DlL2613eXf-20WT6VQnZenrg0X"
+  ["_Carriageway 🎵"]="https://youtube.com/playlist?list=PLLosUj2DlL26qNYOBo0_9yW9za1Egwp_y"
+  ["_Classics 🎵"]="https://youtube.com/playlist?list=PLLosUj2DlL260MDLEfAej9CqFqdycTf3X"
+  ["_Metal 🎵"]="https://youtube.com/playlist?list=PLLosUj2DlL246iFzN3q8-cYCA43YBxv_z"
+  ["_Limo 🎵"]="https://youtube.com/playlist?list=PLLosUj2DlL27x3iZrv2ElvTK7-iQzQKYY"
+  ["_80s 90s 2000s 🎵"]="https://youtube.com/playlist?list=PLLosUj2DlL24FAtYVcivVfHImRsu-ocj4"
+  ["_Hard Rock 🎵"]="https://youtube.com/playlist?list=PLLosUj2DlL25A5u32lnZXtc_AUy-u2AUd"
+  # ["_Dance 🎵"]="https://youtube.com/playlist?list=PLLosUj2DlL27pJt4jO3HUkItoqtE8XaP9"
 )
 
 declare -A shuffle=(
   ["Pop 📻🎶"]="https://youtube.com/playlist?list=PLMC9KNkIncKtPzgY-5rmhvj7fax8fdxoj"
-  # ["Classics UK 🎻🎶"]="https://stream3.hippynet.co.uk:8008/stream.mp3"
   ["Dance 📻🎶"]="https://dancewave.online:443/dance.mp3"
   ["Lofi Radio ☕️🎶"]="https://play.streamafrica.net/lofiradio"
   ["96.3 Easy Rock 📻🎶"]="https://radio-stations-philippines.com/easy-rock"
@@ -44,6 +44,7 @@ notification() {
 
 # Main function
 main() {
+  # TODO: increase this value if adding more playlists
   r_override="entry{placeholder:'Search Music...';}listview{lines:10;}"
   choice=$(printf "%s\n" "${!menu_options[@]}" | rofi -dmenu -theme-str "$r_override" -theme ~/.config/rofi/launchers/type-2/style-2.rasi -i -p "")
 
