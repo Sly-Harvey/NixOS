@@ -118,7 +118,7 @@
             "hyprpaper"
             "sleep 1 && waybar"
             "swaync"
-            "pamixer --set-volume 40"
+            "pamixer --set-volume 46"
             "nm-applet --indicator"
             "wl-clipboard-history -t"
             "${getExe' pkgs.wl-clipboard "wl-paste"} --type text --watch cliphist store" # clipboard store text data
