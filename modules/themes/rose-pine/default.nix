@@ -7,7 +7,10 @@
   variant = "main";
 
   # Compute base names for themes
-  baseName = if variant == "main" then "rose-pine" else "rose-pine-${variant}";
+  baseName =
+    if variant == "main"
+    then "rose-pine"
+    else "rose-pine-${variant}";
   kvantumThemeName = "${baseName}-iris";
 
   # Fetch the Rose Pine Kvantum repository
@@ -17,7 +20,7 @@ in {
   home-manager.sharedModules = [
     ({config, ...}: {
       # Include Rose Pine GTK and icon themes
-      home.packages = [ rose-pine-kvantum-pkg pkgs.rose-pine-gtk-theme pkgs.rose-pine-icon-theme ];
+      home.packages = [rose-pine-kvantum-pkg pkgs.rose-pine-gtk-theme pkgs.rose-pine-icon-theme];
 
       # GTK configuration
       gtk = {

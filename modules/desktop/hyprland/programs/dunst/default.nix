@@ -1,4 +1,8 @@
-{pkgs, browser, ...}: {
+{
+  pkgs,
+  browser,
+  ...
+}: {
   fonts.packages = with pkgs.nerd-fonts; [jetbrains-mono];
   home-manager.sharedModules = [
     (_: {

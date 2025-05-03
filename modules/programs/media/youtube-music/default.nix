@@ -1,6 +1,10 @@
-{ pkgs, lib, ... }: {
+{
+  pkgs,
+  lib,
+  ...
+}: {
   home-manager.sharedModules = [
-    ({ config, ... }: {
+    ({config, ...}: {
       home.packages = with pkgs; [
         youtube-music
         curl
