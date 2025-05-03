@@ -16,7 +16,6 @@
   fuse3,
   autoAddDriverRunpath,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "lact";
   version = "0.7.3";
@@ -92,7 +91,7 @@ rustPlatform.buildRustPackage rec {
 
   preFixup = ''
     gappsWrapperArgs+=(
-      --prefix PATH : "${lib.makeBinPath [ vulkan-tools ]}"
+      --prefix PATH : "${lib.makeBinPath [vulkan-tools]}"
     )
   '';
 
@@ -108,7 +107,7 @@ rustPlatform.buildRustPackage rec {
     }
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Linux GPU Configuration Tool for AMD and NVIDIA";
