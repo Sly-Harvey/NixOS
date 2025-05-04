@@ -6,6 +6,7 @@
         scripts = with pkgs.mpvScripts; [
           thumbnail
           mpris
+          # mpv-notify-send
         ];
         bindings = rec {
           MBTN_LEFT_DBL = "cycle fullscreen";

@@ -65,8 +65,8 @@
         wl-clipboard
         xdotool
         yad
-        # socat # for autowaybar.sh
-        # jq # for autowaybar.sh
+        socat # for rofimusic.sh and autowaybar.sh
+        jq # for rofimusic.sh and autowaybar.sh
       ];
 
       xdg.configFile."hypr/icons" = {
