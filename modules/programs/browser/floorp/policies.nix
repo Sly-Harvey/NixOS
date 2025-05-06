@@ -199,7 +199,7 @@
             "https://raw.githubusercontent.com/DandelionSprout/adfilt/master/ClearURLs for uBo/clear_urls_uboified.txt"
             "https://raw.githubusercontent.com/DandelionSprout/adfilt/master/Dandelion Sprout's Anti-Malware List.txt"
             "https://raw.githubusercontent.com/DandelionSprout/adfilt/master/LegitimateURLShortener.txt"
-            "https://raw.githubusercontent.com/OsborneLabs/Columbia/master/Columbia.txt"
+            # "https://raw.githubusercontent.com/OsborneLabs/Columbia/master/Columbia.txt"
             "https://raw.githubusercontent.com/bogachenko/fuckfuckadblock/master/fuckfuckadblock.txt?_=rawlist"
             "https://raw.githubusercontent.com/iam-py-test/my_filters_001/main/antimalware.txt"
             "https://raw.githubusercontent.com/liamengland1/miscfilters/master/antipaywall.txt"
@@ -257,7 +257,7 @@
           "https://gitflic.ru/project/magnolia1234/bypass-paywalls-clean-filters/blob/raw?file=bpc-paywall-filter.txt"
           "https://raw.githubusercontent.com/DandelionSprout/adfilt/master/ClearURLs for uBo/clear_urls_uboified.txt"
           "https://raw.githubusercontent.com/iam-py-test/my_filters_001/main/antimalware.txt"
-          "https://raw.githubusercontent.com/OsborneLabs/Columbia/master/Columbia.txt"
+          # "https://raw.githubusercontent.com/OsborneLabs/Columbia/master/Columbia.txt"
           "https://raw.githubusercontent.com/bogachenko/fuckfuckadblock/master/fuckfuckadblock.txt?_=rawlist"
           "user-filters"
         ];
