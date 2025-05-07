@@ -77,7 +77,7 @@ cleanup() {
 # Start of prompts
 echo -e "\n${GREEN}Let's configure your NixOS installation.${NC}"
 
-# 1. Username
+# Username
 echo -e "\n${GREEN}Set up a user account:${NC}"
 while true; do
   read -p "Enter username: " username
@@ -88,7 +88,7 @@ while true; do
   fi
 done
 
-# 2. User password
+# User password
 echo -e "\n${GREEN}Set password for $username:${NC}"
 while true; do
   read -s -p "Enter password: " password
@@ -106,7 +106,28 @@ while true; do
   fi
 done
 
-# 3. Set editor for flake.nix
+# GPU Drivers
+echo -e "\n${GREEN}Choose GPU Drivers:${NC}"
+echo "1) nvidia"
+echo "2) amdgpu"
+echo "3) intel"
+while true; do
+  read -p "Enter choice (1, 2 or 3): " driver_choice
+  case $driver_choice in
+    1)
+      sudo sed -i -e "s/videoDriver = \".*\"/videoDriver = \"nvidia\"/" "./flake.nix"
+      break;;
+    2)
+      sudo sed -i -e "s/videoDriver = \".*\"/videoDriver = \"amdgpu\"/" "./flake.nix"
+      break;;
+    3)
+      sudo sed -i -e "s/videoDriver = \".*\"/videoDriver = \"intel\"/" "./flake.nix"
+      break;;
+    *) echo -e "${RED}Invalid choice. Enter 1 or 2.${NC}";;
+  esac
+done
+
+# Set editor for flake.nix
 default_editor=$(check_editors)
 if [ "$default_editor" = "none" ]; then
   echo -e "${RED}No editors found (vim, nano, vi). Falling back to installation without editing flake.nix.${NC}"
@@ -137,7 +158,7 @@ else
   done
 fi
 
-# 4. Edit flake.nix
+# Edit flake.nix
 if [ "$editor" != "none" ]; then
   echo -e "\n${GREEN}Opening flake.nix in $editor for customization...${NC}"
   echo "Edit the 'settings' block to customize username, editor, browser, hostname, etc."
@@ -148,7 +169,7 @@ else
   echo -e "${GREEN}Skipping flake.nix editing as requested or no editor available.${NC}"
 fi
 
-# 5. Partitioning method
+# Partitioning method
 echo -e "\n${GREEN}Choose partitioning method:${NC}"
 echo "1) Automatic (for single OS or clean disk)"
 echo "2) Manual (for dual-boot or custom layouts, launches cfdisk)"
