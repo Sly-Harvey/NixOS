@@ -27,7 +27,7 @@ pkgs.writers.writePython3Bin "auto-clicker"
   print(f"PID: {os.getpid()} (saved to /tmp/auto-clicker.pid)")
   
   device = uinput.Device(keys)
-  # time.sleep(1)  # Small delay before starting to click
+  time.sleep(0.2)  # Small delay before starting to click
   
   try:
       while True:
