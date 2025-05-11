@@ -49,8 +49,8 @@ in {
       services.hyprpaper = {
         enable = true;
         settings = {
-          preload = ["${../wallpapers/${wallpaper}}"];
-          wallpaper = [",${../wallpapers/${wallpaper}}"];
+          preload = ["${../wallpapers/${wallpaper}.jxl}"];
+          wallpaper = [",${../wallpapers/${wallpaper}.jxl}"];
         };
       };
 
