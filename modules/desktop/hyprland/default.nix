@@ -361,12 +361,14 @@
               "$mainMod, backspace, exec, pkill -x wlogout || wlogout -b 4" # logout menu
               "$CONTROL, ESCAPE, exec, pkill waybar || waybar" # toggle waybar
 
+              # Applications/Programs
               "$mainMod, Return, exec, $term"
               "$mainMod, T, exec, $term"
               "$mainMod, E, exec, $fileManager"
               "$mainMod, C, exec, $editor"
               "$mainMod, F, exec, $browser"
               "$mainMod SHIFT, S, exec, spotify"
+              "$mainMod SHIFT, Y, exec, youtube-music"
               "$CONTROL ALT, DELETE, exec, $term -e '${getExe pkgs.btop}'" # System Monitor
               "$mainMod CTRL, C, exec, hyprpicker --autocopy --format=hex" # Colour Picker
 
