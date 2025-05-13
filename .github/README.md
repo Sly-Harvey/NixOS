@@ -1,5 +1,5 @@
 <h1 align="center">
-   <img src="assets/nixos-logo.png" width="100px" /> 
+   <img src="assets/nixos-logo.jxl" width="100px" /> 
    <br>
       My NixOS System
    <br>
@@ -27,14 +27,14 @@
    </div>
 </h1>
 
-![Screenshot](assets/preview1.png)
-![Screenshot](assets/preview2.png)
+![Screenshot](assets/preview1.jxl)
+![Screenshot](assets/preview2.jxl)
 <details>
 <summary>More Previews</summary>
 
-![Screenshot](assets/preview3.png)
-![Screenshot](assets/preview4.png)
-![Screenshot](assets/preview5.png)
+![Screenshot](assets/preview3.jxl)
+![Screenshot](assets/preview4.jxl)
+![Screenshot](assets/preview5.jxl)
 
 </details>
 
