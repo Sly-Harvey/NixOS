@@ -93,6 +93,12 @@
       installation_mode = "force_installed";
       install_url = "https://addons.mozilla.org/firefox/downloads/latest/firemonkey/latest.xpi";
     };
+    "{c4b582ec-4343-438c-bda2-2f691c16c262}" = {
+      private_browsing = true;
+      default_area = "navbar";
+      installation_mode = "force_installed";
+      install_url = "https://addons.mozilla.org/firefox/downloads/latest/600-sound-volume/latest.xpi";
+    };
     "addon@darkreader.org" = {
       private_browsing = true;
       # default_area = "navbar";

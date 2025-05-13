@@ -243,9 +243,11 @@ in {
         "unified-extensions-button"
 
         # Extensions
+        "extension_one-tab_com-browser-action"
         "ublock0_raymondhill_net-browser-action"
         "firemonkey_eros_man-browser-action"
-        "addon_darkreader_org-browser-action"
+        "_c4b582ec-4343-438c-bda2-2f691c16c262_-browser-action"
+        # "addon_darkreader_org-browser-action"
         # "queryamoid_kaply_com-browser-action"
         # "_aecec67f-0d10-4fa7-b7c7-609a2db280cf_-browser-action"
       ];
