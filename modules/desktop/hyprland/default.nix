@@ -117,7 +117,6 @@
             #"[workspace special silent] ${browser} --private-window"
             #"[workspace special silent] ${terminal}"
 
-            "hyprpaper"
             "waybar"
             "swaync"
             "nm-applet --indicator"
