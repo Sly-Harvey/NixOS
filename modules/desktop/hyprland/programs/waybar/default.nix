@@ -187,7 +187,7 @@
               format-alt = "󰾅 {used}GB";
               max-length = 10;
               tooltip = true;
-              tooltip-format = " {used =0.1f}GB/{total =0.1f}GB";
+              tooltip-format = " {used:.1f}GB/{total:.1f}GB";
             };
 
             "backlight" = {
@@ -201,10 +201,10 @@
               # on-click = "nm-connection-editor";
               # "interface" = "wlp2*"; # (Optional) To force the use of this interface
               format-wifi = "󰤨 Wi-Fi";
-              # format-wifi = " {bandwidthDownBits}  {bandwidthUpBits}";
+              # format-wifi = " {bandwidthDownBits}  {bandwidthUpBits}";
               # format-wifi = "󰤨 {essid}";
               format-ethernet = "󱘖 Wired";
-              # format-ethernet = " {bandwidthDownBits}  {bandwidthUpBits}";
+              # format-ethernet = " {bandwidthDownBits}  {bandwidthUpBits}";
               format-linked = "󱘖 {ifname} (No IP)";
               format-disconnected = "󰤮 Off";
               # format-disconnected = "󰤮 Disconnected";
