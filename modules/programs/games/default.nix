@@ -16,8 +16,8 @@
   environment.systemPackages = with pkgs; [
     lutris
     heroic
-    # ryujinx
     # bottles
+    # ryujinx
     # prismlauncher
 
     steam-run
@@ -47,8 +47,8 @@
           no_display = true; # Hide hud by default (Show by holding right-shift then press F12)
           fps_limit = [60 0 144 165 240];
           fps_limit_method = "early"; # early = low input lag and cpu usage but less smooth, late = more smooth
-          vsync = 1; # 1 = OFF, -1 = Default
-          gl_vsync = 0; # 0 = OFF, -2 = Default, N > 1 = (Refresh Rate / N) = fps cap
+          vsync = 2; # https://github.com/flightlessmango/MangoHud#vsync
+          gl_vsync = -1; # https://github.com/flightlessmango/MangoHud#vsync
           # testing for gl_vsync: 1.045
 
           # keybinds
@@ -64,6 +64,7 @@
           show_fps_limit = true;
           frametime = true;
           frame_timing = true;
+          present_mode = true;
           core_load = false;
           ram = true;
           # swap
