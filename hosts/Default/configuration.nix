@@ -49,10 +49,9 @@
     (_: {
       home.packages = with pkgs; [
         # pokego # Overlayed
-        # lact # Overlayed [LONG COMPILE]
         krita
-        gimp
         github-desktop
+        # gimp
       ];
     })
   ];
