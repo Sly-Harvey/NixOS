@@ -266,8 +266,30 @@ fi
 # Handle disk partitioning
 info "Setting up disk partitions..."
 if [ "$partitioning" = "auto" ]; then
-  # Automatic partitioning: 512M EFI, 2G swap, rest for root
-  echo "Creating automatic partition layout..."
+  # Get swap size preference
+  info "Configure swap partition size:"
+  echo "Recommendation: For systems with <= 8GB RAM, use RAM size x 2. For > 8GB RAM, use 8GB or less."
+  echo "Enter size in GB (e.g., 2 for 2GB, 4 for 4GB) or 0 for no swap"
+
+  while true; do
+    read -p "Swap size in GB [default: 2]: " swap_size
+    # Set default if empty
+    swap_size=${swap_size:-2}
+
+    # Validate input is a number
+    if [[ "$swap_size" =~ ^[0-9]+$ ]]; then
+      break
+    else
+      error "Please enter a valid number."
+    fi
+  done
+
+  # Convert GB to MiB
+  swap_size_mib=$((swap_size * 1024))
+  efi_end_mib=513 # EFI partition end point
+
+  # Automatic partitioning: 512M EFI, swap_size GB swap, rest for root
+  echo "Creating automatic partition layout with ${swap_size}GB swap..."
 
   # Safety check before wiping
   if mount | grep -q "/dev/$disk"; then
@@ -282,25 +304,52 @@ if [ "$partitioning" = "auto" ]; then
     exit 1
   }
 
-  parted -s "/dev/$disk" \
-    mklabel gpt \
-    mkpart primary fat32 1MiB 513MiB \
-    set 1 esp on \
-    mkpart primary linux-swap 513MiB 2561MiB \
-    mkpart primary 2561MiB 100% || {
-    error "Partitioning failed! Check if disk is in use."
-    exit 1
-  }
+  if [ "$swap_size" -eq 0 ]; then
+    # No swap partition
+    parted -s "/dev/$disk" \
+      mklabel gpt \
+      mkpart primary fat32 1MiB ${efi_end_mib}MiB \
+      set 1 esp on \
+      mkpart primary ${efi_end_mib}MiB 100% || {
+      error "Partitioning failed! Check if disk is in use."
+      exit 1
+    }
 
-  # Determine partition names based on device type
-  if [[ "/dev/$disk" =~ nvme ]]; then
-    part_boot="${disk}p1"
-    part_swap="${disk}p2"
-    part_root="${disk}p3"
+    # Determine partition names based on device type
+    if [[ "/dev/$disk" =~ nvme ]]; then
+      part_boot="${disk}p1"
+      part_root="${disk}p2"
+    else
+      part_boot="${disk}1"
+      part_root="${disk}2"
+    fi
+
+    part_swap="" # No swap
+
   else
-    part_boot="${disk}1"
-    part_swap="${disk}2"
-    part_root="${disk}3"
+    # With swap partition
+    swap_end_mib=$((efi_end_mib + swap_size_mib))
+
+    parted -s "/dev/$disk" \
+      mklabel gpt \
+      mkpart primary fat32 1MiB ${efi_end_mib}MiB \
+      set 1 esp on \
+      mkpart primary linux-swap ${efi_end_mib}MiB ${swap_end_mib}MiB \
+      mkpart primary ${swap_end_mib}MiB 100% || {
+      error "Partitioning failed! Check if disk is in use."
+      exit 1
+    }
+
+    # Determine partition names based on device type
+    if [[ "/dev/$disk" =~ nvme ]]; then
+      part_boot="${disk}p1"
+      part_swap="${disk}p2"
+      part_root="${disk}p3"
+    else
+      part_boot="${disk}1"
+      part_swap="${disk}2"
+      part_root="${disk}3"
+    fi
   fi
 else
   # Manual partitioning
