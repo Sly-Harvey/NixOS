@@ -72,9 +72,6 @@
         ripgrep
         tldr
         unzip
-        (pkgs.writeShellScriptBin "hello" ''
-          echo "Hello ${username}!"
-        '')
       ];
     };
   };
