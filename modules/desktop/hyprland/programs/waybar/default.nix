@@ -12,6 +12,7 @@
           {
             layer = "top";
             position = "top";
+            mode = "dock"; # Fixes fullscreen issues
             height = 32; # 35
             exclusive = true;
             passthrough = false;
