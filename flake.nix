@@ -47,7 +47,7 @@
     inherit (self) outputs;
     settings = {
       # User configuration
-      username = "error"; # automatically set with install.sh and live-install.sh
+      username = "zer0"; # automatically set with install.sh and live-install.sh
       editor = "nixvim"; # nixvim, vscode, nvchad, neovim, emacs (WIP)
       browser = "floorp"; # firefox, floorp, zen
       terminal = "kitty"; # kitty, alacritty, wezterm
