@@ -89,6 +89,10 @@
               name = "Interactive Nix Lessons";
               url = "https://nixcloud.io/tour/?id=introduction/nix";
             }
+            {
+              name = "Nixpkgs Issue Tracker";
+              url = "https://nixpkgs-tracker.ocfox.me/";
+            }
           ];
         }
         {
