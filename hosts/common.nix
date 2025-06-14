@@ -44,6 +44,11 @@
       programs.home-manager.enable = true;
 
       xdg.enable = true;
+      xdg.portal = {
+        enable = true;
+        extraPortals = with pkgs; [ xdg-desktop-portal-hyprland xdg-desktop-portal-gtk ];
+        xdgOpenUsePortal = true;
+      };
       home.username = username;
       home.homeDirectory =
         if pkgs.stdenv.isDarwin
@@ -145,11 +150,6 @@
   security = {
     polkit.enable = true;
     #sudo.wheelNeedsPassword = false;
-  };
-
-  xdg.portal = {
-    enable = true;
-    extraPortals = with pkgs; [xdg-desktop-portal-gtk];
   };
 
   # Enable dconf for home-manager
