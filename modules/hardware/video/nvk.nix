@@ -2,6 +2,7 @@
 {pkgs, lib, ...}: let
   env = {
     NVK_I_WANT_A_BROKEN_VULKAN_DRIVER = "1"; # Adds support for my gpu (gtx 1080)
+    # NOUVEAU_USE_ZINK = 1; # TODO: TEST
     MESA_LOADER_DRIVER_OVERRIDE = "zink"; # TODO TEST
     GALLIUM_DRIVER = "zink";
     # MESA_VK_VERSION_OVERRIDE = "1.3";
