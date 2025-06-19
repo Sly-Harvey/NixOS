@@ -264,6 +264,7 @@
             "opacity 0.90 0.90,title:^(Hyprland Polkit Agent)$" # polkit prompt
             "opacity 1.00 1.00,class:^(firefox)$"
             "opacity 0.90 0.90,class:^(Brave-browser)$"
+            "opacity 0.80 0.80,class:^(thunar)$"
             "opacity 0.80 0.80,class:^(Steam)$"
             "opacity 0.80 0.80,class:^(steam)$"
             "opacity 0.80 0.80,class:^(steamwebhelper)$"
