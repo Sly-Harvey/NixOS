@@ -1,4 +1,5 @@
-{...}: {
+{ pkgs, ... }:
+{
   #  use later
   home-manager.sharedModules = [
     (_: {
@@ -36,6 +37,7 @@
             "volume"
             "mpris"
             "notifications"
+            "buttons-grid"
           ];
           widget-config = {
             title = {
@@ -44,8 +46,11 @@
               button-text = "";
             };
             "menubar#desktop" = {
+              "backlight" = {
+                label = "       󰃟  ";
+              };
               "menu#screenshot" = {
-                label = "\t󰄀   Screenshot\t";
+                label = "	󰄀   Screenshot	";
                 position = "left";
                 actions = [
                   {
@@ -59,9 +64,13 @@
                 ];
               };
               "menu#power" = {
-                label = "\t   Power Menu\t  ";
+                label = "	   Power Menu	  ";
                 position = "left";
                 actions = [
+                  {
+                    label = "   Lock";
+                    command = "hyprlock";
+                  }
                   {
                     label = "   Logout";
                     command = "hyprctl dispatch exit 0";
@@ -101,6 +110,68 @@
               clear-all-button = true;
               button-text = "";
             };
+
+            "buttons-grid" = {
+              actions = [
+
+                {
+                  label = "󰝟";
+                  type = "toggle";
+                  command = "pamixer -t";
+                  update-command = "sh -c 'pamixer --get-mute | grep -q true && echo true || echo false'";
+                }
+                {
+                  label = "󰍭";
+                  type = "toggle";
+                  command = "pamixer --default-source -t";
+                  update-command = "sh -c 'pamixer --get-mute --default-source | grep true && echo true || echo false'";
+                }
+
+                {
+                  label = "";
+                  type = "toggle";
+                  command = "blueman-manager";
+                  update-command = "sh -c 'bluetoothctl show | grep -q \\\"Powered: yes\\\" && echo true || echo false'";
+                }
+
+                {
+                  label = "󰤨";
+                  type = "toggle";
+                  command = "sh -c '[ \"$SWAYNC_TOGGLE_STATE\" = true ] && nmcli radio wifi on || nmcli radio wifi off'";
+                  update-command = "sh -c 'nmcli radio wifi | grep -q enabled && echo true || echo false'";
+                }
+
+                {
+                  label = "🎮";
+                  type = "toggle";
+                  command = "${../../../hyprland/scripts/gamemode.sh}";
+                  update-command = "hyprctl getoption animations:enabled | grep -q 'int: 1' && echo false || echo true";
+                }
+
+                {
+                  label = "󰤄";
+                  type = "toggle";
+                  command = "sh -c '${pkgs.procps}/bin/pgrep -x hyprsunset >/dev/null && ${pkgs.procps}/bin/pkill hyprsunset || nohup ${pkgs.hyprsunset}/bin/hyprsunset --temperature 3500 > /tmp/hyprsunset_output.log 2>&1 &'";
+                  update-command = "sh -c 'pgrep -x hyprsunset >/dev/null && echo true || echo false'";
+                }
+
+                {
+                  label = "☕";
+                  command = "systemctl --user is-active --quiet hypridle.service && systemctl --user stop hypridle.service || systemctl --user start hypridle.service";
+                  type = "toggle";
+                  update-command = "pgrep -x hypridle > /dev/null && echo false || echo true";
+                }
+
+                {
+                  label = "";
+                  type = "toggle";
+
+                  command = "${../../../hyprland/scripts/TogglePowerMode.sh}";
+                  update-command = "test -f \"$HOME/.config/hypr/power_mode\" && grep -q \"^powersave$\" \"$HOME/.config/hypr/power_mode\" && echo true || echo false";
+                }
+
+              ];
+            };
           };
           scripts = {
             example-script = {
@@ -122,7 +193,7 @@
           };
         };
         style = ''
-                    @define-color shadow rgba(0, 0, 0, 0.25);
+          @define-color shadow rgba(0, 0, 0, 0.25);
           /*
           *
           * Catppuccin Mocha palette
@@ -170,7 +241,7 @@
           }
 
           /* #notifications_box { */
-          /*   border: solid 4px red; */
+          /* border: solid 4px red; */
           /* } */
 
           label {
@@ -297,7 +368,7 @@
           }
 
           /* .right.overlay-indicator { */
-          /*   border: solid 5px red; */
+          /* border: solid 5px red; */
           /* } */
 
           .control-center-list {
