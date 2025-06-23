@@ -4,6 +4,7 @@
     enable = true;
     videoDrivers = ["amdgpu"];
   };
+  environment.systemPackages = with pkgs; [rocmPackages.amdsmi];
   hardware.graphics = {
     enable = true;
     enable32Bit = true;
