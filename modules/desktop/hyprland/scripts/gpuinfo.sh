@@ -7,7 +7,7 @@ nvidia_gpu=$(nvidia-smi --query-gpu=gpu_name --format=csv,noheader,nounits 2>/de
 get_temperature_emoji() {
   local temperature="$1"
   if [ "$temperature" -lt 80 ] 2>/dev/null; then
-    echo "❄️" # Ice emoji for less than 75°C
+    echo "❄️" # Ice emoji for less than 80°C
   else
     echo "🔥" # Fire emoji for 80°C or higher
   fi
@@ -51,113 +51,74 @@ get_intel_gpu_temperature() {
 
 # Function to get AMD GPU metrics
 get_amd_gpu_metrics() {
-  local card_path="$1"
   local temperature="" utilization="" core_clock="" power_usage=""
-  local hwmon_dir=""
-
-  # Method 1: Look in card hwmon subdirectory
-  if [ -d "${card_path}/hwmon" ]; then
-    hwmon_dir=$(find "${card_path}/hwmon" -type d -name 'hwmon*' -print -quit 2>/dev/null)
+  
+  # Method 1: Try amd-smi with JSON output
+  if command -v amd-smi >/dev/null 2>&1 && command -v jq >/dev/null 2>&1; then
+    local amd_output=$(amd-smi metric -t --json 2>/dev/null)
+    if [ -n "$amd_output" ]; then
+      temperature=$(echo "$amd_output" | jq -r '.gpu_0.temperature.hotspot_temp // .gpu_0.temperature.edge_temp // (to_entries[] | select(.key | startswith("gpu_")) | .value.temperature.hotspot_temp // .value.temperature.edge_temp) // empty' 2>/dev/null | head -n1)
+      utilization=$(echo "$amd_output" | jq -r '.gpu_0.utilization.gfx_activity // (to_entries[] | select(.key | startswith("gpu_")) | .value.utilization.gfx_activity) // empty' 2>/dev/null | head -n1)
+      core_clock=$(echo "$amd_output" | jq -r '.gpu_0.clock.gfx_clock // (to_entries[] | select(.key | startswith("gpu_")) | .value.clock.gfx_clock) // empty' 2>/dev/null | head -n1)
+      power_usage=$(echo "$amd_output" | jq -r '.gpu_0.power.socket_power // .gpu_0.power.total_power // (to_entries[] | select(.key | startswith("gpu_")) | .value.power.socket_power // .value.power.total_power) // empty' 2>/dev/null | head -n1)
+    fi
   fi
-
-  # Method 2: Look for hwmon with amdgpu name
-  if [ -z "$hwmon_dir" ]; then
+  
+  # Method 2: Try sensors command
+  if [ -z "$temperature" ] && command -v sensors >/dev/null 2>&1; then
+    local sensors_output=$(sensors 2>/dev/null | grep -A5 "amdgpu")
+    if [ -n "$sensors_output" ]; then
+      temperature=$(echo "$sensors_output" | grep -E "(edge|junction|hotspot)" | head -n1 | grep -o '+[0-9]\+' | sed 's/+//')
+    fi
+  fi
+  
+  # Method 3: Try hwmon/sysfs fallback
+  if [ -z "$temperature" ]; then
     for hwmon in /sys/class/hwmon/hwmon*/; do
-      if [ -f "${hwmon}name" ]; then
-        name=$(cat "${hwmon}name" 2>/dev/null)
-        if [[ "$name" == "amdgpu" ]]; then
-          hwmon_dir="$hwmon"
-          break
-        fi
+      if [ -f "${hwmon}name" ] && [[ "$(cat "${hwmon}name" 2>/dev/null)" == "amdgpu" ]]; then
+        for temp_file in "${hwmon}temp1_input" "${hwmon}temp2_input"; do
+          if [ -f "$temp_file" ]; then
+            local temp_raw=$(cat "$temp_file" 2>/dev/null)
+            if [ -n "$temp_raw" ] && [ "$temp_raw" -gt 0 ]; then
+              temperature=$((temp_raw / 1000))
+              break 2
+            fi
+          fi
+        done
       fi
     done
   fi
-
-  # Temperature - try multiple temperature inputs
-  for temp_file in "${hwmon_dir}/temp1_input" "${hwmon_dir}/temp2_input" "${card_path}/gpu_temp" "${card_path}/temp1_input"; do
-    if [ -f "$temp_file" ]; then
-      temp_raw=$(cat "$temp_file" 2>/dev/null)
-      if [ -n "$temp_raw" ] && [ "$temp_raw" -gt 0 ]; then
-        if [ "$temp_raw" -gt 1000 ]; then
-          temperature=$((temp_raw / 1000)) # Convert from millidegrees
-        else
-          temperature="$temp_raw" # Already in degrees
-        fi
+  
+  # Get additional metrics from sysfs if we have temperature
+  if [ -n "$temperature" ] && [ "$temperature" != "N/A" ]; then
+    for card in /sys/class/drm/card*/device; do
+      if [ -L "$card/driver" ] && basename "$(readlink -f "$card/driver")" 2>/dev/null | grep -qi "amdgpu"; then
+        [ -z "$utilization" ] && [ -f "${card}/gpu_busy_percent" ] && utilization=$(cat "${card}/gpu_busy_percent" 2>/dev/null)
+        [ -z "$core_clock" ] && [ -f "${card}/pp_dpm_sclk" ] && core_clock=$(cat "${card}/pp_dpm_sclk" 2>/dev/null | grep '\*' | grep -o '[0-9]\+' | head -n1)
         break
       fi
-    fi
-  done
-
-  # Utilization - try multiple possible locations
-  for util_file in "${card_path}/gpu_busy_percent" "${card_path}/gpu_usage" "${card_path}/utilization"; do
-    if [ -f "$util_file" ]; then
-      utilization=$(cat "$util_file" 2>/dev/null)
-      if [ -n "$utilization" ]; then
-        break
-      fi
-    fi
-  done
-
-  # Core Clock - try multiple approaches
-  if [ -f "${card_path}/pp_dpm_sclk" ]; then
-    # Look for the line with asterisk (current frequency)
-    core_clock=$(cat "${card_path}/pp_dpm_sclk" 2>/dev/null | grep '\*' | grep -o '[0-9]\+Mhz\|[0-9]\+MHz' | head -n1 | grep -o '[0-9]\+')
-    # If no asterisk line found, get first frequency
-    if [ -z "$core_clock" ]; then
-      core_clock=$(cat "${card_path}/pp_dpm_sclk" 2>/dev/null | head -n1 | grep -o '[0-9]\+' | head -n1)
-    fi
-  elif [ -f "${card_path}/gpu_clock" ]; then
-    core_clock=$(cat "${card_path}/gpu_clock" 2>/dev/null)
+    done
   fi
-
-  # Power Usage - try multiple power files
-  for power_file in "${hwmon_dir}/power1_average" "${hwmon_dir}/power1_input" "${card_path}/power_usage"; do
-    if [ -f "$power_file" ]; then
-      power_raw=$(cat "$power_file" 2>/dev/null)
-      if [ -n "$power_raw" ] && [ "$power_raw" -gt 0 ]; then
-        if [ "$power_raw" -gt 1000000 ]; then
-          power_usage=$(echo "scale=1; $power_raw / 1000000" | bc 2>/dev/null) # Convert from microwatts
-        elif [ "$power_raw" -gt 1000 ]; then
-          power_usage=$(echo "scale=1; $power_raw / 1000" | bc 2>/dev/null) # Convert from milliwatts
-        else
-          power_usage="$power_raw" # Already in watts
-        fi
-        break
-      fi
-    fi
-  done
-
-  # Set defaults for missing values
+  
+  # Clean up values
+  temperature=$(echo "$temperature" | cut -d'.' -f1 2>/dev/null)
   temperature=${temperature:-"N/A"}
   utilization=${utilization:-"N/A"}
   core_clock=${core_clock:-"N/A"}
   power_usage=${power_usage:-"N/A"}
 
-  # Output metrics as JSON for parsing
-  if command -v jq >/dev/null 2>&1; then
-    jq -n \
-      --arg temp "$temperature" \
-      --arg util "$utilization" \
-      --arg clock "$core_clock" \
-      --arg power "$power_usage" \
-      '{ "GPU Temperature": $temp, "GPU Load": $util, "GPU Core Clock": $clock, "GPU Power Usage": $power }'
-  else
-    # Fallback if jq is not available
-    echo "{\"GPU Temperature\": \"$temperature\", \"GPU Load\": \"$utilization\", \"GPU Core Clock\": \"$core_clock\", \"GPU Power Usage\": \"$power_usage\"}"
-  fi
+  # Output as JSON
+  echo "{\"GPU Temperature\": \"$temperature\", \"GPU Load\": \"$utilization\", \"GPU Core Clock\": \"$core_clock\", \"GPU Power Usage\": \"$power_usage\"}"
 }
 
 # Check if primary GPU is NVIDIA
 if [ -n "$nvidia_gpu" ]; then
-  # If nvidia-smi failed, format and exit
   if [[ $nvidia_gpu == *"NVIDIA-SMI has failed"* ]]; then
     echo "{\"text\":\"N/A\", \"tooltip\":\"Primary GPU: Not found\"}"
     exit 0
   fi
 
-  primary_gpu="NVIDIA GPU"
   gpu_info=$(nvidia-smi --query-gpu=temperature.gpu,utilization.gpu,clocks.current.graphics,clocks.max.graphics,power.draw,power.limit --format=csv,noheader,nounits 2>/dev/null)
-  # Split the comma-separated values into an array
   IFS=',' read -ra gpu_data <<<"$gpu_info"
   temperature="${gpu_data[0]// /}"
   utilization="${gpu_data[1]// /}"
@@ -167,7 +128,7 @@ if [ -n "$nvidia_gpu" ]; then
   power_limit="${gpu_data[5]// /}"
   emoji=$(get_temperature_emoji "$temperature")
 
-  echo "{\"text\":\"$temperature°C\", \"tooltip\":\"Primary GPU: $primary_gpu\n$emoji Temperature: $temperature°C\n󰾆 Utilization: $utilization%\n Clock Speed: $current_clock_speed/$max_clock_speed MHz\n Power Usage: $power_usage/$power_limit W\"}"
+  echo "{\"text\":\"$temperature°C\", \"tooltip\":\"Primary GPU: NVIDIA GPU\n$emoji Temperature: $temperature°C\n󰾆 Utilization: $utilization%\n Clock Speed: $current_clock_speed/$max_clock_speed MHz\n Power Usage: $power_usage/$power_limit W\"}"
   exit 0
 fi
 
@@ -176,7 +137,7 @@ amd_found=false
 for card in /sys/class/drm/card*/device; do
   if [ -L "$card/driver" ] && basename "$(readlink -f "$card/driver")" 2>/dev/null | grep -qi "amdgpu"; then
     primary_gpu="AMD GPU"
-    amd_output=$(get_amd_gpu_metrics "$card")
+    amd_output=$(get_amd_gpu_metrics)
 
     # Parse the JSON output (with fallback for systems without jq)
     if command -v jq >/dev/null 2>&1; then
