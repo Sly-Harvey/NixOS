@@ -53,6 +53,7 @@
         # krita
         github-desktop
         # gimp
+        obsidian
       ];
     })
   ];
