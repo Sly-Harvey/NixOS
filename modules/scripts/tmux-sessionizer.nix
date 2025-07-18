@@ -11,7 +11,7 @@ pkgs.writeShellScriptBin "tmux-sessionizer" ''
       selected="$1"
   else
       # Quote the command to preserve spaces in paths
-      selected=$(realpath "$(${lib.getExe pkgs.fd} --min-depth 1 --max-depth 1 --type d . ~/ ~/git-clone/ /mnt/ /mnt/*/Projects/ /mnt/*/Media/ /mnt/*/Pimsleur/ /mnt/*/Languages/ | $fzf)")
+      selected=$(realpath "$(${lib.getExe pkgs.fd} --min-depth 1 --max-depth 1 --type d . ~/ ~/Documents/ ~/git-clone/ /mnt/ /mnt/*/Projects/ /mnt/*/Media/ /mnt/*/Pimsleur/ /mnt/*/Languages/ | $fzf)")
   fi
 
   if [[ -z "$selected" ]]; then
