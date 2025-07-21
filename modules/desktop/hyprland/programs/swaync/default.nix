@@ -390,7 +390,7 @@
 
           .notification-group {
             /* unset the annoying focus thingie */
-            opacity: 0;
+            opacity: 1.0;
             box-shadow: none;
             /* selectable: no; */
           }
@@ -650,7 +650,7 @@
 
           .notification-group > box.vertical {
             /* border: solid 5px red; */
-            margin-top: 3px
+            margin-top: 3px;
           }
 
           /* Backlight and volume widgets */
@@ -661,7 +661,8 @@
             /* background-color: @theme_bg_color; */
             /* border: 1px solid @surface1; */
             border-top: none;
-            border-bottom: none; font-size: 13px;
+            border-bottom: none;
+            font-size: 13px;
             font-weight: 600;
             border-radius: 0px;
             margin: 0px;
