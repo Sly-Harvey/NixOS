@@ -10,6 +10,7 @@
   kbdLayout,
   kbdVariant,
   consoleKeymap,
+  config,
   self,
   ...
 }: {
@@ -46,39 +47,40 @@
       xdg.enable = true;
       xdg.portal = {
         enable = true;
-        extraPortals = with pkgs; [ xdg-desktop-portal-hyprland xdg-desktop-portal-gtk ];
+        extraPortals = with pkgs; [xdg-desktop-portal-hyprland xdg-desktop-portal-gtk];
         xdgOpenUsePortal = true;
       };
-      home.username = username;
-      home.homeDirectory =
-        if pkgs.stdenv.isDarwin
-        then "/Users/${username}"
-        else "/home/${username}";
-      home.stateVersion = "23.11"; # Please read the comment before changing.
-      home.sessionVariables = {
-        EDITOR = "nvim";
-        BROWSER = browser;
-        TERMINAL = terminal;
+      home = {
+        username = username;
+        homeDirectory =
+          if pkgs.stdenv.isDarwin
+          then "/Users/${username}"
+          else "/home/${username}";
+        stateVersion = "23.11"; # Please read the comment before changing.
+        sessionVariables = {
+          EDITOR = "nvim";
+          BROWSER = browser;
+          TERMINAL = terminal;
+        };
+        # Packages that don't require configuration. If you're looking to configure a program see the /modules dir
+        packages = with pkgs; [
+          # Applications
+          #kate
+
+          # Terminal
+          fzf
+          fd
+          git
+          gh
+          htop
+          libjxl
+          microfetch
+          nix-prefetch-scripts
+          ripgrep
+          tldr
+          unzip
+        ];
       };
-
-      # Packages that don't require configuration. If you're looking to configure a program see the /modules dir
-      home.packages = with pkgs; [
-        # Applications
-        #kate
-
-        # Terminal
-        fzf
-        fd
-        git
-        gh
-        htop
-        libjxl
-        microfetch
-        nix-prefetch-scripts
-        ripgrep
-        tldr
-        unzip
-      ];
     };
   };
 
@@ -223,6 +225,7 @@
   programs.zsh.enable = true;
   users.defaultUserShell = pkgs.zsh;
 
+  fonts.fontDir.enable = true;
   fonts.packages = with pkgs.nerd-fonts; [
     jetbrains-mono
     fira-code
