@@ -400,14 +400,14 @@ in {
               id = 0; # 0 is the default profile; see also option "isDefault"
               name = "default"; # name as listed in about:profiles
               isDefault = true; # can be omitted; true if profile ID is 0
-              extensions.packages = with pkgs.nur.repos.rycee.firefox-addons; [
-                ublock-origin
-                violentmonkey
-                darkreader
-                betterttv
-                sponsorblock
-                return-youtube-dislikes
-              ];
+              #extensions.packages = with pkgs.nur.repos.rycee.firefox-addons; [
+              #  ublock-origin
+              #  violentmonkey
+              #  darkreader
+              #  betterttv
+              #  sponsorblock
+              #  return-youtube-dislikes
+              #];
               settings = {};
               bookmarks = [
                 {
