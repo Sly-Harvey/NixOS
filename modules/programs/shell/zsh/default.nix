@@ -5,7 +5,7 @@
   ...
 }: {
   home-manager.sharedModules = [
-    (_: {
+    ({config, ...}: {
       xdg.configFile."zsh/.p10k.zsh".source = ./.p10k.zsh;
       xdg.configFile."zsh/templates" = {
         source = ./templates;
@@ -18,7 +18,7 @@
         enableCompletion = true;
         history.size = 100000;
         history.path = "\${XDG_DATA_HOME}/zsh/history";
-        dotDir = ".config/zsh";
+        dotDir = "${config.xdg.configHome}/zsh";
         # plugins = [
         #   {
         #     name = "powerlevel10k";
