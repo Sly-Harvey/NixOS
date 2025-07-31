@@ -153,6 +153,7 @@ in {
 
   # General settings
   "ui.key.accelKey" = 17; # Set CTRL as master key
+  "intl.locale.requested" = "en-GB,en-US";
   "browser.aboutConfig.showWarning" = lock-false;
   "browser.aboutwelcome.enabled" = lock-false;
   "browser.tabs.firefox-view" = lock-false;

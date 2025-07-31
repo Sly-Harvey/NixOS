@@ -139,6 +139,7 @@ in {
 
   # General settings
   "ui.key.accelKey" = 17; # Set CTRL as master key
+  "intl.locale.requested" = "en-GB,en-US";
   "browser.aboutConfig.showWarning" = lock-false;
   "browser.aboutwelcome.enabled" = lock-false;
   "browser.tabs.firefox-view" = lock-false;
@@ -170,7 +171,9 @@ in {
   "browser.ssb.enabled" = true;
   "browser.toolbars.bookmarks.visibility" = "newtab"; # always, never, newtab
   #"browser.urlbar.placeholderName" = "Google";
-  "browser.urlbar.suggest.openpage" = false;
+  "browser.urlbar.suggest.topsites" = lock-false;
+  "browser.urlbar.suggest.openpage" = lock-false;
+  "browser.urlbar.suggest.recentsearches" = lock-false;
   "datareporting.policy.dataSubmissionEnable" = false;
   "datareporting.policy.dataSubmissionPolicyAcceptedVersion" = 2;
 
