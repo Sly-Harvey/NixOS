@@ -37,6 +37,12 @@
       url = "github:nix-community/nix4nvchad";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    sqlmap = {
+      url = "github:sqlmapproject/sqlmap";
+      flake = false;
+    };
+
+
   };
 
   outputs = {
@@ -54,6 +60,7 @@
       terminalFileManager = "yazi"; # yazi or lf
       sddmTheme = "purple_leaves"; # astronaut, black_hole, purple_leaves, jake_the_dog, hyprland_kath
       wallpaper = "kurzgesagt"; # see modules/themes/wallpapers
+      shell = "zsh"; # zsh or fish
 
       # System configuration
       videoDriver = "amdgpu"; # CHOOSE YOUR GPU DRIVERS (nvidia, amdgpu or intel)

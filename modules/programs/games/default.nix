@@ -14,11 +14,16 @@
     enable32Bit = true;
   };
   environment.systemPackages = with pkgs; [
+    protonup
     lutris
     heroic
-    # bottles
+    bottles
     # ryujinx
     # prismlauncher
+
+    wine64
+    wine
+    winetricks
 
     steam-run
     wineWowPackages.staging
@@ -45,8 +50,8 @@
         };
         settings = {
           no_display = true; # Hide hud by default (Show by holding right-shift then press F12)
-          fps_limit = [60 0 144 165 240];
-          fps_limit_method = "early"; # early = low input lag and cpu usage but less smooth, late = more smooth
+          #fps_limit = [165 0 60 144 240];
+          #fps_limit_method = "early"; # early = low input lag and cpu usage but less smooth, late = more smooth
           vsync = 2; # https://github.com/flightlessmango/MangoHud#vsync
           gl_vsync = 1; # https://github.com/flightlessmango/MangoHud#vsync
           # testing for gl_vsync: 1.045
@@ -91,6 +96,13 @@
           # gpu_load_color=39F900,FDFD09,B22222
         };
       };
+
+      # Run Steam on CPU cores 0-15 using taskset
+      home.packages = [
+        (pkgs.writeShellScriptBin "steam" ''
+          exec taskset -c 0-15 ${pkgs.steam}/bin/steam "$@"
+        '')
+      ];
     })
   ];
 }

@@ -65,8 +65,8 @@
         wl-clipboard
         xdotool
         yad
-        # socat # for and autowaybar.sh
-        # jq # for and autowaybar.sh
+        socat # for and autowaybar.sh
+        jq # for and autowaybar.sh
       ];
 
       xdg.configFile."hypr/icons" = {
@@ -125,7 +125,7 @@
             "${getExe' pkgs.wl-clipboard "wl-paste"} --type image --watch cliphist store" # clipboard store image data
             "rm '$XDG_CACHE_HOME/cliphist/db'" # Clear clipboard
             "${./scripts/batterynotify.sh}" # battery notification
-            # "${./scripts/autowaybar.sh}" # uncomment packages at the top
+            "${./scripts/autowaybar.sh}" # uncomment packages at the top
             "polkit-agent-helper-1"
             "pamixer --set-volume 50"
           ];
@@ -285,8 +285,8 @@
             "opacity 0.80 0.80,class:^(hu.kramo.Cartridges)$" #Cartridges-Gtk
             "opacity 0.80 0.80,class:^(com.obsproject.Studio)$" #Obs-Qt
             "opacity 0.80 0.80,class:^(gnome-boxes)$" #Boxes-Gtk
-            "opacity 0.90 0.90,class:^(discord)$" #Discord-Electron
-            "opacity 0.90 0.90,class:^(WebCord)$" #WebCord-Electron
+            #"opacity 0.90 0.90,class:^(discord)$" #Discord-Electron
+            #"opacity 0.90 0.90,class:^(WebCord)$" #WebCord-Electron
             "opacity 0.80 0.80,class:^(app.drey.Warp)$" #Warp-Gtk
             "opacity 0.80 0.80,class:^(net.davidotek.pupgui2)$" #ProtonUp-Qt
             "opacity 0.80 0.80,class:^(Signal)$" #Signal-Gtk
@@ -331,6 +331,7 @@
             "float,class:^(nm-applet)$"
             "float,class:^(nm-connection-editor)$"
             "float,class:^(org.kde.polkit-kde-authentication-agent-1)$"
+            "float,class:^(org.gnome.Calculator)$" #Gnome-Calculator
           ];
           binde = [
             # Resize windows
@@ -383,13 +384,14 @@
               "$mainMod, T, exec, $term"
               "$mainMod, E, exec, $fileManager"
               "$mainMod, C, exec, $editor"
-              "$mainMod, F, exec, $browser"
+              "$mainMod, F, exec, thunar"
+              "$mainMod, B, exec, $browser"
               "$mainMod SHIFT, S, exec, spotify"
               "$mainMod SHIFT, Y, exec, youtube-music"
               "$CONTROL ALT, DELETE, exec, $term -e '${getExe pkgs.btop}'" # System Monitor
               "$mainMod CTRL, C, exec, hyprpicker --autocopy --format=hex" # Colour Picker
 
-              "$mainMod, A, exec, pkill -x rofi || ${./scripts/rofi.sh} drun" # launch desktop applications
+              #"$mainMod, A, exec, pkill -x rofi || ${./scripts/rofi.sh} drun" # launch desktop applications
               "$mainMod, SPACE, exec, pkill -x rofi || ${./scripts/rofi.sh} drun" # launch desktop applications
               "$mainMod, Z, exec, pkill -x rofi || ${./scripts/rofi.sh} emoji" # launch emoji picker
               # "$mainMod, tab, exec, pkill -x rofi || ${./scripts/rofi.sh} window" # switch between desktop applications
@@ -510,21 +512,23 @@
           monitor=,preferred,auto,1
 
           # 1080p-HDR monitor on the left, 4K-HDR monitor in the middle and 1080p vertical monitor on the right.
-          monitor=desc:BNQ BenQ EW277HDR 99J01861SL0,preferred,-1920x0,1
-          monitor=desc:BNQ BenQ EL2870U PCK00489SL0,preferred,0x0,2
-          monitor=desc:BNQ BenQ xl2420t 99D06760SL0,preferred,1920x0,1,transform,1 # 5 for fipped
+          monitor=desc:Microstep G274QPF-QD CC2H273500660,preferred,0x0,1
+          monitor=desc:Samsung Electric Company SAMSUNG,preferred,2560x0,1.5
+          #monitor=desc:BNQ BenQ xl2420t 99D06760SL0,preferred,1920x0,1,transform,1 # 5 for fipped
 
           # Binds workspaces to my monitors only (find desc with: hyprctl monitors)
-          workspace=1,monitor:desc:BNQ BenQ EL2870U PCK00489SL0,default:true
-          workspace=2,monitor:desc:BNQ BenQ EL2870U PCK00489SL0
-          workspace=3,monitor:desc:BNQ BenQ EL2870U PCK00489SL0
-          workspace=4,monitor:desc:BNQ BenQ EL2870U PCK00489SL0
-          workspace=5,monitor:desc:BNQ BenQ EW277HDR 99J01861SL0,default:true
-          workspace=6,monitor:desc:BNQ BenQ EW277HDR 99J01861SL0
-          workspace=7,monitor:desc:BNQ BenQ EW277HDR 99J01861SL0
-          workspace=8,monitor:desc:BNQ BenQ xl2420t 99D06760SL0,default:true
-          workspace=9,monitor:desc:BNQ BenQ xl2420t 99D06760SL0
-          workspace=10,monitor:desc:BNQ BenQ EL2870U PCK00489SL0
+          workspace=1,monitor:desc:Microstep G274QPF-QD CC2H273500660,default:true
+          workspace=2,monitor:desc:Samsung Electric Company SAMSUNG,default:true
+          workspace=3,monitor:desc:Microstep G274QPF-QD CC2H273500660
+          workspace=4,monitor:desc:Samsung Electric Company SAMSUNG
+          workspace=5,monitor:desc:Microstep G274QPF-QD CC2H273500660
+          workspace=6,monitor:desc:Samsung Electric Company SAMSUNG
+          workspace=7,monitor:desc:Microstep G274QPF-QD CC2H273500660
+          workspace=8,monitor:desc:Samsung Electric Company SAMSUNG
+          workspace=9,monitor:desc:Microstep G274QPF-QD CC2H273500660
+          workspace=10,monitor:desc:Samsung Electric Company SAMSUNG
+          workspace=11,monitor:desc:Microstep G274QPF-QD CC2H273500660, persistent:true
+          workspace=12,monitor:desc:Samsung Electric Company SAMSUNG, persistent:true
         '';
       };
     })

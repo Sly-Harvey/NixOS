@@ -124,7 +124,7 @@
           };
 
           terminal.shell = {
-            program = "${getExe pkgs.zsh}";
+            program = "${getExe pkgs.fish}";
           };
 
           keyboard.bindings = [

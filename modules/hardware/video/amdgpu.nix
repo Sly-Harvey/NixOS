@@ -12,9 +12,9 @@
       amdvlk
       libvdpau-va-gl
       vaapiVdpau
-      # vulkan-loader
-      # vulkan-extension-layer
-      # vulkan-validation-layers
+      vulkan-loader
+      vulkan-extension-layer
+      vulkan-validation-layers
     ];
     extraPackages32 = with pkgs; [driversi686Linux.amdvlk];
   };

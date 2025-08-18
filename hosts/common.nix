@@ -12,6 +12,7 @@
   consoleKeymap,
   config,
   self,
+  shell,
   ...
 }: {
   imports = [
@@ -20,7 +21,7 @@
   ];
 
   programs.nix-index-database.comma.enable = true;
-
+  # ps -eLo psr | awk 'NR>1 {count[$1]++} END {for (cpu in count) print "CPU " cpu ": " count[cpu] " processes"}' | sort -n
   users.users.${username} = {
     isNormalUser = true;
     extraGroups = [
@@ -37,6 +38,7 @@
 
   # Common home-manager options that are shared between all systems.
   home-manager = {
+    verbose = true;
     useGlobalPkgs = true;
     useUserPackages = true;
     backupFileExtension = "backup";
@@ -49,6 +51,9 @@
         enable = true;
         extraPortals = with pkgs; [xdg-desktop-portal-hyprland xdg-desktop-portal-gtk];
         xdgOpenUsePortal = true;
+        config.hyprland = {
+            "org.freedesktop.impl.portal.ScreenCast" = "hyprland";
+        };
       };
       home = {
         username = username;
@@ -58,7 +63,7 @@
           else "/home/${username}";
         stateVersion = "23.11"; # Please read the comment before changing.
         sessionVariables = {
-          EDITOR = "nvim";
+          EDITOR = "vscode";
           BROWSER = browser;
           TERMINAL = terminal;
         };
@@ -66,12 +71,21 @@
         packages = with pkgs; [
           # Applications
           #kate
-
+          anydesk
+          zoom-us
+          wireguard-tools
+          firefox
+          protonvpn-gui
+          qbittorrent
+          libreoffice-qt
+          gnome-calculator
+          
           # Terminal
           fzf
           fd
           git
           gh
+          ncdu
           htop
           libjxl
           microfetch
@@ -79,6 +93,9 @@
           ripgrep
           tldr
           unzip
+          zoxide
+          hunspell
+          bat
         ];
       };
     };
@@ -99,11 +116,11 @@
   # Bootloader.
   boot = {
     tmp.cleanOnBoot = true;
-    kernelPackages = pkgs.linuxPackages_latest; # _latest, _zen, _xanmod_latest, _hardened, _rt, _OTHER_CHANNEL, etc.
+    kernelPackages = pkgs.linuxPackages_zen; # _latest, _zen, _xanmod_latest, _hardened, _rt, _OTHER_CHANNEL, etc.
     loader = {
       efi.canTouchEfiVariables = true;
       efi.efiSysMountPoint = "/boot";
-      timeout = null; # Display bootloader indefinitely until user selects OS
+      timeout = 0; # Display bootloader indefinitely until user selects OS
       grub = {
         enable = true;
         device = "nodev";
@@ -145,7 +162,7 @@
     exportConfiguration = true; # Make sure /etc/X11/xkb is populated so localectl works correctly
     xkb = {
       layout = kbdLayout;
-      variant = kbdVariant;
+      #variant = kbdVariant;
     };
   };
 
@@ -156,7 +173,7 @@
 
   # Enable dconf for home-manager
   programs.dconf.enable = true;
-
+  
   # Enable bluetooth
   services.blueman.enable = true;
   hardware.bluetooth = {
@@ -183,7 +200,7 @@
       enableHidpi = true;
       package = pkgs.kdePackages.sddm;
       theme = "sddm-astronaut-theme";
-      settings.Theme.CursorTheme = "Bibata-Modern-Classic";
+      settings.Theme.CursorTheme = "Bibata-Modern-Ice";
       extraPackages = with pkgs; [
         kdePackages.qtmultimedia
         kdePackages.qtsvg
@@ -223,7 +240,9 @@
 
   # Default shell
   programs.zsh.enable = true;
-  users.defaultUserShell = pkgs.zsh;
+  programs.fish.enable = true;
+  # users.defaultUserShell = pkgs.${shell};
+  users.defaultUserShell = pkgs.fish;
 
   fonts.fontDir.enable = true;
   fonts.packages = with pkgs.nerd-fonts; [
@@ -295,7 +314,8 @@
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
+  networking.firewall.enable = false;
+  networking.firewall.checkReversePath = false;
 
   programs = {
     nh = {

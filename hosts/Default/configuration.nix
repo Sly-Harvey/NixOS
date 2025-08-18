@@ -6,24 +6,37 @@
   editor,
   terminal,
   terminalFileManager,
+  shell,
   ...
 }: {
   imports = [
     ./hardware-configuration.nix
-    ../../modules/hardware/video/${videoDriver}.nix # Enable gpu drivers defined in flake.nix
+
+    # Enable GPU drivers based on the flake input
+    ../../modules/hardware/video/${videoDriver}.nix
+
+    # Mount all drives in ../../modules/hardware/drives/*.nix
     ../../modules/hardware/drives
 
+    # Shared system/user config (e.g., locale, fonts, nix settings)
     ../common.nix
+
+    # Useful custom system/user scripts
     ../../modules/scripts
 
-    ../../modules/desktop/hyprland # Enable hyprland window manager
-    # ../../modules/desktop/i3-gaps # Enable i3 window manager
+    # Enable one window manager (Hyprland here; comment out i3-gaps if needed)
+    ../../modules/desktop/hyprland
+    # ../../modules/desktop/i3-gaps
 
+    # Cyber security tools
+    ../../modules/programs/cyber
+
+    # General applications
     ../../modules/programs/games
-    ../../modules/programs/browser/${browser} # Set browser defined in flake.nix
-    ../../modules/programs/terminal/${terminal} # Set terminal defined in flake.nix
-    ../../modules/programs/editor/${editor} # Set editor defined in flake.nix
-    ../../modules/programs/cli/${terminalFileManager} # Set file-manager defined in flake.nix
+    ../../modules/programs/browser/${browser}
+    ../../modules/programs/terminal/${terminal}
+    ../../modules/programs/editor/${editor}
+    ../../modules/programs/cli/${terminalFileManager}
     ../../modules/programs/cli/starship
     ../../modules/programs/cli/tmux
     ../../modules/programs/cli/direnv
@@ -31,59 +44,50 @@
     ../../modules/programs/cli/cava
     ../../modules/programs/cli/btop
     ../../modules/programs/shell/bash
-    ../../modules/programs/shell/zsh
+    ../../modules/programs/shell/fish
+    ../../modules/programs/shell/${shell}
     ../../modules/programs/media/discord
     ../../modules/programs/media/spicetify
     # ../../modules/programs/media/youtube-music
     # ../../modules/programs/media/thunderbird
-    # ../../modules/programs/media/obs-studio
+    ../../modules/programs/media/obs-studio
     ../../modules/programs/media/mpv
     ../../modules/programs/misc/tlp
     ../../modules/programs/misc/thunar
-    ../../modules/programs/misc/lact # GPU fan, clock and power configuration
+    ../../modules/programs/misc/lact
     # ../../modules/programs/misc/nix-ld
-    # ../../modules/programs/misc/virt-manager
+    ../../modules/programs/misc/virt-manager
   ];
 
-  # Home-manager config
+  # Shared Home-Manager modules (used by all home users)
   home-manager.sharedModules = [
     (_: {
       home.packages = with pkgs; [
-        # pokego # Overlayed
-        # krita
         github-desktop
-        # gimp
         obsidian
+        # krita
+        # gimp
       ];
     })
   ];
 
-  # Define system packages here
+  # Define system packages here (you can add system-wide CLI apps)
   environment.systemPackages = with pkgs; [
+    # Add global CLI apps if needed
   ];
 
-  networking.hostName = hostname; # Set hostname defined in flake.nix
+  # Set the machine hostname from flake input
+  networking.hostName = hostname;
 
-  # Stream my media to my devices via the network
-  services.minidlna = {
-    enable = true;
-    openFirewall = true;
-    settings = {
-      friendly_name = "NixOS-DLNA";
-      media_dir = [
-        # A = Audio, P = Pictures, V, = Videos, PV = Pictures and Videos.
-        # "A,/mnt/work/Pimsleur/Russian"
-        "/mnt/work/Pimsleur"
-        "/mnt/work/Media/Films"
-        "/mnt/work/Media/Series"
-        "/mnt/work/Media/Videos"
-        "/mnt/work/Media/Music"
-      ];
-      inotify = "yes";
-      log_level = "error";
-    };
-  };
-  users.users.minidlna = {
-    extraGroups = ["users"]; # so minidlna can access the files.
-  };
+  ########################################
+  ## Force processes to use cores 16-31 ##
+  ########################################
+
+  # Apply CPU affinity system-wide (for systemd services)
+  systemd.extraConfig = ''
+    DefaultCPUAffinity=16-31
+  '';
+
+  # Also apply to user sessions (e.g., desktop environments and login shells)
+  systemd.services."user@".serviceConfig.CPUAffinity = "16-31";
 }

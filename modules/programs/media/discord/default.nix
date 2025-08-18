@@ -2,10 +2,8 @@
   home-manager.sharedModules = [
     (_: {
       home.packages = with pkgs; [
-        (discord.override {
-          withVencord = true;
-        })
-      ];
+        vesktop
+        ];
       xdg.configFile."Vencord/themes/catppuccin-mocha.css".text = ''
         /**
         * @name Catppuccin Mocha
@@ -29,7 +27,7 @@
           "catppuccin-mocha.css"
         ];
         enableReactDevtools = false;
-        frameless = false;
+        frameless = true;
         transparent = false;
         winCtrlQ = false;
         disableMinSize = false;
@@ -89,7 +87,7 @@
           FavoriteEmojiFirst.enabled = false;
           FavoriteGifSearch.enabled = false;
           FixCodeblockGap.enabled = false;
-          FixImagesQuality.enabled = false;
+          FixImagesQuality.enabled = true;
           FixSpotifyEmbeds.enabled = false;
           FixYoutubeEmbeds.enabled = false;
           ForceOwnerCrown.enabled = false;
@@ -187,7 +185,7 @@
           ShowAllMessageButtons.enabled = false;
           ShowConnections.enabled = false;
           ShowHiddenChannels = {
-            enabled = false;
+            enabled = true;
             hideUnreads = true;
             showMode = 1;
           };
@@ -229,7 +227,7 @@
           ViewRaw.enabled = false;
           VoiceDownload.enabled = false;
           VoiceMessages.enabled = false;
-          VolumeBooster.enabled = false;
+          VolumeBooster.enabled = true;
           WhoReacted.enabled = false;
           XSOverlay.enabled = false;
           YoutubeAdblock.enabled = true;

@@ -4,9 +4,10 @@
     (_: {
       programs.kitty = {
         enable = true;
+        shellIntegration.enableFishIntegration = true;
         font = {
-          name = "JetBrainsMono Nerd Font";
-          size = 12.0;
+          name = "FiraCode Nerd Font";
+          size = 14.0;
         };
         themeFile = "Catppuccin-Mocha";
         settings = {

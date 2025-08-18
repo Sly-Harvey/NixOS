@@ -414,6 +414,7 @@
         "nur": "nur",
         "nvchad4nix": "nvchad4nix",
         "spicetify-nix": "spicetify-nix",
+        "sqlmap": "sqlmap",
         "thunderbird-catppuccin": "thunderbird-catppuccin",
         "zen-browser": "zen-browser"
       }
@@ -436,6 +437,22 @@
       "original": {
         "owner": "Gerg-L",
         "repo": "spicetify-nix",
+        "type": "github"
+      }
+    },
+    "sqlmap": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1753797105,
+        "narHash": "sha256-FeLJWDoYgRx+syiRCJrcHPFXMVk2srgcOubHegzWdCk=",
+        "owner": "sqlmapproject",
+        "repo": "sqlmap",
+        "rev": "1e57a377ad5b2cd8411bd9081ba2f11cc8f1b9dc",
+        "type": "github"
+      },
+      "original": {
+        "owner": "sqlmapproject",
+        "repo": "sqlmap",
         "type": "github"
       }
     },
