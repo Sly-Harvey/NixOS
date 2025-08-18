@@ -354,6 +354,7 @@
           ];
           bind = let
             autoclicker = pkgs.callPackage ./scripts/autoclicker.nix {};
+            keys = [ "1" "2" "3" "4" "5" "6" "7" "8" "9" "0" "minus" "equal" ];
           in
             [
               # Keybinds help menu
@@ -484,17 +485,29 @@
               "$mainMod ALT, S, movetoworkspacesilent, special"
               "$mainMod, S, togglespecialworkspace,"
             ]
-            ++ (builtins.concatLists (builtins.genList (x: let
-                ws = let
-                  c = (x + 1) / 10;
-                in
-                  builtins.toString (x + 1 - (c * 10));
-              in [
-                "$mainMod, ${ws}, workspace, ${toString (x + 1)}"
-                "$mainMod SHIFT, ${ws}, movetoworkspace, ${toString (x + 1)}"
-                "$mainMod CTRL, ${ws}, movetoworkspacesilent, ${toString (x + 1)}"
-              ])
-              10));
+            # Add keybinds for moving between workspaces
+            ++ (builtins.concatLists (builtins.genList (i: let
+                  key = builtins.elemAt keys i;
+                  n   = toString (i + 1); # "1".."12"
+                  in [
+                    "$mainMod, ${key}, workspace, ${n}"
+                    "$mainMod SHIFT, ${key}, movetoworkspace, ${n}"
+                    "$mainMod CTRL, ${key}, movetoworkspacesilent, ${n}"
+                  ]
+                ) (builtins.length keys)
+              )
+            );
+                #x: let
+                #ws = let
+                #  c = (x + 1) / 10;
+                #in
+                #  builtins.toString (x + 1 - (c * 10));
+              #in [
+                #"$mainMod, ${ws}, workspace, ${toString (x + 1)}"
+                #"$mainMod SHIFT, ${ws}, movetoworkspace, ${toString (x + 1)}"
+                #"$mainMod CTRL, ${ws}, movetoworkspacesilent, ${toString (x + 1)}"
+              #])
+              #10));
           bindm = [
             # Move/Resize windows with mainMod + LMB/RMB and dragging
             "$mainMod, mouse:272, movewindow"
