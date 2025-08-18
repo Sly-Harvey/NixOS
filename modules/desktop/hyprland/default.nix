@@ -516,7 +516,7 @@
         };
         extraConfig = ''
           binds {
-            workspace_back_and_forth = 1
+            workspace_back_and_forth = 0
             #allow_workspace_cycles=1
             #pass_mouse_when_bound=0
           }

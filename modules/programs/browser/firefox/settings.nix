@@ -8,20 +8,6 @@ let
     Status = "locked";
   };
 in {
-  # Floorp
-  "floorp.tabsleep.enabled" = true;
-  "floorp.tabsleep.tabTimeoutMinutes" = 30;
-  "floorp.browser.sidebar.is.displayed" = false;
-  "floorp.browser.tabs.verticaltab" = true;
-  "floorp.browser.tabbar.settings" = 0;
-  "floorp.tabbar.style" = 0;
-  "floorp.browser.sidebar.enable" = false;
-  "floorp.browser.sidebar.right" = false;
-  "floorp.extensions.allowPrivateBrowsingByDefault.is.enabled" = true;
-  "floorp.Tree-type.verticaltab.optimization" = true;
-  "floorp.verticaltab.hover.enabled" = true;
-  "browser.newtabpage.activity-stream.floorp.background.type" = 0; # 0 = none, 1 = random, 3 = folder, 4 = custom
-
   # enable custom userchrome
   "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
   "svg.context-properties.content.enabled" = true;
@@ -185,7 +171,9 @@ in {
   "browser.ssb.enabled" = true;
   "browser.toolbars.bookmarks.visibility" = "newtab"; # always, never, newtab
   #"browser.urlbar.placeholderName" = "Google";
-  "browser.urlbar.suggest.openpage" = false;
+  "browser.urlbar.suggest.topsites" = lock-false;
+  "browser.urlbar.suggest.openpage" = lock-false;
+  "browser.urlbar.suggest.recentsearches" = lock-false;
   "datareporting.policy.dataSubmissionEnable" = false;
   "datareporting.policy.dataSubmissionPolicyAcceptedVersion" = 2;
 
