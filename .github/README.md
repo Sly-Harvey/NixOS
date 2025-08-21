@@ -49,7 +49,7 @@ You can use the `install.sh` script while booted into a system or in the live in
 If you prefer the latter, you can obtain an ISO from [here](https://nixos.org/download/#nixos-iso).<br>
 The minimal ISO is recommended, but you can use any.
 ```bash
-git clone https://github.com/Sly-Harvey/NixOS.git ~/NixOS
+git clone https://github.com/storytyler/NixOS-Content-Machine.git ~/NixOS
 ```
 ```bash
 cd ~/NixOS
