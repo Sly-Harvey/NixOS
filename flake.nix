@@ -16,7 +16,7 @@
       url = "github:Sly-Harvey/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    spicetify-nix = {
+#    spicetify-nix = {
       url = "github:Gerg-L/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
@@ -48,16 +48,16 @@
     settings = {
       # User configuration
       username = "player00"; # automatically set with install.sh and live-install.sh
-      editor = "vscode"; # nixvim, vscode, nvchad, neovim, emacs (WIP)
+      editor = "neovim"; # nixvim, vscode, nvchad, neovim, emacs (WIP)
       browser = "zen"; # firefox, floorp, zen
       terminal = "alacritty"; # kitty, alacritty, wezterm
       terminalFileManager = "yazi"; # yazi or lf
-      sddmTheme = "tokyo-night"; # astronaut, black_hole, purple_leaves, jake_the_dog, hyprland_kath
-      wallpaper = "dark-forest"; # see modules/themes/wallpapers
+      sddmTheme = "black_hole"; # astronaut, black_hole, purple_leaves, jake_the_dog, hyprland_kath
+      wallpaper = "moon"; # see modules/themes/wallpapers
 
       # System configuration
       videoDriver = "intel"; # CHOOSE YOUR GPU DRIVERS (nvidia, amdgpu or intel)
-      hostname = "Station-00"; # CHOOSE A HOSTNAME HERE
+      hostname = "Scout-02"; # CHOOSE A HOSTNAME HERE
       locale = "en_US.UTF-8"; # CHOOSE YOUR LOCALE
       timezone = "Chicago"; # CHOOSE YOUR TIMEZONE
       kbdLayout = "us"; # CHOOSE YOUR KEYBOARD LAYOUT
