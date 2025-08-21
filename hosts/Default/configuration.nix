@@ -11,7 +11,7 @@
   imports = [
     ./hardware-configuration.nix
     ../../modules/hardware/video/${videoDriver}.nix # Enable gpu drivers defined in flake.nix
-    ../../modules/hardware/drives
+  #  ../../modules/hardware/drives
 
     ../common.nix
     ../../modules/scripts
@@ -19,7 +19,7 @@
     ../../modules/desktop/hyprland # Enable hyprland window manager
     # ../../modules/desktop/i3-gaps # Enable i3 window manager
 
-    ../../modules/programs/games
+   # ../../modules/programs/games
     ../../modules/programs/browser/${browser} # Set browser defined in flake.nix
     ../../modules/programs/terminal/${terminal} # Set terminal defined in flake.nix
     ../../modules/programs/editor/${editor} # Set editor defined in flake.nix
@@ -34,9 +34,9 @@
     ../../modules/programs/shell/zsh
     ../../modules/programs/media/discord
     ../../modules/programs/media/spicetify
-    # ../../modules/programs/media/youtube-music
-    # ../../modules/programs/media/thunderbird
-    # ../../modules/programs/media/obs-studio
+    ../../modules/programs/media/youtube-music
+    ../../modules/programs/media/thunderbird
+    ../../modules/programs/media/obs-studio
     ../../modules/programs/media/mpv
     ../../modules/programs/misc/tlp
     ../../modules/programs/misc/thunar
@@ -49,10 +49,9 @@
   home-manager.sharedModules = [
     (_: {
       home.packages = with pkgs; [
-        # pokego # Overlayed
-        # krita
+        Overlayed
+        krita
         github-desktop
-        # gimp
         obsidian
       ];
     })
