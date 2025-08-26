@@ -25,13 +25,14 @@
         i3status # gives you the default i3 status bar
         i3lock # default i3 screen locker
         i3blocks # if you are planning on using i3blocks over i3status
+        feh
         dmenu
         rofi
         polybar
         cava
-        # xorg.xrandr
-        # edid-decode
-        # vim.xxd
+        xorg.xrandr
+        edid-decode
+        vim.xxd
       ];
     };
   };
@@ -56,6 +57,11 @@
           bars = [];
           startup = [
             {
+              command = "~/.config/i3/monitors.sh";
+              always = true;
+              notification = false;
+            }
+            {
               command = "systemctl --user restart picom";
               always = true;
               notification = false;
@@ -66,7 +72,7 @@
               notification = false;
             }
             {
-              command = "${pkgs.feh}/bin/feh --bg-fill --no-fehbg ${../../themes/wallpapers/escape_velocity.jxl}";
+              command = "~/.config/i3/wallpaper.sh";
               always = false;
               notification = false;
             }
@@ -76,7 +82,19 @@
               notification = false;
             }
           ];
-          defaultWorkspace = "workspace number 1";
+          # defaultWorkspace = "workspace number 1";
+          workspaceOutputAssign = [
+            { workspace = "1"; output = "DP-0"; }
+            { workspace = "2"; output = "DP-0"; }
+            { workspace = "3"; output = "DP-0"; }
+            { workspace = "4"; output = "DP-0"; }
+            { workspace = "5"; output = "HDMI-0"; }
+            { workspace = "6"; output = "HDMI-0"; }
+            { workspace = "7"; output = "HDMI-0"; }
+            { workspace = "8"; output = "HDMI-1"; }
+            { workspace = "9"; output = "HDMI-1"; }
+            { workspace = "10"; output = "DP-0"; }
+          ];
           assigns = {
             # "1" = [
             #   {class = "^kitty$";}
@@ -110,6 +128,18 @@
         };
       };
       xdg.configFile."polybar".source = ./polybar;
+      xdg.configFile."i3/monitors.sh" = {
+        executable = true;
+        source = ./monitors.sh;
+      };
+      xdg.configFile."i3/wallpaper.sh" = {
+        executable = true;
+        source = ./wallpaper.sh;
+      };
+      xdg.configFile."i3/wallpaper.jxl" = {
+        executable = true;
+        source = ../../themes/wallpapers/kurzgesagt.jxl;
+      };
     })
   ];
 }
