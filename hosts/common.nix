@@ -81,6 +81,7 @@
           gnome-calculator
           rustdesk-flutter
           openvpn
+          motrix
           
           # Terminal
           fzf
