@@ -1,6 +1,5 @@
 {
   inputs,
-  outputs,
   pkgs,
   username,
   browser,
@@ -72,6 +71,7 @@
           # Applications
           #kate
           anydesk
+          vlc
           zoom-us
           wireguard-tools
           firefox
@@ -79,6 +79,8 @@
           qbittorrent
           libreoffice-qt
           gnome-calculator
+          rustdesk-flutter
+          openvpn
           
           # Terminal
           fzf
@@ -251,7 +253,7 @@
   ];
 
   nixpkgs = {
-    overlays = builtins.attrValues outputs.overlays;
+    overlays = builtins.attrValues self.overlays;
     config = {
       allowUnfree = true;
       # allowUnfreePredicate = _: true;

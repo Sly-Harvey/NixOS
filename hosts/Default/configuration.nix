@@ -84,10 +84,5 @@
   ########################################
 
   # Apply CPU affinity system-wide (for systemd services)
-  systemd.extraConfig = ''
-    DefaultCPUAffinity=16-31
-  '';
-
-  # Also apply to user sessions (e.g., desktop environments and login shells)
-  systemd.services."user@".serviceConfig.CPUAffinity = "16-31";
+  systemd.settings.Manager.CPUAffinity = "16-31";
 }

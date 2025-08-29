@@ -15,6 +15,7 @@
   # packages
   environment.systemPackages = with pkgs; [
     virt-viewer
+    guestfs-tools
     spice
     spice-gtk
     spice-protocol
