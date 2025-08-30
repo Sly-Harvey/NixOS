@@ -254,6 +254,7 @@
   environment.systemPackages = with pkgs; [
     killall
     lm_sensors
+    gnome-disk-utility
     jq
     bibata-cursors
     sddm-astronaut # Overlayed
