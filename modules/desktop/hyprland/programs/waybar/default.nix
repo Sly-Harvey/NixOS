@@ -206,7 +206,8 @@
               # format-wifi = "󰤨 {essid}";
               format-ethernet = "󱘖 Wired";
               # format-ethernet = " {bandwidthDownBits}  {bandwidthUpBits}";
-              format-linked = "󱘖 {ifname} (No IP)";
+              format-linked = "󰤪 Secure";
+              # format-linked = "󱘖 {ifname} (No IP)";
               format-disconnected = "󰤮 Off";
               # format-disconnected = "󰤮 Disconnected";
               format-alt = "󰤨 {signalStrength}%";
