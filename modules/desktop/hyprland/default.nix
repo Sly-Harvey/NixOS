@@ -262,7 +262,7 @@
             "opacity 0.90 0.90,title:^(Hyprland Polkit Agent)$" # polkit prompt
             "opacity 1.00 1.00,class:^(firefox)$"
             "opacity 0.90 0.90,class:^(Brave-browser)$"
-            "opacity 0.80 0.80,class:^(thunar)$"
+            "opacity 0.80 0.80,class:^(nautilus)$"
             "opacity 0.80 0.80,class:^(Steam)$"
             "opacity 0.80 0.80,class:^(steam)$"
             "opacity 0.80 0.80,class:^(steamwebhelper)$"
@@ -385,7 +385,7 @@
               "$mainMod, T, exec, $term"
               "$mainMod, E, exec, $fileManager"
               "$mainMod, C, exec, $editor"
-              "$mainMod, F, exec, thunar"
+              "$mainMod, F, exec, nautilus"
               "$mainMod, B, exec, $browser"
               "$mainMod SHIFT, S, exec, spotify"
               "$mainMod SHIFT, Y, exec, youtube-music"
