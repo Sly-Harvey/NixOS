@@ -49,11 +49,12 @@
   home-manager.sharedModules = [
     (_: {
       home.packages = with pkgs; [
+        obsidian
+        protonvpn-gui # VPN
         # pokego # Overlayed
         # krita
         github-desktop
         # gimp
-        obsidian
       ];
     })
   ];
