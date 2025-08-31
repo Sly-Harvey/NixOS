@@ -163,6 +163,22 @@
         "type": "github"
       }
     },
+    "neovim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1756547528,
+        "narHash": "sha256-NavDe0PU/cyZl7C3s8Q+s1INS7WiolCfXohylm1sx0I=",
+        "owner": "Sly-Harvey",
+        "repo": "nvim",
+        "rev": "2f694da8f190a84b979b6b57bca2e1266f4b15f5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Sly-Harvey",
+        "repo": "nvim",
+        "type": "github"
+      }
+    },
     "nix-index-database": {
       "inputs": {
         "nixpkgs": [
@@ -408,6 +424,7 @@
       "inputs": {
         "betterfox": "betterfox",
         "home-manager": "home-manager",
+        "neovim": "neovim",
         "nix-index-database": "nix-index-database",
         "nixpkgs": "nixpkgs",
         "nixpkgs-stable": "nixpkgs-stable",

@@ -16,6 +16,10 @@
       url = "github:Sly-Harvey/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    neovim = {
+      url = "github:Sly-Harvey/nvim";
+      flake = false;
+    };
     spicetify-nix = {
       url = "github:Gerg-L/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs";
