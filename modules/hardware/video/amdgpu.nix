@@ -4,11 +4,17 @@
     enable = true;
     videoDrivers = ["amdgpu"];
   };
-  environment.systemPackages = with pkgs; [rocmPackages.amdsmi];
+  environment.systemPackages = with pkgs; [
+    rocmPackages.amdsmi
+    rocmPackages.clr.icd
+    clinfo
+  ];
   hardware.graphics = {
     enable = true;
     enable32Bit = true;
     extraPackages = with pkgs; [
+      hashcat
+      python3
       amdvlk
       libvdpau-va-gl
       vaapiVdpau

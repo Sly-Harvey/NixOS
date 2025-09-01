@@ -46,7 +46,7 @@ fi
 sudo git -C "$flake" add hosts/Default/hardware-configuration.nix
 
 # nh os switch "$flake"
-sudo nixos-rebuild switch --flake "$flake#Default" --show-trace
+sudo nixos-rebuild switch --flake "$flake#Default" --show-trace --impure
 # rm "$flake"/hosts/Default/hardware-configuration.nix &>/dev/null
 # git restore --staged "$flake"/hosts/Default/hardware-configuration.nix &>/dev/null
 

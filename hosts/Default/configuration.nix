@@ -1,4 +1,6 @@
+# NixOS/hosts/Default/configuration.nix
 {
+  inputs,
   pkgs,
   videoDriver,
   hostname,
@@ -8,6 +10,7 @@
   terminalFileManager,
   shell,
   ...
+
 }: {
   imports = [
     ./hardware-configuration.nix
@@ -26,10 +29,6 @@
 
     # Enable one window manager (Hyprland here; comment out i3-gaps if needed)
     ../../modules/desktop/hyprland
-    # ../../modules/desktop/i3-gaps
-
-    # Cyber security tools
-    ../../modules/programs/cyber
 
     # General applications
     ../../modules/programs/games
@@ -53,10 +52,18 @@
     ../../modules/programs/media/obs-studio
     ../../modules/programs/media/mpv
     ../../modules/programs/misc/tlp
-    ../../modules/programs/misc/thunar
+    ../../modules/programs/misc/nautilus
     ../../modules/programs/misc/lact
     # ../../modules/programs/misc/nix-ld
     ../../modules/programs/misc/virt-manager
+
+    # --- Cybersecurity wordlists ---
+    ../../modules/programs/cyber
+
+    # --- AthenaOS cyber modules from the Athena flake ---
+    ../../modules/athena
+
+
   ];
 
   # Shared Home-Manager modules (used by all home users)
@@ -72,9 +79,7 @@
   ];
 
   # Define system packages here (you can add system-wide CLI apps)
-  environment.systemPackages = with pkgs; [
-    # Add global CLI apps if needed
-  ];
+  environment.systemPackages = with pkgs; [];
 
   # Set the machine hostname from flake input
   networking.hostName = hostname;

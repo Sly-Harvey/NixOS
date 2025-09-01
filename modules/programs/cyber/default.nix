@@ -2,8 +2,8 @@
 
 {
   imports = [
-    ./recon
-    ./vuln-scan
+    #./recon
+    #./vuln-scan
     #./reverse-eng
     #./containers-n-cloud
     ./wordlists
