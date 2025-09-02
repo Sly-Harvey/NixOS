@@ -132,8 +132,8 @@
           input = {
             kb_layout = "${kbdLayout},ru";
             kb_variant = "${kbdVariant},";
-            repeat_delay = 300; # or 212
-            repeat_rate = 30;
+            repeat_delay = 275; # or 212
+            repeat_rate = 35;
 
             follow_mouse = 1;
 
