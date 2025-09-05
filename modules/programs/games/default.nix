@@ -46,7 +46,7 @@
         settings = {
           no_display = true; # Hide hud by default (Show by holding right-shift then press F12)
           fps_limit = [60 0 144 165 240];
-          fps_limit_method = "early"; # early = low input lag and cpu usage but less smooth, late = more smooth
+          fps_limit_method = "late"; # late = low input lag but less smooth, early = more smooth
           vsync = 2; # https://github.com/flightlessmango/MangoHud#vsync
           gl_vsync = 1; # https://github.com/flightlessmango/MangoHud#vsync
           # testing for gl_vsync: 1.045

@@ -226,7 +226,7 @@
             swallow_regex = "^(Alacritty|kitty)$";
             enable_swallow = true;
             vfr = true; # always keep on
-            vrr = 1; # enable variable refresh rate (0=off, 1=on, 2=fullscreen only)
+            vrr = 2; # enable variable refresh rate (0=off, 1=on, 2=fullscreen only, 3 = fullscreen games/media)
           };
           xwayland.force_zero_scaling = false;
           gestures = {
@@ -262,7 +262,7 @@
             "opacity 0.90 0.90,title:^(Hyprland Polkit Agent)$" # polkit prompt
             "opacity 1.00 1.00,class:^(firefox)$"
             "opacity 0.90 0.90,class:^(Brave-browser)$"
-            "opacity 0.80 0.80,class:^(thunar)$"
+            "opacity 0.80 0.80,class:^(org.gnome.Nautilus|thunar)$"
             "opacity 0.80 0.80,class:^(Steam)$"
             "opacity 0.80 0.80,class:^(steam)$"
             "opacity 0.80 0.80,class:^(steamwebhelper)$"

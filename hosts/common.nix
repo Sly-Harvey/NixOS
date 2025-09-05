@@ -78,6 +78,7 @@
           nix-prefetch-scripts
           ripgrep
           tldr
+          unrar
           unzip
         ];
       };
