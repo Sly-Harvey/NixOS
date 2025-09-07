@@ -8,6 +8,9 @@ let
     Status = "locked";
   };
 in {
+  "zen.view.use-single-toolbar" = false;
+  "zen.view.sidebar-expanded" = false;
+
   "zen.watermark.enabled" = false;
   "zen.welcome-screen.seen" = true;
 
