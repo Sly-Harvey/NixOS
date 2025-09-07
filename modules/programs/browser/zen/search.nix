@@ -129,6 +129,10 @@
         "@ng"
       ];
     };
+    "youtube" = {
+      urls = [{template = "https://youtube.com/results?search_query={searchTerms}";}];
+      definedAliases = ["@yt"];
+    };
     "bing".metaData.hidden = true;
     "Ebay".metaData.hidden = true;
     "google".metaData.alias = "@g"; # builtin engines only support specifying one additional alias

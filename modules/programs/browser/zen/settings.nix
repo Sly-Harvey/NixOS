@@ -9,6 +9,7 @@ let
   };
 in {
   "zen.watermark.enabled" = false;
+  "zen.welcome-screen.seen" = true;
 
   # enable custom userchrome
   "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
@@ -171,7 +172,7 @@ in {
   "browser.newtabpage.activity-stream.improvesearch.topSiteSearchShortcuts.searchEngines" = "";
   "browser.protections_panel.infoMessage.seen" = lock-true;
   "browser.ssb.enabled" = true;
-  "browser.toolbars.bookmarks.visibility" = "newtab"; # always, never, newtab
+  "browser.toolbars.bookmarks.visibility" = "always"; # always, never, newtab
   #"browser.urlbar.placeholderName" = "Google";
   "browser.urlbar.suggest.topsites" = lock-false;
   "browser.urlbar.suggest.openpage" = lock-false;
