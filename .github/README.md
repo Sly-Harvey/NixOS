@@ -67,25 +67,25 @@ There are 4 ways to rebuild.<br>
 
 For a list of keybinds press **Super + ?** or **Super + Ctrl + K**
 
-<details>
-<summary>How to Use the Development Shells</summary>
+<!-- # Dev-shells -->
+# Development Shells
+This configuration includes pre-configured development shells for various programming languages and frameworks.
 
-- To initialise a new project from a template:
+
+To initialise a new project from a template:
 ```bash
-nix flake init -t ~/NixOS#NAME
+nix flake init -t ~/NixOS#TEMPLATE_NAME
 ```
-- Alternatively, use the `new` keyword to create a new directory:
+Alternatively, use the `new` keyword to create a new directory:
 ```bash
-nix flake new -t ~/NixOS#NAME PROJECT_NAME
+nix flake new -t ~/NixOS#TEMPLATE_NAME PROJECT_NAME
 ```
-Replace `NAME` with any template defined in `dev-shells/default.nix`.<br>
-These commands will generate a flake.nix and flake.lock file in your project directory.<br>
-To enter the development shell:
-- Use direnv if configured, or navigate to the project directory and run:
+Replace `TEMPLATE_NAME` with any template defined in `dev-shells/default.nix`.<br>
+<br>
+To enter the development shell you can use direnv if configured,<br> or navigate to the project directory and run:
 ```bash
 nix develop
 ```
-</details> 
 
 <!-- </details> -->
 <!-- <summary>Credits/Inspiration</summary> -->
