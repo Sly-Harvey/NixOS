@@ -8,6 +8,8 @@ let
     Status = "locked";
   };
 in {
+  "zen.watermark.enabled" = false;
+
   # enable custom userchrome
   "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
   "svg.context-properties.content.enabled" = true;

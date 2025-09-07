@@ -123,12 +123,6 @@
       installation_mode = "force_installed";
       install_url = "https://addons.mozilla.org/firefox/downloads/latest/frankerfacez/latest.xpi";
     };
-    # Catppuccin theme
-    "{8446b178-c865-4f5c-8ccc-1d7887811ae3}" = {
-      private_browsing = true;
-      installation_mode = "force_installed";
-      install_url = "https://addons.mozilla.org/firefox/downloads/latest/catppuccin-mocha-lavender-git/latest.xpi";
-    };
     # View Xpi Id's in Firefox Extension Store
     "queryamoid@kaply.com" = {
       private_browsing = true;
