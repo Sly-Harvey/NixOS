@@ -20,7 +20,7 @@
           timeout-low = 3;
           timeout-critical = 0;
           fit-to-screen = false;
-          control-center-width = 380;
+          control-center-width = 400;
           control-center-height = 915;
           notification-window-width = 375;
           keyboard-shortcuts = true;
@@ -49,7 +49,7 @@
                 label = "       󰃟  ";
               };
               "menu#screenshot" = {
-                label = "󰄀 Screenshot";
+                label = "󰄀  Screenshot";
                 position = "left";
                 actions = [
                   {
@@ -63,27 +63,27 @@
                 ];
               };
               "menu#power" = {
-                label = " Power Menu";
+                label = "  Power Menu";
                 position = "left";
                 actions = [
                   {
-                    label = " Shut down";
+                    label = "  Shut down";
                     command = "systemctl poweroff";
                   }
                   {
-                    label = " Reboot";
+                    label = "  Reboot";
                     command = "systemctl reboot";
                   }
                   {
-                    label = "󰤄 Suspend";
+                    label = "󰤄  Suspend";
                     command = "systemctl suspend";
                   }
                   {
-                    label = " Logout";
+                    label = "  Logout";
                     command = "hyprctl dispatch exit 0";
                   }
                   {
-                    label = " Lock";
+                    label = "  Lock";
                     command = "hyprlock";
                   }
                 ];
@@ -360,8 +360,8 @@
             border-radius: 15px;
             border: 0px solid @selected;
             box-shadow: 0 0 10px 0 rgba(0,0,0,.80);
-            margin: 10px;
-            padding: 4px;
+            margin: 0px;
+            padding: 0px;
           }
 
           /* .right.overlay-indicator { */
@@ -410,7 +410,7 @@
             background: alpha(@mantle, .80);
             /* background: @theme_bg_color; */
             border: 0px solid @crust;
-            margin: 10px 5px 0px 5px;
+            margin: 10px 5px 10px 5px;
             border-radius: 14px;
             /* box-shadow: 0px 0px 4px black; */
             /* background: alpha(currentColor, 0.05); */
@@ -558,7 +558,7 @@
             border-radius: 4px;
             min-height: 40px;
             min-width: 85px;
-            margin: 4px;
+            margin: 5px;
             padding: 0px;
           }
 
