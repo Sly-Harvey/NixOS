@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   #  use later
   home-manager.sharedModules = [
     (_: {
@@ -21,7 +20,7 @@
           timeout-low = 3;
           timeout-critical = 0;
           fit-to-screen = false;
-          control-center-width = 400;
+          control-center-width = 380;
           control-center-height = 915;
           notification-window-width = 375;
           keyboard-shortcuts = true;
@@ -50,7 +49,7 @@
                 label = "       󰃟  ";
               };
               "menu#screenshot" = {
-                label = "	󰄀   Screenshot	";
+                label = "󰄀 Screenshot";
                 position = "left";
                 actions = [
                   {
@@ -64,28 +63,28 @@
                 ];
               };
               "menu#power" = {
-                label = "	   Power Menu	  ";
+                label = " Power Menu";
                 position = "left";
                 actions = [
                   {
-                    label = "   Lock";
-                    command = "hyprlock";
-                  }
-                  {
-                    label = "   Logout";
-                    command = "hyprctl dispatch exit 0";
-                  }
-                  {
-                    label = "   Shut down";
+                    label = " Shut down";
                     command = "systemctl poweroff";
                   }
                   {
-                    label = "󰤄   Suspend";
+                    label = " Reboot";
+                    command = "systemctl reboot";
+                  }
+                  {
+                    label = "󰤄 Suspend";
                     command = "systemctl suspend";
                   }
                   {
-                    label = "   Reboot";
-                    command = "systemctl reboot";
+                    label = " Logout";
+                    command = "hyprctl dispatch exit 0";
+                  }
+                  {
+                    label = " Lock";
+                    command = "hyprlock";
                   }
                 ];
               };
@@ -105,7 +104,7 @@
               image-size = 96;
               image-radius = 4;
             };
-            label = {
+            notifications = {
               text = "Notifications";
               clear-all-button = true;
               button-text = "";
@@ -113,7 +112,6 @@
 
             "buttons-grid" = {
               actions = [
-
                 {
                   label = "󰝟";
                   type = "toggle";
@@ -169,7 +167,6 @@
                   command = "${../../../hyprland/scripts/TogglePowerMode.sh}";
                   update-command = "test -f \"$HOME/.config/hypr/power_mode\" && grep -q \"^powersave$\" \"$HOME/.config/hypr/power_mode\" && echo true || echo false";
                 }
-
               ];
             };
           };
@@ -435,7 +432,7 @@
           }
 
           .control-center-list > row:last-child {
-            padding: 5px 10px 10px 10px;
+            padding: 5px 10px 5px 10px;
           }
 
 
@@ -551,7 +548,7 @@
             font-size: 14px;
             font-weight: 500;
             margin: 0px;
-            padding: 5px;
+            padding: 0px;
             border-radius: 0px;
           }
 
@@ -559,9 +556,9 @@
             background: alpha(@mantle, .80);
             /* background: alpha(currentColor, 0.05); */
             border-radius: 4px;
-            min-height: 50px;
+            min-height: 40px;
             min-width: 85px;
-            margin: 5px;
+            margin: 4px;
             padding: 0px;
           }
 
@@ -583,7 +580,7 @@
           .widget-mpris {
             padding: 8px;
             padding-bottom: 15px;
-            margin-bottom: -33px;
+            margin-bottom: 0px;
           }
           .widget-mpris > box {
             padding: 0px;
@@ -725,7 +722,8 @@
 
           /* DND widget */
           .widget-dnd {
-            margin: 6px;
+            margin: 6px 10px;
+            padding: 0 8px;
             font-size: 1.2rem;
           }
 
@@ -782,11 +780,11 @@
           scale highlight {
             border-radius: 5px;
             min-height: 10px;
-            margin-right: -5px;
+            margin-right: 0px;
           }
 
           scale slider {
-            margin: -10px;
+            margin: 0px;
             min-width: 10px;
             min-height: 10px;
             background: transparent;
