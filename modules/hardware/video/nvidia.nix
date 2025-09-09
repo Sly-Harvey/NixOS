@@ -4,7 +4,7 @@
   config,
   ...
 }: let
-  nvidiaDriverChannel = config.boot.kernelPackages.nvidiaPackages.beta; # stable, latest, beta, etc.
+  nvidiaDriverChannel = config.boot.kernelPackages.nvidiaPackages.latest; # stable, latest, beta, etc.
 in {
   environment.sessionVariables = lib.optionalAttrs config.programs.hyprland.enable {
     GBM_BACKEND = "nvidia-drm";
@@ -43,7 +43,6 @@ in {
         nvidia-vaapi-driver
         vaapiVdpau
         libvdpau-va-gl
-        egl-wayland
       ];
     };
   };

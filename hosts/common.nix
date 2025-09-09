@@ -103,7 +103,7 @@
     tmp.cleanOnBoot = true;
     kernelPackages = pkgs.linuxPackages_latest; # _latest, _zen, _xanmod_latest, _hardened, _rt, _OTHER_CHANNEL, etc.
     kernelParams = [
-      "preempt=full"
+      "preempt=full" # lower latency but less throughput
     ];
     loader = {
       efi.canTouchEfiVariables = true;
