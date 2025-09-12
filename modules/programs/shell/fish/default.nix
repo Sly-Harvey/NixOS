@@ -22,6 +22,7 @@
               "ctrl-l".command = "${terminalFileManager} \r";
             };
             shellAliases = {
+              rscan = "rustscan --ulimit 5000 -a ";
               cls = "clear";
               l = "${pkgs.eza}/bin/eza -lh  --icons=auto"; # long list
               ls = "${pkgs.eza}/bin/eza -1   --icons=auto"; # short list
