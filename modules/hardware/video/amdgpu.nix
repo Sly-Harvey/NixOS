@@ -7,6 +7,8 @@
   environment.systemPackages = with pkgs; [
     rocmPackages.amdsmi
     rocmPackages.clr.icd
+    rocmPackages.rocm-smi
+    ffmpeg
     clinfo
   ];
   hardware.graphics = {

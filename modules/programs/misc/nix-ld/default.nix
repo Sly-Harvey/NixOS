@@ -1,7 +1,24 @@
-{pkgs, ...}: {
+{pkgs, lib, ...}: {
   programs.nix-ld = {
     enable = true;
     libraries = with pkgs; [
+      rocmPackages.clr.icd
+      rocmPackages.rocblas 
+      rocmPackages.rocsparse 
+      rocmPackages.rocrand
+      rocmPackages.rocfft  
+      rocmPackages.miopen  
+      rocmPackages.rccl
+      #libxcrypt
+      libxcrypt-legacy
+      zstd
+      attr 
+      bzip2
+      acl
+      libffi
+      libsodium
+      util-linux
+      xz 
       alsa-lib
       at-spi2-atk
       at-spi2-core
@@ -37,6 +54,7 @@
       openssl
       pango
       pipewire
+      python3
       stdenv.cc.cc
       systemd
       vulkan-loader
@@ -57,4 +75,13 @@
       zlib
     ];
   };
+  # environment.sessionVariables = {
+  #     NIX_LD = pkgs.stdenv.cc.bintools.dynamicLinker;
+  #     NIX_LD_LIBRARY_PATH = lib.makeLibraryPath (with pkgs; [
+  #       zstd zlib libxcrypt-legacy stdenv.cc.cc openssl libffi
+  #       rocmPackages.clr.icd rocmPackages.rocblas rocmPackages.rocsparse
+  #       rocmPackages.rocrand rocmPackages.rocfft rocmPackages.miopen rocmPackages.rccl
+  #     ]);
+  # };
+
 }

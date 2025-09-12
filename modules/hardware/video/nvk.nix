@@ -9,6 +9,7 @@
     WLR_RENDERER = "vulkan";
     WLR_NO_HARDWARE_CURSORS = "1";
     __GL_GSYNC_ALLOWED = "1"; # GSync
+    # NIX_LD = "/run/current-system/sw/share/nix-ld/lib/ld.so";
   };
 in {
   boot = {
