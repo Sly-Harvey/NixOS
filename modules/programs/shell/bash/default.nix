@@ -139,12 +139,12 @@
 
       # Directory Shortcuts.
       dots = "cd ~/NixOS/";
-      games = "cd /mnt/games/";
-      work = "cd /mnt/work/";
-      media = "cd /mnt/work/media/";
-      projects = "cd /mnt/work/Projects/";
-      proj = "cd /mnt/work/Projects/";
-      dev = "cd /mnt/work/Projects/";
+      #games = "cd /mnt/games/";
+      #work = "cd /mnt/work/";
+      #media = "cd /mnt/work/media/";
+      #projects = "cd /mnt/work/Projects/";
+      #proj = "cd /mnt/work/Projects/";
+      #dev = "cd /mnt/work/Projects/";
       # dev = "cd /mnt/work/dev/";
       # nixdir = "cd /mnt/work/dev/nix/";
       # cppdir = "cd /mnt/work/dev/C++/";
