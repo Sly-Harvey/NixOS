@@ -54,7 +54,7 @@
     ../../modules/programs/misc/tlp
     ../../modules/programs/misc/nautilus
     ../../modules/programs/misc/lact
-    # ../../modules/programs/misc/nix-ld
+    ../../modules/programs/misc/nix-ld
     ../../modules/programs/misc/virt-manager
 
     # --- Cybersecurity wordlists ---
