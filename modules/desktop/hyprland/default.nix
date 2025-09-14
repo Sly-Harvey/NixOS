@@ -229,10 +229,9 @@
             vrr = 2; # enable variable refresh rate (0=off, 1=on, 2=fullscreen only, 3 = fullscreen games/media)
           };
           xwayland.force_zero_scaling = false;
-          gestures = {
-            workspace_swipe = true;
-            workspace_swipe_fingers = 3;
-          };
+          gesture = [
+            "3, horizontal, workspace"
+          ];
           dwindle = {
             pseudotile = true;
             preserve_split = true;
