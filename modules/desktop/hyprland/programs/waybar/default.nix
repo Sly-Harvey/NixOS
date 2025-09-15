@@ -74,7 +74,8 @@
             "custom/gpuinfo" = {
               exec = "${../../scripts/gpuinfo.sh}";
               return-type = "json";
-              format = " {}";
+              format = "{0}";
+              on-click = "${../../scripts/gpuinfo.sh} --toggle";
               interval = 5; # once every 5 seconds
               tooltip = true;
               max-length = 1000;
