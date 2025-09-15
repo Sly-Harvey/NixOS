@@ -23,6 +23,8 @@ in {
   boot.kernelParams = lib.optionals (lib.elem "nvidia" config.services.xserver.videoDrivers) [
     "nvidia-drm.modeset=1"
     "nvidia_drm.fbdev=1"
+
+    # "nvidia.NVreg_RegistryDwords=RmEnableAggressiveVblank=1" # Experimental: reduce latency
   ];
   hardware = {
     nvidia = {
