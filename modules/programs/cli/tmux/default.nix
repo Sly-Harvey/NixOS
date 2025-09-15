@@ -102,7 +102,9 @@ in {
 
           # Splits
           bind | split-window -h -c "#{pane_current_path}"
+          bind [ split-window -h -c "#{pane_current_path}"
           bind - split-window -v -c "#{pane_current_path}"
+          bind ] split-window -v -c "#{pane_current_path}"
           bind c new-window -c "#{pane_current_path}"
 
           # Select windows
