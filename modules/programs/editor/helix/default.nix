@@ -13,6 +13,7 @@
             auto-completion = true;
             smart-tab.enable = false;
             line-number = "relative";
+            indent-guides.render = true;
             true-color = true;
             cursorline = true;
             cursorcolumn = false;
@@ -38,11 +39,6 @@
 
             file-picker = {
               hidden = true;
-            };
-
-            indent-guides = {
-              render = true;
-              character = "⸽";
             };
 
             soft-wrap = {

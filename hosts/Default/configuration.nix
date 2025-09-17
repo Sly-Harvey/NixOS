@@ -1,6 +1,7 @@
 {
   pkgs,
   videoDriver,
+  username,
   hostname,
   browser,
   editor,
@@ -51,9 +52,9 @@
       home.packages = with pkgs; [
         obsidian
         protonvpn-gui # VPN
+        github-desktop
         # pokego # Overlayed
         # krita
-        github-desktop
         # gimp
       ];
     })
@@ -66,6 +67,13 @@
   networking.hostName = hostname; # Set hostname defined in flake.nix
 
   # Stream my media to my devices via the network
+  services.syncthing = {
+    enable = true;
+    openDefaultPorts = true;
+    user = "${username}";
+    dataDir = "/home/${username}"; # default location for new folders
+    configDir = "/home/${username}/.config/syncthing";
+  };
   services.minidlna = {
     enable = true;
     openFirewall = true;
