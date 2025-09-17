@@ -18,42 +18,33 @@ in {
         enable = true;
         clock24 = true;
         keyMode = "vi";
-        # terminal = "tmux-256color";
         # terminal = "screen-256color";
+        # terminal = "tmux-256color";
         historyLimit = 100000;
         plugins = with pkgs.tmuxPlugins; [
           dreamsofcode-io-catppuccin-tmux
           # catppuccin
           sensible
           vim-tmux-navigator
-          /*
-             {
-            plugin = resurrect;
-            extraConfig =
-              ''
-                set -g @resurrect-strategy-vim 'session'
-                set -g @resurrect-strategy-nvim 'session'
-                set -g @resurrect-capture-pane-contents 'on'
-              ''
-              + ''
-                # Taken from https://github.com/hmajid2301/dotfiles/blob/main/modules/home/cli/multiplexers/tmux/default.nix#L109
-                # Which was taken from: https://github.com/p3t33/nixos_flake/blob/5a989e5af403b4efe296be6f39ffe6d5d440d6d6/home/modules/tmux.nix
 
-                resurrect_dir="$XDG_CACHE_HOME/tmux/resurrect"
-                set -g @resurrect-dir $resurrect_dir
-                set -g @resurrect-hook-post-save-all 'target=$(readlink -f $resurrect_dir/last); sed "s| --cmd .*-vim-pack-dir||g; s|/etc/profiles/per-user/$USER/bin/||g; s|/home/$USER/.nix-profile/bin/||g" $target | ${moreutils}/bin/sponge $target'
-              '';
-          }
-          {
-            plugin = continuum;
-            extraConfig = ''
-              set -g @continuum-restore 'on'
-              set -g @continuum-boot 'on'
-              set -g @continuum-save-interval '10'
-              set -g @continuum-systemd-start-cmd 'start-server'
-            '';
-          }
-          */
+          # {
+          #   plugin = resurrect;
+          #   extraConfig =
+          #     ''
+          #       set -g @resurrect-strategy-vim 'session'
+          #       set -g @resurrect-strategy-nvim 'session'
+          #       set -g @resurrect-capture-pane-contents 'on'
+          #     ''
+          # }
+          # {
+          #   plugin = continuum;
+          #   extraConfig = ''
+          #     set -g @continuum-restore 'on'
+          #     set -g @continuum-boot 'on'
+          #     set -g @continuum-save-interval '10'
+          #     set -g @continuum-systemd-start-cmd 'start-server'
+          #   '';
+          # }
         ];
         extraConfig = ''
           unbind C-b
@@ -77,6 +68,8 @@ in {
           # Tmux binds
           bind r command-prompt "rename-window %%"
           bind R source-file ~/.config/tmux/tmux.conf
+          bind S choose-session
+          bind u choose-session
           bind w list-windows
           bind * setw synchronize-panes
           bind P set pane-border-status
