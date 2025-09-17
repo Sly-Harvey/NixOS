@@ -74,7 +74,7 @@
     dataDir = "/home/${username}"; # default location for new folders
     configDir = "/home/${username}/.config/syncthing";
   };
-  services.minidlna = {
+  /* services.minidlna = {
     enable = true;
     openFirewall = true;
     settings = {
@@ -94,5 +94,5 @@
   };
   users.users.minidlna = {
     extraGroups = ["users"]; # so minidlna can access the files.
-  };
+  }; */
 }
