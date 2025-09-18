@@ -1,5 +1,21 @@
 #!/usr/bin/env bash
 
+# check if rofi is already running
+if pidof rofi >/dev/null; then
+  pkill rofi
+  exit 0
+fi
+
+get_nix_value() {
+  awk '
+    /settings = {/ {inside_settings=1; next} 
+    inside_settings && /}/ {inside_settings=0} 
+    inside_settings && $0 ~ key {print gensub(/.*"([^"]+)".*/, "\\1", "g", $0)}
+    ' key="$1" "$HOME/NixOS/flake.nix"
+}
+
+_terminal=$(get_nix_value "terminal =")
+
 case $1 in
 drun)
   # rofi_theme="${XDG_CONFIG_HOME:-$HOME/.config}/rofi/launchers/type-4/style-7.rasi"
@@ -7,31 +23,42 @@ drun)
   rofi_theme="${XDG_CONFIG_HOME:-$HOME/.config}/rofi/launchers/type-2/style-2.rasi"
   r_override="entry{placeholder:'Search Applications...';}listview{lines:9;}"
 
-  pkill rofi || rofi -show drun -theme-str "$r_override" -theme "$rofi_theme"
+  rofi -show drun -theme-str "$r_override" -theme "$rofi_theme"
   ;;
 window)
   rofi_theme="${XDG_CONFIG_HOME:-$HOME/.config}/rofi/launchers/type-2/style-2.rasi"
   r_override="entry{placeholder:'Search Windows...';}listview{lines:9;}"
 
-  pkill rofi || rofi -show window -theme-str "$r_override" -theme "$rofi_theme"
+  rofi -show window -theme-str "$r_override" -theme "$rofi_theme"
   ;;
 file)
   rofi_theme="${XDG_CONFIG_HOME:-$HOME/.config}/rofi/launchers/type-2/style-2.rasi"
   r_override="entry{placeholder:'Search Files...';}listview{lines:8;}"
 
-  pkill rofi || rofi -show filebrowser -theme-str "$r_override" -theme "$rofi_theme"
+  rofi -show filebrowser -theme-str "$r_override" -theme "$rofi_theme"
+  ;;
+tmux)
+  rofi_theme="${XDG_CONFIG_HOME:-$HOME/.config}/rofi/launchers/type-4/style-4.rasi"
+  r_override="entry{placeholder:'Search Tmux Sessions...';}listview{lines:15;}"
+
+  sessions=$(tmux ls -F '#{session_name}: #{session_path} (#{session_windows} windows)' |
+    rofi -dmenu -i -theme-str "$r_override" -theme "$rofi_theme" | cut -d: -f1)
+  if [[ $sessions ]]; then
+    $_terminal --hold -e tmux attach -t $sessions
+    exit 0
+  fi
   ;;
 emoji)
-  r_override="entry{placeholder:'Search Emojis...';}listview{lines:15;}"
   rofi_theme="${XDG_CONFIG_HOME:-$HOME/.config}/rofi/launchers/type-4/style-4.rasi"
+  r_override="entry{placeholder:'Search Emojis...';}listview{lines:15;}"
 
-  pkill rofi || rofi -modi emoji -show emoji -theme "${rofi_theme}" -theme-str "$r_override"
+  rofi -modi emoji -show emoji -theme "${rofi_theme}" -theme-str "$r_override"
   ;;
 games)
   r_override="entry{placeholder:'Search Games...';}listview{lines:15;}"
   rofi_theme="${XDG_CONFIG_HOME:-$HOME/.config}/rofi/launchers/type-1/style-5.rasi"
 
-  pkill rofi || rofi -show games -modi games -theme "${rofi_theme}" -theme-str "$r_override"
+  rofi -show games -modi games -theme "${rofi_theme}" -theme-str "$r_override"
   ;;
 help | --help)
   echo "Usage: launch.sh [ACTION]"

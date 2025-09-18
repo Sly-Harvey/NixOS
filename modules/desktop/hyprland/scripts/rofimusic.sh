@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+# check if rofi is already running
+if pidof rofi >/dev/null; then
+  pkill rofi
+  exit 0
+fi
+
 # Directory for icons
 iDIR="$HOME/.config/hypr/icons"
 

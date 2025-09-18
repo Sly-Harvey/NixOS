@@ -389,18 +389,19 @@
               "$CONTROL ALT, DELETE, exec, $term -e '${getExe pkgs.btop}'" # System Monitor
               "$mainMod CTRL, C, exec, hyprpicker --autocopy --format=hex" # Colour Picker
 
-              "$mainMod, A, exec, pkill -x rofi || ${./scripts/rofi.sh} drun" # launch desktop applications
-              "$mainMod, SPACE, exec, pkill -x rofi || ${./scripts/rofi.sh} drun" # launch desktop applications
-              "$mainMod, Z, exec, pkill -x rofi || ${./scripts/rofi.sh} emoji" # launch emoji picker
-              # "$mainMod, tab, exec, pkill -x rofi || ${./scripts/rofi.sh} window" # switch between desktop applications
-              # "$mainMod, R, exec, pkill -x rofi || ${./scripts/rofi.sh} file" # brrwse system files
+              "$mainMod, A, exec, ${./scripts/rofi.sh} drun" # launch desktop applications
+              "$mainMod, SPACE, exec, ${./scripts/rofi.sh} drun" # launch desktop applications
+              "$mainMod, Z, exec, ${./scripts/rofi.sh} emoji" # launch emoji picker
+              "$mainMod SHIFT, T, exec, ${./scripts/rofi.sh} tmux" # launch tmux sessions
+              # "$mainMod, tab, exec, ${./scripts/rofi.sh} window" # switch between desktop applications
+              # "$mainMod, R, exec, ${./scripts/rofi.sh} file" # brrwse system files
               "$mainMod ALT, K, exec, ${./scripts/keyboardswitch.sh}" # change keyboard layout
               "$mainMod SHIFT, N, exec, swaync-client -t -sw" # swayNC panel
               "$mainMod SHIFT, Q, exec, swaync-client -t -sw" # swayNC panel
               "$mainMod, G, exec, ${./scripts/rofi.sh} games" # game launcher
               "$mainMod ALT, G, exec, ${./scripts/gamemode.sh}" # disable hypr effects for gamemode
               "$mainMod, V, exec, ${./scripts/ClipManager.sh}" # Clipboard Manager
-              "$mainMod, M, exec, pkill -x rofi || ${./scripts/rofimusic.sh}" # online music
+              "$mainMod, M, exec, ${./scripts/rofimusic.sh}" # online music
 
               # Screenshot/Screencapture
               "$mainMod, P, exec, ${./scripts/screenshot.sh} s" # drag to snip an area / click on a window to print it

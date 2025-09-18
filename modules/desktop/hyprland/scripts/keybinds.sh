@@ -43,6 +43,7 @@ yad \
   "CTRL ALT Delete" "Open system monitor" "$_terminal -e 'btop'" \
   "SUPER A" "Launch application menu" "scripts/rofi.sh drun" \
   "SUPER SPACE" "Launch application menu" "scripts/rofi.sh drun" \
+  "SUPER SHIFT T" "Launch tmux sessions" "scripts/rofi.sh tmux" \
   "SUPER F9" "Enable night mode" "hyprsunset --temperature 2500" \
   "SUPER F10" "Disable night mode" "pkill hyprsunset" \
   "SUPER F8" "Toggle autoclicker" "scripts/autoclicker.nix" \
