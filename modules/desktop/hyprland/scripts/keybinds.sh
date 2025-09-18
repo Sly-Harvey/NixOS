@@ -41,9 +41,10 @@ yad \
   "SUPER F" "Launch browser" "$_browser" \
   "SUPER SHIFT S" "Launch spotify" "spotify" \
   "CTRL ALT Delete" "Open system monitor" "$_terminal -e 'btop'" \
-  "SUPER A" "Launch application menu" "scripts/rofi.sh drun" \
-  "SUPER SPACE" "Launch application menu" "scripts/rofi.sh drun" \
-  "SUPER SHIFT T" "Launch tmux sessions" "scripts/rofi.sh tmux" \
+  "SUPER A" "Launch application menu" "scripts/launcher drun" \
+  "SUPER SPACE" "Launch application menu" "scripts/launcher drun" \
+  "SUPER SHIFT T" "Launch tmux sessions" "scripts/launcher tmux" \
+  "SUPER G" "Game launcher" "scripts/launcher games" \
   "SUPER F9" "Enable night mode" "hyprsunset --temperature 2500" \
   "SUPER F10" "Disable night mode" "pkill hyprsunset" \
   "SUPER F8" "Toggle autoclicker" "scripts/autoclicker.nix" \
@@ -78,10 +79,9 @@ yad \
   "SUPER SHIFT Q" "Open notification panel" "swaync-client -t -sw" \
   "SUPER Q" "Close active window" "scripts/dontkillsteam.sh" \
   "ALT F4" "Close active window" "scripts/dontkillsteam.sh" \
-  "SUPER Z" "Launch emoji picker" "scripts/rofi.sh emoji" \
+  "SUPER Z" "Launch emoji picker" "scripts/launcher emoji" \
   "SUPER ALT K" "Change keyboard layout" "scripts/keyboardswitch.sh" \
   "SUPER U" "Rebuild system" "$_terminal -e scripts/rebuild.sh" \
-  "SUPER G" "Game launcher" "scripts/rofi.sh games" \
   "SUPER ALT G" "Enable game mode" "scripts/gamemode.sh" \
   "SUPER V" "Clipboard manager" "scripts/ClipManager.sh" \
   "SUPER M" "Online music" "scripts/rofimusic.sh" \

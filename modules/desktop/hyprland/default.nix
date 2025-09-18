@@ -389,16 +389,16 @@
               "$CONTROL ALT, DELETE, exec, $term -e '${getExe pkgs.btop}'" # System Monitor
               "$mainMod CTRL, C, exec, hyprpicker --autocopy --format=hex" # Colour Picker
 
-              "$mainMod, A, exec, ${./scripts/rofi.sh} drun" # launch desktop applications
-              "$mainMod, SPACE, exec, ${./scripts/rofi.sh} drun" # launch desktop applications
-              "$mainMod, Z, exec, ${./scripts/rofi.sh} emoji" # launch emoji picker
-              "$mainMod SHIFT, T, exec, ${./scripts/rofi.sh} tmux" # launch tmux sessions
-              # "$mainMod, tab, exec, ${./scripts/rofi.sh} window" # switch between desktop applications
-              # "$mainMod, R, exec, ${./scripts/rofi.sh} file" # brrwse system files
+              "$mainMod, A, exec, launcher drun" # launch desktop applications
+              "$mainMod, SPACE, exec, launcher drun" # launch desktop applications
+              "$mainMod, Z, exec, launcher emoji" # launch emoji picker
+              "$mainMod SHIFT, T, exec, launcher tmux" # launch tmux sessions
+              "$mainMod, G, exec, launcher games" # game launcher
+              # "$mainMod, tab, exec, launcher window" # switch between desktop applications
+              # "$mainMod, R, exec, launcher file" # brrwse system files
               "$mainMod ALT, K, exec, ${./scripts/keyboardswitch.sh}" # change keyboard layout
               "$mainMod SHIFT, N, exec, swaync-client -t -sw" # swayNC panel
               "$mainMod SHIFT, Q, exec, swaync-client -t -sw" # swayNC panel
-              "$mainMod, G, exec, ${./scripts/rofi.sh} games" # game launcher
               "$mainMod ALT, G, exec, ${./scripts/gamemode.sh}" # disable hypr effects for gamemode
               "$mainMod, V, exec, ${./scripts/ClipManager.sh}" # Clipboard Manager
               "$mainMod, M, exec, ${./scripts/rofimusic.sh}" # online music
