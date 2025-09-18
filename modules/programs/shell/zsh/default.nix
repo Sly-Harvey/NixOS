@@ -142,8 +142,8 @@
         shellAliases = {
           cls = "clear";
           tml = "tmux list-sessions";
-          attach = "tmux attach";
-          att = "tmux attach";
+          tma = "tmux attach";
+          tms = "tmux attach -t $(tmux ls -F '#{session_name}: #{session_path} (#{session_windows} windows)' | fzf | cut -d: -f1)";
           l = "${pkgs.eza}/bin/eza -lh  --icons=auto"; # long list
           ls = "${pkgs.eza}/bin/eza -1   --icons=auto"; # short list
           ll = "${pkgs.eza}/bin/eza -lha --icons=auto --sort=name --group-directories-first"; # long list all
