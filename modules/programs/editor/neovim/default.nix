@@ -1,4 +1,4 @@
-{inputs, pkgs, ...}: {
+{inputs, pkgs, terminal, ...}: {
   environment.systemPackages = with pkgs; [zig] # Required
   home-manager.sharedModules = [
     (_: {
@@ -9,7 +9,7 @@
           name = "Neovim wrapper";
           genericName = "Text Editor";
           comment = "Edit text files";
-          exec = "${pkgs.kitty}/bin/kitty --class \"nvim-wrapper\" -e nvim %F";
+          exec = "${pkgs.${terminal}}/bin/${terminal} --class \"nvim-wrapper\" -e nvim %F";
           icon = "nvim";
           mimeType = [
             "text/plain"

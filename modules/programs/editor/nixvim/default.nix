@@ -1,6 +1,7 @@
 {
   inputs,
   pkgs,
+  terminal,
   ...
 }: {
   home-manager.sharedModules = [
@@ -13,7 +14,7 @@
           name = "Neovim wrapper";
           genericName = "Text Editor";
           comment = "Edit text files";
-          exec = "${pkgs.kitty}/bin/kitty --class \"nvim-wrapper\" -e nvim %F";
+          exec = "${pkgs.${terminal}}/bin/${terminal} --class \"nvim-wrapper\" -e nvim %F";
           icon = "nvim";
           mimeType = [
             "text/plain"
