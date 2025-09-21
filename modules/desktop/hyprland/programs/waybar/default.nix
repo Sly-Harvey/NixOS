@@ -27,7 +27,7 @@
             modules-left = ["hyprland/workspaces" "cava"];
             # modules-center = ["clock" "custom/notification"];
             modules-center = ["idle_inhibitor" "clock"];
-            modules-right = ["custom/gpuinfo" "cpu" "memory" "backlight" "pulseaudio" "bluetooth" "network" "tray" "battery"];
+            modules-right = ["cpu" "memory" "backlight" "pulseaudio" "bluetooth" "network" "tray" "battery"];
 
             "custom/notification" = {
               tooltip = false;
@@ -71,15 +71,15 @@
               bar_delimiter = 0;
               on-click = "playerctl play-pause";
             };
-            "custom/gpuinfo" = {
-              exec = "${../../scripts/gpuinfo.sh}";
-              return-type = "json";
-              format = "{0}";
-              on-click = "${../../scripts/gpuinfo.sh} --toggle";
-              interval = 5; # once every 5 seconds
-              tooltip = true;
-              max-length = 1000;
-            };
+            # "custom/gpuinfo" = {
+            #   exec = "${../../scripts/gpuinfo.sh}";
+            #   return-type = "json";
+            #   format = "{0}";
+            #   on-click = "${../../scripts/gpuinfo.sh} --toggle";
+            #   interval = 5; # once every 5 seconds
+            #   tooltip = true;
+            #   max-length = 1000;
+            # }; # Disabled - NVIDIA-specific
             "custom/icon" = {
               # format = " ";
               exec = "echo ' '";
@@ -468,9 +468,9 @@
             color: #cba6f7;
           }
 
-          #custom-gpuinfo {
-            color: @maroon;
-          }
+          /*           #custom-gpuinfo {
+          /*             color: @maroon;
+          /*           } */ /* Disabled - NVIDIA-specific */
 
           #cpu {
             color: @yellow;

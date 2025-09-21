@@ -20,7 +20,7 @@
     (import ./tmux-sessionizer.nix scriptArgs)
     (import ./extract.nix scriptArgs)
     (import ./driverinfo.nix scriptArgs)
-    (import ./underwatt.nix scriptArgs)
+    # (import ./underwatt.nix scriptArgs) # NVIDIA-specific script - disabled
     # Add new scripts here as you create them
   ];
 in {
