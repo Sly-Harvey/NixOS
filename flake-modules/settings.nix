@@ -14,7 +14,7 @@
     wallpaper = "kurzgesagt"; # see modules/themes/wallpapers
 
     # System configuration
-    videoDriver = "intel"; # CHOOSE YOUR GPU DRIVERS (nvidia, amdgpu or intel)
+    videoDriver = "nvidia"; # CHOOSE YOUR GPU DRIVERS (nvidia, amdgpu or intel)
     hostname = "NixOS"; # CHOOSE A HOSTNAME HERE
     locale = "en_GB.UTF-8"; # CHOOSE YOUR LOCALE
     timezone = "Europe/London"; # CHOOSE YOUR TIMEZONE
