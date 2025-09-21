@@ -138,7 +138,7 @@
                 "(.*) — Dolphin" = "$1 󰉋";
                 "(.*)Spotify" = "Spotify 󰓇";
                 "(.*)Spotify Premium" = "Spotify 󰓇";
-                "(.*)Steam" = "Steam 󰓓";
+                # "(.*)Steam" = "Steam 󰓓"; # Steam removed
               };
               max-length = 1000;
             };

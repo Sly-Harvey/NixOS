@@ -20,7 +20,7 @@
     ../../modules/desktop/hyprland # Enable hyprland window manager
     # ../../modules/desktop/i3-gaps # Enable i3 window manager
 
-    ../../modules/programs/games
+    # ../../modules/programs/games # Gaming stack removed to reduce compilation time
     ../../modules/programs/browser/${browser} # Set browser defined in flake.nix
     ../../modules/programs/terminal/${terminal} # Set terminal defined in flake.nix
     ../../modules/programs/editor/${editor} # Set editor defined in flake.nix
