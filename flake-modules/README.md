@@ -23,7 +23,7 @@ Handles Nixpkgs overlays that modify or add packages to the package set. Referen
 Manages custom packages using flake-parts' `perSystem` functionality. This provides better system-specific package handling for packages defined in the `pkgs/` directory.
 
 ### `formatter.nix`
-Configures code formatting using Alejandra for consistent Nix code style across all systems.
+Configures code formatting using treefmt-nix with nixfmt (RFC style) for consistent code style across all systems. Also includes formatting for shell scripts, markdown, and YAML files.
 
 ## Benefits of This Structure
 
@@ -36,6 +36,28 @@ Configures code formatting using Alejandra for consistent Nix code style across 
 4. **Maintainability**: Changes to specific functionality (like adding a new package or overlay) only require editing the relevant module.
 
 5. **Extensibility**: New modules can be easily added by creating a new file and importing it in the main `flake.nix`.
+
+## Code Formatting
+
+The configuration now uses treefmt-nix with multiple formatters:
+
+- **nixfmt (RFC style)**: Formats Nix files with the new RFC-compliant style
+- **shfmt**: Formats shell scripts with consistent indentation
+- **mdformat**: Formats markdown files
+- **yamlfmt**: Formats YAML files
+
+### Usage
+
+```bash
+# Format all files
+nix fmt
+
+# Check formatting without making changes
+nix run .#treefmt -- --fail-on-change
+
+# Format specific files
+nix run .#treefmt -- path/to/file.nix
+```
 
 ## Adding New Modules
 
@@ -64,4 +86,3 @@ This configuration maintains backward compatibility with the original structure:
 - [flake-parts Documentation](https://flake.parts/)
 - [Getting Started Guide](https://flake.parts/getting-started.html)
 - [Options Reference](https://flake.parts/options/flake-parts.html)
-
