@@ -1,6 +1,6 @@
 {pkgs, ...}: {
   force = true;
-  default = "google";
+  default = "Startpage";
   privateDefault = "Startpage";
   order = [
     "Startpage"
