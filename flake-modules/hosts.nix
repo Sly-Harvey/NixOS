@@ -25,7 +25,7 @@
             outputs = config.flake;
             self = self';
             hostname = hostName;
-          } // config.settings // extraArgs;
+          } // config.flake.settings // extraArgs;
           modules = [
             ../hosts/${hostName}/configuration.nix
           ] ++ modules;
