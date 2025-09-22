@@ -16,90 +16,75 @@
   # Fetch the Rose Pine Kvantum repository
   rose-pine-kvantum-pkg = pkgs.rose-pine-kvantum;
   kvantumThemeDir = "${rose-pine-kvantum-pkg}/share/Kvantum/themes/${kvantumThemeName}";
-in
-{
+in {
   home-manager.sharedModules = [
-    (
-      { config, ... }:
-      {
-        # Include Rose Pine GTK and icon themes
-        home.packages = [
-          rose-pine-kvantum-pkg
-          pkgs.rose-pine-gtk-theme
-          pkgs.rose-pine-icon-theme
-        ];
+    ({config, ...}: {
+      # Include Rose Pine GTK and icon themes
+      home.packages = [rose-pine-kvantum-pkg pkgs.rose-pine-gtk-theme pkgs.rose-pine-icon-theme];
 
-        # GTK configuration
-        gtk = {
-          enable = true;
-          theme = {
-            name = baseName;
-            package = pkgs.rose-pine-gtk-theme;
-          };
-          iconTheme = {
-            # package = pkgs.adwaita-icon-theme;
-            # name = "Adwaita";
-            package = pkgs.papirus-icon-theme;
-            name = "Papirus-Dark";
-          };
-          gtk3.extraConfig = {
-            "gtk-application-prefer-dark-theme" = "1";
-          };
-          gtk4.extraConfig = {
-            "gtk-application-prefer-dark-theme" = "1";
-          };
+      # GTK configuration
+      gtk = {
+        enable = true;
+        theme = {
+          name = baseName;
+          package = pkgs.rose-pine-gtk-theme;
         };
-
-        # Qt configuration with Kvantum
-        qt = {
-          enable = true;
-          platformTheme.name = "gtk";
-          style.name = "kvantum";
+        iconTheme = {
+          # package = pkgs.adwaita-icon-theme;
+          # name = "Adwaita";
+          package = pkgs.papirus-icon-theme;
+          name = "Papirus-Dark";
         };
-
-        # Kvantum configuration
-        xdg.dataFile."Kvantum/${kvantumThemeName}".source = kvantumThemeDir;
-        xdg.configFile."Kvantum/kvantum.kvconfig".source =
-          (pkgs.formats.ini { }).generate "kvantum.kvconfig"
-            {
-              General.theme = kvantumThemeName;
-            };
-
-        # Wallpaper configuration
-        services.hyprpaper = {
-          enable = true;
-          settings = {
-            preload = [ "${../wallpapers/${wallpaper}}" ];
-            wallpaper = [ ",${../wallpapers/${wallpaper}}" ];
-          };
+        gtk3.extraConfig = {
+          "gtk-application-prefer-dark-theme" = "1";
         };
-
-        # GNOME dark mode
-        dconf.settings = {
-          "org/gnome/desktop/interface" = {
-            color-scheme = "prefer-dark";
-          };
+        gtk4.extraConfig = {
+          "gtk-application-prefer-dark-theme" = "1";
         };
+      };
 
-        # Pointer cursor
-        home.pointerCursor = {
-          gtk.enable = true;
-          x11.enable = true;
-          package = pkgs.bibata-cursors;
-          name = "Bibata-Modern-Classic";
-          size = 24;
-        };
+      # Qt configuration with Kvantum
+      qt = {
+        enable = true;
+        platformTheme.name = "gtk";
+        style.name = "kvantum";
+      };
 
-        # GTK4 assets for consistency
-        xdg.configFile = {
-          "gtk-4.0/assets".source =
-            "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/assets";
-          "gtk-4.0/gtk.css".source =
-            "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/gtk.css";
-          "gtk-4.0/gtk-dark.css".source =
-            "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/gtk-dark.css";
+      # Wallpaper configuration
+      services.hyprpaper = {
+        enable = true;
+        settings = {
+          preload = ["${../wallpapers/${wallpaper}}"];
+          wallpaper = [",${../wallpapers/${wallpaper}}"];
         };
-      }
-    )
+      };
+
+      # GNOME dark mode
+      dconf.settings = {
+        "org/gnome/desktop/interface" = {
+          color-scheme = "prefer-dark";
+        };
+      };
+
+      # Pointer cursor
+      home.pointerCursor = {
+        gtk.enable = true;
+        x11.enable = true;
+        package = pkgs.bibata-cursors;
+        name = "Bibata-Modern-Classic";
+        size = 24;
+      };
+
+      # GTK4 assets and Kvantum configuration
+      xdg.configFile = {
+        "gtk-4.0/assets".source = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/assets";
+        "gtk-4.0/gtk.css".source = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/gtk.css";
+        "gtk-4.0/gtk-dark.css".source = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/gtk-dark.css";
+        "Kvantum/${kvantumThemeName}".source = kvantumThemeDir;
+        "Kvantum/kvantum.kvconfig".source = (pkgs.formats.ini {}).generate "kvantum.kvconfig" {
+          General.theme = kvantumThemeName;
+        };
+      };
+    })
   ];
 }
