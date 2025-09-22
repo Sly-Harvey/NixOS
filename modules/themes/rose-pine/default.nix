@@ -65,21 +65,21 @@ in {
         };
       };
 
-      # GNOME dark mode
-      dconf.settings = {
-        "org/gnome/desktop/interface" = {
-          color-scheme = "prefer-dark";
+        # GNOME dark mode
+        dconf.settings = {
+          "org/gnome/desktop/interface" = {
+            color-scheme = "prefer-dark";
+          };
         };
-      };
 
-      # Pointer cursor
-      home.pointerCursor = {
-        gtk.enable = true;
-        x11.enable = true;
-        package = pkgs.bibata-cursors;
-        name = "Bibata-Modern-Classic";
-        size = 24;
-      };
+        # Pointer cursor
+        home.pointerCursor = {
+          gtk.enable = true;
+          x11.enable = true;
+          package = pkgs.bibata-cursors;
+          name = "Bibata-Modern-Classic";
+          size = 24;
+        };
 
         # GTK4 assets for consistency
         xdg.configFile = {
