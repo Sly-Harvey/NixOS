@@ -50,20 +50,22 @@ in {
         style.name = "kvantum";
       };
 
-      # Kvantum configuration
-      xdg.dataFile."Kvantum/${kvantumThemeName}".source = kvantumThemeDir;
-      xdg.configFile."Kvantum/kvantum.kvconfig".source = (pkgs.formats.ini {}).generate "kvantum.kvconfig" {
-        General.theme = kvantumThemeName;
-      };
+        # Kvantum configuration
+        xdg.dataFile."Kvantum/${kvantumThemeName}".source = kvantumThemeDir;
+        xdg.configFile."Kvantum/kvantum.kvconfig".source =
+          (pkgs.formats.ini { }).generate "kvantum.kvconfig"
+            {
+              General.theme = kvantumThemeName;
+            };
 
-      # Wallpaper configuration
-      services.hyprpaper = {
-        enable = true;
-        settings = {
-          preload = ["${../wallpapers/${wallpaper}}"];
-          wallpaper = [",${../wallpapers/${wallpaper}}"];
+        # Wallpaper configuration
+        services.hyprpaper = {
+          enable = true;
+          settings = {
+            preload = [ "${../wallpapers/${wallpaper}}" ];
+            wallpaper = [ ",${../wallpapers/${wallpaper}}" ];
+          };
         };
-      };
 
         # GNOME dark mode
         dconf.settings = {
