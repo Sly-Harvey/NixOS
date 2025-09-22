@@ -8,7 +8,7 @@
     username = "zer0"; # automatically set with install.sh and live-install.sh
     editor = "nixvim"; # nixvim, vscode, helix, nvchad, neovim, emacs (WIP)
     browser = "zen"; # firefox, floorp, zen
-    terminal = "kitty"; # kitty, alacritty, wezterm
+    terminal = "ghostty"; # kitty, alacritty, wezterm, ghostty
     terminalFileManager = "yazi"; # yazi or lf
     sddmTheme = "purple_leaves"; # astronaut, black_hole, purple_leaves, jake_the_dog, hyprland_kath
     wallpaper = "kurzgesagt"; # see modules/themes/wallpapers
