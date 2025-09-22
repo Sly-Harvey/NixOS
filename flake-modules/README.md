@@ -1,17 +1,28 @@
 # Flake Modules
 
-This directory contains the modular flake-parts configuration for this NixOS system. The configuration has been refactored from a monolithic `flake.nix` into focused, maintainable modules.
+This directory contains the modular flake-parts configuration for this NixOS system. The configuration has been refactored from a monolithic `flake.nix` into focused, maintainable modules with enhanced modularity and reusability.
 
-## Module Structure
+## Core Configuration Modules
 
 ### `settings.nix`
-Contains user and system configuration settings that were previously defined in the main `flake.nix`. This includes:
+Enhanced user and system configuration settings with feature toggles and integration points:
 - User preferences (username, editor, browser, terminal, etc.)
+- Theme configuration (wallpapers, SDDM themes, color schemes)
+- Hardware profiles (desktop, laptop, server)
 - System configuration (hostname, locale, timezone, keyboard layout, etc.)
-- Hardware settings (video driver, themes, wallpapers)
+- Feature toggles for audio, gaming, development, and media stacks
 
-### `systems.nix`
-Handles `nixosConfigurations` for different hosts. Currently defines the "Default" system configuration and passes the settings and inputs to the host modules.
+### `hosts.nix` ⭐ **NEW**
+Replaces `systems.nix` with a more flexible host management system:
+- Helper functions for creating host configurations
+- Shared configuration and host-specific overrides
+- Easy addition of new hosts (laptop, server, etc.)
+- Consistent argument passing and module loading
+
+### `systems.nix` ⚠️ **DEPRECATED**
+Legacy module kept for backward compatibility. Use `hosts.nix` instead.
+
+## Feature Modules
 
 ### `dev-shells.nix`
 Manages development shell templates from the `dev-shells/` directory. These provide ready-to-use development environments for various programming languages.
@@ -25,17 +36,50 @@ Manages custom packages using flake-parts' `perSystem` functionality. This provi
 ### `formatter.nix`
 Configures code formatting using treefmt-nix with nixfmt (RFC style) for consistent code style across all systems. Also includes formatting for shell scripts, markdown, and YAML files.
 
-## Benefits of This Structure
+## New Modular Components
 
-1. **Modularity**: Each concern is separated into its own file, making the configuration easier to understand and maintain.
+### `services.nix` ⭐ **NEW**
+Centralized service configurations that can be shared across hosts:
+- Syncthing file synchronization
+- DLNA media server
+- SSH server configuration
+- Development services (Docker, libvirt)
+- Easy enable/disable toggles for each service
 
-2. **Reusability**: Modules can be easily shared between different flake configurations or disabled/enabled as needed.
+### `themes.nix` ⭐ **NEW**
+Centralized theme management system:
+- Available wallpapers and SDDM themes
+- Color scheme definitions (Catppuccin, Nord, Gruvbox)
+- Theme helper functions
+- Consistent theming across the system
 
-3. **System Handling**: flake-parts provides better system architecture with `perSystem` for system-specific configurations.
+### `hardware.nix` ⭐ **NEW**
+Hardware profiles for different system types:
+- **Desktop profile**: High performance, dedicated GPU support
+- **Laptop profile**: Power efficiency, integrated graphics
+- **Server profile**: Minimal graphics, maximum stability
+- Video driver configurations per profile
+- Hardware-specific feature sets
 
-4. **Maintainability**: Changes to specific functionality (like adding a new package or overlay) only require editing the relevant module.
+## Benefits of This Enhanced Structure
 
-5. **Extensibility**: New modules can be easily added by creating a new file and importing it in the main `flake.nix`.
+1. **Enhanced Modularity**: Each concern is separated into focused modules with clear responsibilities and interfaces.
+
+2. **Hardware Profiles**: Different system types (desktop, laptop, server) can use optimized configurations automatically.
+
+3. **Theme Management**: Centralized theming with consistent color schemes and easy theme switching.
+
+4. **Service Management**: Common services can be easily enabled/disabled across different hosts.
+
+5. **Feature Toggles**: Fine-grained control over system features to reduce compilation time and system bloat.
+
+6. **Host Flexibility**: Easy addition of new hosts with shared configuration and host-specific overrides.
+
+7. **Reusability**: Modules can be easily shared between different flake configurations or projects.
+
+8. **Maintainability**: Changes to specific functionality only require editing the relevant module.
+
+9. **Type Safety**: Better integration between modules with consistent interfaces and helper functions.
 
 ## Code Formatting
 
@@ -59,6 +103,60 @@ nix run .#treefmt -- --fail-on-change
 nix run .#treefmt -- path/to/file.nix
 ```
 
+## Usage Examples
+
+### Adding a New Host
+
+To add a laptop configuration:
+
+1. Create `hosts/Laptop/` directory with `configuration.nix` and `hardware-configuration.nix`
+2. Update `flake-modules/hosts.nix`:
+   ```nix
+   Laptop = mkHost {
+     system = "x86_64-linux";
+     hostName = "Laptop";
+     extraArgs = {
+       hardwareProfile = "laptop";
+       videoDriver = "intel";
+     };
+   };
+   ```
+
+### Switching Themes
+
+Update `flake-modules/settings.nix`:
+```nix
+wallpaper = "nature";
+sddmTheme = "astronaut";
+colorScheme = "nord";
+```
+
+### Enabling Features
+
+Enable gaming stack in `flake-modules/settings.nix`:
+```nix
+features = {
+  gaming = {
+    enable = true;
+    steam = true;
+    lutris = true;
+  };
+};
+```
+
+### Using Hardware Profiles
+
+The hardware profile automatically configures:
+- Video drivers and packages
+- Power management settings
+- Audio configuration
+- Hardware-specific features
+
+Change profile in `flake-modules/settings.nix`:
+```nix
+hardwareProfile = "laptop"; # or "desktop", "server"
+```
+
 ## Adding New Modules
 
 To add a new flake-parts module:
@@ -68,6 +166,9 @@ To add a new flake-parts module:
    ```nix
    { inputs, config, ... }: {
      # Your module configuration here
+     flake.myNewFeature = {
+       # Configuration options
+     };
    }
    ```
 3. Import the module in the main `flake.nix` imports list

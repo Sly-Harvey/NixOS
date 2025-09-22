@@ -54,12 +54,23 @@
   outputs = inputs@{ flake-parts, ... }:
     flake-parts.lib.mkFlake { inherit inputs; } {
       imports = [
+        # Core configuration modules
         ./flake-modules/settings.nix
-        ./flake-modules/systems.nix
+        ./flake-modules/hosts.nix          # Replaces systems.nix with better modularity
+        
+        # Feature modules
         ./flake-modules/dev-shells.nix
         ./flake-modules/overlays.nix
         ./flake-modules/packages.nix
         ./flake-modules/formatter.nix
+        
+        # New modular components
+        ./flake-modules/services.nix       # Common service configurations
+        ./flake-modules/themes.nix         # Centralized theme management
+        ./flake-modules/hardware.nix       # Hardware profiles and configurations
+        
+        # Deprecated (keeping for compatibility)
+        # ./flake-modules/systems.nix      # Use hosts.nix instead
       ];
 
       systems = [
