@@ -230,7 +230,7 @@
           "org/gnome/shell" = {
             disabled-extensions = ["native-window-placement@gnome-shell-extensions.gcampax.github.com" "window-list@gnome-shell-extensions.gcampax.github.com" "windowsNavigator@gnome-shell-extensions.gcampax.github.com"];
             enabled-extensions = ["apps-menu@gnome-shell-extensions.gcampax.github.com" "launch-new-instance@gnome-shell-extensions.gcampax.github.com" "places-menu@gnome-shell-extensions.gcampax.github.com" "drive-menu@gnome-shell-extensions.gcampax.github.com" "user-theme@gnome-shell-extensions.gcampax.github.com" "workspace-indicator@gnome-shell-extensions.gcampax.github.com"];
-            favorite-apps = ["org.gnome.Settings.desktop" "org.gnome.Nautilus.desktop" "gnome-system-monitor.desktop" "firefox.desktop" "Alacritty.desktop" "org.gnome.Console.desktop"];
+            favorite-apps = ["org.gnome.Settings.desktop" "org.gnome.Nautilus.desktop" "gnome-system-monitor.desktop" "firefox.desktop" "org.gnome.Console.desktop"];
             last-selected-power-profile = "performance";
             welcome-dialog-last-shown-version = "45.4";
           };

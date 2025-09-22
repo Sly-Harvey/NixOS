@@ -131,14 +131,16 @@
             y=$5
 
             if [[ "$( ${getExe pkgs.file} -Lb --mime-type "$file")" =~ ^image ]]; then
-                ${getExe pkgs.kitty} +kitten icat --silent --stdin no --transfer-mode file --place "''${w}x''${h}@''${x}x''${y}" "$file" < /dev/null > /dev/tty
+                # Image preview disabled - kitty removed
+                echo "Image: $file"
                 exit 1
             fi
 
             ${getExe pkgs.pistol} "$file"
           '';
           cleaner = pkgs.writeShellScriptBin "clean.sh" ''
-            ${getExe pkgs.kitty} +kitten icat --clear --stdin no --silent --transfer-mode file < /dev/null > /dev/tty
+            # Cleaner disabled - kitty removed
+            clear
           '';
         in ''
           set cleaner ${cleaner}/bin/clean.sh

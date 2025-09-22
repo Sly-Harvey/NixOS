@@ -20,8 +20,8 @@
     ../../modules/desktop/hyprland # Enable hyprland window manager
     # ../../modules/desktop/i3-gaps # Enable i3 window manager
 
-    ../../modules/programs/games
-    ../../modules/programs/browser/${browser} # Set browser defined in flake.nix
+    # ../../modules/programs/games # Gaming stack removed to reduce compilation time
+    # ../../modules/programs/browser/${browser} # Browser modules removed to reduce compilation time
     ../../modules/programs/terminal/${terminal} # Set terminal defined in flake.nix
     ../../modules/programs/editor/${editor} # Set editor defined in flake.nix
     ../../modules/programs/cli/${terminalFileManager} # Set file-manager defined in flake.nix
@@ -29,16 +29,16 @@
     ../../modules/programs/cli/tmux
     ../../modules/programs/cli/direnv
     ../../modules/programs/cli/lazygit
-    ../../modules/programs/cli/cava
+    # ../../modules/programs/cli/cava # Audio visualizer - removed to reduce audio stack
     ../../modules/programs/cli/btop
     ../../modules/programs/shell/bash
     ../../modules/programs/shell/zsh
-    ../../modules/programs/media/discord
-    ../../modules/programs/media/spicetify
+    # ../../modules/programs/media/discord # Removed to reduce system bloat
+
     # ../../modules/programs/media/youtube-music
     # ../../modules/programs/media/thunderbird
     # ../../modules/programs/media/obs-studio
-    ../../modules/programs/media/mpv
+    # ../../modules/programs/media/mpv # Removed to reduce media stack bloat
     ../../modules/programs/misc/tlp
     ../../modules/programs/misc/thunar
     ../../modules/programs/misc/lact # GPU fan, clock and power configuration
@@ -50,9 +50,10 @@
   home-manager.sharedModules = [
     (_: {
       home.packages = with pkgs; [
+        firefox # Lightweight browser (binary cache available)
         obsidian
-        protonvpn-gui # VPN
-        github-desktop
+        # protonvpn-gui # VPN - Removed to reduce GUI bloat
+        # github-desktop # Removed - using lazygit and gh CLI instead
         # pokego # Overlayed
         # krita
         # gimp
@@ -74,25 +75,5 @@
     dataDir = "/home/${username}"; # default location for new folders
     configDir = "/home/${username}/.config/syncthing";
   };
-  /* services.minidlna = {
-    enable = true;
-    openFirewall = true;
-    settings = {
-      friendly_name = "NixOS-DLNA";
-      media_dir = [
-        # A = Audio, P = Pictures, V, = Videos, PV = Pictures and Videos.
-        # "A,/mnt/work/Pimsleur/Russian"
-        "/mnt/work/Pimsleur"
-        "/mnt/work/Media/Films"
-        "/mnt/work/Media/Series"
-        "/mnt/work/Media/Videos"
-        "/mnt/work/Media/Music"
-      ];
-      inotify = "yes";
-      log_level = "error";
-    };
-  };
-  users.users.minidlna = {
-    extraGroups = ["users"]; # so minidlna can access the files.
-  }; */
+
 }

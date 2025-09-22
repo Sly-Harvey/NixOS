@@ -46,13 +46,8 @@
 
       # Can use name or class_g here
       opacity-rule = [
-        "100:class_g = 'floorp'"
         "100:class_g = 'firefox'"
-        "100:class_g = 'zen'"
         "100:class_g = 'Brave-browser'"
-        "90:class_g = 'kitty' && focused"
-        "90:class_g = 'Alacritty' && focused"
-        "90:class_g = 'org.wezfurlong.wezterm' && focused"
         "80:name = 'Spotify' && !focused"
       ];
     };

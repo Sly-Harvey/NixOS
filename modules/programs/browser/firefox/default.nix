@@ -39,7 +39,6 @@
               lockPref("privacy.clearOnShutdown.cookies", false);
               lockPref("privacy.clearOnShutdown.offlineApps", false);
               lockPref("browser.sessionstore.privacy_level", 0);
-              lockPref("floorp.browser.sidebar.enable", false);
               lockPref("geo.enabled", false);
               lockPref("media.navigator.enabled", false);
               lockPref("dom.event.clipboardevents.enabled", false);
@@ -47,8 +46,6 @@
               lockPref("dom.battery.enabled", false);
               lockPref("extensions.enabledScopes", 15);
               lockPref("extensions.autoDisableScopes", 0);
-              lockPref("browser.newtabpage.activity-stream.floorp.newtab.imagecredit.hide", true);
-              lockPref("browser.newtabpage.activity-stream.floorp.newtab.releasenote.hide", true);
               lockPref("browser.search.separatePrivateDefault", true);
             '';
           };

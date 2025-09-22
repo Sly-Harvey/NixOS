@@ -24,10 +24,10 @@
             margin-right = 10;
             margin-bottom = 0;
 
-            modules-left = ["hyprland/workspaces" "cava"];
+            modules-left = ["hyprland/workspaces"]; # "cava" removed - audio stack removed
             # modules-center = ["clock" "custom/notification"];
             modules-center = ["idle_inhibitor" "clock"];
-            modules-right = ["custom/gpuinfo" "cpu" "memory" "backlight" "pulseaudio" "bluetooth" "network" "tray" "battery"];
+            modules-right = ["cpu" "memory" "backlight" "bluetooth" "network" "tray" "battery"]; # "pulseaudio" removed - audio stack removed
 
             "custom/notification" = {
               tooltip = false;
@@ -60,17 +60,17 @@
               exec = "${../../scripts/WaybarCava.sh}";
               format = "{}";
             };
-            "cava" = {
-              hide_on_silence = false;
-              framerate = 60;
-              bars = 10;
-              format-icons = ["▁" "▂" "▃" "▄" "▅" "▆" "▇" "█"];
-              input_delay = 1;
-              # "noise_reduction" = 0.77;
-              sleep_timer = 5;
-              bar_delimiter = 0;
-              on-click = "playerctl play-pause";
-            };
+            # "cava" = { # Audio visualizer removed - audio stack removed
+            #   hide_on_silence = false;
+            #   framerate = 60;
+            #   bars = 10;
+            #   format-icons = ["▁" "▂" "▃" "▄" "▅" "▆" "▇" "█"];
+            #   input_delay = 1;
+            #   # "noise_reduction" = 0.77;
+            #   sleep_timer = 5;
+            #   bar_delimiter = 0;
+            #   on-click = "playerctl play-pause";
+            # };
             "custom/gpuinfo" = {
               exec = "${../../scripts/gpuinfo.sh}";
               return-type = "json";
@@ -138,7 +138,7 @@
                 "(.*) — Dolphin" = "$1 󰉋";
                 "(.*)Spotify" = "Spotify 󰓇";
                 "(.*)Spotify Premium" = "Spotify 󰓇";
-                "(.*)Steam" = "Steam 󰓓";
+                # "(.*)Steam" = "Steam 󰓓"; # Steam removed
               };
               max-length = 1000;
             };
@@ -225,31 +225,31 @@
               on-click = "blueman-manager";
             };
 
-            "pulseaudio" = {
-              format = "{icon} {volume}";
-              format-muted = " ";
-              on-click = "pavucontrol -t 3";
-              tooltip-format = "{icon} {desc} // {volume}%";
-              scroll-step = 4;
-              format-icons = {
-                headphone = "";
-                hands-free = "";
-                headset = "";
-                phone = "";
-                portable = "";
-                car = "";
-                default = ["" "" ""];
-              };
-            };
+            # "pulseaudio" = { # Audio control removed - audio stack removed
+            #   format = "{icon} {volume}";
+            #   format-muted = " ";
+            #   on-click = "pavucontrol -t 3";
+            #   tooltip-format = "{icon} {desc} // {volume}%";
+            #   scroll-step = 4;
+            #   format-icons = {
+            #     headphone = "";
+            #     hands-free = "";
+            #     headset = "";
+            #     phone = "";
+            #     portable = "";
+            #     car = "";
+            #     default = ["" "" ""];
+            #   };
+            # };
 
-            "pulseaudio#microphone" = {
-              format = "{format_source}";
-              format-source = " {volume}%";
-              format-source-muted = "";
-              on-click = "pavucontrol -t 4";
-              tooltip-format = "{format_source} {source_desc} // {source_volume}%";
-              scroll-step = 5;
-            };
+            # "pulseaudio#microphone" = { # Microphone control removed - audio stack removed
+            #   format = "{format_source}";
+            #   format-source = " {volume}%";
+            #   format-source-muted = "";
+            #   on-click = "pavucontrol -t 4";
+            #   tooltip-format = "{format_source} {source_desc} // {source_volume}%";
+            #   scroll-step = 5;
+            # };
 
             "tray" = {
               icon-size = 12;
@@ -468,9 +468,9 @@
             color: #cba6f7;
           }
 
-          #custom-gpuinfo {
-            color: @maroon;
-          }
+                    #custom-gpuinfo {
+                      color: @maroon;
+                    }
 
           #cpu {
             color: @yellow;
