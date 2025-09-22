@@ -9,7 +9,7 @@
 # - Theme and appearance settings (SDDM theme, wallpaper)
 # - Hardware configuration (video driver selection)
 # - System localization (locale, timezone, keyboard layout)
-# - Feature toggles for optional components (audio, gaming, development, media)
+# - Feature toggles for optional components (audio, development)
 #
 # Usage: Settings are automatically available to all other modules via config.settings
 
