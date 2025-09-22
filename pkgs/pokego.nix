@@ -15,7 +15,7 @@ buildGoModule {
 
   vendorHash = "sha256-7SoKHH+tDJKhUQDoVwAzVZXoPuKNJEHDEyQ77BPEDQ0=";
   env.CGO_ENABLED = 0;
-  flags = ["-trimpath"];
+  flags = [ "-trimpath" ];
   ldflags = [
     "-s"
     "-w"
@@ -27,6 +27,6 @@ buildGoModule {
     homepage = "https://github.com/rubiin/pokego";
     mainProgram = "pokego";
     license = licenses.gpl3;
-    maintainers = with maintainers; [rubiin];
+    maintainers = with maintainers; [ rubiin ];
   };
 }
