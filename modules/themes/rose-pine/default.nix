@@ -16,11 +16,18 @@
   # Fetch the Rose Pine Kvantum repository
   rose-pine-kvantum-pkg = pkgs.rose-pine-kvantum;
   kvantumThemeDir = "${rose-pine-kvantum-pkg}/share/Kvantum/themes/${kvantumThemeName}";
-in {
+in
+{
   home-manager.sharedModules = [
-    ({config, ...}: {
-      # Include Rose Pine GTK and icon themes
-      home.packages = [rose-pine-kvantum-pkg pkgs.rose-pine-gtk-theme pkgs.rose-pine-icon-theme];
+    (
+      { config, ... }:
+      {
+        # Include Rose Pine GTK and icon themes
+        home.packages = [
+          rose-pine-kvantum-pkg
+          pkgs.rose-pine-gtk-theme
+          pkgs.rose-pine-icon-theme
+        ];
 
         # GTK configuration
         gtk = {
