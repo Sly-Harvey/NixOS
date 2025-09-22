@@ -102,7 +102,7 @@
                 paused = "⏸";
                 playing = "";
               };
-              ignored-players = ["chromium"]; # firefox removed
+              ignored-players = ["firefox" "chromium"];
               max-length = 30;
             };
             "temperature" = {
@@ -131,8 +131,8 @@
               separate-outputs = true;
               rewrite = {
                 "harvey@hyprland =(.*)" = "$1 ";
-                # "(.*) — Mozilla Firefox" = "$1 󰈹"; # Firefox removed
-                # "(.*)Mozilla Firefox" = " Firefox 󰈹"; # Firefox removed
+                "(.*) — Mozilla Firefox" = "$1 󰈹";
+                "(.*)Mozilla Firefox" = " Firefox 󰈹";
                 "(.*) - Visual Studio Code" = "$1 󰨞";
                 "(.*)Visual Studio Code" = "Code 󰨞";
                 "(.*) — Dolphin" = "$1 󰉋";

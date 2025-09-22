@@ -50,6 +50,7 @@
   home-manager.sharedModules = [
     (_: {
       home.packages = with pkgs; [
+        firefox # Lightweight browser (binary cache available)
         obsidian
         protonvpn-gui # VPN
         github-desktop
