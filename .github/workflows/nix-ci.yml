@@ -43,26 +43,26 @@ jobs:
           echo "::warning::Deadnix may have found issues (see logs)."
 
   # ------------------- HARD GATE (STRICT) -------------------
-  # Uncomment this job to enforce formatting + lints strictly
-  # hard-gate:
-     name: Hard Gate (fail on issues)
-     runs-on: ubuntu-latest
-     steps:
-       - uses: actions/checkout@v4
-       - name: Install Nix
-         uses: cachix/install-nix-action@v27
-         with:
-           extra_nix_config: experimental-features = nix-command flakes
-  
-       # Strict check: runs treefmt-nix's flakeCheck + your custom checks
-       - name: nix flake check (strict)
-         run: nix flake check --show-trace
-  
-       # If you prefer explicit commands instead of flake checks:
-       # - name: Enforce formatting only
-       #   run: |
-       #     nix fmt
-       #     git diff --quiet || (echo "Formatting required. Run 'nix fmt' locally." && exit 1)
-       # - name: Enforce statix + deadnix
-  #     #   run: |
-  #     #     nix run .#lint
+  hard-gate:
+    name: Hard Gate (fail on issues)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v27
+        with:
+          extra_nix_config: experimental-features = nix-command flakes
+
+      # Strict check: runs treefmt-nix's flakeCheck + your custom checks
+      - name: nix flake check (strict)
+        run: nix flake check --show-trace
+
+      # If you prefer explicit commands instead of flake checks, replace the step above with:
+      # - name: Enforce formatting only
+      #   run: |
+      #     nix fmt
+      #     git diff --quiet || (echo "Formatting required. Run 'nix fmt' locally." && exit 1)
+      # - name: Enforce statix + deadnix
+      #   run: |
+      #     nix run .#lint
