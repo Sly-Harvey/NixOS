@@ -2,9 +2,11 @@
   inputs,
   settings,
   ...
-}: {
+}:
+{
   # Overlay custom derivations into nixpkgs so you can use pkgs.<name>
-  additions = final: _prev:
+  additions =
+    final: _prev:
     import ../pkgs {
       pkgs = final;
       inherit settings;
@@ -18,7 +20,7 @@
       nurpkgs = prev;
       pkgs = final;
     };
-    
+
     # Provide access to stable packages
     stable = import inputs.nixpkgs-stable {
       system = final.system;
