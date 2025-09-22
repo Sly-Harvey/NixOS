@@ -9,7 +9,7 @@
 # - Theme and appearance settings (SDDM theme, wallpaper)
 # - Hardware configuration (video driver selection)
 # - System localization (locale, timezone, keyboard layout)
-# - Feature toggles for optional components (audio, gaming, development, media)
+# - Feature toggles for optional components (audio, gaming, development)
 #
 # Usage: Settings are automatically available to all other modules via config.settings
 
@@ -155,23 +155,7 @@
             description = "Development environment configuration";
           };
           
-          media = mkOption {
-            type = types.submodule {
-              options = {
-                discord = mkEnableOption "Discord chat application";
-                spotify = mkEnableOption "Spotify music streaming";
-                obs = mkEnableOption "OBS Studio streaming software";
-                mpv = mkEnableOption "MPV media player";
-              };
-            };
-            default = {
-              discord = false;
-              spotify = false;
-              obs = false;
-              mpv = false;
-            };
-            description = "Media applications configuration";
-          };
+
         };
       };
       description = "Feature toggle configuration";

@@ -23,7 +23,7 @@ The main configuration is controlled through `settings.nix`, which provides:
 - User preferences (editor, browser, terminal)
 - Theme settings (wallpaper, SDDM theme)
 - Hardware settings (video driver)
-- Feature toggles (audio, gaming, development, media)
+- Feature toggles (audio, gaming, development)
 
 ## Design Principles
 
