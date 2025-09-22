@@ -2,12 +2,13 @@
   pkgs,
   settings,
   ...
-}: {
+}:
+{
   # these will be overlayed in nixpkgs automatically.
   # for example: environment.systemPackages = with pkgs; [pokego];
-  pokego = pkgs.callPackage ./pokego.nix {};
-  sddm-astronaut = pkgs.callPackage ./sddm-themes/astronaut.nix {theme = settings.sddmTheme;};
-  
+  pokego = pkgs.callPackage ./pokego.nix { };
+  sddm-astronaut = pkgs.callPackage ./sddm-themes/astronaut.nix { theme = settings.sddmTheme; };
+
   # Lint script for CI/CD
   lint = pkgs.writeShellScriptBin "lint" ''
     echo "Running Nix linting tools..."
