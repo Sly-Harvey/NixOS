@@ -12,8 +12,7 @@ in {
   # Launch Browser
   "${mod}+f" = "exec --no-startup-id firefox";
 
-  # Launch Spotify
-  "${mod}+s" = "exec --no-startup-id spotify";
+
 
   # Program launcher
   "${mod}+space" = "exec --no-startup-id ${menu}";

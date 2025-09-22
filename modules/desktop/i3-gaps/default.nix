@@ -109,16 +109,10 @@
             #   {class = "^krita$";}
             #   {title = ".*Godot.*$";}
             #   {title = "GNU Image Manipulation Program.*$";}
-            #   {class = "^factorio$";}
-            #   {class = "^steam$";}
             # ];
             # "Web" = [
             #   # Hyprland used workspace 5
             #   {class = "^firefox$";}
-            # ];
-            # "Music" = [
-            #   {class = "^Spotify$";}
-            #   {title = ".*Spotify.*$";}
             # ];
           };
         };

@@ -48,7 +48,6 @@
       opacity-rule = [
         "100:class_g = 'firefox'"
         "100:class_g = 'Brave-browser'"
-        "80:name = 'Spotify' && !focused"
       ];
     };
   };
