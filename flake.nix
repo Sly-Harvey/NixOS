@@ -37,22 +37,14 @@
     flake-parts.lib.mkFlake { inherit inputs; } {
       imports = [
         # Core configuration modules
-        ./flake-modules/settings.nix
-        ./flake-modules/hosts.nix          # Replaces systems.nix with better modularity
+        ./flake-modules/settings.nix      # Central configuration hub
+        ./flake-modules/hosts.nix         # Host definitions and NixOS configurations
         
         # Feature modules
-        ./flake-modules/dev-shells.nix
-        ./flake-modules/overlays.nix
-        ./flake-modules/packages.nix
-        ./flake-modules/formatter.nix
-        
-        # New modular components
-        ./flake-modules/services.nix       # Common service configurations
-        ./flake-modules/themes.nix         # Centralized theme management
-        ./flake-modules/hardware.nix       # Hardware profiles and configurations
-        
-        # Deprecated (keeping for compatibility)
-        # ./flake-modules/systems.nix      # Use hosts.nix instead
+        ./flake-modules/dev-shells.nix    # Development shell templates
+        ./flake-modules/overlays.nix      # Package overlays and modifications
+        ./flake-modules/packages.nix      # Custom packages
+        ./flake-modules/formatter.nix     # Code formatting with treefmt-nix
       ];
 
       systems = [

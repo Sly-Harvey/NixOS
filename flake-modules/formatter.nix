@@ -1,5 +1,16 @@
 # Formatter module for flake-parts
-# This module handles code formatting using treefmt-nix with nixfmt (RFC style)
+#
+# This module provides unified code formatting using treefmt-nix.
+# It configures multiple formatters for different file types to maintain
+# consistent code style across the entire project.
+#
+# Supported formats:
+# - Nix files: nixfmt-rfc-style (official RFC 166 formatter)
+# - Shell scripts: shfmt
+# - Markdown files: mdformat  
+# - YAML files: yamlfmt
+#
+# Usage: Run 'nix fmt' to format all supported files in the project
 
 { inputs, ... }: {
   imports = [

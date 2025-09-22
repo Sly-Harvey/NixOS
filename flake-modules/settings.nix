@@ -1,7 +1,17 @@
 # Settings module for flake-parts
-# This module provides the user and system configuration settings
-# that were previously defined in the main flake.nix
-# Now enhanced with hardware profiles and theme integration
+# 
+# This module serves as the central configuration hub for the entire NixOS system.
+# It defines user preferences, system settings, hardware configuration, and feature toggles
+# that are consumed by other modules and host configurations.
+#
+# Key features:
+# - User configuration (username, preferred applications)
+# - Theme and appearance settings (SDDM theme, wallpaper)
+# - Hardware configuration (video driver selection)
+# - System localization (locale, timezone, keyboard layout)
+# - Feature toggles for optional components (audio, gaming, development, media)
+#
+# Usage: Settings are automatically available to all other modules via config.settings
 
 { ... }: {
   flake.settings = {

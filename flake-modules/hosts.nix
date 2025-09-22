@@ -1,6 +1,16 @@
 # Hosts module for flake-parts
-# This module provides a more flexible way to define multiple hosts
-# with shared configuration and host-specific overrides
+#
+# This module defines NixOS system configurations using a flexible, modular approach.
+# It replaces the traditional direct nixosSystem definitions with a helper function
+# that provides consistent argument passing and easier host management.
+#
+# Key features:
+# - Centralized common arguments (inputs, outputs, settings)
+# - Helper function (mkHost) for consistent host creation
+# - Support for host-specific modules and argument overrides
+# - Automatic hostname injection for host-specific configurations
+#
+# Usage: Add new hosts by calling mkHost with system, hostName, and optional modules/extraArgs
 
 { inputs, config, ... }: {
   flake.nixosConfigurations = let
