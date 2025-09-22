@@ -13,60 +13,174 @@
 #
 # Usage: Settings are automatically available to all other modules via config.settings
 
-{ ... }: {
-  flake.settings = {
+{ lib, ... }: {
+  options.settings = with lib; {
     # User configuration
-    username = "zer0"; # automatically set with install.sh and live-install.sh
-    editor = "vscode"; # vscode
-    browser = "firefox"; # firefox
-    terminal = "ghostty"; # ghostty
-    terminalFileManager = "yazi"; # yazi or lf
+    username = mkOption {
+      type = types.str;
+      default = "zer0";
+      description = "Username for the system";
+    };
+    
+    editor = mkOption {
+      type = types.enum [ "vscode" "nvim" "emacs" ];
+      default = "vscode";
+      description = "Default text editor";
+    };
+    
+    browser = mkOption {
+      type = types.enum [ "firefox" "chromium" "brave" ];
+      default = "firefox";
+      description = "Default web browser";
+    };
+    
+    terminal = mkOption {
+      type = types.enum [ "ghostty" "alacritty" "kitty" "wezterm" ];
+      default = "ghostty";
+      description = "Default terminal emulator";
+    };
+    
+    terminalFileManager = mkOption {
+      type = types.enum [ "yazi" "lf" "ranger" ];
+      default = "yazi";
+      description = "Terminal file manager";
+    };
     
     # Theme configuration
-    sddmTheme = "purple_leaves"; # astronaut, black_hole, purple_leaves, jake_the_dog, hyprland_kath
-    wallpaper = "kurzgesagt"; # see modules/themes/wallpapers
+    sddmTheme = mkOption {
+      type = types.enum [ "astronaut" "black_hole" "purple_leaves" "jake_the_dog" "hyprland_kath" ];
+      default = "purple_leaves";
+      description = "SDDM login theme";
+    };
+    
+    wallpaper = mkOption {
+      type = types.str;
+      default = "kurzgesagt";
+      description = "Wallpaper theme name";
+    };
 
     # Hardware configuration
-    videoDriver = "nvidia"; # nvidia, amdgpu, intel
+    videoDriver = mkOption {
+      type = types.enum [ "nvidia" "amdgpu" "intel" ];
+      default = "nvidia";
+      description = "Video driver to use";
+    };
     
     # System configuration
-    hostname = "NixOS"; # CHOOSE A HOSTNAME HERE
-    locale = "en_GB.UTF-8"; # CHOOSE YOUR LOCALE
-    timezone = "Europe/London"; # CHOOSE YOUR TIMEZONE
-    kbdLayout = "gb"; # CHOOSE YOUR KEYBOARD LAYOUT
-    kbdVariant = "extd"; # CHOOSE YOUR KEYBOARD VARIANT (Can leave empty)
-    consoleKeymap = "uk"; # CHOOSE YOUR CONSOLE KEYMAP (Affects the tty?)
+    hostname = mkOption {
+      type = types.str;
+      default = "NixOS";
+      description = "System hostname";
+    };
+    
+    locale = mkOption {
+      type = types.str;
+      default = "en_GB.UTF-8";
+      description = "System locale";
+    };
+    
+    timezone = mkOption {
+      type = types.str;
+      default = "Europe/London";
+      description = "System timezone";
+    };
+    
+    kbdLayout = mkOption {
+      type = types.str;
+      default = "gb";
+      description = "Keyboard layout";
+    };
+    
+    kbdVariant = mkOption {
+      type = types.str;
+      default = "extd";
+      description = "Keyboard variant";
+    };
+    
+    consoleKeymap = mkOption {
+      type = types.str;
+      default = "uk";
+      description = "Console keymap";
+    };
     
     # Feature toggles
-    features = {
-      # Audio stack (can be disabled to reduce compilation time)
-      audio = {
-        enable = true;
-        pipewire = true;
-        lowLatency = false;
+    features = mkOption {
+      type = types.submodule {
+        options = {
+          audio = mkOption {
+            type = types.submodule {
+              options = {
+                enable = mkEnableOption "audio stack";
+                pipewire = mkEnableOption "PipeWire audio server";
+                lowLatency = mkEnableOption "low latency audio configuration";
+              };
+            };
+            default = {
+              enable = true;
+              pipewire = true;
+              lowLatency = false;
+            };
+            description = "Audio system configuration";
+          };
+          
+          gaming = mkOption {
+            type = types.submodule {
+              options = {
+                enable = mkEnableOption "gaming stack";
+                steam = mkEnableOption "Steam gaming platform";
+                lutris = mkEnableOption "Lutris game manager";
+              };
+            };
+            default = {
+              enable = false;
+              steam = false;
+              lutris = false;
+            };
+            description = "Gaming system configuration";
+          };
+          
+          development = mkOption {
+            type = types.submodule {
+              options = {
+                enable = mkEnableOption "development tools";
+                docker = mkEnableOption "Docker containerization";
+                virt-manager = mkEnableOption "Virtual machine management";
+              };
+            };
+            default = {
+              enable = true;
+              docker = false;
+              virt-manager = false;
+            };
+            description = "Development environment configuration";
+          };
+          
+          media = mkOption {
+            type = types.submodule {
+              options = {
+                discord = mkEnableOption "Discord chat application";
+                spotify = mkEnableOption "Spotify music streaming";
+                obs = mkEnableOption "OBS Studio streaming software";
+                mpv = mkEnableOption "MPV media player";
+              };
+            };
+            default = {
+              discord = false;
+              spotify = false;
+              obs = false;
+              mpv = false;
+            };
+            description = "Media applications configuration";
+          };
+        };
       };
-      
-      # Gaming stack (disabled by default to reduce compilation time)
-      gaming = {
-        enable = false;
-        steam = false;
-        lutris = false;
-      };
-      
-      # Development tools
-      development = {
-        enable = true;
-        docker = false;
-        virt-manager = false;
-      };
-      
-      # Media applications (disabled by default to reduce bloat)
-      media = {
-        discord = false;
-        spotify = false;
-        obs = false;
-        mpv = false;
-      };
+      description = "Feature toggle configuration";
     };
+  };
+
+  # Configuration values - these override the defaults defined in options above
+  config = {
+    # Make settings available to other flake-parts modules
+    flake.settings = config.settings;
   };
 }
