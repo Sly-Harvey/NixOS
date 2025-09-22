@@ -77,8 +77,5 @@
         "x86_64-linux"
         "aarch64-linux"
       ];
-
-      # Make outputs available for backward compatibility
-      flake.outputs = inputs.self;
     };
 }

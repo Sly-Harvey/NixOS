@@ -12,13 +12,11 @@
     terminal = "ghostty"; # kitty, alacritty, wezterm, ghostty
     terminalFileManager = "yazi"; # yazi or lf
     
-    # Theme configuration (integrated with themes.nix)
+    # Theme configuration
     sddmTheme = "purple_leaves"; # astronaut, black_hole, purple_leaves, jake_the_dog, hyprland_kath
     wallpaper = "kurzgesagt"; # see modules/themes/wallpapers
-    colorScheme = "catppuccin-mocha"; # catppuccin-mocha, nord, gruvbox
 
-    # Hardware configuration (integrated with hardware.nix)
-    hardwareProfile = "desktop"; # desktop, laptop, server
+    # Hardware configuration
     videoDriver = "nvidia"; # nvidia, amdgpu, intel
     
     # System configuration

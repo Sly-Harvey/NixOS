@@ -17,7 +17,7 @@
         inherit system;
         specialArgs = commonArgs // extraArgs // { hostname = hostName; };
         modules = [
-          ./hosts/${hostName}/configuration.nix
+          ../hosts/${hostName}/configuration.nix
         ] ++ modules;
       };
   in {
