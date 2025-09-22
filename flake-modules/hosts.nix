@@ -38,15 +38,15 @@
     };
 
     # Example of how to add additional hosts:
-    # Laptop = mkHost {
+    # Desktop2 = mkHost {
     #   system = "x86_64-linux";
-    #   hostName = "Laptop";
+    #   hostName = "Desktop2";
     #   modules = [
-    #     # Add laptop-specific modules here
+    #     # Add desktop-specific modules here
     #   ];
     #   extraArgs = {
-    #     # Override settings for laptop
-    #     videoDriver = "intel";
+    #     # Override settings for additional desktop
+    #     videoDriver = "nvidia";
     #   };
     # };
   };
