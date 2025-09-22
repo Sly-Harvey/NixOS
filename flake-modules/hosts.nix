@@ -23,7 +23,7 @@
           specialArgs = {
             inherit inputs inputs';
             outputs = config.flake;
-            self = self';
+            self = inputs.self;
             hostname = hostName;
           } // config.flake.settings // extraArgs;
           modules = [
