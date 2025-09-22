@@ -20,7 +20,6 @@
     ../../modules/desktop/hyprland # Enable hyprland window manager
     # ../../modules/desktop/i3-gaps # Enable i3 window manager
 
-    # ../../modules/programs/games # Gaming stack removed to reduce compilation time
     # ../../modules/programs/browser/${browser} # Browser modules removed to reduce compilation time
     ../../modules/programs/terminal/${terminal} # Set terminal defined in flake.nix
     ../../modules/programs/editor/${editor} # Set editor defined in flake.nix
@@ -33,12 +32,6 @@
     ../../modules/programs/cli/btop
     ../../modules/programs/shell/bash
     ../../modules/programs/shell/zsh
-    # ../../modules/programs/media/discord # Removed to reduce system bloat
-
-    # ../../modules/programs/media/youtube-music
-    # ../../modules/programs/media/thunderbird
-    # ../../modules/programs/media/obs-studio
-    # ../../modules/programs/media/mpv # Removed to reduce media stack bloat
 
     ../../modules/programs/misc/thunar
     ../../modules/programs/misc/lact # GPU fan, clock and power configuration
