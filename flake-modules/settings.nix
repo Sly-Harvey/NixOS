@@ -7,8 +7,8 @@
   flake.settings = {
     # User configuration
     username = "zer0"; # automatically set with install.sh and live-install.sh
-    editor = "nixvim"; # nixvim, vscode, helix, nvchad, neovim, emacs (WIP)
-    browser = "zen"; # firefox, floorp, zen
+    editor = "vscode"; # vscode, helix, emacs (WIP)
+    browser = "firefox"; # firefox, floorp
     terminal = "ghostty"; # kitty, alacritty, wezterm, ghostty
     terminalFileManager = "yazi"; # yazi or lf
     

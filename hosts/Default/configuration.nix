@@ -21,7 +21,7 @@
     # ../../modules/desktop/i3-gaps # Enable i3 window manager
 
     # ../../modules/programs/games # Gaming stack removed to reduce compilation time
-    # ../../modules/programs/browser/${browser} # Zen browser removed to reduce compilation time
+    # ../../modules/programs/browser/${browser} # Browser modules removed to reduce compilation time
     ../../modules/programs/terminal/${terminal} # Set terminal defined in flake.nix
     ../../modules/programs/editor/${editor} # Set editor defined in flake.nix
     ../../modules/programs/cli/${terminalFileManager} # Set file-manager defined in flake.nix
@@ -34,7 +34,7 @@
     ../../modules/programs/shell/bash
     ../../modules/programs/shell/zsh
     # ../../modules/programs/media/discord # Removed to reduce system bloat
-    # ../../modules/programs/media/spicetify # Removed to reduce compilation time
+
     # ../../modules/programs/media/youtube-music
     # ../../modules/programs/media/thunderbird
     # ../../modules/programs/media/obs-studio

@@ -118,7 +118,6 @@
             #   # Hyprland used workspace 5
             #   {class = "^firefox$";}
             #   {class = "^floorp$";}
-            #   {class = "^zen$";}
             # ];
             # "Music" = [
             #   {class = "^Spotify$";}

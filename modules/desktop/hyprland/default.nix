@@ -251,7 +251,7 @@
             # "workspace 3, title:(GNU Image Manipulation Program)(.*)$"
             # "workspace 3, class:^(factorio)$"
             # "workspace 3, class:^(steam)$"
-            # "workspace 5, class:^(firefox|floorp|zen)$"
+            # "workspace 5, class:^(firefox|floorp)$"
             # "workspace 6, class:^(Spotify)$"
             # "workspace 6, title:(.*)(Spotify)(.*)$"
 
