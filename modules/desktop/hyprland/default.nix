@@ -57,9 +57,9 @@
         libnotify
         brightnessctl
         networkmanagerapplet
-        pamixer
-        pavucontrol
-        playerctl
+        # pamixer # Audio control - removed to reduce audio stack
+        # pavucontrol # Audio GUI - removed to reduce audio stack  
+        # playerctl # Media control - removed to reduce audio stack
         waybar
         wtype
         wl-clipboard
@@ -127,7 +127,7 @@
             "${./scripts/batterynotify.sh}" # battery notification
             # "${./scripts/autowaybar.sh}" # uncomment packages at the top
             "polkit-agent-helper-1"
-            "pamixer --set-volume 50"
+            # "pamixer --set-volume 50" # Audio control removed
           ];
           input = {
             kb_layout = "${kbdLayout},ru";
@@ -292,8 +292,8 @@
             "opacity 0.80 0.80,class:^(Signal)$" #Signal-Gtk
             "opacity 0.80 0.80,class:^(io.gitlab.theevilskeleton.Upscaler)$" #Upscaler-Gtk
 
-            "opacity 0.80 0.70,class:^(pavucontrol)$"
-            "opacity 0.80 0.70,class:^(org.pulseaudio.pavucontrol)$"
+            # "opacity 0.80 0.70,class:^(pavucontrol)$" # Audio GUI removed
+            # "opacity 0.80 0.70,class:^(org.pulseaudio.pavucontrol)$" # Audio GUI removed
             "opacity 0.80 0.70,class:^(blueman-manager)$"
             "opacity 0.80 0.70,class:^(.blueman-manager-wrapped)$"
             "opacity 0.80 0.70,class:^(nm-applet)$"
@@ -325,7 +325,7 @@
             "float,class:^(eog)$" #Imageviewer-Gtk
             "float,class:^(io.gitlab.theevilskeleton.Upscaler)$" #Upscaler-Gtk
             "float,class:^(yad)$"
-            "float,class:^(pavucontrol)$"
+            # "float,class:^(pavucontrol)$" # Audio GUI removed
             "float,class:^(blueman-manager)$"
             "float,class:^(.blueman-manager-wrapped)$"
             "float,class:^(nm-applet)$"
@@ -348,8 +348,8 @@
             # Functional keybinds
             ",XF86MonBrightnessDown,exec,brightnessctl set 2%-"
             ",XF86MonBrightnessUp,exec,brightnessctl set +2%"
-            ",XF86AudioLowerVolume,exec,pamixer -d 2"
-            ",XF86AudioRaiseVolume,exec,pamixer -i 2"
+            # ",XF86AudioLowerVolume,exec,pamixer -d 2" # Audio control removed
+            # ",XF86AudioRaiseVolume,exec,pamixer -i 2" # Audio control removed
           ];
           bind = let
             autoclicker = pkgs.callPackage ./scripts/autoclicker.nix {};
@@ -411,12 +411,12 @@
 
               # Functional keybinds
               ",xf86Sleep, exec, systemctl suspend" # Put computer into sleep mode
-              ",XF86AudioMicMute,exec,pamixer --default-source -t" # mute mic
-              ",XF86AudioMute,exec,pamixer -t" # mute audio
-              ",XF86AudioPlay,exec,playerctl play-pause" # Play/Pause media
-              ",XF86AudioPause,exec,playerctl play-pause" # Play/Pause media
-              ",xf86AudioNext,exec,playerctl next" # go to next media
-              ",xf86AudioPrev,exec,playerctl previous" # go to previous media
+              # ",XF86AudioMicMute,exec,pamixer --default-source -t" # mute mic - audio stack removed
+              # ",XF86AudioMute,exec,pamixer -t" # mute audio - audio stack removed
+              # ",XF86AudioPlay,exec,playerctl play-pause" # Play/Pause media - audio stack removed
+              # ",XF86AudioPause,exec,playerctl play-pause" # Play/Pause media - audio stack removed
+              # ",xf86AudioNext,exec,playerctl next" # go to next media - audio stack removed
+              # ",xf86AudioPrev,exec,playerctl previous" # go to previous media - audio stack removed
 
               # ",xf86AudioNext,exec,${./scripts/MediaCtrl.sh} next" # go to next media
               # ",xf86AudioPrev,exec,${./scripts/MediaCtrl.sh} previous" # go to previous media
