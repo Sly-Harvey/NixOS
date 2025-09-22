@@ -393,7 +393,6 @@
               "$mainMod, SPACE, exec, launcher drun" # launch desktop applications
               "$mainMod, Z, exec, launcher emoji" # launch emoji picker
               "$mainMod SHIFT, T, exec, launcher tmux" # launch tmux sessions
-              "$mainMod, G, exec, launcher games" # game launcher
               # "$mainMod, tab, exec, launcher window" # switch between desktop applications
               # "$mainMod, R, exec, launcher file" # brrwse system files
               "$mainMod ALT, K, exec, ${./scripts/keyboardswitch.sh}" # change keyboard layout

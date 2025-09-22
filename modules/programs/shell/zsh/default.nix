@@ -171,9 +171,7 @@
 
           # Directory Shortcuts.
           dots = "cd ~/NixOS/";
-          games = "cd /mnt/games/";
           work = "cd /mnt/work/";
-          media = "cd /mnt/work/media/";
           projects = "cd /mnt/work/Projects/";
           proj = "cd /mnt/work/Projects/";
           dev = "cd /mnt/work/Projects/";

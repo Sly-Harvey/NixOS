@@ -47,12 +47,7 @@ pkgs.writeShellScriptBin "launcher" ''
 
     rofi -modi emoji -show emoji -theme "''${rofi_theme}" -theme-str "$r_override"
     ;;
-  games)
-    r_override="entry{placeholder:'Search Games...';}listview{lines:15;}"
-    rofi_theme="''${XDG_CONFIG_HOME:-$HOME/.config}/rofi/launchers/type-1/style-5.rasi"
 
-    rofi -show games -modi games -theme "''${rofi_theme}" -theme-str "$r_override"
-    ;;
   help | --help)
     echo "Usage: launch.sh [ACTION]"
     echo "Launch various rofi modes with custom themes and settings."
@@ -62,7 +57,6 @@ pkgs.writeShellScriptBin "launcher" ''
     echo "  window       Switch between open windows"
     echo "  file         Browse and search files"
     echo "  emoji        Search and insert emojis"
-    echo "  games        Launch games menu"
     echo "  help         Display this help message"
     echo "  --help       Same as 'help'"
     echo ""

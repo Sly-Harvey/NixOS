@@ -46,28 +46,12 @@
         lowLatency = false;
       };
       
-      # Gaming stack (disabled by default to reduce compilation time)
-      gaming = {
-        enable = false;
-        steam = false;
-        lutris = false;
-      };
-      
       # Development tools
       development = {
         enable = true;
         docker = false;
         virt-manager = false;
       };
-      
-      # Media applications (disabled by default to reduce bloat)
-      media = {
-        discord = false;
-        spotify = false;
-        obs = false;
-        mpv = false;
-      };
     };
   };
 }
-
