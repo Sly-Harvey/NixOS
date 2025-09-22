@@ -1,0 +1,51 @@
+name: Update flake.lock (Nix)
+
+on:
+  workflow_dispatch: {}
+  schedule:
+    - cron: "15 7 * * 1"  # Mondays 07:15 America/Chicago
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update:
+    name: Update flake inputs
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Nix install (CI-safe, no sudo) — adjust if you already have a standard installer
+      - name: Install Nix
+        uses: cachix/install-nix-action@v27
+        with:
+          extra_nix_config: experimental-features = nix-command flakes
+
+      # OPTIONAL: Show current inputs for traceability
+      - name: Show flake metadata (soft gate)
+        run: |
+          nix flake metadata || true
+          # SOFT GATE: informational only. To hard-gate, fail on unexpected changes.
+
+      # Use Determinate Systems' action to update flake.lock and open a PR
+      - name: Update flake.lock
+        uses: DeterminateSystems/update-flake-lock@v25
+        with:
+          pr-title: "deps(nix): update flake.lock"
+          pr-labels: "deps,nix"
+          # If you maintain multiple flakes, you can set 'flake-path' (default ".")
+          # flake-path: "."
+          # You can also set 'commit-msg' if you want a custom commit prefix:
+          commit-msg: "deps(nix): update flake.lock"
+
+      # OPTIONAL: run your formatter/lints and push to the PR branch
+      - name: Nix fmt + lint (soft gate)
+        run: |
+          nix fmt || true
+          # SOFT GATE: emit warnings if diffs occur; flip to hard gate by exiting non-zero on diff.
+          if ! git diff --quiet; then
+            echo "::warning::Formatting changes were applied by nix fmt."
+          fi
