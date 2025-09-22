@@ -223,7 +223,7 @@
           misc = {
             disable_hyprland_logo = true;
             mouse_move_focuses_monitor = true;
-            swallow_regex = "^(Alacritty|kitty|ghostty)$";
+            swallow_regex = "^(ghostty)$";
             enable_swallow = true;
             vfr = true; # always keep on
             vrr = 2; # enable variable refresh rate (0=off, 1=on, 2=fullscreen only, 3 = fullscreen games/media)
@@ -244,19 +244,19 @@
           windowrule = [
             #"noanim, class:^(Rofi)$
             "tile,title:(.*)(Godot)(.*)$"
-            # "workspace 1, class:^(kitty|Alacritty|org.wezfurlong.wezterm)$"
+            # "workspace 1, class:^(ghostty)$"
             # "workspace 2, class:^(code|VSCodium|code-url-handler|codium-url-handler)$"
             # "workspace 3, class:^(krita)$"
             # "workspace 3, title:(.*)(Godot)(.*)$"
             # "workspace 3, title:(GNU Image Manipulation Program)(.*)$"
             # "workspace 3, class:^(factorio)$"
             # "workspace 3, class:^(steam)$"
-            # "workspace 5, class:^(firefox|floorp)$"
+            # "workspace 5, class:^(firefox)$"
             # "workspace 6, class:^(Spotify)$"
             # "workspace 6, title:(.*)(Spotify)(.*)$"
 
             # Can use FLOAT FLOAT for active and inactive or just FLOAT
-            "opacity 0.80 0.80,class:^(kitty|alacritty|Alacritty|org.wezfurlong.wezterm|ghostty)$"
+            "opacity 0.80 0.80,class:^(ghostty)$"
             "opacity 0.80 0.80,class:^(nvim-wrapper)$"
             "opacity 0.90 0.90,class:^(gcr-prompter)$" # keyring prompt
             "opacity 0.90 0.90,title:^(Hyprland Polkit Agent)$" # polkit prompt

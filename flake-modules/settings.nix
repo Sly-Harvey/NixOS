@@ -7,9 +7,9 @@
   flake.settings = {
     # User configuration
     username = "zer0"; # automatically set with install.sh and live-install.sh
-    editor = "vscode"; # vscode, helix, emacs (WIP)
-    browser = "firefox"; # firefox, floorp
-    terminal = "ghostty"; # kitty, alacritty, wezterm, ghostty
+    editor = "vscode"; # vscode
+    browser = "firefox"; # firefox
+    terminal = "ghostty"; # ghostty
     terminalFileManager = "yazi"; # yazi or lf
     
     # Theme configuration

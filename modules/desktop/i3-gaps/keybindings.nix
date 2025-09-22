@@ -10,7 +10,7 @@ in {
   "${mod}+Return" = "exec --no-startup-id ${terminal}";
 
   # Launch Browser
-  "${mod}+f" = "exec --no-startup-id floorp";
+  "${mod}+f" = "exec --no-startup-id firefox";
 
   # Launch Spotify
   "${mod}+s" = "exec --no-startup-id spotify";

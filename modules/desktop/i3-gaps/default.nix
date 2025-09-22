@@ -97,9 +97,7 @@
           ];
           assigns = {
             # "1" = [
-            #   {class = "^kitty$";}
-            #   {class = "^Alacritty$";}
-            #   {class = "^org.wezfurlong.wezterm$";}
+            #   {class = "^ghostty$";}
             # ];
             # "2" = [
             #   {class = "^code$";}
@@ -117,7 +115,6 @@
             # "Web" = [
             #   # Hyprland used workspace 5
             #   {class = "^firefox$";}
-            #   {class = "^floorp$";}
             # ];
             # "Music" = [
             #   {class = "^Spotify$";}
