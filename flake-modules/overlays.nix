@@ -15,6 +15,6 @@
 { inputs, config, ... }: {
   flake.overlays = import ../overlays { 
     inherit inputs; 
-    settings = config.settings; 
+    settings = config.flake.settings; 
   };
 }
