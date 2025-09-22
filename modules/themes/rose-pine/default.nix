@@ -22,33 +22,33 @@ in {
       # Include Rose Pine GTK and icon themes
       home.packages = [rose-pine-kvantum-pkg pkgs.rose-pine-gtk-theme pkgs.rose-pine-icon-theme];
 
-      # GTK configuration
-      gtk = {
-        enable = true;
-        theme = {
-          name = baseName;
-          package = pkgs.rose-pine-gtk-theme;
+        # GTK configuration
+        gtk = {
+          enable = true;
+          theme = {
+            name = baseName;
+            package = pkgs.rose-pine-gtk-theme;
+          };
+          iconTheme = {
+            # package = pkgs.adwaita-icon-theme;
+            # name = "Adwaita";
+            package = pkgs.papirus-icon-theme;
+            name = "Papirus-Dark";
+          };
+          gtk3.extraConfig = {
+            "gtk-application-prefer-dark-theme" = "1";
+          };
+          gtk4.extraConfig = {
+            "gtk-application-prefer-dark-theme" = "1";
+          };
         };
-        iconTheme = {
-          # package = pkgs.adwaita-icon-theme;
-          # name = "Adwaita";
-          package = pkgs.papirus-icon-theme;
-          name = "Papirus-Dark";
-        };
-        gtk3.extraConfig = {
-          "gtk-application-prefer-dark-theme" = "1";
-        };
-        gtk4.extraConfig = {
-          "gtk-application-prefer-dark-theme" = "1";
-        };
-      };
 
-      # Qt configuration with Kvantum
-      qt = {
-        enable = true;
-        platformTheme.name = "gtk";
-        style.name = "kvantum";
-      };
+        # Qt configuration with Kvantum
+        qt = {
+          enable = true;
+          platformTheme.name = "gtk";
+          style.name = "kvantum";
+        };
 
         # Kvantum configuration
         xdg.dataFile."Kvantum/${kvantumThemeName}".source = kvantumThemeDir;
