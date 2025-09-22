@@ -32,7 +32,7 @@ jobs:
 
       # Use Determinate Systems' action to update flake.lock and open a PR
       - name: Update flake.lock
-        uses: DeterminateSystems/update-flake-lock@v25
+        uses: DeterminateSystems/update-flake-lock@v27
         with:
           pr-title: "deps(nix): update flake.lock"
           pr-labels: "deps,nix"
