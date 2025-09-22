@@ -16,7 +16,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       # Nix install (CI-safe, no sudo) — adjust if you already have a standard installer
       - name: Install Nix
