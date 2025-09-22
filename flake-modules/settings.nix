@@ -162,9 +162,6 @@
     };
   };
 
-  # Configuration values - these override the defaults defined in options above
-  config = {
-    # Make settings available to other flake-parts modules
-    flake.settings = config.settings;
-  };
+  # Configuration - expose settings to flake output
+  config.flake.settings = config.settings;
 }
