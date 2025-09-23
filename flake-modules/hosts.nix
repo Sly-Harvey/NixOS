@@ -17,7 +17,7 @@
     specialArgs = {
       inherit inputs;
       outputs = config.flake;
-      self = config.flake;
+      self = inputs.self;
       hostname = "Default";
     } // config.flake.settings;
     modules = [
