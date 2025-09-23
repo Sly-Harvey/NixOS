@@ -11,15 +11,17 @@
 #
 # Usage: Add new hosts by extending the nixosConfigurations attribute set
 
-{ inputs, config, ... }: {
+{ inputs, config, ... }:
+{
   flake.nixosConfigurations.Default = inputs.nixpkgs.lib.nixosSystem {
     system = "x86_64-linux";
     specialArgs = {
       inherit inputs;
       outputs = config.flake;
-      self = inputs.self;
+      inherit (inputs) self;
       hostname = "Default";
-    } // config.flake.settings;
+    }
+    // config.flake.settings;
     modules = [
       ../hosts/Default/configuration.nix
     ];

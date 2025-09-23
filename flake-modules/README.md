@@ -28,10 +28,10 @@ The main configuration is controlled through `settings.nix`, which provides:
 ## Design Principles
 
 1. **Separation of Concerns** - Each module handles a specific aspect of the system configuration
-2. **Settings Integration** - All modules access centralized settings via `config.settings`
-3. **Flake-parts Best Practices** - Consistent use of flake-parts conventions and perSystem where appropriate
-4. **Clean Architecture** - No empty placeholder modules or deprecated code
-5. **Comprehensive Documentation** - Each module includes detailed header documentation explaining purpose and usage
+1. **Settings Integration** - All modules access centralized settings via `config.settings`
+1. **Flake-parts Best Practices** - Consistent use of flake-parts conventions and perSystem where appropriate
+1. **Clean Architecture** - No empty placeholder modules or deprecated code
+1. **Comprehensive Documentation** - Each module includes detailed header documentation explaining purpose and usage
 
 ## Module Integration
 
@@ -50,7 +50,7 @@ dev-shells.nix   -> Offers development environments for working on the configura
 This configuration follows flake-parts best practices:
 
 - ✅ Proper module structure with `{ ... }: { ... }` pattern
-- ✅ No redundant `flake.outputs` assignments  
+- ✅ No redundant `flake.outputs` assignments
 - ✅ Clean separation of concerns
 - ✅ Minimal custom flake attributes
 - ✅ Proper path references
@@ -83,13 +83,13 @@ Then create the corresponding host configuration in `hosts/NewHost/configuration
 When adding new modules:
 
 1. **Follow naming conventions** - Use descriptive, lowercase names with hyphens
-2. **Include comprehensive documentation** - Add detailed header comments explaining purpose, features, and usage
-3. **Use appropriate flake-parts patterns**:
+1. **Include comprehensive documentation** - Add detailed header comments explaining purpose, features, and usage
+1. **Use appropriate flake-parts patterns**:
    - `perSystem` for system-specific functionality (packages, devShells, formatter)
    - `flake` for global outputs (nixosConfigurations, overlays, templates)
-4. **Integrate with settings** - Reference `config.settings` for configuration options
-5. **Maintain consistency** - Follow the established module structure and documentation format
-6. **Update documentation** - Add the new module to this README with proper description
+1. **Integrate with settings** - Reference `config.settings` for configuration options
+1. **Maintain consistency** - Follow the established module structure and documentation format
+1. **Update documentation** - Add the new module to this README with proper description
 
 ## Removed Components
 

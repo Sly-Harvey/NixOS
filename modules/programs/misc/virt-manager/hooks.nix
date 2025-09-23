@@ -2,7 +2,8 @@
   pkgs,
   lib,
   ...
-}: {
+}:
+{
   virtualisation.libvirtd.hooks.qemu = {
     "passthrough" = lib.getExe (
       pkgs.writeShellApplication {

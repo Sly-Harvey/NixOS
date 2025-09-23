@@ -112,7 +112,7 @@ info "Let's configure your NixOS installation."
 info "Set up a user account:"
 while true; do
   read -p "Enter username: " username
-  if [[ "$username" =~ ^[a-z_][a-z0-9_-]*$ ]]; then
+  if [[ $username =~ ^[a-z_][a-z0-9_-]*$ ]]; then
     break
   else
     error "Invalid username. Use lowercase letters, numbers, underscores, or hyphens."
@@ -146,15 +146,15 @@ while true; do
   read -p "Enter choice (1, 2 or 3): " driver_choice
   case $driver_choice in
   1)
-    sed -i -e "s/videoDriver = \".*\"/videoDriver = \"nvidia\"/" "./flake.nix"
+    sed -i -e 's/videoDriver = ".*"/videoDriver = "nvidia"/' "./flake.nix"
     break
     ;;
   2)
-    sed -i -e "s/videoDriver = \".*\"/videoDriver = \"amdgpu\"/" "./flake.nix"
+    sed -i -e 's/videoDriver = ".*"/videoDriver = "amdgpu"/' "./flake.nix"
     break
     ;;
   3)
-    sed -i -e "s/videoDriver = \".*\"/videoDriver = \"intel\"/" "./flake.nix"
+    sed -i -e 's/videoDriver = ".*"/videoDriver = "intel"/' "./flake.nix"
     break
     ;;
   *) error "Invalid choice. Enter 1, 2, or 3." ;;
@@ -258,7 +258,7 @@ else
   read -p "Proceed with installation? (Y/n): " confirm
 fi
 
-if [[ "$confirm" =~ ^[nN]$ ]]; then
+if [[ $confirm =~ ^[nN]$ ]]; then
   error "Installation aborted by user."
   exit 1
 fi
@@ -277,7 +277,7 @@ if [ "$partitioning" = "auto" ]; then
     swap_size=${swap_size:-2}
 
     # Validate input is a number
-    if [[ "$swap_size" =~ ^[0-9]+$ ]]; then
+    if [[ $swap_size =~ ^[0-9]+$ ]]; then
       break
     else
       error "Please enter a valid number."
@@ -519,7 +519,7 @@ if [ "$partitioning" = "manual" ] && [ -n "$part_home" ]; then
     if blkid "$home_device" | grep -q "TYPE="; then
       echo "Home partition has a filesystem."
       read -p "Do you want to reuse it without formatting? (Y/n): " reuse_home
-      if [[ ! "$reuse_home" =~ ^[nN]$ ]]; then
+      if [[ ! $reuse_home =~ ^[nN]$ ]]; then
         # Reuse without formatting
         home_mapped_device="$home_device"
       else

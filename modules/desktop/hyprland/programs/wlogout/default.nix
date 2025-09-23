@@ -1,4 +1,4 @@
-{...}: {
+_: {
   home-manager.sharedModules = [
     (_: {
       xdg.configFile."wlogout/icons".source = ./icons;

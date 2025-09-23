@@ -1,12 +1,9 @@
 name: Nix Format & Lint
-
 on:
   pull_request:
   push:
-
 permissions:
   contents: read
-
 jobs:
   soft-gate:
     name: Soft Gate (warn only)
@@ -15,15 +12,12 @@ jobs:
       contents: read
     steps:
       - uses: actions/checkout@v5
-
       - name: Install Nix
         uses: cachix/install-nix-action@v31
         with:
           extra_nix_config: experimental-features = nix-command flakes
-
       - name: Show flake summary
         run: nix flake metadata || true
-
       # Formatting: apply fixes with nix fmt (treefmt-nix) and warn if diffs occurred
       - name: Format (nix fmt)
         run: |
@@ -31,7 +25,6 @@ jobs:
           if ! git diff --quiet; then
             echo "::warning::Formatting changes were applied by nix fmt. Commit them locally."
           fi
-
       # Lints (non-fatal here): statix + deadnix
       - name: Statix (warn only)
         run: |
@@ -40,13 +33,11 @@ jobs:
             nix run .#lint || true
             echo "::warning::Statix found issues."
           fi || true
-
       - name: Deadnix (warn only)
         run: |
           # If your .#lint already runs deadnix, this will warn regardless
           nix run .#lint || true
           echo "::warning::Deadnix may have found issues (see logs)."
-
   # ------------------- HARD GATE (STRICT) -------------------
   hard-gate:
     name: Hard Gate (fail on issues)
@@ -55,21 +46,19 @@ jobs:
       contents: read
     steps:
       - uses: actions/checkout@v5
-
       - name: Install Nix
         uses: cachix/install-nix-action@v31
         with:
           extra_nix_config: experimental-features = nix-command flakes
-
       # Strict check: runs treefmt-nix's flakeCheck + your custom checks
       - name: nix flake check (strict)
         run: nix flake check --show-trace
 
-      # If you prefer explicit commands instead of flake checks:
-      # - name: Enforce formatting only
-      #   run: |
-      #     nix fmt
-      #     git diff --quiet || (echo "Formatting required. Run 'nix fmt' locally." && exit 1)
-      # - name: Enforce statix + deadnix
-      #   run: |
-      #     nix run .#lint
+# If you prefer explicit commands instead of flake checks:
+# - name: Enforce formatting only
+#   run: |
+#     nix fmt
+#     git diff --quiet || (echo "Formatting required. Run 'nix fmt' locally." && exit 1)
+# - name: Enforce statix + deadnix
+#   run: |
+#     nix run .#lint

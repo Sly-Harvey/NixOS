@@ -1,11 +1,10 @@
 version: 2
-
 updates:
   # Keep GitHub Actions up to date (Dependabot-native)
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      interval: "weekly"    # or "daily"
+      interval: "weekly" # or "daily"
       day: "monday"
       time: "07:00"
       timezone: "America/Chicago"
@@ -14,32 +13,32 @@ updates:
     commit-message:
       prefix: "deps(gh-actions)"
     reviewers:
-      - "dscv103"           # adjust or remove
+      - "dscv103" # adjust or remove
 
-  # OPTIONAL: enable per your repo
-  # - package-ecosystem: "docker"
-  #   directory: "/"
-  #   schedule:
-  #     interval: "weekly"
-  #     day: "monday"
-  #     time: "07:10"
-  #     timezone: "America/Chicago"
-  #   labels: ["deps", "docker"]
-  #   commit-message:
-  #     prefix: "deps(docker)"
+# OPTIONAL: enable per your repo
+# - package-ecosystem: "docker"
+#   directory: "/"
+#   schedule:
+#     interval: "weekly"
+#     day: "monday"
+#     time: "07:10"
+#     timezone: "America/Chicago"
+#   labels: ["deps", "docker"]
+#   commit-message:
+#     prefix: "deps(docker)"
 
-  # - package-ecosystem: "npm"
-  #   directory: "/web"     # adjust path
-  #   schedule:
-  #     interval: "weekly"
-  #   labels: ["deps", "npm"]
-  #   commit-message:
-  #     prefix: "deps(npm)"
+# - package-ecosystem: "npm"
+#   directory: "/web"     # adjust path
+#   schedule:
+#     interval: "weekly"
+#   labels: ["deps", "npm"]
+#   commit-message:
+#     prefix: "deps(npm)"
 
-  # - package-ecosystem: "pip"
-  #   directory: "/"
-  #   schedule:
-  #     interval: "weekly"
-  #   labels: ["deps", "python"]
-  #   commit-message:
-  #     prefix: "deps(pip)"
+# - package-ecosystem: "pip"
+#   directory: "/"
+#   schedule:
+#     interval: "weekly"
+#   labels: ["deps", "python"]
+#   commit-message:
+#     prefix: "deps(pip)"

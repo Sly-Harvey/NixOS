@@ -1,5 +1,6 @@
-{pkgs, ...}: {
-  imports = [./hooks.nix];
+{ pkgs, ... }:
+{
+  imports = [ ./hooks.nix ];
 
   # virt-manager
   programs.virt-manager.enable = true;
@@ -30,7 +31,7 @@
         swtpm.enable = true;
         ovmf = {
           enable = true;
-          packages = [pkgs.OVMFFull.fd];
+          packages = [ pkgs.OVMFFull.fd ];
         };
       };
     };

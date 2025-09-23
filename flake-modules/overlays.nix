@@ -12,9 +12,10 @@
 #
 # Usage: Overlays are automatically applied to nixpkgs in host configurations
 
-{ inputs, config, ... }: {
-  flake.overlays = import ../overlays { 
-    inherit inputs; 
-    settings = config.flake.settings; 
+{ inputs, config, ... }:
+{
+  flake.overlays = import ../overlays {
+    inherit inputs;
+    inherit (config.flake) settings;
   };
 }

@@ -1,4 +1,4 @@
-{...}: {
+_: {
   home-manager.sharedModules = [
     (_: {
       home.file.".config/swaylock/config".text = ''

@@ -6,7 +6,7 @@
       <img src="https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/palette/macchiato.png" width="600px" /> <br>
    <div align="center">
 
-   <div align="center">
+<div align="center">
       <p></p>
       <div align="center">
          <a href="https://github.com/Sly-Harvey/NixOS/stargazers">
@@ -32,6 +32,7 @@
 
 ![Screenshot](assets/preview1.png)
 ![Screenshot](assets/preview2.png)
+
 <details>
 <summary>More Previews</summary>
 
@@ -42,62 +43,78 @@
 </details>
 
 # Installation
+
 > [!Note]
+>
 > <p>You should review the configuration variables in `flake.nix` before installing.<br>
 > Also, check the imports at the top of `hosts/Default/configuration.nix`</p>
+
 You can use the `install.sh` script while booted into a system or in the live installer.<br>
 If you prefer the latter, you can obtain an ISO from [here](https://nixos.org/download/#nixos-iso).<br>
 The minimal ISO is recommended, but you can use any.
+
 ```bash
 git clone https://github.com/Sly-Harvey/NixOS.git ~/NixOS
 ```
+
 ```bash
 cd ~/NixOS
 ```
+
 ```bash
 ./install.sh
 ```
 
 # Rebuilding
+
 There are 4 ways to rebuild.<br>
-1) Press **Super + U**.
-2) Run `rebuild` in the terminal
-3) Execute the `install.sh` script again.
-4) Run `sudo nixos-rebuild switch --flake ~/NixOS#Default` if you installed from the live iso then use /etc/nixos#Default 
+
+1. Press **Super + U**.
+1. Run `rebuild` in the terminal
+1. Execute the `install.sh` script again.
+1. Run `sudo nixos-rebuild switch --flake ~/NixOS#Default` if you installed from the live iso then use /etc/nixos#Default
 
 For a list of keybinds press **Super + ?** or **Super + Ctrl + K**
 
 <!-- # Dev-shells -->
+
 # Development Shells
+
 This configuration includes pre-configured development shells for various programming languages and frameworks.
 
-
 To initialise a new project from a template:
+
 ```bash
 nix flake init -t ~/NixOS#TEMPLATE_NAME
 ```
+
 Alternatively, use the `new` keyword to create a new directory:
+
 ```bash
 nix flake new -t ~/NixOS#TEMPLATE_NAME PROJECT_NAME
 ```
+
 Replace `TEMPLATE_NAME` with any template defined in `dev-shells/default.nix`.<br>
 <br>
 To enter the development shell you can use direnv if configured,<br> or navigate to the project directory and run:
+
 ```bash
 nix develop
 ```
 
 <!-- </details> -->
+
 <!-- <summary>Credits/Inspiration</summary> -->
 
 ### Credits/Inspiration
-| Credit                                                              |  Reason                                |
+
+| Credit | Reason |
 |---------------------------------------------------------------------|----------------------------------------|
-| [Hyprland-Dots](https://github.com/JaKooLit/Hyprland-Dots)          | Script and Waybar templates            |
-| [HyDE](https://github.com/HyDE-Project/HyDE)                        | Some more useful scripts               |
-| [rofi](https://github.com/adi1090x/rofi)                            | Rofi launcher templates                |
-| [dev-templates](https://github.com/the-nix-way/dev-templates)       | Development templates                  |
-| [Vimjoyer](https://www.youtube.com/@vimjoyer)                       | Short, simple, concise guides and info |
+| [Hyprland-Dots](https://github.com/JaKooLit/Hyprland-Dots) | Script and Waybar templates |
+| [HyDE](https://github.com/HyDE-Project/HyDE) | Some more useful scripts |
+| [rofi](https://github.com/adi1090x/rofi) | Rofi launcher templates |
+| [dev-templates](https://github.com/the-nix-way/dev-templates) | Development templates |
+| [Vimjoyer](https://www.youtube.com/@vimjoyer) | Short, simple, concise guides and info |
 
 <!-- </details> -->
 

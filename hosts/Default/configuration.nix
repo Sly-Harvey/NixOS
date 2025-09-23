@@ -3,12 +3,12 @@
   videoDriver,
   username,
   hostname,
-  browser,
   editor,
   terminal,
   terminalFileManager,
   ...
-}: {
+}:
+{
   imports = [
     ./hardware-configuration.nix
     ../../modules/hardware/video/${videoDriver}.nix # Enable gpu drivers defined in flake.nix

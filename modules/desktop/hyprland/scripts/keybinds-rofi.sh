@@ -4,7 +4,7 @@
 pkill yad || true
 
 # check if rofi is already running
-if pidof rofi > /dev/null; then
+if pidof rofi >/dev/null; then
   pkill rofi
 fi
 
@@ -19,9 +19,9 @@ keybinds=$(cat "$keybinds_conf" | grep -E '^bind')
 # keybinds+=$'\n'"$more_binds"
 
 # check for any keybinds to display
-if [[ -z "$keybinds" ]]; then
-    echo "no keybinds found."
-    exit 1
+if [[ -z $keybinds ]]; then
+  echo "no keybinds found."
+  exit 1
 fi
 
 # replace $mainmod with super in the displayed keybinds for rofi

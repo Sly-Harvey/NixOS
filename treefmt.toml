@@ -1,3 +1,15 @@
 [formatter.nix]
 command = "nixfmt"
 includes = ["**/*.nix"]
+
+[formatter.deadnix]
+command = "deadnix"
+# --edit edits in place; keep the trailing "--" so treefmt appends files
+options = ["--edit", "--"]
+includes = ["*.nix"]
+
+[formatter.statix]
+command = "statix"
+# "fix" applies safe autofixes; omit to only scan
+options = ["fix", "--"]
+includes = ["*.nix"]

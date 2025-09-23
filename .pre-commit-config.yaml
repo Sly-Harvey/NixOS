@@ -1,6 +1,5 @@
 # Pre-commit hooks for NixOS configuration
 # Run `nix develop` then `pre-commit install` to set up
-
 repos:
   # Nix formatting and linting
   - repo: https://github.com/nix-community/nixpkgs-fmt
@@ -10,7 +9,6 @@ repos:
         name: Format Nix files
         description: Format Nix files with nixpkgs-fmt
         files: \.nix$
-
   - repo: https://github.com/astro/deadnix
     rev: v1.2.1
     hooks:
@@ -19,7 +17,6 @@ repos:
         description: Find and remove unused code in Nix files
         files: \.nix$
         args: ["--edit"]
-
   - repo: https://github.com/nix-community/statix
     rev: v0.5.8
     hooks:
@@ -28,7 +25,6 @@ repos:
         description: Lint Nix files for anti-patterns and suggestions
         files: \.nix$
         args: ["check"]
-
   # General file checks
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.5.0
@@ -37,35 +33,28 @@ repos:
         name: Trim trailing whitespace
         description: Remove trailing whitespace from files
         exclude: \.patch$
-
       - id: end-of-file-fixer
         name: Fix end of files
         description: Ensure files end with a newline
-
       - id: check-merge-conflict
         name: Check for merge conflicts
         description: Check for files that contain merge conflict strings
-
       - id: check-yaml
         name: Check YAML syntax
         description: Validate YAML files
         files: \.(yaml|yml)$
-
       - id: check-json
         name: Check JSON syntax
         description: Validate JSON files
         files: \.json$
-
       - id: check-toml
         name: Check TOML syntax
         description: Validate TOML files
         files: \.toml$
-
       - id: check-added-large-files
         name: Check for large files
         description: Prevent large files from being committed
         args: ['--maxkb=1000']
-
   # Custom NixOS validation hooks
   - repo: local
     hooks:
@@ -77,7 +66,6 @@ repos:
         language: system
         files: ^(flake\.(nix|lock)|.*\.nix)$
         pass_filenames: false
-
       - id: nix-fmt-check
         name: Check Nix formatting
         description: Ensure Nix files are properly formatted
@@ -86,7 +74,6 @@ repos:
         language: system
         files: \.nix$
         pass_filenames: false
-
       - id: nix-build-check
         name: Build check (dry-run)
         description: Verify NixOS configuration builds without errors
@@ -95,7 +82,6 @@ repos:
         language: system
         files: ^(flake\.(nix|lock)|.*\.nix)$
         pass_filenames: false
-
 # Configuration
 default_stages: [commit]
 fail_fast: false

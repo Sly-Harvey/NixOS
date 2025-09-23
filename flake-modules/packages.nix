@@ -11,11 +11,14 @@
 #
 # Usage: Packages are available as flake outputs (e.g., nix build .#pokego)
 
-{ config, ... }: {
-  perSystem = { pkgs, ... }: {
-    packages = import ../pkgs { 
-      inherit pkgs; 
-      settings = config.flake.settings; 
+{ config, ... }:
+{
+  perSystem =
+    { pkgs, ... }:
+    {
+      packages = import ../pkgs {
+        inherit pkgs;
+        inherit (config.flake) settings;
+      };
     };
-  };
 }

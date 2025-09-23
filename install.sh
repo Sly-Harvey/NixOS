@@ -58,7 +58,7 @@ fi
 sudo git -C . add hosts/Default/hardware-configuration.nix
 
 # clear
-sudo nixos-rebuild switch --flake .#Default && \
-    echo -e "${GREEN}Success!${NC}" && \
-    echo "Make sure to reboot if this is your first time using this script!" || \
-    exit 1
+sudo nixos-rebuild switch --flake .#Default &&
+  echo -e "${GREEN}Success!${NC}" &&
+  echo "Make sure to reboot if this is your first time using this script!" ||
+  exit 1

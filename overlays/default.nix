@@ -23,7 +23,7 @@
 
     # Provide access to stable packages
     stable = import inputs.nixpkgs-stable {
-      system = final.system;
+      inherit (final) system;
       config.allowUnfree = true;
     };
   };

@@ -5,10 +5,9 @@ dict="s/;//g;"
 
 # creating "dictionary" to replace char with bar
 i=0
-while [ $i -lt ${#bar} ]
-do
-    dict="${dict}s/$i/${bar:$i:1}/g;"
-    i=$((i=i+1))
+while [ $i -lt ${#bar} ]; do
+  dict="${dict}s/$i/${bar:i:1}/g;"
+  i=$((i = i + 1))
 done
 
 # write cava config
@@ -22,9 +21,9 @@ method = raw
 raw_target = /dev/stdout
 data_format = ascii
 ascii_max_range = 7
-" > $config_file
+" >$config_file
 
 # read stdout from cava
 cava -p $config_file | while read -r line; do
-    echo $line | sed $dict
+  echo $line | sed $dict
 done

@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   #  use later
   home-manager.sharedModules = [
     (_: {

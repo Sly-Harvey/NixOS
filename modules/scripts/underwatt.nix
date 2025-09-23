@@ -1,4 +1,4 @@
-{pkgs, ...}:
+{ pkgs, ... }:
 pkgs.writeShellScriptBin "underwatt" ''
   # WARNING This script is setup for my gtx 1080 do not attempt to use this unless you know what settings your gpu can handle
 

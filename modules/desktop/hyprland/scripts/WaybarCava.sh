@@ -12,7 +12,7 @@ bar_length=${#bar}
 
 # Create dictionary to replace char with bar
 for ((i = 0; i < bar_length; i++)); do
-    dict+=";s/$i/${bar:$i:1}/g"
+  dict+=";s/$i/${bar:i:1}/g"
 done
 
 # Create cava config
@@ -40,5 +40,5 @@ pkill -f "cava -p $config_file"
 
 # create a cava process for each monitor
 for monitor in $(hyprctl monitors | grep "ID" | awk '{print $2}'); do
-		cava -p "$config_file" | sed -u "$dict"
+  cava -p "$config_file" | sed -u "$dict"
 done

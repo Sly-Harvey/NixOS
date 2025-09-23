@@ -1,6 +1,7 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   nixpkgs.config.packageOverrides = pkgs: {
-    vaapiIntel = pkgs.vaapiIntel.override {enableHybridCodec = true;};
+    vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
   };
 
   boot.kernelParams = [
@@ -15,7 +16,13 @@
   ];
 
   # Load the driver
-  services.xserver.videoDrivers = ["modesetting"];
+  services = {
+    xserver.videoDrivers = [ "modesetting" ];
+
+    # Thermal and Noise Management
+    thermald.enable = true;
+    throttled.enable = true;
+  };
 
   # OpenGL
   hardware.graphics = {
@@ -26,8 +33,4 @@
       libvdpau-va-gl
     ];
   };
-
-  # Thermal and Noise Management
-  services.thermald.enable = true;
-  services.throttled.enable = true;
 }

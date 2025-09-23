@@ -10,16 +10,14 @@
   kbdLayout,
   kbdVariant,
   consoleKeymap,
-  config,
   self,
   ...
-}: {
+}:
+{
   imports = [
     inputs.home-manager.nixosModules.home-manager
     inputs.nix-index-database.nixosModules.nix-index
   ];
-
-  programs.nix-index-database.comma.enable = true;
 
   users.users.${username} = {
     isNormalUser = true;
@@ -40,63 +38,123 @@
     useGlobalPkgs = true;
     useUserPackages = true;
     backupFileExtension = "backup";
-    users.${username} = {pkgs, ...}: {
-      # Let Home Manager install and manage itself.
-      programs.home-manager.enable = true;
+    users.${username} =
+      { pkgs, ... }:
+      {
+        # Let Home Manager install and manage itself.
+        programs.home-manager.enable = true;
 
-      xdg.enable = true;
-      xdg.portal = {
-        enable = true;
-        extraPortals = with pkgs; [xdg-desktop-portal-hyprland xdg-desktop-portal-gtk];
-        xdgOpenUsePortal = true;
-      };
-      home = {
-        username = username;
-        homeDirectory =
-          if pkgs.stdenv.isDarwin
-          then "/Users/${username}"
-          else "/home/${username}";
-        stateVersion = "23.11"; # Please read the comment before changing.
-        sessionVariables = {
-          EDITOR = "nvim";
-          BROWSER = browser;
-          TERMINAL = terminal;
+        xdg.enable = true;
+        xdg.portal = {
+          enable = true;
+          extraPortals = with pkgs; [
+            xdg-desktop-portal-hyprland
+            xdg-desktop-portal-gtk
+          ];
+          xdgOpenUsePortal = true;
         };
-        # Packages that don't require configuration. If you're looking to configure a program see the /modules dir
-        packages = with pkgs; [
-          # Applications
-          #kate
+        home = {
+          inherit username;
+          homeDirectory = if pkgs.stdenv.isDarwin then "/Users/${username}" else "/home/${username}";
+          stateVersion = "23.11"; # Please read the comment before changing.
+          sessionVariables = {
+            EDITOR = "nvim";
+            BROWSER = browser;
+            TERMINAL = terminal;
+          };
+          # Packages that don't require configuration. If you're looking to configure a program see the /modules dir
+          packages = with pkgs; [
+            # Applications
+            #kate
 
-          # Terminal
-          fzf
-          fd
-          git
-          gh
-          htop
-          libjxl
-          microfetch
-          nix-prefetch-scripts
-          ripgrep
-          tldr
-          unrar
-          unzip
-        ];
+            # Terminal
+            fzf
+            fd
+            git
+            gh
+            htop
+            libjxl
+            microfetch
+            nix-prefetch-scripts
+            ripgrep
+            tldr
+            unrar
+            unzip
+          ];
+        };
       };
-    };
   };
 
   # Filesystems support
-  boot.supportedFilesystems = ["ntfs" "exfat" "ext4" "fat32" "btrfs"];
-  services.devmon.enable = true;
-  services.gvfs.enable = true;
-  services.udisks2.enable = true;
+  boot.supportedFilesystems = [
+    "ntfs"
+    "exfat"
+    "ext4"
+    "fat32"
+    "btrfs"
+  ];
+  services = {
+    devmon.enable = true;
+    gvfs.enable = true;
+    udisks2.enable = true;
 
-  # Depends on system
-  # services.scx = {
-  #   enable = true;
-  #   package = pkgs.scx.rustscheds;
-  #   scheduler = "scx_lavd"; # https://github.com/sched-ext/scx/blob/main/scheds/rust/README.md
-  # };
+    # Depends on system
+    # scx = {
+    #   enable = true;
+    #   package = pkgs.scx.rustscheds;
+    #   scheduler = "scx_lavd"; # https://github.com/sched-ext/scx/blob/main/scheds/rust/README.md
+    # };
+
+    xserver = {
+      enable = true;
+      exportConfiguration = true; # Make sure /etc/X11/xkb is populated so localectl works correctly
+      xkb = {
+        layout = kbdLayout;
+        variant = kbdVariant;
+      };
+    };
+
+    blueman.enable = true;
+
+    displayManager = {
+      sddm = {
+        enable = true;
+        wayland.enable = true;
+        enableHidpi = true;
+        package = pkgs.kdePackages.sddm;
+        theme = "sddm-astronaut-theme";
+        settings.Theme.CursorTheme = "Bibata-Modern-Classic";
+        extraPackages = with pkgs; [
+          kdePackages.qtmultimedia
+          kdePackages.qtsvg
+          kdePackages.qtvirtualkeyboard
+        ];
+      };
+    };
+
+    gnome.gnome-keyring.enable = true;
+
+    printing.enable = true;
+
+    pulseaudio.enable = false;
+
+    pipewire = {
+      enable = true;
+      alsa.enable = true;
+      alsa.support32Bit = true;
+      pulse.enable = true;
+      wireplumber = {
+        enable = true;
+        configPackages = [
+          (pkgs.writeTextDir "share/wireplumber/wireplumber.conf.d/11-bluetooth-policy.conf" ''
+            bluetooth.autoswitch-to-headset-profile = false
+          '')
+        ];
+      };
+    };
+
+    libinput.enable = true;
+  };
 
   # Bootloader.
   boot = {
@@ -146,24 +204,11 @@
     LC_TIME = locale;
   };
   console.keyMap = consoleKeymap; # Configure console keymap
-  services.xserver = {
-    exportConfiguration = true; # Make sure /etc/X11/xkb is populated so localectl works correctly
-    xkb = {
-      layout = kbdLayout;
-      variant = kbdVariant;
-    };
-  };
 
   security = {
     polkit.enable = true;
     #sudo.wheelNeedsPassword = false;
   };
-
-  # Enable dconf for home-manager
-  programs.dconf.enable = true;
-
-  # Enable bluetooth
-  services.blueman.enable = true;
   hardware.bluetooth = {
     enable = true;
     powerOnBoot = true;
@@ -179,55 +224,8 @@
     # networking.proxy.default = "http://user:password@proxy:port/";
     # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
   };
-
-  # Enable sddm login manager
-  services.displayManager = {
-    sddm = {
-      enable = true;
-      wayland.enable = true;
-      enableHidpi = true;
-      package = pkgs.kdePackages.sddm;
-      theme = "sddm-astronaut-theme";
-      settings.Theme.CursorTheme = "Bibata-Modern-Classic";
-      extraPackages = with pkgs; [
-        kdePackages.qtmultimedia
-        kdePackages.qtsvg
-        kdePackages.qtvirtualkeyboard
-      ];
-    };
-  };
-
-  # Setup keyring
-  services.gnome.gnome-keyring.enable = true;
-
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
-
-  # Enable sound with pipewire.
-  services.pulseaudio.enable = false;
   security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-    wireplumber = {
-      enable = true;
-      configPackages = [
-        (pkgs.writeTextDir "share/wireplumber/wireplumber.conf.d/11-bluetooth-policy.conf" ''
-          bluetooth.autoswitch-to-headset-profile = false
-        '')
-      ];
-    };
-  };
 
-  services.xserver.enable = true; # Enable the X11 windowing system.
-
-  # Enable touchpad support (enabled default in most desktopManager).
-  services.libinput.enable = true;
-
-  # Default shell
-  programs.zsh.enable = true;
   users.defaultUserShell = pkgs.zsh;
 
   fonts.fontDir.enable = true;
@@ -276,14 +274,7 @@
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
-  programs.gnupg.agent = {
-    enable = true;
-    enableSSHSupport = true;
-  };
-
   # List services that you want to enable:
-
-
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
@@ -292,6 +283,19 @@
   # networking.firewall.enable = false;
 
   programs = {
+    nix-index-database.comma.enable = true;
+
+    # Enable dconf for home-manager
+    dconf.enable = true;
+
+    # Default shell
+    zsh.enable = true;
+
+    gnupg.agent = {
+      enable = true;
+      enableSSHSupport = true;
+    };
+
     nh = {
       enable = true;
       # Automatic garbage collection
@@ -324,7 +328,10 @@
         # "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
         # "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
       ];
-      experimental-features = ["nix-command" "flakes"];
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
       use-xdg-base-directories = false;
       warn-dirty = false;
       keep-outputs = true;
