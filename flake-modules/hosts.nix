@@ -14,18 +14,16 @@
 
 { inputs, config, ... }: {
   flake.nixosConfigurations = let
-    # Common arguments passed to all hosts
-    commonArgs = {
-      inherit inputs;
-      outputs = config.flake;
-      self = config.flake;
-    } // config.flake.settings;
-
     # Helper function to create a host configuration
     mkHost = { system, hostName, modules ? [], extraArgs ? {} }: 
       inputs.nixpkgs.lib.nixosSystem {
         inherit system;
-        specialArgs = commonArgs // extraArgs // { hostname = hostName; };
+        specialArgs = {
+          inherit inputs;
+          outputs = config.flake;
+          self = config.flake;
+          hostname = hostName;
+        } // config.flake.settings // extraArgs;
         modules = [
           ../hosts/${hostName}/configuration.nix
         ] ++ modules;
