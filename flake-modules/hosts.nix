@@ -9,28 +9,27 @@
 # - Helper function (mkHost) for consistent host creation
 # - Support for host-specific modules and argument overrides
 # - Automatic hostname injection for host-specific configurations
-# - Uses flake-parts withSystem for better integration
 #
 # Usage: Add new hosts by calling mkHost with system, hostName, and optional modules/extraArgs
 
-{ inputs, config, withSystem, ... }: {
+{ inputs, config, ... }: {
   flake.nixosConfigurations = let
+    # Common arguments passed to all hosts
+    commonArgs = {
+      inherit inputs;
+      outputs = config.flake;
+      self = config.flake;
+    } // config.flake.settings;
+
     # Helper function to create a host configuration
     mkHost = { system, hostName, modules ? [], extraArgs ? {} }: 
-      withSystem system ({ inputs', self', ... }:
-        inputs.nixpkgs.lib.nixosSystem {
-          inherit system;
-          specialArgs = {
-            inherit inputs inputs';
-            outputs = config.flake;
-            self = inputs.self;
-            hostname = hostName;
-          } // config.flake.settings // extraArgs;
-          modules = [
-            ../hosts/${hostName}/configuration.nix
-          ] ++ modules;
-        }
-      );
+      inputs.nixpkgs.lib.nixosSystem {
+        inherit system;
+        specialArgs = commonArgs // extraArgs // { hostname = hostName; };
+        modules = [
+          ../hosts/${hostName}/configuration.nix
+        ] ++ modules;
+      };
   in {
     # Default host configuration
     Default = mkHost {

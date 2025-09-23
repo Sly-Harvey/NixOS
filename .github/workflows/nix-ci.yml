@@ -4,10 +4,15 @@ on:
   pull_request:
   push:
 
+permissions:
+  contents: read
+
 jobs:
   soft-gate:
     name: Soft Gate (warn only)
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@v5
 
@@ -46,6 +51,8 @@ jobs:
   hard-gate:
     name: Hard Gate (fail on issues)
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@v5
 
