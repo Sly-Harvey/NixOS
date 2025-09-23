@@ -1,6 +1,17 @@
 {
   description = "A simple flake for an atomic system";
 
+  nixConfig = {
+    substituters = [
+      "https://cache.nixos.org/"
+      "https://nix-community.cachix.org/"
+    ];
+    trusted-public-keys = [
+      "cache.nixos.org-1:6NCHdD59X431o0ZkA1xzdr+/N0pjrF3nM9iP+0D8w7c="
+      "nix-community.cachix.org-1:mBs+gI2b9FJe3uG1Sze4jG68ii993C5wCq/NecjB8X8="
+    ];
+  };
+
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";

@@ -2,6 +2,12 @@ name: Nix Format & Lint
 on:
   pull_request:
   push:
+# Binary-first installs (public only). Flip STRICT_BINARY=true to hard-fail on source builds.
+env:
+  PIP_PREFER_BINARY: 1
+  UV_PIP_FLAGS: --prefer-binary
+  npm_config_build_from_source: false
+  STRICT_BINARY: ${{ vars.STRICT_BINARY || 'false' }}
 permissions:
   contents: read
 jobs:
@@ -15,9 +21,24 @@ jobs:
       - name: Install Nix
         uses: cachix/install-nix-action@v31
         with:
-          extra_nix_config: experimental-features = nix-command flakes
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            extra-substituters = https://nix-community.cachix.org/
+            extra-trusted-public-keys = nix-community.cachix.org-1:mBs+gI2b9FJe3uG1Sze4jG68ii993C5wCq/NecjB8X8=
       - name: Show flake summary
         run: nix flake metadata || true
+      - name: Nix binary-first smoke build
+        run: |
+          set -euo pipefail
+          if [ "${STRICT_BINARY}" = "true" ]; then
+            nix build .#checks --dry-run --option substituters "https://cache.nixos.org/ https://nix-community.cachix.org/" --accept-flake-config 2>&1 | tee nix-build-plan.log
+            if grep -E "(will|would) be built" nix-build-plan.log; then
+              echo "::error::Strict binary mode: derivations require local builds."
+              exit 1
+            fi
+          else
+            nix build .#checks --option substituters "https://cache.nixos.org/ https://nix-community.cachix.org/" --accept-flake-config 2>&1 | tee nix-build.log
+          fi
       # Formatting: apply fixes with nix fmt (treefmt-nix) and warn if diffs occurred
       - name: Format (nix fmt)
         run: |
@@ -38,6 +59,27 @@ jobs:
           # If your .#lint already runs deadnix, this will warn regardless
           nix run .#lint || true
           echo "::warning::Deadnix may have found issues (see logs)."
+      - name: Binary Artifacts Summary (Nix)
+        if: always()
+        run: |
+          set -euo pipefail
+          if [ -f nix-build-plan.log ]; then
+            echo "Strict mode dry-run output:" && cat nix-build-plan.log
+            if ! grep -E "(will|would) be built" nix-build-plan.log; then
+              echo "All derivations resolved via public substituters."
+            fi
+          elif [ -f nix-build.log ]; then
+            copies=$(grep -c "copying path" nix-build.log || true)
+            builds=$(grep -c "building the following derivations" nix-build.log || true)
+            echo "Binary cache substitutions observed: ${copies}"
+            if [ "${builds}" -gt 0 ]; then
+              echo "::warning::${builds} derivation(s) required local builds. See nix-build.log for details."
+            else
+              echo "No local builds recorded during the smoke run."
+            fi
+          else
+            echo "No Nix smoke log found; nothing to summarise."
+          fi
   # ------------------- HARD GATE (STRICT) -------------------
   hard-gate:
     name: Hard Gate (fail on issues)
@@ -49,10 +91,46 @@ jobs:
       - name: Install Nix
         uses: cachix/install-nix-action@v31
         with:
-          extra_nix_config: experimental-features = nix-command flakes
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            extra-substituters = https://nix-community.cachix.org/
+            extra-trusted-public-keys = nix-community.cachix.org-1:mBs+gI2b9FJe3uG1Sze4jG68ii993C5wCq/NecjB8X8=
+      - name: Nix binary-first smoke build
+        run: |
+          set -euo pipefail
+          if [ "${STRICT_BINARY}" = "true" ]; then
+            nix build .#checks --dry-run --option substituters "https://cache.nixos.org/ https://nix-community.cachix.org/" --accept-flake-config 2>&1 | tee nix-build-plan.log
+            if grep -E "(will|would) be built" nix-build-plan.log; then
+              echo "::error::Strict binary mode: derivations require local builds."
+              exit 1
+            fi
+          else
+            nix build .#checks --option substituters "https://cache.nixos.org/ https://nix-community.cachix.org/" --accept-flake-config 2>&1 | tee nix-build.log
+          fi
       # Strict check: runs treefmt-nix's flakeCheck + your custom checks
       - name: nix flake check (strict)
         run: nix flake check --show-trace
+      - name: Binary Artifacts Summary (Nix)
+        if: always()
+        run: |
+          set -euo pipefail
+          if [ -f nix-build-plan.log ]; then
+            echo "Strict mode dry-run output:" && cat nix-build-plan.log
+            if ! grep -E "(will|would) be built" nix-build-plan.log; then
+              echo "All derivations resolved via public substituters."
+            fi
+          elif [ -f nix-build.log ]; then
+            copies=$(grep -c "copying path" nix-build.log || true)
+            builds=$(grep -c "building the following derivations" nix-build.log || true)
+            echo "Binary cache substitutions observed: ${copies}"
+            if [ "${builds}" -gt 0 ]; then
+              echo "::warning::${builds} derivation(s) required local builds. See nix-build.log for details."
+            else
+              echo "No local builds recorded during the smoke run."
+            fi
+          else
+            echo "No Nix smoke log found; nothing to summarise."
+          fi
 
 # If you prefer explicit commands instead of flake checks:
 # - name: Enforce formatting only
