@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ repoRoot, pkgs, ... }:
 {
   fonts.packages = with pkgs.nerd-fonts; [ jetbrains-mono ];
   home-manager.sharedModules = [
@@ -69,7 +69,7 @@
               on-scroll-down = "busctl --user -- call rs.wl-gammarelay / rs.wl.gammarelay UpdateTemperature n -100";
             };
             "custom/cava_mviz" = {
-              exec = "${../../scripts/WaybarCava.sh}";
+              exec = "${repoRoot + /modules/desktop/hyprland/scripts/WaybarCava.sh}";
               format = "{}";
             };
             # "cava" = { # Audio visualizer removed - audio stack removed
@@ -84,10 +84,10 @@
             #   on-click = "playerctl play-pause";
             # };
             "custom/gpuinfo" = {
-              exec = "${../../scripts/gpuinfo.sh}";
+              exec = "${repoRoot + /modules/desktop/hyprland/scripts/gpuinfo.sh}";
               return-type = "json";
               format = "{0}";
-              on-click = "${../../scripts/gpuinfo.sh} --toggle";
+              on-click = "${repoRoot + /modules/desktop/hyprland/scripts/gpuinfo.sh} --toggle";
               interval = 5; # once every 5 seconds
               tooltip = true;
               max-length = 1000;
@@ -130,7 +130,7 @@
             };
             "hyprland/language" = {
               format = "{short}"; # can use {short} and {variant}
-              on-click = "${../../scripts/keyboardswitch.sh}";
+              on-click = "${repoRoot + /modules/desktop/hyprland/scripts/keyboardswitch.sh}";
             };
             "hyprland/workspaces" = {
               disable-scroll = true;

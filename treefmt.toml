@@ -1,15 +1,60 @@
-[formatter.nix]
+# treefmt.toml
+# Nix
+[formatter.nixfmt]
 command = "nixfmt"
-includes = ["**/*.nix"]
+includes = ["*.nix"]
 
+# Or use alejandra instead of nixfmt:
+# [formatter.alejandra]
+# command = "alejandra"
+# includes = ["*.nix"]
+
+# Deadnix can auto-edit; keep it here if you want fixes in dev.
 [formatter.deadnix]
 command = "deadnix"
-# --edit edits in place; keep the trailing "--" so treefmt appends files
 options = ["--edit", "--"]
 includes = ["*.nix"]
 
+# Statix can fix some issues; keep "fix" here for dev convenience.
 [formatter.statix]
 command = "statix"
-# "fix" applies safe autofixes; omit to only scan
 options = ["fix", "--"]
 includes = ["*.nix"]
+
+# Shell
+[formatter.shfmt]
+command = "shfmt"
+options = ["-w"]             # write in place
+includes = ["*.sh", "bin/*"]
+
+# Markdown
+[formatter.mdformat]
+command = "mdformat"
+# add plugins if you use GFM tables: mdformat-gfm
+includes = ["*.md", "docs/**/*.md"]
+
+# TOML
+[formatter.taplo]
+command = "taplo"
+options = ["fmt", "-"] # treefmt pipes files on stdin
+stdin = true
+includes = ["*.toml"]
+
+# JSON (two options; pick one)
+# 1) jq (simple, stable)
+[formatter.jq]
+command = "jq"
+options = [".", "--sort-keys"]
+stdin = true
+includes = ["*.json"]
+# 2) prettier for JSON/YAML/MD if you prefer one tool:
+# [formatter.prettier]
+# command = "prettier"
+# options = ["--write"]
+# includes = ["*.json", "*.yaml", "*.yml", "*.md"]
+
+# YAML (use prettier or a dedicated formatter if you prefer)
+[formatter.yamlfmt]
+command = "prettier"
+options = ["--write"]
+includes = ["*.yaml", "*.yml"]

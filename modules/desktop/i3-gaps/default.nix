@@ -1,4 +1,5 @@
 {
+  repoRoot,
   pkgs,
   terminal,
   ...
@@ -6,7 +7,7 @@
 {
   fonts.packages = with pkgs.nerd-fonts; [ jetbrains-mono ];
   imports = [
-    ../../themes/Catppuccin # Catppuccin GTK and QT themes
+    (repoRoot + /modules/themes/Catppuccin) # Catppuccin GTK and QT themes
     ../hyprland/programs/dunst
     # ../hyprland/programs/dunst
   ];
@@ -160,7 +161,7 @@
         };
         "i3/wallpaper.jxl" = {
           executable = true;
-          source = ../../themes/wallpapers/kurzgesagt.jxl;
+          source = repoRoot + /modules/themes/wallpapers/kurzgesagt.jxl;
         };
       };
     })

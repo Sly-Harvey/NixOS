@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ repoRoot, pkgs, ... }:
 {
   #  use later
   home-manager.sharedModules = [
@@ -143,7 +143,7 @@
                 {
                   label = "🎮";
                   type = "toggle";
-                  command = "${../../../hyprland/scripts/gamemode.sh}";
+                  command = "${repoRoot + /modules/desktop/hyprland/scripts/gamemode.sh}";
                   update-command = "hyprctl getoption animations:enabled | grep -q 'int: 1' && echo false || echo true";
                 }
 
@@ -165,7 +165,7 @@
                   label = "";
                   type = "toggle";
 
-                  command = "${../../../hyprland/scripts/TogglePowerMode.sh}";
+                  command = "${repoRoot + /modules/desktop/hyprland/scripts/TogglePowerMode.sh}";
                   update-command = "test -f \"$HOME/.config/hypr/power_mode\" && grep -q \"^powersave$\" \"$HOME/.config/hypr/power_mode\" && echo true || echo false";
                 }
               ];

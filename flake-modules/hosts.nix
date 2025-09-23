@@ -19,6 +19,7 @@
       inherit inputs;
       outputs = config.flake;
       inherit (inputs) self;
+      repoRoot = inputs.self;
       hostname = "Default";
     }
     // config.flake.settings;

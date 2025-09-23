@@ -1,4 +1,5 @@
-_: {
+{ repoRoot, ... }:
+{
   home-manager.sharedModules = [
     (_: {
       programs.hyprlock = {
@@ -12,7 +13,7 @@ _: {
             {
               monitor = "";
               color = "rgb(36, 39, 58)";
-              path = "${../../../../themes/wallpapers/dark-forest.jxl}";
+              path = "${repoRoot + /modules/themes/wallpapers/dark-forest.jxl}";
 
               new_optimizations = true;
               blur_size = 3;

@@ -1,4 +1,5 @@
 {
+  inputs,
   pkgs,
   videoDriver,
   username,
@@ -8,30 +9,110 @@
   terminalFileManager,
   ...
 }:
+let
+  inherit (builtins) concatStringsSep;
+  fromRoot = segments: inputs.self + ("/" + concatStringsSep "/" segments);
+in
 {
   imports = [
     ./hardware-configuration.nix
-    ../../modules/hardware/video/${videoDriver}.nix # Enable gpu drivers defined in flake.nix
-    ../../modules/hardware/drives
+    (fromRoot [
+      "modules"
+      "hardware"
+      "video"
+      (videoDriver + ".nix")
+    ]) # Enable gpu drivers defined in flake.nix
+    (fromRoot [
+      "modules"
+      "hardware"
+      "drives"
+    ])
 
     ../common.nix
-    ../../modules/scripts
+    (fromRoot [
+      "modules"
+      "scripts"
+    ])
 
-    ../../modules/desktop/hyprland # Enable hyprland window manager
+    (fromRoot [
+      "modules"
+      "desktop"
+      "hyprland"
+    ]) # Enable hyprland window manager
 
-    ../../modules/programs/terminal/${terminal} # Set terminal defined in flake.nix
-    ../../modules/programs/editor/${editor} # Set editor defined in flake.nix
-    ../../modules/programs/cli/${terminalFileManager} # Set file-manager defined in flake.nix
-    ../../modules/programs/cli/starship
-    ../../modules/programs/cli/tmux
-    ../../modules/programs/cli/direnv
-    ../../modules/programs/cli/lazygit
-    ../../modules/programs/cli/btop
-    ../../modules/programs/shell/bash
-    ../../modules/programs/shell/zsh
+    (fromRoot [
+      "modules"
+      "programs"
+      "terminal"
+      terminal
+    ]) # Set terminal defined in flake.nix
+    (fromRoot [
+      "modules"
+      "programs"
+      "editor"
+      editor
+    ]) # Set editor defined in flake.nix
+    (fromRoot [
+      "modules"
+      "programs"
+      "cli"
+      terminalFileManager
+    ]) # Set file-manager defined in flake.nix
+    (fromRoot [
+      "modules"
+      "programs"
+      "cli"
+      "starship"
+    ])
+    (fromRoot [
+      "modules"
+      "programs"
+      "cli"
+      "tmux"
+    ])
+    (fromRoot [
+      "modules"
+      "programs"
+      "cli"
+      "direnv"
+    ])
+    (fromRoot [
+      "modules"
+      "programs"
+      "cli"
+      "lazygit"
+    ])
+    (fromRoot [
+      "modules"
+      "programs"
+      "cli"
+      "btop"
+    ])
+    (fromRoot [
+      "modules"
+      "programs"
+      "shell"
+      "bash"
+    ])
+    (fromRoot [
+      "modules"
+      "programs"
+      "shell"
+      "zsh"
+    ])
 
-    ../../modules/programs/misc/thunar
-    ../../modules/programs/misc/lact # GPU fan, clock and power configuration
+    (fromRoot [
+      "modules"
+      "programs"
+      "misc"
+      "thunar"
+    ])
+    (fromRoot [
+      "modules"
+      "programs"
+      "misc"
+      "lact"
+    ]) # GPU fan, clock and power configuration
   ];
 
   # Home-manager config

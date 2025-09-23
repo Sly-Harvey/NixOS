@@ -1,4 +1,5 @@
 {
+  repoRoot,
   lib,
   pkgs,
   browser,
@@ -10,7 +11,7 @@
 }:
 {
   imports = [
-    ../../themes/Catppuccin # Catppuccin GTK and QT themes
+    (repoRoot + /modules/themes/Catppuccin) # Catppuccin GTK and QT themes
     ./programs/waybar
     ./programs/wlogout
     ./programs/rofi
