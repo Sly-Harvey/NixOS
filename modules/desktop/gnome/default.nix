@@ -9,7 +9,7 @@
     #libinput = { touchpad.tapping = true; };
   };
   services.gnome.gnome-initial-setup.enable = false;
-  services.gnome.games.enable = true;
+  services.gnome.games.enable = false;
 
   environment.gnome.excludePackages = with pkgs.gnome; [
     #gnome-backgrounds

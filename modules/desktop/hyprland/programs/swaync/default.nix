@@ -177,16 +177,6 @@
             };
           };
           notification-visibility = {
-            spotify = {
-              state = "enabled";
-              urgency = "Low";
-              app-name = "Spotify";
-            };
-            youtube-music = {
-              state = "enabled";
-              urgency = "Low";
-              app-name = "com.github.th_ch.youtube_music";
-            };
           };
         };
         style = ''

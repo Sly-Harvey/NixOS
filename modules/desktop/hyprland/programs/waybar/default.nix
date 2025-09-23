@@ -90,9 +90,6 @@
               format-paused = "{status_icon} <i>{title} - {artist}</i>";
               player-icons = {
                 default = "▶";
-                spotify = "";
-                mpv = "󰐹";
-                vlc = "󰕼";
                 firefox = "";
                 chromium = "";
                 kdeconnect = "";
@@ -136,8 +133,6 @@
                 "(.*) - Visual Studio Code" = "$1 󰨞";
                 "(.*)Visual Studio Code" = "Code 󰨞";
                 "(.*) — Dolphin" = "$1 󰉋";
-                "(.*)Spotify" = "Spotify 󰓇";
-                "(.*)Spotify Premium" = "Spotify 󰓇";
                 # "(.*)Steam" = "Steam 󰓓"; # Steam removed
               };
               max-length = 1000;

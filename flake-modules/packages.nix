@@ -15,7 +15,7 @@
   perSystem = { pkgs, ... }: {
     packages = import ../pkgs { 
       inherit pkgs; 
-      settings = config.settings; 
+      settings = config.flake.settings; 
     };
   };
 }

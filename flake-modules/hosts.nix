@@ -1,53 +1,27 @@
 # Hosts module for flake-parts
 #
-# This module defines NixOS system configurations using a flexible, modular approach.
-# It replaces the traditional direct nixosSystem definitions with a helper function
-# that provides consistent argument passing and easier host management.
+# This module defines NixOS system configurations using a simple, direct approach.
+# It provides nixosConfigurations directly without complex flake-parts integration
+# to avoid evaluation issues.
 #
 # Key features:
-# - Centralized common arguments (inputs, outputs, settings)
-# - Helper function (mkHost) for consistent host creation
-# - Support for host-specific modules and argument overrides
-# - Automatic hostname injection for host-specific configurations
+# - Direct nixosSystem definitions
+# - Settings passed via specialArgs
+# - Support for multiple hosts
 #
-# Usage: Add new hosts by calling mkHost with system, hostName, and optional modules/extraArgs
+# Usage: Add new hosts by extending the nixosConfigurations attribute set
 
 { inputs, config, ... }: {
-  flake.nixosConfigurations = let
-    # Common arguments passed to all hosts
-    commonArgs = {
+  flake.nixosConfigurations.Default = inputs.nixpkgs.lib.nixosSystem {
+    system = "x86_64-linux";
+    specialArgs = {
       inherit inputs;
       outputs = config.flake;
-      self = config.flake;
-    } // config.settings;
-
-    # Helper function to create a host configuration
-    mkHost = { system, hostName, modules ? [], extraArgs ? {} }: 
-      inputs.nixpkgs.lib.nixosSystem {
-        inherit system;
-        specialArgs = commonArgs // extraArgs // { hostname = hostName; };
-        modules = [
-          ../hosts/${hostName}/configuration.nix
-        ] ++ modules;
-      };
-  in {
-    # Default host configuration
-    Default = mkHost {
-      system = "x86_64-linux";
-      hostName = "Default";
-    };
-
-    # Example of how to add additional hosts:
-    # Desktop2 = mkHost {
-    #   system = "x86_64-linux";
-    #   hostName = "Desktop2";
-    #   modules = [
-    #     # Add desktop-specific modules here
-    #   ];
-    #   extraArgs = {
-    #     # Override settings for additional desktop
-    #     videoDriver = "nvidia";
-    #   };
-    # };
+      self = inputs.self;
+      hostname = "Default";
+    } // config.flake.settings;
+    modules = [
+      ../hosts/Default/configuration.nix
+    ];
   };
 }

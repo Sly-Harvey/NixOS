@@ -113,7 +113,6 @@
           exec-once = [
             #"[workspace 1 silent] ${terminal}"
             #"[workspace 5 silent] ${browser}"
-            #"[workspace 6 silent] spotify"
             #"[workspace special silent] ${browser} --private-window"
             #"[workspace special silent] ${terminal}"
 
@@ -249,11 +248,7 @@
             # "workspace 3, class:^(krita)$"
             # "workspace 3, title:(.*)(Godot)(.*)$"
             # "workspace 3, title:(GNU Image Manipulation Program)(.*)$"
-            # "workspace 3, class:^(factorio)$"
-            # "workspace 3, class:^(steam)$"
             # "workspace 5, class:^(firefox)$"
-            # "workspace 6, class:^(Spotify)$"
-            # "workspace 6, title:(.*)(Spotify)(.*)$"
 
             # Can use FLOAT FLOAT for active and inactive or just FLOAT
             "opacity 0.80 0.80,class:^(ghostty)$"
@@ -263,11 +258,6 @@
             "opacity 1.00 1.00,class:^(firefox)$"
             "opacity 0.90 0.90,class:^(Brave-browser)$"
             "opacity 0.80 0.80,class:^(org.gnome.Nautilus|thunar)$"
-            "opacity 0.80 0.80,class:^(Steam)$"
-            "opacity 0.80 0.80,class:^(steam)$"
-            "opacity 0.80 0.80,class:^(steamwebhelper)$"
-            "opacity 0.80 0.80,class:^(Spotify)$"
-            "opacity 0.80 0.80,title:(.*)(Spotify)(.*)$"
             "opacity 0.80 0.80,class:^(VSCodium)$"
             "opacity 0.80 0.80,class:^(codium-url-handler)$"
             "opacity 0.80 0.80,class:^(code)$"
@@ -285,7 +275,6 @@
             "opacity 0.80 0.80,class:^(hu.kramo.Cartridges)$" #Cartridges-Gtk
             "opacity 0.80 0.80,class:^(com.obsproject.Studio)$" #Obs-Qt
             "opacity 0.80 0.80,class:^(gnome-boxes)$" #Boxes-Gtk
-            "opacity 0.90 0.90,class:^(discord)$" #Discord-Electron
             "opacity 0.90 0.90,class:^(WebCord)$" #WebCord-Electron
             "opacity 0.80 0.80,class:^(app.drey.Warp)$" #Warp-Gtk
             "opacity 0.80 0.80,class:^(net.davidotek.pupgui2)$" #ProtonUp-Qt
@@ -299,21 +288,6 @@
             "opacity 0.80 0.70,class:^(nm-applet)$"
             "opacity 0.80 0.70,class:^(nm-connection-editor)$"
             "opacity 0.80 0.70,class:^(org.kde.polkit-kde-authentication-agent-1)$"
-
-            "content game, tag:games"
-            "tag +games, content:game"
-            "tag +games, class:^(steam_app.*|steam_app_\d+)$"
-            "tag +games, class:^(gamescope)$"
-            "tag +games, class:(Waydroid)"
-            "tag +games, class:(osu!)"
-
-            # Games
-            "syncfullscreen,tag:games"
-            "fullscreen,tag:games"
-            "noborder 1,tag:games"
-            "noshadow,tag:games"
-            "noblur,tag:games"
-            "noanim,tag:games"
 
             "float,class:^(qt5ct)$"
             "float,class:^(nwg-look)$"
@@ -368,8 +342,8 @@
               "$mainMod, F10, exec, pkill hyprsunset"
 
               # Window/Session actions
-              "$mainMod, Q, exec, ${./scripts/dontkillsteam.sh}" # killactive, kill the window on focus
-              "ALT, F4, exec, ${./scripts/dontkillsteam.sh}" # killactive, kill the window on focus
+              "$mainMod, Q, killactive" # killactive, kill the window on focus
+              "ALT, F4, killactive" # killactive, kill the window on focus
               "$mainMod, delete, exit" # kill hyperland session
               "$mainMod, W, togglefloating" # toggle the window on focus to float
               "$mainMod SHIFT, G, togglegroup" # toggle the window on focus to float
@@ -384,8 +358,6 @@
               "$mainMod, E, exec, $fileManager"
               "$mainMod, C, exec, $editor"
               "$mainMod, F, exec, $browser"
-              "$mainMod SHIFT, S, exec, spotify"
-              "$mainMod SHIFT, Y, exec, youtube-music"
               "$CONTROL ALT, DELETE, exec, $term -e '${getExe pkgs.btop}'" # System Monitor
               "$mainMod CTRL, C, exec, hyprpicker --autocopy --format=hex" # Colour Picker
 
@@ -393,13 +365,11 @@
               "$mainMod, SPACE, exec, launcher drun" # launch desktop applications
               "$mainMod, Z, exec, launcher emoji" # launch emoji picker
               "$mainMod SHIFT, T, exec, launcher tmux" # launch tmux sessions
-              "$mainMod, G, exec, launcher games" # game launcher
               # "$mainMod, tab, exec, launcher window" # switch between desktop applications
               # "$mainMod, R, exec, launcher file" # brrwse system files
               "$mainMod ALT, K, exec, ${./scripts/keyboardswitch.sh}" # change keyboard layout
               "$mainMod SHIFT, N, exec, swaync-client -t -sw" # swayNC panel
               "$mainMod SHIFT, Q, exec, swaync-client -t -sw" # swayNC panel
-              "$mainMod ALT, G, exec, ${./scripts/gamemode.sh}" # disable hypr effects for gamemode
               "$mainMod, V, exec, ${./scripts/ClipManager.sh}" # Clipboard Manager
               "$mainMod, M, exec, ${./scripts/rofimusic.sh}" # online music
 

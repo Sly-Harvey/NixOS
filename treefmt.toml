@@ -1,25 +1,3 @@
-# Treefmt configuration file
-# This file provides additional configuration for treefmt-nix
-
-[formatter.nixfmt]
+[formatter.nix]
 command = "nixfmt"
-options = ["--width=100"]
-includes = ["*.nix"]
-excludes = [
-  "hardware-configuration.nix",
-  "flake.lock"
-]
-
-[formatter.shfmt]
-command = "shfmt"
-options = ["-i", "2", "-ci"]
-includes = ["*.sh"]
-
-[formatter.mdformat]
-command = "mdformat"
-includes = ["*.md"]
-
-[formatter.yamlfmt]
-command = "yamlfmt"
-includes = ["*.yml", "*.yaml"]
-
+includes = ["**/*.nix"]

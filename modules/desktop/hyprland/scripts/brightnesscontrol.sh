@@ -2,8 +2,7 @@
 
 ScrDir=`dirname "$(realpath "$0")"`
 
-function print_error
-{
+print_error() {
 cat << "EOF"
     ./brightnesscontrol.sh <action>
     ...valid actions are...
@@ -12,7 +11,7 @@ cat << "EOF"
 EOF
 }
 
-function send_notification {
+send_notification() {
     brightness=`brightnessctl info | grep -oP "(?<=\()\d+(?=%)" | cat`
     brightinfo=$(brightnessctl info | awk -F "'" '/Device/ {print $2}')
     angle="$(((($brightness + 2) / 5) * 5))"
@@ -22,7 +21,7 @@ function send_notification {
     # dunstify "t2" -i $ico -a "$brightness$bar" "$brightinfo" -r 91190 -t 800
 }
 
-function get_brightness {
+get_brightness() {
     brightnessctl -m | grep -o '[0-9]\+%' | head -c-2
 }
 
@@ -42,4 +41,3 @@ d)  # decrease the backlight by 5%
 *)  # print error
     print_error ;;
 esac
-

@@ -35,6 +35,9 @@
 
   outputs = inputs@{ flake-parts, ... }:
     flake-parts.lib.mkFlake { inherit inputs; } {
+      # Enable debug mode for better development experience
+      debug = true;
+      
       imports = [
         # Core configuration modules
         ./flake-modules/settings.nix      # Central configuration hub

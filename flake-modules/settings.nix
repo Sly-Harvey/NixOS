@@ -9,7 +9,7 @@
 # - Theme and appearance settings (SDDM theme, wallpaper)
 # - Hardware configuration (video driver selection)
 # - System localization (locale, timezone, keyboard layout)
-# - Feature toggles for optional components (audio, gaming, development, media)
+# - Feature toggles for optional components (audio, development)
 #
 # Usage: Settings are automatically available to all other modules via config.settings
 
@@ -46,26 +46,11 @@
         lowLatency = false;
       };
       
-      # Gaming stack (disabled by default to reduce compilation time)
-      gaming = {
-        enable = false;
-        steam = false;
-        lutris = false;
-      };
-      
       # Development tools
       development = {
         enable = true;
         docker = false;
         virt-manager = false;
-      };
-      
-      # Media applications (disabled by default to reduce bloat)
-      media = {
-        discord = false;
-        spotify = false;
-        obs = false;
-        mpv = false;
       };
     };
   };

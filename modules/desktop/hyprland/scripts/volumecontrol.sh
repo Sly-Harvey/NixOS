@@ -1,7 +1,6 @@
 #!/usr/bin/env sh
 
-function print_error
-{
+print_error() {
 cat << "EOF"
     ./volumecontrol.sh -[device] <action>
     ...valid device are...
@@ -14,8 +13,7 @@ cat << "EOF"
 EOF
 }
 
-function notify_vol
-{
+notify_vol() {
     vol=`pamixer $srce --get-volume | cat`
     angle=$((((vol + 2) / 5) * 5))
     ico="${icodir}/vol-${angle}.svg"
@@ -23,8 +21,7 @@ function notify_vol
     notify-send -a "System" -r 91190 -t 800 -i "${ico}" "${vol}${bar}" "$nsink"
 }
 
-function notify_mute
-{
+notify_mute() {
     mute=`pamixer $srce --get-mute | cat`
     if [ "$mute" == "true" ] ; then
         notify-send -a "System" -r 61190 -t 800 -i "${icodir}/muted-${dvce}.svg" "Muted" "$nsink"
@@ -66,4 +63,3 @@ case $1 in
         notify_mute ;;
     *) print_error ;;
 esac
-

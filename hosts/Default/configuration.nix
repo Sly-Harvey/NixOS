@@ -18,10 +18,7 @@
     ../../modules/scripts
 
     ../../modules/desktop/hyprland # Enable hyprland window manager
-    # ../../modules/desktop/i3-gaps # Enable i3 window manager
 
-    # ../../modules/programs/games # Gaming stack removed to reduce compilation time
-    # ../../modules/programs/browser/${browser} # Browser modules removed to reduce compilation time
     ../../modules/programs/terminal/${terminal} # Set terminal defined in flake.nix
     ../../modules/programs/editor/${editor} # Set editor defined in flake.nix
     ../../modules/programs/cli/${terminalFileManager} # Set file-manager defined in flake.nix
@@ -29,21 +26,12 @@
     ../../modules/programs/cli/tmux
     ../../modules/programs/cli/direnv
     ../../modules/programs/cli/lazygit
-    # ../../modules/programs/cli/cava # Audio visualizer - removed to reduce audio stack
     ../../modules/programs/cli/btop
     ../../modules/programs/shell/bash
     ../../modules/programs/shell/zsh
-    # ../../modules/programs/media/discord # Removed to reduce system bloat
-
-    # ../../modules/programs/media/youtube-music
-    # ../../modules/programs/media/thunderbird
-    # ../../modules/programs/media/obs-studio
-    # ../../modules/programs/media/mpv # Removed to reduce media stack bloat
 
     ../../modules/programs/misc/thunar
     ../../modules/programs/misc/lact # GPU fan, clock and power configuration
-    # ../../modules/programs/misc/nix-ld
-    # ../../modules/programs/misc/virt-manager
   ];
 
   # Home-manager config
@@ -52,11 +40,6 @@
       home.packages = with pkgs; [
         firefox # Lightweight browser (binary cache available)
         obsidian
-        # protonvpn-gui # VPN - Removed to reduce GUI bloat
-        # github-desktop # Removed - using lazygit and gh CLI instead
-        # pokego # Overlayed
-        # krita
-        # gimp
       ];
     })
   ];
