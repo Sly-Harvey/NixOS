@@ -35,24 +35,37 @@
 
   outputs =
     inputs@{ flake-parts, ... }:
-    flake-parts.lib.mkFlake { inherit inputs; } {
-      # Enable debug mode for better development experience
-      debug = true;
+    let
+      flake = flake-parts.lib.mkFlake { inherit inputs; } {
+        # Enable debug mode for better development experience
+        debug = true;
 
-      imports = [
-        # Core configuration modules
-        ./flake-modules/settings.nix # Central configuration hub
-        ./flake-modules/hosts.nix # Host definitions and NixOS configurations
+        imports = [
+          # Core configuration modules
+          ./flake-modules/settings.nix # Central configuration hub
+          ./flake-modules/hosts.nix # Host definitions and NixOS configurations
 
-        # Feature modules
-        ./flake-modules/dev-shells.nix # Development shell templates
-        ./flake-modules/overlays.nix # Package overlays and modifications
-        ./flake-modules/packages.nix # Custom packages
-        ./flake-modules/formatter.nix # Code formatting with treefmt-nix
+          # Feature modules
+          ./flake-modules/dev-shells.nix # Development shell templates
+          ./flake-modules/overlays.nix # Package overlays and modifications
+          ./flake-modules/packages.nix # Custom packages
+          ./flake-modules/formatter.nix # Code formatting with treefmt-nix
+        ];
+
+        systems = [
+          "x86_64-linux"
+        ];
+      };
+      sanitized = builtins.removeAttrs flake [
+        "debug"
+        "allSystems"
+        "settings"
       ];
-
-      systems = [
-        "x86_64-linux"
-      ];
+    in
+    sanitized
+    // {
+      lib = (flake.lib or { }) // {
+        settings = flake.settings or { };
+      };
     };
 }
