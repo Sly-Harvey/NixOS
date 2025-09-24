@@ -8,7 +8,8 @@
   terminal,
   terminalFileManager,
   ...
-}: {
+}:
+{
   imports = [
     ./hardware-configuration.nix
     ../../modules/hardware/video/${videoDriver}.nix # Enable gpu drivers defined in flake.nix
@@ -74,25 +75,27 @@
     dataDir = "/home/${username}"; # default location for new folders
     configDir = "/home/${username}/.config/syncthing";
   };
-  /* services.minidlna = {
-    enable = true;
-    openFirewall = true;
-    settings = {
-      friendly_name = "NixOS-DLNA";
-      media_dir = [
-        # A = Audio, P = Pictures, V, = Videos, PV = Pictures and Videos.
-        # "A,/mnt/work/Pimsleur/Russian"
-        "/mnt/work/Pimsleur"
-        "/mnt/work/Media/Films"
-        "/mnt/work/Media/Series"
-        "/mnt/work/Media/Videos"
-        "/mnt/work/Media/Music"
-      ];
-      inotify = "yes";
-      log_level = "error";
+  /*
+    services.minidlna = {
+      enable = true;
+      openFirewall = true;
+      settings = {
+        friendly_name = "NixOS-DLNA";
+        media_dir = [
+          # A = Audio, P = Pictures, V, = Videos, PV = Pictures and Videos.
+          # "A,/mnt/work/Pimsleur/Russian"
+          "/mnt/work/Pimsleur"
+          "/mnt/work/Media/Films"
+          "/mnt/work/Media/Series"
+          "/mnt/work/Media/Videos"
+          "/mnt/work/Media/Music"
+        ];
+        inotify = "yes";
+        log_level = "error";
+      };
     };
-  };
-  users.users.minidlna = {
-    extraGroups = ["users"]; # so minidlna can access the files.
-  }; */
+    users.users.minidlna = {
+      extraGroups = ["users"]; # so minidlna can access the files.
+    };
+  */
 }

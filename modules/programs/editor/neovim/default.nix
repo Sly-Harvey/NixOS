@@ -1,5 +1,11 @@
-{inputs, pkgs, terminal, ...}: {
-  environment.systemPackages = with pkgs; [zig] # Required
+{
+  inputs,
+  pkgs,
+  terminal,
+  ...
+}:
+{
+  environment.systemPackages = with pkgs; [ zig ]; # Required
   home-manager.sharedModules = [
     (_: {
       programs.neovim.enable = true;
@@ -15,7 +21,10 @@
             "text/plain"
             "text/x-makefile"
           ];
-          categories = ["Development" "TextEditor"];
+          categories = [
+            "Development"
+            "TextEditor"
+          ];
           terminal = false; # Important: set to false since we're calling kitty directly
         };
       };

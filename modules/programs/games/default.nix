@@ -2,8 +2,10 @@
   pkgs,
   lib,
   ...
-}: {
-  nixpkgs.config.allowUnfreePredicate = pkg:
+}:
+{
+  nixpkgs.config.allowUnfreePredicate =
+    pkg:
     builtins.elem (lib.getName pkg) [
       "steam"
       "steam-original"
@@ -30,7 +32,7 @@
       remotePlay.openFirewall = true;
       dedicatedServer.openFirewall = true;
       gamescopeSession.enable = true;
-      extraCompatPackages = [pkgs.proton-ge-bin];
+      extraCompatPackages = [ pkgs.proton-ge-bin ];
     };
   };
   home-manager.sharedModules = [
@@ -45,7 +47,13 @@
         };
         settings = {
           no_display = true; # Hide hud by default (Show by holding right-shift then press F12)
-          fps_limit = [60 0 144 165 240];
+          fps_limit = [
+            60
+            0
+            144
+            165
+            240
+          ];
           fps_limit_method = "late"; # late = low input lag but less smooth, early = more smooth
           vsync = 2; # https://github.com/flightlessmango/MangoHud#vsync
           gl_vsync = 1; # https://github.com/flightlessmango/MangoHud#vsync

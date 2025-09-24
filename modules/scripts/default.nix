@@ -4,7 +4,8 @@
   config,
   terminal,
   ...
-}: let
+}:
+let
   # Define your custom args once
   scriptArgs = {
     inherit
@@ -23,6 +24,7 @@
     (import ./underwatt.nix scriptArgs)
     # Add new scripts here as you create them
   ];
-in {
+in
+{
   environment.systemPackages = scripts;
 }

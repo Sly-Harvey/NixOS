@@ -1,4 +1,5 @@
-{inputs, ...}: let
+{ inputs, ... }:
+let
   extensions = [
     # Theme
     "${inputs.thunderbird-catppuccin}/themes/mocha/mocha-mauve.xpi"
@@ -9,7 +10,8 @@
     # "https://addons.thunderbird.net/thunderbird/downloads/latest/grammar-and-spell-checker/addon-988138-latest.xpi"
     # "https://addons.thunderbird.net/thunderbird/downloads/latest/external-editor-revived/addon-988342-latest.xpi"
   ];
-in {
+in
+{
   programs.thunderbird = {
     enable = true;
     policies = {

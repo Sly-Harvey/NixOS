@@ -1,4 +1,5 @@
-{...}: {
+{ ... }:
+{
   environment.variables."DIRENV_WARN_TIMEOUT" = "60s";
   home-manager.sharedModules = [
     (_: {

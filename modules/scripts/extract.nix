@@ -1,4 +1,4 @@
-{pkgs, ...}:
+{ pkgs, ... }:
 pkgs.writeShellScriptBin "ex" ''
   if [ -z "$1" ]; then
      # display usage if no parameters given

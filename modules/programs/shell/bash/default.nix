@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   programs.bash = {
     promptInit = ''
       if command -v starship; then

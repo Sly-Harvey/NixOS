@@ -2,7 +2,8 @@
   pkgs,
   inputs,
   ...
-}: {
+}:
+{
   home-manager.sharedModules = [
     (_: {
       programs.helix = {
@@ -58,7 +59,7 @@
                 "read-only-indicator"
                 "diagnostics"
               ];
-              center = ["file-name"];
+              center = [ "file-name" ];
               right = [
                 "version-control"
                 "selections"
@@ -108,20 +109,20 @@
             # };
             nixd = {
               command = "nixd";
-              args = [];
+              args = [ ];
               config.nixd = {
                 nixpkgs = {
                   expr = "import ${inputs.nixpkgs} { }";
                 };
                 formatting = {
-                  command = ["alejandra"];
+                  command = [ "alejandra" ];
                 };
               };
             };
             pyright = {
               command = "pyright-langserver";
-              args = ["--stdio"];
-              config = {}; # <- this is the important line
+              args = [ "--stdio" ];
+              config = { }; # <- this is the important line
             };
             rust-analyzer.config = {
               checkOnSave = true;
@@ -138,7 +139,10 @@
           language = [
             {
               name = "nix";
-              language-servers = ["nixd" "nil"];
+              language-servers = [
+                "nixd"
+                "nil"
+              ];
               formatter.command = "alejandra";
               auto-format = true;
             }

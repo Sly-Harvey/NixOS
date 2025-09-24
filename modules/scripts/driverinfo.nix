@@ -2,9 +2,10 @@
   pkgs,
   lib,
   ...
-}: let
+}:
+let
   inherit (lib) getExe';
 in
-  pkgs.writeShellScriptBin "driverinfo" ''
-    ${getExe' pkgs.vulkan-tools "vulkaninfo"} | grep -i "deviceName\|driverID"
-  ''
+pkgs.writeShellScriptBin "driverinfo" ''
+  ${getExe' pkgs.vulkan-tools "vulkaninfo"} | grep -i "deviceName\|driverID"
+''

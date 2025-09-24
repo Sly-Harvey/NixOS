@@ -13,7 +13,8 @@
   config,
   self,
   ...
-}: {
+}:
+{
   imports = [
     inputs.home-manager.nixosModules.home-manager
     inputs.nix-index-database.nixosModules.nix-index
@@ -40,53 +41,61 @@
     useGlobalPkgs = true;
     useUserPackages = true;
     backupFileExtension = "backup";
-    users.${username} = {pkgs, ...}: {
-      # Let Home Manager install and manage itself.
-      programs.home-manager.enable = true;
+    users.${username} =
+      { pkgs, ... }:
+      {
+        # Let Home Manager install and manage itself.
+        programs.home-manager.enable = true;
 
-      xdg.enable = true;
-      xdg.portal = {
-        enable = true;
-        extraPortals = with pkgs; [xdg-desktop-portal-hyprland xdg-desktop-portal-gtk];
-        xdgOpenUsePortal = true;
-      };
-      home = {
-        username = username;
-        homeDirectory =
-          if pkgs.stdenv.isDarwin
-          then "/Users/${username}"
-          else "/home/${username}";
-        stateVersion = "23.11"; # Please read the comment before changing.
-        sessionVariables = {
-          EDITOR = "nvim";
-          BROWSER = browser;
-          TERMINAL = terminal;
+        xdg.enable = true;
+        xdg.portal = {
+          enable = true;
+          extraPortals = with pkgs; [
+            xdg-desktop-portal-hyprland
+            xdg-desktop-portal-gtk
+          ];
+          xdgOpenUsePortal = true;
         };
-        # Packages that don't require configuration. If you're looking to configure a program see the /modules dir
-        packages = with pkgs; [
-          # Applications
-          #kate
+        home = {
+          username = username;
+          homeDirectory = if pkgs.stdenv.isDarwin then "/Users/${username}" else "/home/${username}";
+          stateVersion = "23.11"; # Please read the comment before changing.
+          sessionVariables = {
+            EDITOR = "nvim";
+            BROWSER = browser;
+            TERMINAL = terminal;
+          };
+          # Packages that don't require configuration. If you're looking to configure a program see the /modules dir
+          packages = with pkgs; [
+            # Applications
+            #kate
 
-          # Terminal
-          fzf
-          fd
-          git
-          gh
-          htop
-          libjxl
-          microfetch
-          nix-prefetch-scripts
-          ripgrep
-          tldr
-          unrar
-          unzip
-        ];
+            # Terminal
+            fzf
+            fd
+            git
+            gh
+            htop
+            libjxl
+            microfetch
+            nix-prefetch-scripts
+            ripgrep
+            tldr
+            unrar
+            unzip
+          ];
+        };
       };
-    };
   };
 
   # Filesystems support
-  boot.supportedFilesystems = ["ntfs" "exfat" "ext4" "fat32" "btrfs"];
+  boot.supportedFilesystems = [
+    "ntfs"
+    "exfat"
+    "ext4"
+    "fat32"
+    "btrfs"
+  ];
   services.devmon.enable = true;
   services.gvfs.enable = true;
   services.udisks2.enable = true;
@@ -285,16 +294,16 @@
 
   # Enable the OpenSSH daemon.
   /*
-     services.openssh = {
-    enable = true;
-    settings = {
-      PasswordAuthentication = true;
-      AllowUsers = null; # Allows all users by default. Can be [ "user1" "user2" ]
-      UseDns = true;
-      X11Forwarding = false;
-      PermitRootLogin = "prohibit-password"; # "yes", "without-password", "prohibit-password", "forced-commands-only", "no"
+       services.openssh = {
+      enable = true;
+      settings = {
+        PasswordAuthentication = true;
+        AllowUsers = null; # Allows all users by default. Can be [ "user1" "user2" ]
+        UseDns = true;
+        X11Forwarding = false;
+        PermitRootLogin = "prohibit-password"; # "yes", "without-password", "prohibit-password", "forced-commands-only", "no"
+      };
     };
-  };
   */
 
   # Open ports in the firewall.
@@ -338,7 +347,10 @@
         # "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
         # "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
       ];
-      experimental-features = ["nix-command" "flakes"];
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
       use-xdg-base-directories = false;
       warn-dirty = false;
       keep-outputs = true;

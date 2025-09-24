@@ -2,8 +2,9 @@
   lib,
   pkgs,
   ...
-}: {
-  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) ["vscode"];
+}:
+{
+  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [ "vscode" ];
   home-manager.sharedModules = [
     (_: {
       programs.vscode = {
@@ -36,7 +37,7 @@
             # pkief.material-icon-theme
             # equinusocio.vsc-material-theme
             # dracula-theme.theme-dracula
-          ];  
+          ];
           keybindings = [
             {
               key = "ctrl+q";
@@ -76,9 +77,13 @@
             "gitlens.hovers.avatars" = false;
 
             "editor.semanticHighlighting.enabled" = true;
-            "gopls" = {"ui.semanticTokens" = true;};
+            "gopls" = {
+              "ui.semanticTokens" = true;
+            };
 
-            "editor.codeActionsOnSave" = {"source.organizeImports" = "explicit";};
+            "editor.codeActionsOnSave" = {
+              "source.organizeImports" = "explicit";
+            };
             "editor.inlineSuggest.enabled" = true;
             "editor.formatOnSave" = true;
             # "editor.formatOnType" = true;
@@ -140,120 +145,163 @@
             };
             "vim.insertModeKeyBindings" = [
               {
-                "before" = ["k" "j"];
-                "after" = ["<Esc>" "l"];
+                "before" = [
+                  "k"
+                  "j"
+                ];
+                "after" = [
+                  "<Esc>"
+                  "l"
+                ];
               }
             ];
             "vim.normalModeKeyBindingsNonRecursive" = [
               # NAVIGATION
               # switch b/w buffers
               {
-                "before" = ["<S-h>"];
-                "commands" = [":bprevious"];
+                "before" = [ "<S-h>" ];
+                "commands" = [ ":bprevious" ];
               }
               {
-                "before" = ["<S-l>"];
-                "commands" = [":bnext"];
+                "before" = [ "<S-l>" ];
+                "commands" = [ ":bnext" ];
               }
 
               # splits
               {
-                "before" = ["leader" "v"];
-                "commands" = [":vsplit"];
+                "before" = [
+                  "leader"
+                  "v"
+                ];
+                "commands" = [ ":vsplit" ];
               }
               {
-                "before" = ["leader" "s"];
-                "commands" = [":split"];
+                "before" = [
+                  "leader"
+                  "s"
+                ];
+                "commands" = [ ":split" ];
               }
 
               # panes
               {
-                "before" = ["<C-h>"];
-                "commands" = ["workbench.action.focusLeftGroup"];
+                "before" = [ "<C-h>" ];
+                "commands" = [ "workbench.action.focusLeftGroup" ];
               }
               {
-                "before" = ["<C-j>"];
-                "commands" = ["workbench.action.focusBelowGroup"];
+                "before" = [ "<C-j>" ];
+                "commands" = [ "workbench.action.focusBelowGroup" ];
               }
               {
-                "before" = ["<C-k>"];
-                "commands" = ["workbench.action.focusAboveGroup"];
+                "before" = [ "<C-k>" ];
+                "commands" = [ "workbench.action.focusAboveGroup" ];
               }
               {
-                "before" = ["<C-l>"];
-                "commands" = ["workbench.action.focusRightGroup"];
+                "before" = [ "<C-l>" ];
+                "commands" = [ "workbench.action.focusRightGroup" ];
               }
               # NICE TO HAVE
               {
-                "before" = ["leader" "w"];
-                "commands" = [":w!"];
+                "before" = [
+                  "leader"
+                  "w"
+                ];
+                "commands" = [ ":w!" ];
               }
               {
-                "before" = ["leader" "q"];
-                "commands" = [":q!"];
+                "before" = [
+                  "leader"
+                  "q"
+                ];
+                "commands" = [ ":q!" ];
               }
               {
-                "before" = ["leader" "x"];
-                "commands" = [":x!"];
+                "before" = [
+                  "leader"
+                  "x"
+                ];
+                "commands" = [ ":x!" ];
               }
               {
-                "before" = ["[" "d"];
-                "commands" = ["editor.action.marker.prev"];
+                "before" = [
+                  "["
+                  "d"
+                ];
+                "commands" = [ "editor.action.marker.prev" ];
               }
               {
-                "before" = ["];" "d"];
-                "commands" = ["editor.action.marker.next"];
+                "before" = [
+                  "];"
+                  "d"
+                ];
+                "commands" = [ "editor.action.marker.next" ];
               }
               {
-                "before" = ["<leader>" "c" "a"];
-                "commands" = ["editor.action.quickFix"];
+                "before" = [
+                  "<leader>"
+                  "c"
+                  "a"
+                ];
+                "commands" = [ "editor.action.quickFix" ];
               }
               /*
-                {
-                "before" = [":"];
-                "commands" = ["workbench.action.showCommands"];
-              }
+                  {
+                  "before" = [":"];
+                  "commands" = ["workbench.action.showCommands"];
+                }
               */
               {
-                "before" = ["<leader>" "f"];
-                "commands" = ["workbench.action.quickOpen"];
+                "before" = [
+                  "<leader>"
+                  "f"
+                ];
+                "commands" = [ "workbench.action.quickOpen" ];
               }
               {
-                "before" = ["<C-n>"];
-                "commands" = ["workbench.action.toggleSidebarVisibility"];
+                "before" = [ "<C-n>" ];
+                "commands" = [ "workbench.action.toggleSidebarVisibility" ];
               }
               {
-                "before" = ["<leader>" "p"];
-                "commands" = ["editor.action.formatDocument"];
+                "before" = [
+                  "<leader>"
+                  "p"
+                ];
+                "commands" = [ "editor.action.formatDocument" ];
               }
               {
-                "before" = ["g" "h"];
-                "commands" = ["editor.action.showDefinitionPreviewHover"];
+                "before" = [
+                  "g"
+                  "h"
+                ];
+                "commands" = [ "editor.action.showDefinitionPreviewHover" ];
               }
             ];
             "vim.visualModeKeyBindings" = [
               # Stay in visual mode while indenting
               {
-                "before" = ["<"];
-                "commands" = ["editor.action.outdentLines"];
+                "before" = [ "<" ];
+                "commands" = [ "editor.action.outdentLines" ];
               }
               {
-                "before" = [">"];
-                "commands" = ["editor.action.indentLines"];
+                "before" = [ ">" ];
+                "commands" = [ "editor.action.indentLines" ];
               }
               # Move selected lines while staying in visual mode
               {
-                "before" = ["J"];
-                "commands" = ["editor.action.moveLinesDownAction"];
+                "before" = [ "J" ];
+                "commands" = [ "editor.action.moveLinesDownAction" ];
               }
               {
-                "before" = ["K"];
-                "commands" = ["editor.action.moveLinesUpAction"];
+                "before" = [ "K" ];
+                "commands" = [ "editor.action.moveLinesUpAction" ];
               }
               # toggle comment selection
               {
-                "before" = ["leader" "c"];
-                "commands" = ["editor.action.commentLine"];
+                "before" = [
+                  "leader"
+                  "c"
+                ];
+                "commands" = [ "editor.action.commentLine" ];
               }
             ];
           };

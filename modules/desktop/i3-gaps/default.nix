@@ -2,8 +2,9 @@
   pkgs,
   terminal,
   ...
-}: {
-  fonts.packages = with pkgs.nerd-fonts; [jetbrains-mono];
+}:
+{
+  fonts.packages = with pkgs.nerd-fonts; [ jetbrains-mono ];
   imports = [
     ../../themes/Catppuccin # Catppuccin GTK and QT themes
     ../hyprland/programs/dunst
@@ -38,12 +39,12 @@
   };
   home-manager.sharedModules = [
     (_: {
-      imports = [./picom.nix];
+      imports = [ ./picom.nix ];
       xsession.windowManager.i3 = {
         enable = true;
         package = pkgs.i3-gaps;
         config = {
-          floating.criteria = [{class = "^Mpv$";}];
+          floating.criteria = [ { class = "^Mpv$"; } ];
           gaps.smartBorders = "on";
           window.titlebar = false;
           window.hideEdgeBorders = "both";
@@ -54,7 +55,7 @@
           keybindings = import ./keybindings.nix {
             inherit pkgs terminal;
           };
-          bars = [];
+          bars = [ ];
           startup = [
             {
               command = "~/.config/i3/monitors.sh";
@@ -84,16 +85,46 @@
           ];
           # defaultWorkspace = "workspace number 1";
           workspaceOutputAssign = [
-            { workspace = "1"; output = "DP-0"; }
-            { workspace = "2"; output = "DP-0"; }
-            { workspace = "3"; output = "DP-0"; }
-            { workspace = "4"; output = "DP-0"; }
-            { workspace = "5"; output = "HDMI-0"; }
-            { workspace = "6"; output = "HDMI-0"; }
-            { workspace = "7"; output = "HDMI-0"; }
-            { workspace = "8"; output = "HDMI-1"; }
-            { workspace = "9"; output = "HDMI-1"; }
-            { workspace = "10"; output = "DP-0"; }
+            {
+              workspace = "1";
+              output = "DP-0";
+            }
+            {
+              workspace = "2";
+              output = "DP-0";
+            }
+            {
+              workspace = "3";
+              output = "DP-0";
+            }
+            {
+              workspace = "4";
+              output = "DP-0";
+            }
+            {
+              workspace = "5";
+              output = "HDMI-0";
+            }
+            {
+              workspace = "6";
+              output = "HDMI-0";
+            }
+            {
+              workspace = "7";
+              output = "HDMI-0";
+            }
+            {
+              workspace = "8";
+              output = "HDMI-1";
+            }
+            {
+              workspace = "9";
+              output = "HDMI-1";
+            }
+            {
+              workspace = "10";
+              output = "DP-0";
+            }
           ];
           assigns = {
             # "1" = [

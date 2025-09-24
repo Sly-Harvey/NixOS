@@ -3,7 +3,8 @@
   pkgs,
   terminal,
   ...
-}: {
+}:
+{
   home-manager.sharedModules = [
     (_: {
       home.packages = with pkgs; [
@@ -20,7 +21,10 @@
             "text/plain"
             "text/x-makefile"
           ];
-          categories = ["Development" "TextEditor"];
+          categories = [
+            "Development"
+            "TextEditor"
+          ];
           terminal = false; # Important: set to false since we're calling kitty directly
         };
       };

@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   home-manager.sharedModules = [
     (_: {
       programs.obs-studio = {

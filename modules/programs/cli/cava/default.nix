@@ -1,4 +1,5 @@
-{...}: {
+{ ... }:
+{
   home-manager.sharedModules = [
     (_: {
       programs.cava = {

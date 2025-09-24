@@ -2,8 +2,9 @@
   pkgs,
   browser,
   ...
-}: {
-  fonts.packages = with pkgs.nerd-fonts; [jetbrains-mono];
+}:
+{
+  fonts.packages = with pkgs.nerd-fonts; [ jetbrains-mono ];
   home-manager.sharedModules = [
     (_: {
       services.dunst = {
@@ -42,7 +43,7 @@
             corner_radius = 10;
             follow = "mouse";
             font = "jetbrainsmono nerd font 10";
-            format = "<b>%s</b>\\n%b"; #format = "<span foreground='#f3f4f5'><b>%s %p</b></span>\n%b"
+            format = "<b>%s</b>\\n%b"; # format = "<span foreground='#f3f4f5'><b>%s %p</b></span>\n%b"
             frame_width = 1;
             offset = "15x15";
             horizontal_padding = 10;
@@ -62,7 +63,9 @@
             browser = "${browser} --new-tab";
           };
 
-          fullscreen_delay_everything = {fullscreen = "delay";};
+          fullscreen_delay_everything = {
+            fullscreen = "delay";
+          };
 
           urgency_critical = {
             background = "#1e1e2e";

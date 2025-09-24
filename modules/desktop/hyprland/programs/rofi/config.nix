@@ -1,7 +1,5 @@
 {
-  /*
-  ---------- General setting ----------
-  */
+  # ---------- General setting ----------
   modi = "drun,run,filebrowser,window";
   case-sensitive = false;
   cycle = true;
@@ -13,23 +11,17 @@
   # icon-theme = "Papirus-Dark";
   # dpi = -1;
 
-  /*
-  ---------- Matching setting ----------
-  */
+  # ---------- Matching setting ----------
   matching = "normal";
   tokenize = true;
 
-  /*
-  ---------- SSH settings ----------
-  */
+  # ---------- SSH settings ----------
   ssh-client = "ssh";
   ssh-command = "{terminal} -e {ssh-client} {host} [-p {port}]";
   parse-hosts = true;
   parse-known-hosts = true;
 
-  /*
-  ---------- Drun settings ----------
-  */
+  # ---------- Drun settings ----------
   drun-categories = "";
   drun-match-fields = "name,generic,exec,categories,keywords";
   drun-display-format = "{name} [<span weight='light' size='small'><i>({generic})</i></span>]";
@@ -38,44 +30,28 @@
   drun-use-desktop-cache = false;
   drun-reload-desktop-cache = false;
 
-  /*
-  ---------- Run settings ----------
-  */
+  # ---------- Run settings ----------
   run-command = "{cmd}";
   run-list-command = "";
   run-shell-command = "{terminal} -e {cmd}";
 
-  /*
-  ---------- Window switcher settings ----------
-  */
+  # ---------- Window switcher settings ----------
   window-match-fields = "title,class,role,name,desktop";
   window-command = "wmctrl -i -R {window}";
   window-format = "{w} - {c} - {t:0}";
   window-thumbnail = false;
 
-  /*
-  ---------- Combi settings ----------
-  */
-  /*
-  combi-modi = "window,run";
-  */
-  /*
-  combi-hide-mode-prefix = false;
-  */
-  /*
-  combi-display-format = "{mode} {text}";
-  */
+  # ---------- Combi settings ----------
+  # combi-modi = "window,run";
+  # combi-hide-mode-prefix = false;
+  # combi-display-format = "{mode} {text}";
 
-  /*
-  ---------- History and Sorting ----------
-  */
+  # ---------- History and Sorting ----------
   disable-history = false;
   sorting-method = "normal";
   max-history-size = 25;
 
-  /*
-  ---------- Display setting ----------
-  */
+  # ---------- Display setting ----------
   display-window = "Windows";
   display-windowcd = "Window CD";
   display-run = "Run";
@@ -85,9 +61,7 @@
   display-keys = "Keys";
   display-filebrowser = "Files";
 
-  /*
-  ---------- Misc setting ----------
-  */
+  # ---------- Misc setting ----------
   terminal = "rofi-sensible-terminal";
   font = "Mono 12";
   sort = false;
@@ -96,13 +70,9 @@
   # ignored-prefixes = "";
   # pid = "/run/user/1000/rofi.pid";
 
-  /*
-  ---------- File browser settings ----------
-  */
+  # ---------- File browser settings ----------
 
-  /*
-  ---------- Keybindings ----------
-  */
+  # ---------- Keybindings ----------
   kb-primary-paste = "Control+V,Shift+Insert";
   kb-secondary-paste = "Control+v,Insert";
   kb-clear-line = "Control+w";

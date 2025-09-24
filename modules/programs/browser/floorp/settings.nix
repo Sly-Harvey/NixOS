@@ -7,7 +7,8 @@ let
     Value = true;
     Status = "locked";
   };
-in {
+in
+{
   # Floorp
   "floorp.tabsleep.enabled" = true;
   "floorp.tabsleep.tabTimeoutMinutes" = 30;
@@ -225,7 +226,7 @@ in {
     currentVersion = 20;
     newElementCount = 7;
     placements = {
-      widget-overflow-fixed-list = [];
+      widget-overflow-fixed-list = [ ];
       unified-extensions-area = [
         # "extension_one-tab_com-browser-action"
         "ublock0_raymondhill_net-browser-action"
@@ -252,14 +253,17 @@ in {
         # "queryamoid_kaply_com-browser-action"
         # "_aecec67f-0d10-4fa7-b7c7-609a2db280cf_-browser-action"
       ];
-      toolbar-menubar = ["menubar-items"];
+      toolbar-menubar = [ "menubar-items" ];
       TabsToolbar = [
         "firefox-view-button"
         "tabbrowser-tabs"
         "new-tab-button"
         "alltabs-button"
       ];
-      PersonalToolbar = ["personal-bookmarks" "managed-bookmarks"];
+      PersonalToolbar = [
+        "personal-bookmarks"
+        "managed-bookmarks"
+      ];
     };
   };
 }

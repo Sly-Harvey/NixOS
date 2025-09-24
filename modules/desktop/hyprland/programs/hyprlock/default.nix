@@ -1,4 +1,5 @@
-{...}: {
+{ ... }:
+{
   home-manager.sharedModules = [
     (_: {
       programs.hyprlock = {
@@ -80,16 +81,16 @@
               valign = "bottom";
             }
             /*
-               {
-              monitor = "";
-              text = "Enter your password to unlock.";
-              color = "rgb(198, 160, 246)";
-              font_size = 14;
-              font_family = "JetBrains Mono Nerd Font 10";
-              position = "0, 60";
-              halign = "center";
-              valign = "bottom";
-            }
+                 {
+                monitor = "";
+                text = "Enter your password to unlock.";
+                color = "rgb(198, 160, 246)";
+                font_size = 14;
+                font_family = "JetBrains Mono Nerd Font 10";
+                position = "0, 60";
+                halign = "center";
+                valign = "bottom";
+              }
             */
           ];
         };
