@@ -134,6 +134,7 @@
             kb_variant = "${kbdVariant},";
             repeat_delay = 275; # or 212
             repeat_rate = 35;
+            numlock_by_default = true;
 
             follow_mouse = 1;
 
