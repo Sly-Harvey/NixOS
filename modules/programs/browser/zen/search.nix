@@ -18,7 +18,7 @@
     "Startpage" = {
       urls = [
         {
-          template = "https://www.startpage.com/sp/search?query={searchTerms}&prfe=c602752472dd4a3d8286a7ce441403da08e5c4656092384ed3091a946a5a4a4c99962d0935b509f2866ff1fdeaa3c33a007d4d26e89149869f2f7d0bdfdb1b51aa7ae7f5f17ff4a233ff313d";
+          template = "https://www.startpage.com/sp/search?query={searchTerms}&prfe=038360dac42617e2336286a019b197c1db650883a5698f4ae16e38c5da02bde0a35c84e4f806f082758d15e14a7000393be0c9535dd6dd17a4785a4ae44d33f74b43cb4a213e098bcd169762";
         }
       ];
       # icon = "''${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
