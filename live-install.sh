@@ -767,8 +767,8 @@ nixos-generate-config --root /mnt --show-hardware-config >./hosts/Default/hardwa
 }
 echo "Hardware configuration generated."
 
-# Update username in flake.nix
-sed -i -e "s/username = \".*\"/username = \"$username\"/" ./flake.nix
+# Update username in variables.nix
+sed -i -e "s/username = \".*\"/username = \"$username\"/" "./hosts/Default/variables.nix"
 git add * 2>/dev/null || true
 
 # Copy flake to /etc/nixos

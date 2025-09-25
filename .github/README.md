@@ -43,8 +43,8 @@
 
 # Installation
 > [!Note]
-> <p>You should review the configuration variables in `flake.nix` before installing.<br>
-> Also, check the imports at the top of `hosts/Default/configuration.nix`</p>
+> <p>You should review `hosts/Default/variables.nix` and `hosts/Default/host-packages.nix` before installing.<br>
+> Also, check the imports in `hosts/Default/default.nix`</p>
 You can use the `install.sh` script while booted into a system or in the live installer.<br>
 If you prefer the latter, you can obtain an ISO from [here](https://nixos.org/download/#nixos-iso).<br>
 The minimal ISO is recommended, but you can use any.
@@ -63,7 +63,7 @@ There are 4 ways to rebuild.<br>
 1) Press **Super + U**.
 2) Run `rebuild` in the terminal
 3) Execute the `install.sh` script again.
-4) Run `sudo nixos-rebuild switch --flake ~/NixOS#Default` if you installed from the live iso then use /etc/nixos#Default 
+4) Run `sudo nixos-rebuild switch --flake ~/NixOS#Default`
 
 For a list of keybinds press **Super + ?** or **Super + Ctrl + K**
 

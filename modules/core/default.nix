@@ -1,0 +1,22 @@
+{ ... }:
+{
+  imports = [
+    ./boot.nix
+    ./fonts.nix
+    ./hardware.nix
+    ./network.nix
+    ./nh.nix
+    ./packages.nix
+    ./printing.nix
+    ./sddm.nix
+    ./security.nix
+    ./services.nix
+    # ./dlna.nix
+    # ./gaming.nix
+    ./syncthing.nix
+    ./system.nix
+    ./users.nix
+    # ./flatpak.nix
+    # ./virtualisation.nix
+  ];
+}

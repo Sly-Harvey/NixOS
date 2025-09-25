@@ -1,15 +1,14 @@
-{
-  inputs,
-  settings,
-  ...
-}:
+{ host, inputs, ... }:
+let
+  inherit (import ../hosts/${host}/variables.nix) sddmTheme;
+in
 {
   # Overlay custom derivations into nixpkgs so you can use pkgs.<name>
   additions =
     final: _prev:
     import ../pkgs {
       pkgs = final;
-      settings = settings;
+      inherit host;
     };
 
   # https://wiki.nixos.org/wiki/Overlays

@@ -1,10 +1,13 @@
 {
   pkgs,
   lib,
+  host,
   config,
-  terminal,
   ...
 }:
+let
+  inherit (import ../../hosts/${host}/variables.nix) terminal;
+in
 let
   # Define your custom args once
   scriptArgs = {

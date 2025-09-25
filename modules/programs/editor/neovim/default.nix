@@ -1,9 +1,12 @@
 {
   inputs,
+  host,
   pkgs,
-  terminal,
   ...
 }:
+let
+  inherit (import ../../../../hosts/${host}/variables.nix) terminal;
+in
 {
   environment.systemPackages = with pkgs; [ zig ]; # Required
   home-manager.sharedModules = [

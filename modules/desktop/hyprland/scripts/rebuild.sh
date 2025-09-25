@@ -27,8 +27,8 @@ fi
 echo -e "${GREEN}Rebuilding from $flake${NC}"
 currentUser=$(logname)
 
-# replace username variable in flake.nix with $USER
-sudo sed -i -e "s/username = \".*\"/username = \"$currentUser\"/" "$flake/flake.nix"
+# replace username variable in variables.nix with $USER
+sudo sed -i -e "s/username = \".*\"/username = \"$currentUser\"/" "$flake/hosts/Default/variables.nix"
 
 if [ -f "/etc/nixos/hardware-configuration.nix" ]; then
   cat "/etc/nixos/hardware-configuration.nix" | sudo tee "$flake/hosts/Default/hardware-configuration.nix" >/dev/null

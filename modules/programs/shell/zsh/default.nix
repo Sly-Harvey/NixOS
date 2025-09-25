@@ -1,9 +1,12 @@
 {
   self,
+  host,
   pkgs,
-  terminalFileManager,
   ...
 }:
+let
+  inherit (import ../../../../hosts/${host}/variables.nix) terminalFileManager;
+in
 {
   home-manager.sharedModules = [
     (

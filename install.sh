@@ -43,8 +43,8 @@ for file in "${paths[@]}"; do
   done
 done
 
-# replace username variable in flake.nix with $USER
-sudo sed -i -e "s/username = \".*\"/username = \"$currentUser\"/" "./flake.nix"
+# replace username variable in variables.nix with $USER
+sudo sed -i -e "s/username = \".*\"/username = \"$currentUser\"/" "./hosts/Default/variables.nix"
 
 # rm -f ./hosts/Default/hardware-configuration.nix &>/dev/null
 if [ -f "/etc/nixos/hardware-configuration.nix" ]; then

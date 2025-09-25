@@ -1,8 +1,6 @@
-{
-  pkgs,
-  terminal,
-}:
+{ pkgs, host, ... }:
 let
+  inherit (import ../../../hosts/${host}/variables.nix) terminal;
   mod = "Mod4";
   alt = "Mod1";
   menu = "rofi -show drun -show-icons";

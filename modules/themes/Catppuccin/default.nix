@@ -1,9 +1,6 @@
-{
-  pkgs,
-  wallpaper,
-  ...
-}:
+{ host, pkgs, ... }:
 let
+  inherit (import ../../../hosts/${host}/variables.nix) wallpaper;
   variant = "mocha";
   accent = "mauve";
   catppuccin-kvantum-pkg = pkgs.catppuccin-kvantum.override { inherit variant accent; };

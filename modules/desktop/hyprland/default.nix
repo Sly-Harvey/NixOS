@@ -1,13 +1,18 @@
 {
+  host,
   lib,
   pkgs,
-  browser,
-  terminal,
-  terminalFileManager,
-  kbdLayout,
-  kbdVariant,
   ...
 }:
+let
+  inherit (import ../../../hosts/${host}/variables.nix)
+    browser
+    terminal
+    terminalFileManager
+    kbdLayout
+    kbdVariant
+    ;
+in
 {
   imports = [
     ../../themes/Catppuccin # Catppuccin GTK and QT themes
@@ -39,6 +44,15 @@
     };
   };
   services.displayManager.defaultSession = "hyprland";
+
+  xdg.portal = {
+    enable = true;
+    extraPortals = with pkgs; [
+      xdg-desktop-portal-hyprland
+      xdg-desktop-portal-gtk
+    ];
+    xdgOpenUsePortal = true;
+  };
 
   programs.hyprland = {
     enable = true;
@@ -84,6 +98,7 @@
             enable = true;
             plugins = [
               # inputs.hyprland-plugins.packages.${pkgs.system}.hyprwinwrap
+              # inputs.hyprsysteminfo.packages.${pkgs.system}.default
             ];
             systemd = {
               enable = true;

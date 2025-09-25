@@ -1,5 +1,8 @@
 # Generated via dconf2nix: https://github.com/gvolpe/dconf2nix
-{ ... }:
+{ host, ... }:
+let
+  inherit (import ../../../hosts/${host}/variables.nix) username;
+in
 {
   home-manager.sharedModules = [
     (

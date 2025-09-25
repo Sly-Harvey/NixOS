@@ -1,8 +1,7 @@
-{
-  pkgs,
-  terminal,
-  ...
-}:
+{ pkgs, host, ... }:
+let
+  inherit (import ../../../hosts/${host}/variables.nix) terminal;
+in
 {
   fonts.packages = with pkgs.nerd-fonts; [ jetbrains-mono ];
   imports = [

@@ -13,5 +13,4 @@
     enable = true;
     package = pkgs.file-roller;
   };
-  services.tumbler.enable = true; # Thumbnail support for images
 }

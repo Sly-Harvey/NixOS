@@ -1,9 +1,7 @@
-{
-  pkgs,
-  wallpaper,
-  ...
-}:
+{ host, pkgs, ... }:
 let
+  inherit (import ../../../hosts/${host}/variables.nix) wallpaper;
+
   # Choose the desired variant: "main", "moon", or "dawn"
   variant = "main";
 
