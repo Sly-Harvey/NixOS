@@ -10,7 +10,7 @@
   terminalFileManager = "yazi"; # Options: yazi, lf
 
   # Theming
-  sddmTheme = "purple_leaves"; # Options: astronaut, black_hole, purple_leaves, jake_the_dog, hyprland_kath
+  sddmTheme = "astronaut"; # Options: astronaut, black_hole, purple_leaves, jake_the_dog, hyprland_kath
   wallpaper = "kurzgesagt"; # See modules/themes/wallpapers for options
 
   # Hardware Configuration
