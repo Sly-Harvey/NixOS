@@ -1,6 +1,6 @@
 {
   # User Configuration
-  username = "test"; # Your username (auto-set with install.sh, live-install.sh, rebuild.sh)
+  username = "zer0"; # Your username (auto-set with install.sh, live-install.sh, rebuild.sh)
 
   # Desktop Environment
   windowManager = "hyprland"; # Options: hyprland, i3

@@ -146,28 +146,28 @@ while true; do
   read -p "Enter choice (1, 2 or 3): " driver_choice
   case $driver_choice in
   1)
-    sed -i -e "s/videoDriver = \".*\"/videoDriver = \"nvidia\"/" "./flake.nix"
+    sed -i -e "s/videoDriver = \".*\"/videoDriver = \"nvidia\"/" "./hosts/Default/variables.nix"
     break
     ;;
   2)
-    sed -i -e "s/videoDriver = \".*\"/videoDriver = \"amdgpu\"/" "./flake.nix"
+    sed -i -e "s/videoDriver = \".*\"/videoDriver = \"amdgpu\"/" "./hosts/Default/variables.nix"
     break
     ;;
   3)
-    sed -i -e "s/videoDriver = \".*\"/videoDriver = \"intel\"/" "./flake.nix"
+    sed -i -e "s/videoDriver = \".*\"/videoDriver = \"intel\"/" "./hosts/Default/variables.nix"
     break
     ;;
   *) error "Invalid choice. Enter 1, 2, or 3." ;;
   esac
 done
 
-# Editor selection for customizing flake.nix
+# Editor selection for customizing variables.nix
 default_editor=$(check_editors)
 if [ "$default_editor" = "none" ]; then
-  warn "No editors found (vim, nano, vi). Falling back to installation without editing flake.nix."
+  warn "No editors found (vim, nano, vi). Falling back to installation without editing variables.nix."
   editor="none"
 else
-  info "Choose an editor to customize flake.nix:"
+  info "Choose an editor to customize variables.nix:"
   echo "1) $default_editor (default)"
   echo "2) vim"
   echo "3) nano"
@@ -210,17 +210,17 @@ else
   done
 fi
 
-# Edit flake.nix
+# Edit variables.nix
 if [ "$editor" != "none" ]; then
-  info "Opening flake.nix in $editor for customization..."
+  info "Opening variables.nix in $editor for customization..."
   echo "Edit the 'settings' block to customize username, editor, browser, hostname, etc."
   echo "Save and exit when done (e.g., :wq for vim & vi, Ctrl+O then Ctrl+X for nano)."
   read -p "Press Enter to continue..."
-  $editor ./flake.nix || {
+  $editor ./hosts/Default/variables.nix || {
     warn "Editor exited with an error. Continuing with default settings."
   }
 else
-  info "Skipping flake.nix editing as requested or no editor available."
+  info "Skipping variables.nix editing as requested or no editor available."
 fi
 
 # Partitioning method selection
