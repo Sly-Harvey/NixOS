@@ -19,7 +19,7 @@ in
 
     ../../modules/scripts
 
-    ../../modules/hardware/video/${videoDriver}.nix # Enable gpu drivers defined in hosts/Default/variables.nix 
+    ../../modules/hardware/video/${videoDriver}.nix # Enable gpu drivers defined in hosts/Default/variables.nix
     ../../modules/hardware/drives
 
     ../../modules/desktop/${windowManager} # Set window manager defined in hosts/Default/variables.nix

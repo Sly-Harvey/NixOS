@@ -6,10 +6,11 @@
 }:
 let
   inherit (import ../../hosts/${host}/variables.nix)
-  username
-  editor
-  terminal
-  browser;
+    username
+    editor
+    terminal
+    browser
+    ;
 in
 {
   imports = [ inputs.home-manager.nixosModules.home-manager ];
