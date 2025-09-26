@@ -20,6 +20,7 @@ let
   };
 
   scripts = [
+    (import ./rebuild.nix scriptArgs)
     (import ./launcher.nix scriptArgs)
     (import ./tmux-sessionizer.nix scriptArgs)
     (import ./extract.nix scriptArgs)
