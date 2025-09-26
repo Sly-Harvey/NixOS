@@ -7,9 +7,12 @@ in
     ./hardware-configuration.nix
     ./host-packages.nix
 
-    # Core Modules (Only change if you know what you're doing)
+    # Core Modules (Don't change unless you know what you're doing)
     ../../modules/scripts
     ../../modules/core/boot.nix
+    ../../modules/core/bash.nix
+    ../../modules/core/zsh.nix
+    ../../modules/core/starship.nix
     ../../modules/core/fonts.nix
     ../../modules/core/hardware.nix
     ../../modules/core/network.nix
@@ -19,12 +22,12 @@ in
     ../../modules/core/sddm.nix
     ../../modules/core/security.nix
     ../../modules/core/services.nix
-    # ../../modules/core/dlna.nix
     ../../modules/core/syncthing.nix
     ../../modules/core/system.nix
     ../../modules/core/users.nix
     # ../../modules/core/flatpak.nix
     # ../../modules/core/virtualisation.nix
+    # ../../modules/core/dlna.nix
 
     # Optional
     ../../modules/hardware/drives # Automatically mount extra external/internal drives
@@ -39,9 +42,6 @@ in
     ../../modules/programs/cli/lazygit
     ../../modules/programs/cli/cava
     ../../modules/programs/cli/btop
-    ../../modules/programs/cli/starship # Theme for bash and zsh
-    ../../modules/programs/shell/bash
-    ../../modules/programs/shell/zsh
     ../../modules/programs/media/discord
     ../../modules/programs/media/spicetify
     # ../../modules/programs/media/youtube-music

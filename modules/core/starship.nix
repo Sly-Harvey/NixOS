@@ -8,7 +8,12 @@
           add_newline = false;
           scan_timeout = 10;
           format = "$username$hostname$directory$git_branch$git_state$git_status$cmd_duration$python$nix_shell$character";
-          directory.style = "blue";
+          directory = {
+            truncate_to_repo = false;
+            read_only = " ro";
+            style = "#57C7FF";
+            # style = "bold italic bright-blue";
+          };
           /*
                username = {
               style_user = "green bold";
@@ -19,14 +24,14 @@
             };
           */
           character = {
-            success_symbol = "[❯](purple)";
-            error_symbol = "[❯](red)";
-            vimcmd_symbol = "[❮](green)";
+            success_symbol = "[❯](#FF6AC1)";
+            error_symbol = "[❯](#FF5C57)";
+            vimcmd_symbol = "[❮](bright-green)";
           };
           git_branch = {
             format = "[$branch]($style)";
             symbol = "git ";
-            style = "bright-black";
+            style = "242";
           };
           git_status = {
             format = "[[(*$conflicted$untracked$modified$staged$renamed$deleted)](218) ($ahead_behind$stashed)]($style)";
@@ -62,9 +67,6 @@
           };
           deno = {
             symbol = "deno ";
-          };
-          directory = {
-            read_only = " ro";
           };
           docker_context = {
             symbol = "docker ";

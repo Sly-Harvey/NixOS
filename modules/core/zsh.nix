@@ -1,22 +1,9 @@
-{
-  self,
-  host,
-  pkgs,
-  ...
-}:
-let
-  inherit (import ../../../../hosts/${host}/variables.nix) terminalFileManager;
-in
+{ self, pkgs, ... }:
 {
   home-manager.sharedModules = [
     (
       { config, ... }:
       {
-        xdg.configFile."zsh/.p10k.zsh".source = ./.p10k.zsh;
-        xdg.configFile."zsh/templates" = {
-          source = ./templates;
-          recursive = true;
-        };
         programs.zsh = {
           enable = true;
           autosuggestion.enable = true;
@@ -25,13 +12,6 @@ in
           history.size = 100000;
           history.path = "\${XDG_DATA_HOME}/zsh/history";
           dotDir = "${config.xdg.configHome}/zsh";
-          # plugins = [
-          #   {
-          #     name = "powerlevel10k";
-          #     file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
-          #     src = pkgs.zsh-powerlevel10k;
-          #   }
-          # ];
           oh-my-zsh = {
             enable = true;
             plugins = [
@@ -41,17 +21,19 @@ in
             ];
           };
           initContent = ''
-            # Powerlevel10k Zsh theme
-            source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
-            test -f ~/.config/zsh/.p10k.zsh && source ~/.config/zsh/.p10k.zsh
+            # Starship Prompt
+            if command -v starship &>/dev/null; then
+              eval "$(starship init zsh)"
+            fi
 
-            # Direnv hook
-            eval "$(direnv hook zsh)"
+            # Direnv Hook
+            if command -v direnv &>/dev/null; then
+              eval "$(direnv hook zsh)"
+            fi
 
             # Key Bindings
             # bindkey -s ^t "tmux-sessionizer\n"
             # bindkey '^f' "cd $(${pkgs.fd}/bin/fd . /mnt/work /mnt/work/Projects/ /run/current-system ~/ --max-depth 1 | fzf)\n"
-            bindkey '^l' "${terminalFileManager}\r"
             bindkey '^a' beginning-of-line
             bindkey '^e' end-of-line
 
@@ -71,64 +53,6 @@ in
             setopt hist_verify
             setopt inc_append_history
             setopt share_history
-
-            function lf {
-                tmp="$(mktemp)"
-                # `command` is needed in case `lfcd` is aliased to `lf`
-                command lf -last-dir-path="$tmp" "$@"
-                if [ -f "$tmp" ]; then
-                    dir="$(cat "$tmp")"
-                    rm -f "$tmp"
-                    if [ -d "$dir" ]; then
-                        if [ "$dir" != "$(pwd)" ]; then
-                            cd "$dir"
-                        fi
-                    fi
-                fi
-            }
-
-            function fnew {
-              if [ -d "$1" ]; then
-                echo "Directory \"$1\" already exists!"
-                return 1
-              fi
-              nix flake new $1 --template ${self}/dev-shells#$2
-              cd $1
-              direnv allow
-            }
-
-            function finit {
-              nix flake init --template ${self}/dev-shells#$1
-              direnv allow
-            }
-
-            function cgen {
-              if [ -d "$1" ]; then
-                echo "Directory \"$1\" already exists!"
-                return 1
-              fi
-              nix flake new $1 --template ${self}/dev-shells#c-cpp
-              cd $1
-              cat ~/.config/zsh/templates/ListTemplate.txt >> CMakeLists.txt
-              mkdir src
-              mkdir include
-              cat ~/.config/zsh/templates/HelloWorldTemplate.txt >> src/main.cpp
-              direnv allow
-            }
-
-            function crun {
-              #VAR=''${1:-.}
-              mkdir build 2> /dev/null
-              cmake -B build
-              cmake --build build
-              build/main
-            }
-
-            function cbuild {
-              mkdir build 2> /dev/null
-              cmake -B build
-              cmake --build build
-            }
           '';
           envExtra = ''
             # Defaults
@@ -146,6 +70,43 @@ in
             G = "| grep";
           };
           shellAliases = {
+            lf = ''
+                {
+                  tmp="$(mktemp)"
+                  # `command` is needed in case `lfcd` is aliased to `lf`
+                  command lf -last-dir-path="$tmp" "$@"
+                  if [ -f "$tmp" ]; then
+                      dir="$(cat "$tmp")"
+                      rm -f "$tmp"
+                      if [ -d "$dir" ]; then
+                          if [ "$dir" != "$(pwd)" ]; then
+                              cd "$dir"
+                          fi
+                      fi
+                  fi
+              }
+            '';
+            fnew = ''
+              if [ -d "$2" ]; then
+                echo "Directory \"$2\" already exists!"
+                return 1
+              fi
+              nix flake new $2 --template ${self}/dev-shells#$1
+              cd $2
+              direnv allow
+            '';
+
+            finit = ''
+              nix flake init --template ${self}/dev-shells#$1
+              direnv allow
+            '';
+            cdown = ''
+              N=$1
+              while [[ $((--N)) -gt  0 ]]
+                do
+                  echo "$N" |  figlet -c | lolcat &&  sleep 1
+              done
+            '';
             cls = "clear";
             tml = "tmux list-sessions";
             tma = "tmux attach";

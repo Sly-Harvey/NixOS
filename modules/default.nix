@@ -4,9 +4,12 @@ let
 in
 {
   imports = [
-    # Core Modules (Only change if you know what you're doing)
+    # Core Modules (Don't change unless you know what you're doing)
     ./scripts
     ./core/boot.nix
+    ./core/bash.nix
+    ./core/zsh.nix
+    ./core/starship.nix
     ./core/fonts.nix
     ./core/hardware.nix
     ./core/network.nix
@@ -16,12 +19,12 @@ in
     ./core/sddm.nix
     ./core/security.nix
     ./core/services.nix
-    # ./core/dlna.nix
     ./core/syncthing.nix
     ./core/system.nix
     ./core/users.nix
     # ./core/flatpak.nix
     # ./core/virtualisation.nix
+    # ./core/dlna.nix
 
     # Optional
     ./hardware/drives
@@ -36,9 +39,6 @@ in
     ./programs/cli/lazygit
     ./programs/cli/cava
     ./programs/cli/btop
-    ./programs/cli/starship # Theme for bash and zsh
-    ./programs/shell/bash
-    ./programs/shell/zsh
     ./programs/media/discord
     ./programs/media/spicetify
     # ./programs/media/youtube-music
