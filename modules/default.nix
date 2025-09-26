@@ -49,5 +49,5 @@ in
     ./programs/misc/thunar
     ./programs/misc/lact # GPU fan, clock and power configuration
   ]
-  ++ lib.optional (vars.gaming == true) ./core/gaming.nix;
+  ++ lib.optional (vars.games == true) ./core/games.nix;
 }

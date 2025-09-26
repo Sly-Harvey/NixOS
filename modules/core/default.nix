@@ -11,7 +11,7 @@
     ./sddm.nix
     ./security.nix
     ./services.nix
-    # ./gaming.nix
+    # ./games.nix
     # ./dlna.nix
     ./syncthing.nix
     ./system.nix
