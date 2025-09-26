@@ -63,7 +63,7 @@
           # inherit system;
           system = forAllSystems (system: system);
           modules = [
-            ./hosts/${host}
+            ./hosts/${host}/configuration.nix
           ];
           specialArgs = {
             # inherit self inputs outputs;
