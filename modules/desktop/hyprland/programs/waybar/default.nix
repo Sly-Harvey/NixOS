@@ -1,4 +1,7 @@
-{ pkgs, ... }:
+{ host, pkgs, ... }:
+let
+  inherit (import ../../../../../hosts/${host}/variables.nix) clock24h;
+in
 {
   fonts.packages = with pkgs.nerd-fonts; [ jetbrains-mono ];
   home-manager.sharedModules = [
@@ -196,9 +199,11 @@
             };
 
             "clock" = {
-              format = "{:%a %d %b %R}";
-              # format = "{:%R 󰃭 %d·%m·%y}";
-              format-alt = "{:%I:%M %p}";
+              format = if clock24h == true then "{:%a %d %b %R}" else "{:%a %d %b %I:%M %p}";
+              format-alt = if clock24h == true then "{:%a %d %b %I:%M %p}" else "{:%a %d %b %R}";
+              # format = "{:%a %d %b %R}";
+              # format = "{:%R 󰃭 %d·%m·%y}"; # Inverted
+              # format-alt = "{:%I:%M %p}";
               tooltip-format = "<tt>{calendar}</tt>";
               calendar = {
                 mode = "month";

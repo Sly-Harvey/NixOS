@@ -1,36 +1,42 @@
-{ host, ... }:
+{ host, lib, ... }:
 let
-  inherit (import ../hosts/${host}/variables.nix)
-    videoDriver
-    browser
-    editor
-    terminal
-    terminalFileManager
-    host
-    windowManager
-    ;
+  vars = import ../hosts/${host}/variables.nix;
 in
 {
   imports = [
-    ./hardware/video/${videoDriver}.nix # Enable gpu drivers defined in hosts/<HOST>/variables.nix
-    ./hardware/drives
-
-    ./core
+    # Core Modules (Only change if you know what you're doing)
     ./scripts
+    ./core/boot.nix
+    ./core/fonts.nix
+    ./core/hardware.nix
+    ./core/network.nix
+    ./core/nh.nix
+    ./core/packages.nix
+    ./core/printing.nix
+    ./core/sddm.nix
+    ./core/security.nix
+    ./core/services.nix
+    # ./core/dlna.nix
+    ./core/syncthing.nix
+    ./core/system.nix
+    ./core/users.nix
+    # ./core/flatpak.nix
+    # ./core/virtualisation.nix
 
-    ./desktop/${windowManager} # Set window manager defined in hosts/<HOST>/variables.nix
-
-    ./programs/games
-    ./programs/browser/${browser} # Set browser defined in hosts/<HOST>/variables.nix
-    ./programs/terminal/${terminal} # Set terminal defined in hosts/<HOST>/variables.nix
-    ./programs/editor/${editor} # Set editor defined in hosts/<HOST>/variables.nix
-    ./programs/cli/${terminalFileManager} # Set file-manager defined in hosts/<HOST>/variables.nix
-    ./programs/cli/starship
+    # Optional
+    ./hardware/drives
+    ./hardware/video/${vars.videoDriver}.nix # Enable gpu drivers defined in variables.nix
+    ./desktop/${vars.windowManager} # Set window manager defined in variables.nix
+    ./programs/browser/${vars.browser} # Set browser defined in variables.nix
+    ./programs/terminal/${vars.terminal} # Set terminal defined in variables.nix
+    ./programs/editor/${vars.editor} # Set editor defined in variables.nix
+    ./programs/cli/${vars.terminalFileManager} # Set file-manager defined in variables.nix
     ./programs/cli/tmux
     ./programs/cli/direnv
     ./programs/cli/lazygit
     ./programs/cli/cava
     ./programs/cli/btop
+    ./programs/cli/starship # Theme for bash and zsh
     ./programs/shell/bash
     ./programs/shell/zsh
     ./programs/media/discord
@@ -42,6 +48,6 @@ in
     ./programs/misc/tlp
     ./programs/misc/thunar
     ./programs/misc/lact # GPU fan, clock and power configuration
-    # ./programs/misc/nix-ld
-  ];
+  ]
+  ++ lib.optional (vars.gaming == true) ./core/gaming.nix;
 }

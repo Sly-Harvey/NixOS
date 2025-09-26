@@ -10,6 +10,7 @@ let
     editor
     terminal
     browser
+    shell
     ;
 in
 {
@@ -56,7 +57,7 @@ in
         "scanner"
         "vboxusers" # Virtual Box
       ];
-      shell = pkgs.zsh;
+      shell = pkgs.${shell};
       ignoreShellProgramCheck = true;
     };
   };
