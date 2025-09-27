@@ -1,24 +1,29 @@
-{ pkgs, host, ... }:
+{
+  pkgs,
+  terminal,
+  browser,
+  ...
+}:
 let
-  inherit (import ../../../hosts/${host}/variables.nix) terminal;
   mod = "Mod4";
   alt = "Mod1";
-  menu = "rofi -show drun -show-icons";
+  menu = "launcher";
 in
 {
   # Start a terminal
   "${mod}+Return" = "exec --no-startup-id ${terminal}";
 
   # Launch Browser
-  "${mod}+f" = "exec --no-startup-id floorp";
+  "${mod}+f" = "exec --no-startup-id ${browser}";
 
   # Launch Spotify
   "${mod}+s" = "exec --no-startup-id spotify";
 
   # Program launcher
-  "${mod}+space" = "exec --no-startup-id ${menu}";
-  "${mod}+d" = "exec --no-startup-id ${menu}";
-  # "${mod}+d" = "exec ${../hyprland/scripts/rofi.sh} drun";
+  "${mod}+a" = "exec --no-startup-id ${menu} drun";
+  "${mod}+space" = "exec --no-startup-id ${menu} drun";
+  "${mod}+d" = "exec --no-startup-id ${menu} drun";
+  "${mod}+Shift+t" = "exec --no-startup-id ${menu} tmux";
 
   # Kill focused window
   "${mod}+q" = "kill";

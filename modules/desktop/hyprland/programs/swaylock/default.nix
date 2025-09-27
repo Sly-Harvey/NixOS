@@ -2,7 +2,7 @@
 {
   home-manager.sharedModules = [
     (_: {
-      home.file.".config/swaylock/config".text = ''
+      xdg.configFile."swaylock/config".text = ''
         color=24273a
         bs-hl-color=f4dbd6
         caps-lock-bs-hl-color=f4dbd6

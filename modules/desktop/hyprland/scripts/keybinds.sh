@@ -22,7 +22,7 @@ get_nix_value() {
 
 _browser=$(get_nix_value "browser =")
 _terminal=$(get_nix_value "terminal =")
-_terminal_FM=$(get_nix_value "terminalFileManager =")
+_terminal_FM=$(get_nix_value "tuiFileManager =")
 
 yad \
   --center \

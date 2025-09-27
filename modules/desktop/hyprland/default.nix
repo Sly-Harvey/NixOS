@@ -8,7 +8,7 @@ let
   inherit (import ../../../hosts/${host}/variables.nix)
     browser
     terminal
-    terminalFileManager
+    tuiFileManager
     kbdLayout
     kbdVariant
     ;
@@ -108,7 +108,7 @@ in
               "$mainMod" = "SUPER";
               "$term" = "${getExe pkgs.${terminal}}";
               "$editor" = "code --disable-gpu";
-              "$fileManager" = "$term --class \"terminalFileManager\" -e ${terminalFileManager}";
+              "$fileManager" = "$term --class \"tuiFileManager\" -e ${tuiFileManager}";
               "$browser" = browser;
 
               env = [
@@ -293,7 +293,7 @@ in
                 "opacity 0.80 0.80,class:^(codium-url-handler)$"
                 "opacity 0.80 0.80,class:^(code)$"
                 "opacity 0.80 0.80,class:^(code-url-handler)$"
-                "opacity 0.80 0.80,class:^(terminalFileManager)$"
+                "opacity 0.80 0.80,class:^(tuiFileManager)$"
                 "opacity 0.80 0.80,class:^(org.kde.dolphin)$"
                 "opacity 0.80 0.80,class:^(org.kde.ark)$"
                 "opacity 0.80 0.80,class:^(nwg-look)$"

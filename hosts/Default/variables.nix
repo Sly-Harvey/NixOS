@@ -1,11 +1,11 @@
 {
   # User Configuration
   username = "zer0"; # Your username (auto-set with install.sh, live-install.sh, rebuild)
-  windowManager = "hyprland"; # Options: hyprland, i3-gaps
+  desktop = "hyprland"; # Options: hyprland, i3-gaps, gnome
   terminal = "kitty"; # Options: kitty, alacritty, wezterm
   editor = "nixvim"; # Options: nixvim, vscode, helix, nvchad, neovim, emacs (WIP)
   browser = "zen"; # Options: firefox, floorp, zen
-  terminalFileManager = "yazi"; # Options: yazi, lf
+  tuiFileManager = "yazi"; # Options: yazi, lf
   sddmTheme = "astronaut"; # Options: astronaut, black_hole, purple_leaves, jake_the_dog, hyprland_kath
   wallpaper = "kurzgesagt"; # See modules/themes/wallpapers for options
   shell = "zsh"; # Options: zsh, bash

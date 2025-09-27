@@ -20,7 +20,14 @@
       blur = {
         method = "dual_kawase";
         strength = 3;
-        # size = 3; # Required for gaussian and box blur
+        size = 3; # Required for gaussian and box blur
+
+        # strength = 6;
+        # deviation = 1.0;
+        # kernel = "11x11gaussian";
+        # background = true;
+        # background-frame = false;
+        # background-fixed = false;
       };
 
       # blur-background-exclude = [
@@ -46,8 +53,11 @@
 
       # Can use name or class_g here
       opacity-rule = [
-        "100:class_g = 'floorp'"
+        "100:class_g = 'Rofi'"
+        "100:class_g = 'zen'"
+        "100:class_g = 'zen-beta'"
         "100:class_g = 'firefox'"
+        "100:class_g = 'floorp'"
         "100:class_g = 'zen'"
         "100:class_g = 'Brave-browser'"
         "90:class_g = 'kitty' && focused"
