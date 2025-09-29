@@ -7,7 +7,7 @@
   services = {
     desktopManager.gnome.enable = true;
     gnome.gnome-initial-setup.enable = false;
-    gnome.games.enable = true;
+    gnome.games.enable = false;
     tlp.enable = lib.mkForce false; # gnome has builtin power management
     xserver = {
       enable = true;
@@ -30,11 +30,6 @@
     gedit
     epiphany
     cheese
-
-    tali # poker game
-    iagno # go game
-    hitori # sudoku game
-    atomix # puzzle game
   ];
   environment.systemPackages = with pkgs; [
     gnome-tweaks
