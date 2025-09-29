@@ -11,6 +11,7 @@ let
     tuiFileManager
     kbdLayout
     kbdVariant
+    wallpaper
     ;
 in
 {
@@ -91,6 +92,15 @@ in
           xdg.configFile."hypr/icons" = {
             source = ./icons;
             recursive = true;
+          };
+
+          # Set wallpaper
+          services.hyprpaper = {
+            enable = true;
+            settings = {
+              preload = [ "${../../themes/wallpapers/${wallpaper}.jxl}" ];
+              wallpaper = [ ",${../../themes/wallpapers/${wallpaper}.jxl}" ];
+            };
           };
 
           #test later systemd.user.targets.hyprland-session.Unit.Wants = [ "xdg-desktop-autostart.target" ];
