@@ -159,6 +159,7 @@ in
             font-hinting = "slight";
             gtk-theme = "catppuccin-mocha-mauve-compact";
             icon-theme = "Papirus-Dark";
+            # show-battery-percentage = true;
           };
 
           "org/gnome/desktop/notifications" = {

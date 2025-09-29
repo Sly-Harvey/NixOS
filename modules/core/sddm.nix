@@ -33,7 +33,7 @@ in
       enable = true;
       wayland.enable = true;
       enableHidpi = true;
-      package = pkgs.kdePackages.sddm;
+      package = lib.mkForce pkgs.kdePackages.sddm;
       extraPackages = [
         sddm-astronaut
         pkgs.kdePackages.qtsvg # Sddm Dependency

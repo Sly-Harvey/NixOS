@@ -1,7 +1,7 @@
 {
   # User Configuration
   username = "zer0"; # Your username (auto-set with install.sh, live-install.sh, rebuild)
-  desktop = "hyprland"; # Options: hyprland, i3-gaps, gnome
+  desktop = "hyprland"; # Options: hyprland, i3-gaps, gnome, plasma6
   terminal = "kitty"; # Options: kitty, alacritty, wezterm
   editor = "nixvim"; # Options: nixvim, vscode, helix, nvchad, neovim, emacs (WIP)
   browser = "zen"; # Options: firefox, floorp, zen
