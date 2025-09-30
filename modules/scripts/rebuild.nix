@@ -18,7 +18,8 @@ pkgs.writeShellScriptBin "rebuild" ''
     echo "Error: flake not found. ensure flake.nix exists in either $HOME/NixOS or /etc/nixos"
     exit 1
   fi
-  echo -e "''${GREEN}Rebuilding from $flake''${NC}"
+  echo -e "''${GREEN}Flake: $flake''${NC}"
+  echo -e "''${GREEN}Host: ${host}''${NC}"
   currentUser=$(logname)
 
   # replace username variable in variables.nix with $USER
