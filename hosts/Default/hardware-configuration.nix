@@ -18,13 +18,7 @@
       fsType = "btrfs";
     };
 
-  boot.initrd.luks.devices."luks-root".device = "/dev/disk/by-uuid/a5284d62-2725-47d9-a7d9-932a0879c727";
-
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/EED1-8CEA";
-      fsType = "vfat";
-      options = [ "fmask=0022" "dmask=0022" ];
-    };
+  boot.initrd.luks.devices."luks-root".device = "/dev/disk/by-uuid/cee67fb9-08c9-47d9-946a-0de3c15c5689";
 
   fileSystems."/home" =
     { device = "/dev/mapper/luks-home";
@@ -32,6 +26,12 @@
     };
 
   boot.initrd.luks.devices."luks-home".device = "/dev/disk/by-uuid/45cbaba1-6c60-4388-b7b6-bb8a5235e099";
+
+  fileSystems."/boot" =
+    { device = "/dev/disk/by-uuid/7F91-512D";
+      fsType = "vfat";
+      options = [ "fmask=0022" "dmask=0022" ];
+    };
 
   fileSystems."/mnt/work" =
     { device = "/dev/disk/by-uuid/f6f6d68c-68f8-4c50-8155-105a22b9ff35";
