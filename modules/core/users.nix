@@ -30,7 +30,13 @@ in
         homeDirectory = "/home/${username}";
         stateVersion = "23.11"; # Do not change!
         sessionVariables = {
-          EDITOR = "${editor}";
+          EDITOR =
+            if (editor == "nixvim" || editor == "neovim" || editor == "nvchad") then
+              "nvim"
+            else if editor == "vscode" then
+              "code"
+            else
+              "nano";
           BROWSER = "${browser}";
           TERMINAL = "${terminal}";
         };

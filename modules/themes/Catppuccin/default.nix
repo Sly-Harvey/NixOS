@@ -78,11 +78,9 @@ in
       }
     )
   ];
-  system.userActivationScripts.removeConflictingFiles = {
-    text = ''
-      rm -f /home/${username}/.config/gtk-4.0/settings.ini.backup
-      rm -f /home/${username}/.config/gtk-3.0/settings.ini.backup
-      rm -f /home/${username}/.gtkrc-2.0.backup
-    '';
-  };
+  system.userActivationScripts.removeConflictingFiles.text = ''
+    rm -f /home/${username}/.config/gtk-4.0/settings.ini.backup
+    rm -f /home/${username}/.config/gtk-3.0/settings.ini.backup
+    rm -f /home/${username}/.gtkrc-2.0.backup
+  '';
 }

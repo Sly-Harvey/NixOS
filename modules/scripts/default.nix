@@ -12,6 +12,7 @@ let
   # Define your custom args once
   scriptArgs = {
     inherit
+      host
       pkgs
       lib
       config
