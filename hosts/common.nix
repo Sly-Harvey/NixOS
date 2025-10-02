@@ -109,6 +109,7 @@
           zoxide
           hunspell
           bat
+          rlwrap
         ];
       };
     };

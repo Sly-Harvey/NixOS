@@ -22,6 +22,7 @@
               "ctrl-l".command = "${terminalFileManager} \r";
             };
             shellAliases = {
+              nc = "rlwrap nc -lvnp";
               rscan = "rustscan --ulimit 5000 -a ";
               cls = "clear";
               l = "${pkgs.eza}/bin/eza -lh  --icons=auto"; # long list
@@ -51,7 +52,7 @@
               sysup = "sudo nixos-rebuild switch --flake ~/NixOS#Default --upgrade-all --show-trace";
   
               # Directory Shortcuts.
-              dots = "cd ~/NixOS/";
+              dots = "z ~/NixOS/";
               # games = "cd /mnt/games/";
               # work = "cd /mnt/work/";
               # media = "cd /mnt/work/media/";
