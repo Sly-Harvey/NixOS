@@ -14,6 +14,7 @@
   
   # packages
   environment.systemPackages = with pkgs; [
+    libvirt
     virt-viewer
     guestfs-tools
     spice
@@ -22,6 +23,7 @@
     spice-vdagent
     win-virtio
     win-spice
+    virtiofsd
   ];
 
   # virtualisation
