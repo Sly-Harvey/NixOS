@@ -1,0 +1,1 @@
+/nix/store/jv5id8j3d68lzgyffq0dci0dkzhgj9da-home-manager-files/NixOS/modules/athena/cyber/roles/forensic.nix

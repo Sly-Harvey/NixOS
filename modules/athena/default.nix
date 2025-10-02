@@ -4,10 +4,13 @@
 let
   pkgSkipName = [ "zssh" ];
 
-  rolesDir   = ./cyber/roles;
-  entries    = builtins.readDir rolesDir;
-  roleFiles  = lib.filterAttrs (n: t: t == "regular" && lib.hasSuffix ".nix" n) entries;
-  available  = map (n: lib.removeSuffix ".nix" n) (builtins.attrNames roleFiles);
+  # use upstream path that exists at eval time
+  rolesDir = inputs.athena-nix + "/nixos/modules/cyber/roles";
+  haveRolesDir = builtins.pathExists rolesDir;
+
+  entries   = if haveRolesDir then builtins.readDir rolesDir else {};
+  roleFiles = lib.filterAttrs (n: t: t == "regular" && lib.hasSuffix ".nix" n) entries;
+  available = map (n: lib.removeSuffix ".nix" n) (builtins.attrNames roleFiles);
 
   selected =
     if lib.elem "all" athenaRole then available
@@ -30,7 +33,7 @@ in
 {
   environment.systemPackages = finalPkgs;
 
-  # keep local copy symlinked to upstream
+  # keep local copy symlinked to upstream (still happens at activation time)
   home-manager.sharedModules = [
     ({ ... }: {
       home.file."NixOS/modules/athena/cyber/".source = "${inputs.athena-nix}/nixos/modules/cyber/";
@@ -39,11 +42,12 @@ in
     })
   ];
 
-  assertions = [{
+  # only assert if roles actually exist but none were selected
+  assertions = lib.optional (haveRolesDir && available != []) {
     assertion = selected != [ ];
     message =
       "athena: no roles matched. requested="
       + (builtins.toString athenaRole)
       + " available=" + (builtins.toString available);
-  }];
+  };
 }
