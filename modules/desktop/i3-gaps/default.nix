@@ -3,7 +3,6 @@ let
   inherit (import ../../../hosts/${host}/variables.nix) terminal browser;
 in
 {
-  fonts.packages = with pkgs.nerd-fonts; [ jetbrains-mono ];
   imports = [
     ../../themes/Catppuccin
     ../hyprland/programs/rofi

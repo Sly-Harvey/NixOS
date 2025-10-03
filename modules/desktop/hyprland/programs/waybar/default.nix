@@ -3,7 +3,6 @@ let
   inherit (import ../../../../../hosts/${host}/variables.nix) clock24h;
 in
 {
-  fonts.packages = with pkgs.nerd-fonts; [ jetbrains-mono ];
   home-manager.sharedModules = [
     (_: {
       programs.waybar = {
@@ -43,8 +42,8 @@ in
               "memory"
               "backlight"
               "pulseaudio"
-              "bluetooth"
               "network"
+              "bluetooth"
               "tray"
               "battery"
             ];
@@ -364,9 +363,8 @@ in
         ];
         style = ''
           * {
-            font-family: "JetBrainsMono Nerd Font";
+            font-family: "monospace";
             font-size: 14px;
-            font-feature-settings: '"zero", "ss01", "ss02", "ss03", "ss04", "ss05", "cv31"';
             margin: 0px;
             padding: 0px;
           }
@@ -473,6 +471,7 @@ in
           #workspaces,
           #custom-backlight,
           #custom-cycle_wall,
+          #custom-gpuinfo,
           #custom-keybinds,
           #custom-keyboard,
           #custom-light_dark,
@@ -495,8 +494,8 @@ in
           #custom-weather.sunnyDay {
           	padding-top: 3px;
           	padding-bottom: 3px;
-          	padding-right: 6px;
-          	padding-left: 6px;
+          	padding-right: 5px;
+          	padding-left: 5px;
           }
 
           #idle_inhibitor {

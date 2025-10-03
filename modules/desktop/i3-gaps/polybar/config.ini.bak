@@ -18,8 +18,6 @@ padding-right = 1
 
 module-margin = 0
 
-font-0 = JetBrainsMono Nerd Font:size=14;4
-
 modules-left = xworkspaces playerctl
 modules-center = xwindow
 modules-right = wlan eth pulseaudio battery memory cpu date

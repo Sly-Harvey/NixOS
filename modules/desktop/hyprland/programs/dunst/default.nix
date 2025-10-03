@@ -7,7 +7,6 @@ let
   inherit (import ../../../../../hosts/${host}/variables.nix) browser;
 in
 {
-  fonts.packages = with pkgs.nerd-fonts; [ jetbrains-mono ];
   home-manager.sharedModules = [
     (_: {
       services.dunst = {
@@ -45,7 +44,7 @@ in
             always_run_script = true;
             corner_radius = 10;
             follow = "mouse";
-            font = "jetbrainsmono nerd font 10";
+            font = "monospace";
             format = "<b>%s</b>\\n%b"; # format = "<span foreground='#f3f4f5'><b>%s %p</b></span>\n%b"
             frame_width = 1;
             offset = "15x15";

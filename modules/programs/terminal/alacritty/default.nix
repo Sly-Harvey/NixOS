@@ -4,7 +4,6 @@
   ...
 }:
 {
-  fonts.packages = with pkgs.nerd-fonts; [ jetbrains-mono ];
   home-manager.sharedModules = [
     (_: {
       programs.alacritty =
@@ -15,21 +14,23 @@
           enable = true;
           settings = {
             colors = {
-              draw_bold_text_with_bright_colors = true;
               primary = {
                 background = "#1e1e2e";
                 foreground = "#cdd6f4";
                 dim_foreground = "#7f849c";
                 bright_foreground = "#cdd6f4";
               };
+
               cursor = {
                 text = "#1e1e2e";
                 cursor = "#f5e0dc";
               };
+
               vi_mode_cursor = {
                 text = "#1e1e2e";
                 cursor = "#b4befe";
               };
+
               search = {
                 matches = {
                   foreground = "#1e1e2e";
@@ -40,10 +41,12 @@
                   background = "#a6e3a1";
                 };
               };
+
               footer_bar = {
                 foreground = "#1e1e2e";
                 background = "#a6adc8";
               };
+
               hints = {
                 start = {
                   foreground = "#1e1e2e";
@@ -54,10 +57,12 @@
                   background = "#a6adc8";
                 };
               };
+
               selection = {
                 text = "#1e1e2e";
                 background = "#f5e0dc";
               };
+
               normal = {
                 black = "#45475a";
                 red = "#f38ba8";
@@ -68,6 +73,7 @@
                 cyan = "#94e2d5";
                 white = "#bac2de";
               };
+
               bright = {
                 black = "#585b70";
                 red = "#f38ba8";
@@ -78,6 +84,7 @@
                 cyan = "#94e2d5";
                 white = "#a6adc8";
               };
+
               indexed_colors = [
                 {
                   index = 16;
@@ -90,32 +97,11 @@
               ];
             };
 
-            font = {
-              size = 12.0;
-              normal = {
-                family = "JetBrainsMono Nerd Font";
-                style = "Regular";
-              };
-              bold = {
-                family = "JetBrainsMono Nerd Font";
-                style = "Bold";
-              };
-
-              bold_italic = {
-                family = "JetBrainsMono Nerd Font";
-                style = "Bold Italic";
-              };
-
-              italic = {
-                family = "JetBrainsMono Nerd Font";
-                style = "Italic";
-              };
-            };
+            font.size = 12.0;
 
             window = {
               decorations = "full";
               dynamic_padding = false;
-              opacity = 0.6;
               startup_mode = "Maximized";
 
               padding.x = 0;

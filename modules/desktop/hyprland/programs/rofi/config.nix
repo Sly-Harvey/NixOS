@@ -63,7 +63,6 @@
 
   # ---------- Misc setting ----------
   terminal = "rofi-sensible-terminal";
-  font = "Mono 12";
   sort = false;
   threads = 0;
   click-to-exit = true;

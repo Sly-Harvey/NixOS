@@ -1,13 +1,12 @@
 { pkgs, ... }:
 {
-  fonts.packages = with pkgs.nerd-fonts; [ jetbrains-mono ];
   home-manager.sharedModules = [
     (_: {
       programs.kitty = {
         enable = true;
         font = {
-          name = "JetBrainsMono Nerd Font";
           size = 12.0;
+          name = "monospace";
         };
         themeFile = "Catppuccin-Mocha";
         settings = {
