@@ -5,11 +5,10 @@
     (_: {
       programs.direnv = {
         enable = true;
-        nix-direnv.enable = true;
         enableBashIntegration = true;
         enableZshIntegration = true;
-        enableFishIntegration = true;
-        enableNushellIntegration = true;
+        enableFishIntegration = false;
+        enableNushellIntegration = false;
       };
       # home.sessionVariables = {
       #   # DIRENV_DIR = "/tmp/direnv";
