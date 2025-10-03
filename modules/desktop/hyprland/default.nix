@@ -537,34 +537,37 @@ in
                 "$mainMod, mouse:272, movewindow"
                 "$mainMod, mouse:273, resizewindow"
               ];
-            };
-            extraConfig = ''
-              binds {
-                workspace_back_and_forth = 0
+
+              binds = {
+                workspace_back_and_forth = 0;
                 #allow_workspace_cycles=1
                 #pass_mouse_when_bound=0
-              }
+              };
 
-              # Easily plug in any monitor
-              monitor=,preferred,auto,1
+              monitor = [
+                # Easily plug in any monitor
+                ",preferred,auto,1"
 
-              # 1080p-HDR monitor on the left, 4K-HDR monitor in the middle and 1080p vertical monitor on the right.
-              monitor=desc:BNQ BenQ EW277HDR 99J01861SL0,preferred,-1920x0,1
-              monitor=desc:BNQ BenQ EL2870U PCK00489SL0,preferred,0x0,2
-              monitor=desc:BNQ BenQ xl2420t 99D06760SL0,preferred,1920x-420,1,transform,1 # 5 for fipped
+                # My Monitors (Fine to leave these since i used the serial numbers)
+                "desc:BNQ BenQ EW277HDR 99J01861SL0,preferred,-1920x0,1"
+                "desc:BNQ BenQ EL2870U PCK00489SL0,preferred,0x0,2"
+                "desc:BNQ BenQ xl2420t 99D06760SL0,preferred,1920x-420,1,transform,1" # 5 for fipped
+              ];
 
-              # Binds workspaces to my monitors only (find desc with: hyprctl monitors)
-              workspace=1,monitor:desc:BNQ BenQ EL2870U PCK00489SL0,default:true
-              workspace=2,monitor:desc:BNQ BenQ EL2870U PCK00489SL0
-              workspace=3,monitor:desc:BNQ BenQ EL2870U PCK00489SL0
-              workspace=4,monitor:desc:BNQ BenQ EL2870U PCK00489SL0
-              workspace=5,monitor:desc:BNQ BenQ EW277HDR 99J01861SL0,default:true
-              workspace=6,monitor:desc:BNQ BenQ EW277HDR 99J01861SL0
-              workspace=7,monitor:desc:BNQ BenQ EW277HDR 99J01861SL0
-              workspace=8,monitor:desc:BNQ BenQ xl2420t 99D06760SL0,default:true
-              workspace=9,monitor:desc:BNQ BenQ xl2420t 99D06760SL0
-              workspace=10,monitor:desc:BNQ BenQ EL2870U PCK00489SL0
-            '';
+              workspace = [
+                # Binds workspaces to my monitors (find desc with: hyprctl monitors)
+                "1,monitor:desc:BNQ BenQ EL2870U PCK00489SL0,default:true"
+                "2,monitor:desc:BNQ BenQ EL2870U PCK00489SL0"
+                "3,monitor:desc:BNQ BenQ EL2870U PCK00489SL0"
+                "4,monitor:desc:BNQ BenQ EL2870U PCK00489SL0"
+                "5,monitor:desc:BNQ BenQ EW277HDR 99J01861SL0,default:true"
+                "6,monitor:desc:BNQ BenQ EW277HDR 99J01861SL0"
+                "7,monitor:desc:BNQ BenQ EW277HDR 99J01861SL0"
+                "8,monitor:desc:BNQ BenQ xl2420t 99D06760SL0,default:true"
+                "9,monitor:desc:BNQ BenQ xl2420t 99D06760SL0"
+                "10,monitor:desc:BNQ BenQ EL2870U PCK00489SL0"
+              ];
+            };
           };
         }
       )
