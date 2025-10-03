@@ -130,7 +130,7 @@
             pokemon = "pokego --random 1-8 --no-title";
 
             # Nixos
-            list-gens = "sudo nix-env --list-generations --profile /nix/var/nix/profiles/system/";
+            list-gens = "nixos-rebuild list-generations";
             find-store-path = ''function { nix-shell -p $1 --command "nix eval -f \"<nixpkgs>\" --raw $1" }'';
             update-input = "nix flake update $@";
             sysup = "nix flake update --flake ~/NixOS && rebuild";
