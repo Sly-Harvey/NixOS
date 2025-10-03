@@ -1,17 +1,20 @@
 #!/usr/bin/env bash
-## /* ---- 💫 https://github.com/JaKooLit 💫 ---- */  ##
 # Clipboard Manager. This script uses cliphist, rofi, and wl-copy.
 
 # Actions:
 # CTRL Del to delete an entry
 # ALT Del to wipe clipboard contents
 
+rofi_theme="${XDG_CONFIG_HOME:-$HOME/.config}/rofi/launchers/type-1/style-6.rasi"
+r_override="entry{placeholder:'Search Clipboard...';}listview{lines:9;}"
+
 while true; do
   result=$(
-    rofi -dmenu \
+    rofi -dmenu -i \
       -kb-custom-1 "Control-Delete" \
       -kb-custom-2 "Alt-Delete" \
-      -theme $HOME/.config/rofi/launchers/type-1/style-6.rasi < <(cliphist list)
+      -theme-str "$r_override" \
+      -theme "$rofi_theme" < <(cliphist list)
   )
 
   case "$?" in
