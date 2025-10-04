@@ -34,6 +34,6 @@ pkgs.writeShellScriptBin "rollback" ''
   if command -v nh &>/dev/null; then
     nh os rollback -t $generation
   else
-    sudo /nix/var/nix/profiles/system-$generation-link/bin/switch-to-configuration boot
+    sudo /nix/var/nix/profiles/system-$generation-link/bin/switch-to-configuration switch
   fi
 ''

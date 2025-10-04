@@ -7,7 +7,7 @@
         enableBashIntegration = true;
         enableZshIntegration = true;
         settings = {
-          manager = {
+          mgr = {
             show_hidden = true;
             show_symlink = true;
             sort_dir_first = true;
@@ -31,7 +31,7 @@
           };
         };
         keymap = {
-          manager.prepend_keymap = [
+          mgr.prepend_keymap = [
             {
               on = [ "e" ];
               run = "open";
@@ -43,7 +43,7 @@
           ];
         };
         theme = {
-          manager = {
+          mgr = {
             border_symbol = " ";
           };
           status = {
