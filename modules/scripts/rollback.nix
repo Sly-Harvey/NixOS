@@ -5,16 +5,6 @@ pkgs.writeShellScriptBin "rollback" ''
   GREEN='\033[0;32m'
   NC='\033[0m' # No Color
 
-  success() {
-    echo -e "''${GREEN}╔═══════════════════════════════════════════════════════════════════════╗''${NC}"
-    echo -e "''${GREEN}║                                                                       ║''${NC}"
-    echo -e "''${GREEN}║                      NixOS Rollback Successful!                       ║''${NC}"
-    echo -e "''${GREEN}║                                                                       ║''${NC}"
-    echo -e "''${GREEN}║       Please reboot your system for the changes to take effect.       ║''${NC}"
-    echo -e "''${GREEN}║                                                                       ║''${NC}"
-    echo -e "''${GREEN}╚═══════════════════════════════════════════════════════════════════════╝''${NC}"
-  }
-
   info() {
     echo -e "\n''${GREEN}$1''${NC}"
   }
@@ -41,12 +31,9 @@ pkgs.writeShellScriptBin "rollback" ''
 
   echo -e "''${GREEN}Generation: $generation''${NC}"
 
-  # nh os rollback -t $generation
-  sudo /nix/var/nix/profiles/system-$generation-link/bin/switch-to-configuration boot
-
-  if [ $? -eq 0 ]; then
-    success
-  # else
-  #   failed
+  if command -v nh &>/dev/null; then
+    nh os rollback -t $generation
+  else
+    sudo /nix/var/nix/profiles/system-$generation-link/bin/switch-to-configuration boot
   fi
 ''
