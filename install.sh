@@ -28,6 +28,7 @@ NC='\033[0m' # No Color
 
 success() {
   echo -e "${GREEN}╔═══════════════════════════════════════════════════════════════════════╗${NC}"
+  echo -e "${GREEN}║                                                                       ║${NC}"
   echo -e "${GREEN}║                    NixOS Installation Successful!                     ║${NC}"
   echo -e "${GREEN}║                                                                       ║${NC}"
   echo -e "${GREEN}║       Please reboot your system for the changes to take effect.       ║${NC}"
