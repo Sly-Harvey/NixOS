@@ -155,8 +155,6 @@ Replace `<HOST>` with the name of your host (e.g., `Default`).
   rollback N
   ```
 
-  After running the rollback command, reboot the system to apply the changes.
-
 ### Viewing Keybindings
 
 To view configured keybindings:
