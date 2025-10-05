@@ -8,7 +8,13 @@ let
   inherit (import ../../../../hosts/${host}/variables.nix) terminal;
 in
 {
-  environment.systemPackages = with pkgs; [ zig ]; # Required
+  environment.systemPackages = with pkgs; [
+    gcc # to compile treesitter parsers
+    nodejs
+    nil
+    nixfmt-tree
+    ripgrep
+  ]; # Dependencies
   home-manager.sharedModules = [
     (_: {
       programs.neovim.enable = true;
