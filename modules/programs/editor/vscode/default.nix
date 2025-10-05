@@ -9,13 +9,13 @@
     (_: {
       programs.vscode = {
         enable = true;
-        # mutableExtensionsDir = true; # TODO: test with home-manager
+        mutableExtensionsDir = true;
         # package = pkgs.vscodium;
         package = pkgs.vscode;
         profiles.default = {
           extensions = with pkgs.vscode-extensions; [
             bbenoist.nix
-            # arrterian.nix-env-selector
+            arrterian.nix-env-selector
             eamodio.gitlens
             github.vscode-github-actions
             yzhang.markdown-all-in-one
@@ -23,17 +23,17 @@
             catppuccin.catppuccin-vsc-icons
             # asvetliakov.vscode-neovim
             # vscodevim.vim
-            tamasfe.even-better-toml
-            #jnoortheen.nix-ide
+            # tamasfe.even-better-toml
+            jnoortheen.nix-ide
             # redhat.vscode-yaml
             # vadimcn.vscode-lldb
-            rust-lang.rust-analyzer
-            ms-vscode.cpptools
-            ms-vscode.cmake-tools
-            ms-vscode.makefile-tools
-            ziglang.vscode-zig
+            # rust-lang.rust-analyzer
+            # ms-vscode.cpptools
+            # ms-vscode.cmake-tools
+            # ms-vscode.makefile-tools
+            # ziglang.vscode-zig
             # ms-dotnettools.csharp
-            ms-python.python
+            # ms-python.python
             # pkief.material-icon-theme
             # equinusocio.vsc-material-theme
             # dracula-theme.theme-dracula
@@ -54,11 +54,11 @@
             # "extensions.autoUpdate" = false; # Fixes vscode freaking out when theres an update
             "window.titleBarStyle" = "custom"; # needed otherwise vscode crashes, see https://github.com/NixOS/nixpkgs/issues/246509
             "window.menuBarVisibility" = "classic";
-            "window.zoomLevel" = 0.5;
-            "editor.fontSize" = 14;
+            # "window.zoomLevel" = 0.5;
+            "editor.fontSize" = 11;
             "workbench.colorTheme" = "Catppuccin Mocha";
             "workbench.iconTheme" = "catppuccin-mocha";
-            "catppuccin.accentColor" = "lavender";
+            "catppuccin.accentColor" = "mauve";
             "vsicons.dontShowNewVersionMessage" = true;
             "explorer.confirmDragAndDrop" = false;
             "editor.fontLigatures" = true;

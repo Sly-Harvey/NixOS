@@ -1,7 +1,6 @@
 {
   self,
   inputs,
-  outputs,
   host,
   pkgs,
   overlays,
