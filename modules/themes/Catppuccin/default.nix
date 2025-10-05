@@ -1,6 +1,5 @@
 { host, pkgs, ... }:
 let
-  inherit (import ../../../hosts/${host}/variables.nix) username;
   variant = "mocha";
   accent = "mauve";
   catppuccin-kvantum-pkg = pkgs.catppuccin-kvantum.override { inherit variant accent; };
@@ -78,9 +77,4 @@ in
       }
     )
   ];
-  system.userActivationScripts.removeConflictingFiles.text = ''
-    rm -f /home/${username}/.config/gtk-4.0/settings.ini.backup
-    rm -f /home/${username}/.config/gtk-3.0/settings.ini.backup
-    rm -f /home/${username}/.gtkrc-2.0.backup
-  '';
 }

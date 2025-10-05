@@ -199,24 +199,6 @@ done
 
 info "Using host: $selected_host"
 
-# Delete dirs that conflict with home-manager (skip symlinks)
-paths=(
-  ~/.mozilla/firefox/profiles.ini
-  ~/.zen/profiles.ini
-  ~/.floorp/profiles.ini
-  ~/.gtkrc-*
-  ~/.config/gtk-*
-  ~/.config/cava
-)
-for file in "${paths[@]}"; do
-  for expanded in $file; do
-    if [ -e "$expanded" ] && [ ! -L "$expanded" ]; then
-      # echo "Removing: $expanded"
-      sudo rm -rf "$expanded"
-    fi
-  done
-done
-
 # replace username variable in variables.nix with $USER
 sudo sed -i -e "s/username = \".*\"/username = \"$currentUser\"/" "./hosts/$selected_host/variables.nix"
 
@@ -231,7 +213,7 @@ fi
 sudo git -C . add "hosts/$selected_host/*" 2>/dev/null || true
 sudo git -C . add "flake.nix" 2>/dev/null || true
 
-# Build and switch to the new configuration
+# Build the new configuration
 info "Building NixOS configuration for host: $selected_host"
 sudo nixos-rebuild boot --flake ".#$selected_host"
 

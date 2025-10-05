@@ -19,6 +19,7 @@ in
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
+    overwriteBackup = true;
     backupFileExtension = "backup";
     users.${username} = {
       # Let Home Manager install and manage itself.
