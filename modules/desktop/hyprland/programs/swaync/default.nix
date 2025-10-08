@@ -496,11 +496,12 @@
             background: transparent;
             /* background: @theme_bg_color; */
             /* border: 1px solid @surface1; */
+            border-radius: 4px;
             border-top: none;
             border-bottom: none;
           }
           .widget-menubar > box > box {
-            margin: 5px 10px 5px 10px;
+            margin: 5px 5px 5px 5px;
             min-height: 40px;
             border-radius: 4px;
             background: transparent;
@@ -510,12 +511,13 @@
             /* background: alpha(currentColor, 0.05); */
             min-width: 185px;
             min-height: 50px;
-            margin-right: 10px;
+            margin-right: 20px;
             font-size: 14px;
-            padding: 0px;
+            padding: 5px;
           }
           .widget-menubar > box > box > button:nth-child(2) {
             margin-right: 0px;
+            padding-top: 5px;
           }
           .widget-menubar button:focus {
             box-shadow: none;
