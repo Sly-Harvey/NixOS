@@ -61,15 +61,6 @@ in
               General.theme = kvantumThemeName;
             };
 
-        # Wallpaper configuration
-        services.hyprpaper = {
-          enable = true;
-          settings = {
-            preload = [ "${../wallpapers/${wallpaper}}" ];
-            wallpaper = [ ",${../wallpapers/${wallpaper}}" ];
-          };
-        };
-
         # GNOME dark mode
         dconf.settings = {
           "org/gnome/desktop/interface" = {

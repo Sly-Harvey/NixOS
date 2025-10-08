@@ -42,6 +42,15 @@ pkgs.writeShellScriptBin "launcher" ''
       ${terminal} --hold -e tmux attach -t $sessions
     fi
     ;;
+  wallpaper)
+    rofi_theme="''${XDG_CONFIG_HOME:-$HOME/.config}/rofi/launchers/type-4/style-4.rasi"
+    r_override="entry{placeholder:'Search Wallpapers...';}listview{lines:15;}"
+    WALLPAPER_DIR="${../themes/wallpapers}"
+
+    CHOICE=$(ls "$WALLPAPER_DIR" | rofi -dmenu -i -theme-str "$r_override" -theme "$rofi_theme")
+    [ -z "$CHOICE" ] && exit 0
+    swww img "$WALLPAPER_DIR/$CHOICE" --transition-step 90 --transition-duration 1 --transition-fps 60 --transition-type wipe
+    ;;
   emoji)
     rofi_theme="''${XDG_CONFIG_HOME:-$HOME/.config}/rofi/launchers/type-4/style-4.rasi"
     r_override="entry{placeholder:'Search Emojis...';}listview{lines:15;}"
@@ -63,6 +72,7 @@ pkgs.writeShellScriptBin "launcher" ''
     echo "  window       Switch between open windows"
     echo "  file         Browse and search files"
     echo "  tmux         Search active tmux sessions"
+    echo "  wallpaper    Search and set wallpapers"
     echo "  emoji        Search and insert emojis"
     echo "  games        Launch games menu"
     echo "  help         Display this help message"

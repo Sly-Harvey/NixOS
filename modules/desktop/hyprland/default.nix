@@ -69,7 +69,7 @@ in
         { ... }:
         {
           home.packages = with pkgs; [
-            hyprpaper
+            swww
             hyprpicker
             cliphist
             grimblast
@@ -95,13 +95,7 @@ in
           };
 
           # Set wallpaper
-          services.hyprpaper = {
-            enable = true;
-            settings = {
-              preload = [ "${../../themes/wallpapers/${wallpaper}.jxl}" ];
-              wallpaper = [ ",${../../themes/wallpapers/${wallpaper}.jxl}" ];
-            };
-          };
+          services.swww.enable = true;
 
           #test later systemd.user.targets.hyprland-session.Unit.Wants = [ "xdg-desktop-autostart.target" ];
           wayland.windowManager.hyprland = {
@@ -140,25 +134,30 @@ in
                 "WLR_RENDERER_ALLOW_SOFTWARE,1"
                 "NIXPKGS_ALLOW_UNFREE,1"
               ];
-              exec-once = [
-                #"[workspace 1 silent] ${terminal}"
-                #"[workspace 5 silent] ${browser}"
-                #"[workspace 6 silent] spotify"
-                #"[workspace special silent] ${browser} --private-window"
-                #"[workspace special silent] ${terminal}"
+              exec-once =
+                let
+                  wallpaper = pkgs.callPackage ./scripts/wallpaper.nix { };
+                in
+                [
+                  #"[workspace 1 silent] ${terminal}"
+                  #"[workspace 5 silent] ${browser}"
+                  #"[workspace 6 silent] spotify"
+                  #"[workspace special silent] ${browser} --private-window"
+                  #"[workspace special silent] ${terminal}"
 
-                "waybar"
-                "swaync"
-                "nm-applet --indicator"
-                "wl-clipboard-history -t"
-                "${getExe' pkgs.wl-clipboard "wl-paste"} --type text --watch cliphist store" # clipboard store text data
-                "${getExe' pkgs.wl-clipboard "wl-paste"} --type image --watch cliphist store" # clipboard store image data
-                "rm '$XDG_CACHE_HOME/cliphist/db'" # Clear clipboard
-                "${./scripts/batterynotify.sh}" # battery notification
-                # "${./scripts/autowaybar.sh}" # uncomment packages at the top
-                "polkit-agent-helper-1"
-                "pamixer --set-volume 50"
-              ];
+                  "${lib.getExe wallpaper}"
+                  "waybar"
+                  "swaync"
+                  "nm-applet --indicator"
+                  "wl-clipboard-history -t"
+                  "${getExe' pkgs.wl-clipboard "wl-paste"} --type text --watch cliphist store" # clipboard store text data
+                  "${getExe' pkgs.wl-clipboard "wl-paste"} --type image --watch cliphist store" # clipboard store image data
+                  "rm '$XDG_CACHE_HOME/cliphist/db'" # Clear clipboard
+                  "${./scripts/batterynotify.sh}" # battery notification
+                  # "${./scripts/autowaybar.sh}" # uncomment packages at the top
+                  "polkit-agent-helper-1"
+                  "pamixer --set-volume 50"
+                ];
               input = {
                 kb_layout = "${kbdLayout},ru";
                 kb_variant = "${kbdVariant},";
@@ -423,6 +422,7 @@ in
 
                   "$mainMod, A, exec, launcher drun" # launch desktop applications
                   "$mainMod, SPACE, exec, launcher drun" # launch desktop applications
+                  "$mainMod SHIFT, W, exec, launcher wallpaper" # launch wallpaper switcher
                   "$mainMod, Z, exec, launcher emoji" # launch emoji picker
                   "$mainMod SHIFT, T, exec, launcher tmux" # launch tmux sessions
                   "$mainMod, G, exec, launcher games" # game launcher

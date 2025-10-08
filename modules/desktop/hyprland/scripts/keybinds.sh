@@ -43,6 +43,7 @@ yad \
   "CTRL ALT Delete" "Open system monitor" "$_terminal -e 'btop'" \
   "SUPER A" "Launch application menu" "scripts/launcher drun" \
   "SUPER SPACE" "Launch application menu" "scripts/launcher drun" \
+  "SUPER SHIFT W" "Launch wallpaper menu" "scripts/launcher wallpaper" \
   "SUPER SHIFT T" "Launch tmux sessions" "scripts/launcher tmux" \
   "SUPER G" "Game launcher" "scripts/launcher games" \
   "SUPER F9" "Enable night mode" "hyprsunset --temperature 2500" \

@@ -4,15 +4,6 @@
     (
       { config, ... }:
       {
-        # Set wallpaper
-        services.hyprpaper = {
-          enable = true;
-          settings = {
-            preload = [ "${../wallpapers/moon.jxl}" ];
-            wallpaper = [ ",${../wallpapers/moon.jxl}" ];
-          };
-        };
-
         dconf.settings = {
           "org/gnome/desktop/interface" = {
             gtk-theme = "Dracula";
