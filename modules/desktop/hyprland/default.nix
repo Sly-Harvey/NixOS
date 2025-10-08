@@ -70,6 +70,7 @@ in
         {
           home.packages = with pkgs; [
             swww
+            imagemagick
             hyprpicker
             cliphist
             grimblast

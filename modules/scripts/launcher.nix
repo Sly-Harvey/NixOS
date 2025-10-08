@@ -1,4 +1,5 @@
 {
+  lib,
   pkgs,
   terminal,
   ...
@@ -43,12 +44,41 @@ pkgs.writeShellScriptBin "launcher" ''
     fi
     ;;
   wallpaper)
-    rofi_theme="''${XDG_CONFIG_HOME:-$HOME/.config}/rofi/launchers/type-4/style-4.rasi"
-    r_override="entry{placeholder:'Search Wallpapers...';}listview{lines:15;}"
+    rofi_theme="''${XDG_CONFIG_HOME:-$HOME/.config}/rofi/launchers/wallpaper-select.rasi"
+    r_override="entry{placeholder:'Search Wallpapers...';}"
+
+    CACHE_DIR=$HOME/.cache/wallpaper-previews
     WALLPAPER_DIR="${../themes/wallpapers}"
 
-    CHOICE=$(ls "$WALLPAPER_DIR" | rofi -dmenu -i -theme-str "$r_override" -theme "$rofi_theme")
+
+    rofi_cmd() {
+      rofi -dmenu \
+        -i \
+        -theme-str "$r_override" \
+        -theme "$rofi_theme"
+    }
+
+    if [ ! -d "''${CACHE_DIR}" ] ; then
+      mkdir -p "''${CACHE_DIR}"
+    fi
+
+    for wallpaper in "$WALLPAPER_DIR"/*.{webp,jxl,jpg,jpeg,png}; do
+      if [ -f "$wallpaper" ]; then
+        wallpaper_filename=$(basename "$wallpaper")
+        wallpaper_name="''${wallpaper_filename%.*}"
+        if [ ! -f "''${CACHE_DIR}/''${wallpaper_name}.jpg" ] ; then
+          magick "$wallpaper" -strip -gravity center -thumbnail 320x180^ -extent 320x180 "''${CACHE_DIR}/''${wallpaper_name}.jpg"
+        fi
+      fi
+    done
+
+    CHOICE=$(${lib.getExe pkgs.fd} --type f . "''${WALLPAPER_DIR}" \
+      | sed 's/.*\///' \
+      | sort \
+      | while read -r A ; do echo -en "$A\x00icon\x1f""''${CACHE_DIR}"/"''${A%.*}.jpg\n" ; done \
+      | rofi_cmd)
     [ -z "$CHOICE" ] && exit 0
+
     swww img "$WALLPAPER_DIR/$CHOICE" --transition-step 90 --transition-duration 1 --transition-fps 60 --transition-type wipe
     ;;
   emoji)
