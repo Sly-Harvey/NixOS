@@ -2,7 +2,8 @@
 { lib, pkgs, inputs, athenaRole ? [ ], ... }:
 
 let
-  pkgSkipName = [ "zssh" ];
+  pkgSkipName = [ "zssh" "klee" "vivisect" "dsniff" "lief" "tcpreplay" ];
+  extraPkgs = with pkgs; [ networkminer ];
 
   # use upstream path that exists at eval time
   rolesDir = inputs.athena-nix + "/nixos/modules/cyber/roles";
@@ -29,9 +30,11 @@ let
     let n = d.pname or (lib.getName d);
     in !(lib.elem n pkgSkipName)
   ) flatPkgs;
+
+  allPkgs = finalPkgs ++ extraPkgs;
 in
 {
-  environment.systemPackages = finalPkgs;
+  environment.systemPackages = allPkgs;
 
   # keep local copy symlinked to upstream (still happens at activation time)
   home-manager.sharedModules = [
