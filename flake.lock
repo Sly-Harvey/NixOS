@@ -3,11 +3,11 @@
     "athena-nix": {
       "flake": false,
       "locked": {
-        "lastModified": 1756073412,
-        "narHash": "sha256-1hsR+qCa0Vn/Sl/t40dcf0/L07bw4lW2XibNYyWagL4=",
+        "lastModified": 1758399431,
+        "narHash": "sha256-iDsJUU/3qV3Gm0APpWZZV/uIqUCyieHvOFYIl5Mv/1g=",
         "owner": "Athena-OS",
         "repo": "athena-nix",
-        "rev": "290755f3951779f49ac1968641e2642e305fd467",
+        "rev": "3b95ef804190a34f75b1c8625c20de32c29c87c3",
         "type": "github"
       },
       "original": {
