@@ -84,7 +84,7 @@
   kb-remove-word-back = "Control+Alt+h,Control+BackSpace";
   kb-remove-word-forward = "Control+Alt+d";
   kb-remove-char-forward = "Delete,Control+d";
-  kb-remove-char-back = "BackSpace,Shift+BackSpace,Control+h";
+  kb-remove-char-back = "BackSpace,Shift+BackSpace";
   kb-remove-to-eol = "Control+Alt+k";
   kb-remove-to-sol = "Control+u";
   kb-accept-entry = "Control+Alt+j,Control+m,Return,KP_Enter";
@@ -94,9 +94,9 @@
   kb-delete-entry = "Shift+Delete";
   kb-mode-next = "Shift+Right,Control+Tab";
   kb-mode-previous = "Shift+Left,Control+ISO_Left_Tab";
-  kb-mode-complete = "Control+l";
-  kb-row-left = "Control+Page_Up";
-  kb-row-right = "Control+Page_Down";
+  kb-mode-complete = "";
+  kb-row-left = "Control+Page_Up,Control+h";
+  kb-row-right = "Control+Page_Down,Control+l";
   kb-row-up = "Up,Control+p,Control+k";
   kb-row-down = "Down,Control+n,Control+j";
   kb-page-prev = "Page_Up";

@@ -11,7 +11,7 @@ let
     tuiFileManager
     kbdLayout
     kbdVariant
-    wallpaper
+    defaultWallpaper
     ;
 in
 {
@@ -70,7 +70,6 @@ in
         {
           home.packages = with pkgs; [
             swww
-            imagemagick
             hyprpicker
             cliphist
             grimblast
@@ -137,7 +136,7 @@ in
               ];
               exec-once =
                 let
-                  wallpaper = pkgs.callPackage ./scripts/wallpaper.nix { };
+                  wallpaper = pkgs.callPackage ./scripts/wallpaper.nix { inherit defaultWallpaper; };
                 in
                 [
                   #"[workspace 1 silent] ${terminal}"

@@ -42,7 +42,8 @@ window {
     location:                    center;
     anchor:                      center;
     fullscreen:                  false;
-    width:                       100%;
+    width:                       50%;
+    // height:                      270px;
     x-offset:                    0px;
     y-offset:                    0px;
 
@@ -61,7 +62,7 @@ mainbox {
     enabled:                     true;
     spacing:                     10px;
     margin:                      0px;
-    padding:                     20px;
+    padding:                     15px;
     border:                      0px solid;
     border-radius:               0px 0px 0px 0px;
     border-color:                @border-colour;
@@ -102,7 +103,7 @@ entry {
 /*****----- Listview -----*****/
 listview {
     enabled:                     true;
-    columns:                     9;
+    columns:                     5;
     lines:                       1;
     cycle:                       true;
     dynamic:                     true;
@@ -112,7 +113,8 @@ listview {
     fixed-height:                true;
     fixed-columns:               true;
     
-    spacing:                     15px;
+    // Or set spacing to 10
+    spacing:                     0px;
     margin:                      0px;
     padding:                     0px;
     border:                      0px solid;
@@ -134,7 +136,7 @@ element {
     enabled:                     true;
     spacing:                     0px;
     margin:                      0px;
-    padding:                     0px;
+    padding:                     -20px 0px -20px 0px;
     border:                      0px solid;
     border-radius:               12px;
     border-color:                @border-colour;
@@ -148,37 +150,11 @@ element normal.normal {
     background-color:            transparent;
     text-color:                  var(normal-foreground);
 }
-element normal.urgent {
-    background-color:            transparent;
-    text-color:                  var(urgent-foreground);
-}
-element normal.active {
-    background-color:            transparent;
-    text-color:                  var(active-foreground);
-}
 element selected.normal {
-    background-color:            var(alternate-background);
-    text-color:                  var(foreground-colour);
-}
-element selected.urgent {
-    background-color:            var(selected-urgent-background);
-    text-color:                  var(selected-urgent-foreground);
-}
-element selected.active {
-    background-color:            var(selected-active-background);
-    text-color:                  var(selected-active-foreground);
-}
-element alternate.normal {
-    background-color:            transparent;
-    text-color:                  var(alternate-normal-foreground);
-}
-element alternate.urgent {
-    background-color:            transparent;
-    text-color:                  var(alternate-urgent-foreground);
-}
-element alternate.active {
-    background-color:            transparent;
-    text-color:                  var(alternate-active-foreground);
+    background-color:            rgba(122, 162, 247, 80%);
+    text-color:                  rgba(30, 29, 47, 80%);
+    // background-color:            var(alternate-background);
+    // text-color:                  var(foreground-colour);
 }
 element-icon {
     background-color:            transparent;

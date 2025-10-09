@@ -7,7 +7,8 @@
   browser = "zen"; # Options: firefox, floorp, zen
   tuiFileManager = "yazi"; # Options: yazi, lf
   sddmTheme = "astronaut"; # Options: astronaut, black_hole, purple_leaves, jake_the_dog, hyprland_kath
-  wallpaper = "kurzgesagt"; # See modules/themes/wallpapers for options
+  defaultWallpaper = "kurzgesagt.webp"; # to change wallpaper: SUPER + SHIFT + W
+  hyprlockWallpaper = "evening-sky.webp"; # See modules/themes/wallpapers for options
   shell = "zsh"; # Options: zsh, bash
   games = true; # Whether to enable the gaming module
 

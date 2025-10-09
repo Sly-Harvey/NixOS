@@ -4,6 +4,27 @@
   terminal,
   ...
 }:
+let
+  wallpaperDir = "${../themes/wallpapers}";
+  wallpaperThumbs =
+    pkgs.runCommand "wallpaper-thumbnails"
+      {
+        buildInputs = [ pkgs.imagemagick ];
+      }
+      ''
+        mkdir -p $out
+        for wallpaper in "${wallpaperDir}"/*.{webp,jxl,jpg,jpeg,png}; do
+          if [ -f "$wallpaper" ]; then
+            wallpaper_name=$(basename "$wallpaper")
+            wallpaper_name="''${wallpaper_name%.*}"
+            thumbnail_size="320x180"
+            if [ ! -f "$out/''${wallpaper_name}.jpg" ]; then
+              magick "$wallpaper" -strip -gravity center -thumbnail "''${thumbnail_size}^" -extent "$thumbnail_size" "$out/''${wallpaper_name}.jpg"
+            fi
+          fi
+        done
+      '';
+in
 pkgs.writeShellScriptBin "launcher" ''
   # check if rofi is already running
   if pidof rofi >/dev/null; then
@@ -46,10 +67,11 @@ pkgs.writeShellScriptBin "launcher" ''
   wallpaper)
     rofi_theme="''${XDG_CONFIG_HOME:-$HOME/.config}/rofi/launchers/wallpaper-select.rasi"
     r_override="entry{placeholder:'Search Wallpapers...';}"
+    # rofi_theme="''${XDG_CONFIG_HOME:-$HOME/.config}/rofi/launchers/type-4/style-4.rasi"
+    # r_override="entry{placeholder:'Search Wallpapers...';}listview{lines:15;}"
 
-    CACHE_DIR=$HOME/.cache/wallpaper-previews
-    WALLPAPER_DIR="${../themes/wallpapers}"
-
+    CACHE_DIR=${wallpaperThumbs}
+    WALLPAPER_DIR="${wallpaperDir}"
 
     rofi_cmd() {
       rofi -dmenu \
@@ -58,23 +80,8 @@ pkgs.writeShellScriptBin "launcher" ''
         -theme "$rofi_theme"
     }
 
-    if [ ! -d "''${CACHE_DIR}" ] ; then
-      mkdir -p "''${CACHE_DIR}"
-    fi
-
-    for wallpaper in "$WALLPAPER_DIR"/*.{webp,jxl,jpg,jpeg,png}; do
-      if [ -f "$wallpaper" ]; then
-        wallpaper_filename=$(basename "$wallpaper")
-        wallpaper_name="''${wallpaper_filename%.*}"
-        if [ ! -f "''${CACHE_DIR}/''${wallpaper_name}.jpg" ] ; then
-          magick "$wallpaper" -strip -gravity center -thumbnail 320x180^ -extent 320x180 "''${CACHE_DIR}/''${wallpaper_name}.jpg"
-        fi
-      fi
-    done
-
     CHOICE=$(${lib.getExe pkgs.fd} --type f . "''${WALLPAPER_DIR}" \
       | sed 's/.*\///' \
-      | sort \
       | while read -r A ; do echo -en "$A\x00icon\x1f""''${CACHE_DIR}"/"''${A%.*}.jpg\n" ; done \
       | rofi_cmd)
     [ -z "$CHOICE" ] && exit 0

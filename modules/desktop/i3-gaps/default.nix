@@ -1,6 +1,6 @@
 { pkgs, host, ... }:
 let
-  inherit (import ../../../hosts/${host}/variables.nix) terminal browser;
+  inherit (import ../../../hosts/${host}/variables.nix) terminal browser defaultWallpaper;
 in
 {
   imports = [
@@ -79,7 +79,7 @@ in
           bars = [ ];
           startup = [
             {
-              command = "~/.config/i3/monitors.sh";
+              command = "${./monitors.sh}";
               always = true;
               notification = false;
             }
@@ -94,7 +94,7 @@ in
               notification = false;
             }
             {
-              command = "~/.config/i3/wallpaper.sh";
+              command = "${./wallpaper.sh} ${../../themes/wallpapers/${defaultWallpaper}}";
               always = false;
               notification = false;
             }
@@ -180,18 +180,6 @@ in
         };
       };
       xdg.configFile."polybar".source = ./polybar;
-      xdg.configFile."i3/monitors.sh" = {
-        executable = true;
-        source = ./monitors.sh;
-      };
-      xdg.configFile."i3/wallpaper.sh" = {
-        executable = true;
-        source = ./wallpaper.sh;
-      };
-      xdg.configFile."i3/wallpaper.jxl" = {
-        executable = true;
-        source = ../../themes/wallpapers/kurzgesagt.jxl;
-      };
     })
   ];
 }

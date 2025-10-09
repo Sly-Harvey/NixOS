@@ -11,7 +11,7 @@ let
     terminal
     editor
     games
-    wallpaper
+    defaultWallpaper
     ;
 in
 {
@@ -55,7 +55,7 @@ in
             theme = "Bibata-Modern-Classic";
           };
           # iconTheme = "";
-          wallpaper = "${../../themes/wallpapers/${wallpaper}.jxl}";
+          wallpaper = "${../../themes/wallpapers/${defaultWallpaper}}"; # TODO: Test webp
         };
         kwin = {
           effects = {
@@ -225,7 +225,7 @@ in
           passwordRequired = true;
           passwordRequiredDelay = 0;
           lockOnResume = true;
-          # wallpaper = "${wallpaper}";
+          # wallpaper = "${../../themes/wallpapers/${defaultWallpaper}}";
         };
         session = {
           general.askForConfirmationOnLogout = false;

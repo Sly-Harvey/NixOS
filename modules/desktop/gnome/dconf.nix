@@ -2,7 +2,7 @@
 { host, ... }:
 
 let
-  inherit (import ../../../hosts/${host}/variables.nix) username kbdLayout wallpaper;
+  inherit (import ../../../hosts/${host}/variables.nix) username kbdLayout defaultWallpaper;
 in
 {
   home-manager.sharedModules = [
@@ -111,8 +111,8 @@ in
           "org/gnome/desktop/background" = {
             color-shading-type = "solid";
             picture-options = "zoom";
-            picture-uri = "file://${../../themes/wallpapers/${wallpaper}.jxl}";
-            picture-uri-dark = "file://${../../themes/wallpapers/${wallpaper}.jxl}";
+            picture-uri = "file://${../../themes/wallpapers/${defaultWallpaper}}";
+            picture-uri-dark = "file://${../../themes/wallpapers/${defaultWallpaper}}";
             primary-color = "#241f31";
             secondary-color = "#000000";
           };
