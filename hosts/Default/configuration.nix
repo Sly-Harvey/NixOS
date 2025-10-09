@@ -63,8 +63,10 @@
     # --- AthenaOS cyber modules from the Athena flake ---
     ../../modules/athena
 
-
   ];
+
+  # --- Airgeddon language fix
+  nixpkgs.overlays = [ (import ../../overlays/airgeddon-overlay.nix) ];
 
   # Shared Home-Manager modules (used by all home users)
   home-manager.sharedModules = [
