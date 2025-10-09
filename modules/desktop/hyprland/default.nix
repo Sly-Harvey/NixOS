@@ -64,6 +64,9 @@
         wtype
         wl-clipboard
         xdotool
+        xorg.xhost
+        xorg.xdpyinfo
+        xorg.xrandr
         yad
         socat # for and autowaybar.sh
         jq # for and autowaybar.sh
