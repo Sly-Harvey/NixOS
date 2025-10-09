@@ -270,6 +270,11 @@
     config = {
       allowUnfree = true;
       # allowUnfreePredicate = _: true;
+      permittedInsecurePackages = [
+        # Networkminer Requirements
+        "dotnet-sdk-6.0.428"
+        "dotnet-runtime-6.0.36"
+      ];
     };
   };
 
