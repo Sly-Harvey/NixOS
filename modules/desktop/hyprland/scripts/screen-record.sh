@@ -46,4 +46,4 @@ m) REGION=$(slurp -o) ;;
 esac
 
 # Start recording with wf-recorder and save to a file with the timestamp
-wf-recorder --audio -g "$REGION && notify-send -e -t 2500 -u low \"Recording Started\"" -f "$DIR/recording_${timestamp}.mp4"
+wf-recorder --audio -g "$REGION && $(notify-send -e -t 2500 -u low "Recording Started")" -f "$DIR/recording_${timestamp}.mp4"
