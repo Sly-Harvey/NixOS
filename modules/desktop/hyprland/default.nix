@@ -72,7 +72,9 @@ in
             swww
             hyprpicker
             cliphist
+            wf-recorder
             grimblast
+            slurp
             swappy
             libnotify
             brightnessctl
@@ -436,6 +438,8 @@ in
                   "$mainMod, M, exec, ${./scripts/rofimusic.sh}" # online music
 
                   # Screenshot/Screencapture
+                  "$mainMod SHIFT, R, exec, ${./scripts/screen-record.sh} a" # Screen Record (area select)
+                  "$mainMod CTRL, R, exec, ${./scripts/screen-record.sh} m" # Screen Record (monitor select)
                   "$mainMod, P, exec, ${./scripts/screenshot.sh} s" # drag to snip an area / click on a window to print it
                   "$mainMod CTRL, P, exec, ${./scripts/screenshot.sh} sf" # frozen screen, drag to snip an area / click on a window to print it
                   "$mainMod, print, exec, ${./scripts/screenshot.sh} m" # print focused monitor
