@@ -3,7 +3,7 @@
 
 let
   pkgSkipName = [ "zssh" "klee" "vivisect" "dsniff" "lief" "tcpreplay" ];
-  extraPkgs = with pkgs; [ networkminer ];
+  extraPkgs = with pkgs; [ networkminer poppler-utils ];
 
   # use upstream path that exists at eval time
   rolesDir = inputs.athena-nix + "/nixos/modules/cyber/roles";
