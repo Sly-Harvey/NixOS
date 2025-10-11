@@ -1,1 +1,1 @@
-/nix/store/iqvam5n7c5q5pz8l8xlknc9vapf4gzi1-home-manager-files/NixOS/modules/athena/cyber/roles/blue.nix
+/nix/store/124yv9yxlrq00nv1kjrggldv6kzqpwvf-home-manager-files/NixOS/modules/athena/cyber/roles/blue.nix
