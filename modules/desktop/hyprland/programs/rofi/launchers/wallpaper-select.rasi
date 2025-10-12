@@ -42,7 +42,7 @@ window {
     location:                    center;
     anchor:                      center;
     fullscreen:                  false;
-    width:                       50%;
+    width:                       60%;
     // height:                      270px;
     x-offset:                    0px;
     y-offset:                    0px;
@@ -103,7 +103,7 @@ entry {
 /*****----- Listview -----*****/
 listview {
     enabled:                     true;
-    columns:                     5;
+    columns:                     6;
     lines:                       1;
     cycle:                       true;
     dynamic:                     true;
