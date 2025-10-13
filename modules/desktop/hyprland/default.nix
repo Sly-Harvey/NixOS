@@ -299,6 +299,7 @@ in
                 # Can use FLOAT FLOAT for active and inactive or just FLOAT
                 "opacity 0.80 0.80,class:^(kitty|alacritty|Alacritty|org.wezfurlong.wezterm)$"
                 "opacity 0.80 0.80,class:^(nvim-wrapper)$"
+                "opacity 0.90 0.90,class:^(Emacs)$"
                 "opacity 0.90 0.90,class:^(gcr-prompter)$" # keyring prompt
                 "opacity 0.90 0.90,title:^(Hyprland Polkit Agent)$" # polkit prompt
                 "opacity 1.00 1.00,class:^(firefox)$"
