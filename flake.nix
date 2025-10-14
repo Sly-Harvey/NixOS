@@ -94,6 +94,7 @@
       formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.nixfmt-tree);
       nixosConfigurations = {
         Default = mkHost "Default";
+        Macbook-Pro = mkHost "Macbook-Pro";
       };
     };
 }
