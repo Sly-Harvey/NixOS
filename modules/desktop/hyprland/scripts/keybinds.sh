@@ -76,7 +76,7 @@ yad \
   "SUPER SHIFT N" "Open notification panel" "swaync-client -t -sw" \
   "SUPER SHIFT Q" "Open notification panel" "swaync-client -t -sw" \
   "SUPER Q" "Close active window" "scripts/dontkillsteam.sh" \
-  "ALT F4" "Close active window" "scripts/dontkillsteam.sh" \
+  "ALT F4" "Kill active window" "scripts/killFocusedButSteam.sh" \
   "SUPER Z" "Launch emoji picker" "scripts/rofi.sh emoji" \
   "SUPER ALT K" "Change keyboard layout" "scripts/keyboardswitch.sh" \
   "SUPER U" "Rebuild system" "$_terminal -e scripts/rebuild.sh" \

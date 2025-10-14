@@ -373,8 +373,8 @@
               "$mainMod, F10, exec, pkill hyprsunset"
 
               # Window/Session actions
-              "$mainMod, Q, exec, ${./scripts/killFocusedButSteam.sh}" # Like Alt + F4 but kills the app not just the window
-              "ALT, F4, exec, ${./scripts/dontkillsteam.sh}" # killactive, kill the window on focus
+              "$mainMod, Q, exec, ${./scripts/dontkillsteam.sh}" # Like Alt + F4 but kills the app not just the window
+              "ALT, F4, exec, ${./scripts/killFocusedButSteam.sh}" # killactive, kill the window on focus
               "$mainMod, delete, exit" # kill hyperland session
               "$mainMod, W, togglefloating" # toggle the window on focus to float
               "$mainMod SHIFT, G, togglegroup" # toggle the window on focus to float
