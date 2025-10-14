@@ -12,6 +12,9 @@ in
   "zen.view.use-single-toolbar" = false;
   "zen.view.sidebar-expanded" = false;
 
+  "zen.view.compact.hide-toolbar" = true;
+  "zen.view.compact.hide-tabbar" = true;
+
   "zen.watermark.enabled" = false;
   "zen.welcome-screen.seen" = true;
 
@@ -25,13 +28,6 @@ in
   "privacy.userContext.enabled" = true;
   "privacy.userContext.ui.enabled" = true;
   "privacy.userContext.longPressBehavior" = 2;
-
-  # Performance settings
-  # "gfx.webrender.all" = true; # Force enable GPU acceleration
-  # "media.ffmpeg.vaapi.enabled" = true;
-  # "widget.dmabuf.force-enabled" = true; # Required in recent Firefoxes
-  # "reader.parse-on-load.force-enabled" = true;
-  # "privacy.webrtc.legacyGlobalIndicator" = false;
 
   # Smooth Scroll
   "general.smoothScroll" = true;

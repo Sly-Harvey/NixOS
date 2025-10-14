@@ -34,13 +34,6 @@ in
   "privacy.userContext.ui.enabled" = true;
   "privacy.userContext.longPressBehavior" = 2;
 
-  # Performance settings
-  # "gfx.webrender.all" = true; # Force enable GPU acceleration
-  # "media.ffmpeg.vaapi.enabled" = true;
-  # "widget.dmabuf.force-enabled" = true; # Required in recent Firefoxes
-  # "reader.parse-on-load.force-enabled" = true;
-  # "privacy.webrtc.legacyGlobalIndicator" = false;
-
   # Smooth Scroll
   "general.smoothScroll" = true;
   "general.smoothScroll.lines.durationMaxMS" = 125;
