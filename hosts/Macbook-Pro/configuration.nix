@@ -101,4 +101,24 @@ in
       };
     }
   ];
+  nix = {
+    distributedBuilds = true;
+    settings.builders-use-substitutes = true;
+    buildMachines = [
+      {
+        protocol = "ssh";
+        hostName = "NixOS";
+        sshUser = "builder";
+        sshKey = "/root/.ssh/id_ed25519";
+        system = "x86_64-linux";
+        maxJobs = 4;
+        speedFactor = 5;
+        supportedFeatures = [
+          "kvm"
+          "big-parallel"
+        ];
+        mandatoryFeatures = [ "big-parallel" ];
+      }
+    ];
+  };
 }
