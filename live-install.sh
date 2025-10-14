@@ -359,6 +359,8 @@ else
   info "Skipping variables.nix editing as requested or no editor available."
 fi
 
+clear
+
 # Partitioning method selection
 info "Choose partitioning method:"
 echo "1) Automatic (for single OS or clean disk)"
@@ -547,6 +549,8 @@ else
     part_swap=""
   fi
 fi
+
+clear
 
 # Choose filesystem type
 info "Choose a filesystem for root partition:"
@@ -914,6 +918,8 @@ cp -r ./ /mnt/etc/nixos || {
   error "Failed to copy configuration to /mnt/etc/nixos."
   exit 1
 }
+
+clear
 
 # Run nixos-install
 info "Installing system..."
