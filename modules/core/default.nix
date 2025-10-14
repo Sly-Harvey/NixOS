@@ -10,6 +10,7 @@
     ./printing.nix
     ./sddm.nix
     ./security.nix
+    ./dns.nix
     ./services.nix
     # ./games.nix
     # ./dlna.nix

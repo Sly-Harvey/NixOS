@@ -107,7 +107,7 @@
               "https://raw.githubusercontent.com/Spam404/lists/master/main-blacklist.txt" # Scam protection                                                                                      "https://raw.githubusercontent.com/hoshsadiq/adblock-nocoin-list/master/nocoin.txt"  # Cryptominers
 
               # My Lists
-              "https://cdn.jsdelivr.net/gh/hagezi/dns-blocklists@latest/adblock/pro.txt" # Large
+              # "https://cdn.jsdelivr.net/gh/hagezi/dns-blocklists@latest/adblock/pro.txt" # Large
               "https://raw.githubusercontent.com/yokoffing/filterlists/refs/heads/main/privacy_essentials.txt"
               "https://raw.githubusercontent.com/DandelionSprout/adfilt/refs/heads/master/LegitimateURLShortener.txt"
               "https://raw.githubusercontent.com/yokoffing/filterlists/refs/heads/main/annoyance_list.txt"
