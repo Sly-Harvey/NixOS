@@ -11,8 +11,8 @@ in
           enable = false;
           target = "graphical-session.target";
         };
-        settings = [
-          {
+        settings = {
+          mainBar = {
             layer = "top";
             position = "top";
             mode = "dock"; # Fixes fullscreen issues
@@ -359,8 +359,8 @@ in
               interval = 86400; # once every day
               tooltip = true;
             };
-          }
-        ];
+          };
+        };
         style = ''
           * {
             font-family: "monospace";

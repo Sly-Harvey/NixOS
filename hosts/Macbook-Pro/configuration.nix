@@ -75,6 +75,17 @@ in
   };
   home-manager.sharedModules = [
     {
+      programs.waybar.settings.mainBar.modules-right = lib.mkForce [
+        # "custom/gpuinfo"
+        "cpu"
+        "memory"
+        "backlight"
+        "pulseaudio"
+        "network"
+        "bluetooth"
+        "tray"
+        "battery"
+      ];
       wayland.windowManager.hyprland.settings = {
         input = lib.mkForce {
           follow_mouse = 1;
