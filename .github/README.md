@@ -47,8 +47,8 @@
 ## Table of Contents
 
 - [Installation](#installation)
-  - [Before You Begin](#before-you-begin)
-  - [Installation Steps](#installation-steps)
+  <!-- - [Before You Begin](#before-you-begin) -->
+  <!-- - [Installation Steps](#installation-steps) -->
 - [Usage](#usage)
   - [Managing Hosts](#managing-hosts)
   - [Rebuilding](#rebuilding)
