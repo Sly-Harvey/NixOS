@@ -26,6 +26,12 @@ let
       else
         { };
   };
+  sddmDependencies = [
+        sddm-astronaut
+        pkgs.kdePackages.qtsvg # Sddm Dependency
+        pkgs.kdePackages.qtmultimedia # Sddm Dependency
+        pkgs.kdePackages.qtvirtualkeyboard # Sddm Dependency
+      ];
 in
 {
   services.displayManager = {
@@ -33,22 +39,13 @@ in
       enable = true;
       wayland.enable = true;
       enableHidpi = true;
+      autoNumlock = true;
       package = lib.mkForce pkgs.kdePackages.sddm;
-      extraPackages = [
-        sddm-astronaut
-        pkgs.kdePackages.qtsvg # Sddm Dependency
-        pkgs.kdePackages.qtmultimedia # Sddm Dependency
-        pkgs.kdePackages.qtvirtualkeyboard # Sddm Dependency
-      ];
+      extraPackages = sddmDependencies;
       settings.Theme.CursorTheme = "Bibata-Modern-Classic";
       theme = "sddm-astronaut-theme";
     };
   };
 
-  environment.systemPackages = [
-    sddm-astronaut
-    pkgs.kdePackages.qtsvg # Sddm Dependency
-    pkgs.kdePackages.qtmultimedia # Sddm Dependency
-    pkgs.kdePackages.qtvirtualkeyboard # Sddm Dependency
-  ];
+  environment.systemPackages = sddmDependencies;
 }
