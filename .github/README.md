@@ -55,7 +55,7 @@
   - [Rollbacks](#rollbacks)
   - [Keybindings](#keybindings)
 - [Development Shells](#development-shells)
-- [Credits](#credits)
+- [Credits](#creditsinspiration)
 
 ## Installation
 
