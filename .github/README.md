@@ -64,7 +64,7 @@
 >
 > - `hosts/Default/variables.nix`: Contains host-specific variables.
 > - `hosts/Default/host-packages.nix`: Lists installed packages for the host.
-> - `hosts/Default/default.nix`: Module imports for the host and extra configuration.
+> - `hosts/Default/configuration.nix`: Module imports for the host and extra configuration.
 
 <!-- You can install this configuration either on a running system or from the NixOS live installer. The minimal ISO is recommended and can be downloaded from the [official NixOS website](https://nixos.org/download/#nixos-iso). -->
 
