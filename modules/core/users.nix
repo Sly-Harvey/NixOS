@@ -44,7 +44,6 @@ in
       };
     };
   };
-  # programs.zsh.enable = true; # TODO: REMOVE THIS LINE
   users = {
     mutableUsers = true;
     users.${username} = {

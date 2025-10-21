@@ -43,6 +43,7 @@ window {
     anchor:                      center;
     fullscreen:                  false;
     width:                       60%;
+    // width:                       1080px;
     // height:                      270px;
     x-offset:                    0px;
     y-offset:                    0px;
