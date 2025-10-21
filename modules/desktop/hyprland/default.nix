@@ -132,7 +132,7 @@ in
                 "XDG_SESSION_TYPE,wayland"
                 "GDK_BACKEND,wayland,x11,*"
                 "NIXOS_OZONE_WL,1"
-                "ELECTRON_OZONE_PLATFORM_HINT,auto"
+                "ELECTRON_OZONE_PLATFORM_HINT,wayland"
                 "MOZ_ENABLE_WAYLAND,1"
                 "OZONE_PLATFORM,wayland"
                 "EGL_PLATFORM,wayland"
@@ -142,6 +142,7 @@ in
                 "QT_WAYLAND_DISABLE_WINDOWDECORATION,1"
                 "QT_QPA_PLATFORMTHEME,qt6ct"
                 "QT_AUTO_SCREEN_SCALE_FACTOR,1"
+                "QT_ENABLE_HIGHDPI_SCALING,1"
                 "WLR_RENDERER_ALLOW_SOFTWARE,1"
                 "NIXPKGS_ALLOW_UNFREE,1"
               ];
@@ -292,7 +293,7 @@ in
                 # "workspace 3, title:(GNU Image Manipulation Program)(.*)$"
                 # "workspace 3, class:^(factorio)$"
                 # "workspace 3, class:^(steam)$"
-                # "workspace 5, class:^(firefox|floorp|zen)$"
+                # "workspace 5, class:^(firefox|floorp|zen|zen-beta)$"
                 # "workspace 6, class:^(Spotify)$"
                 # "workspace 6, title:(.*)(Spotify)(.*)$"
 
@@ -308,7 +309,7 @@ in
                 "opacity 0.80 0.80,class:^(Steam)$"
                 "opacity 0.80 0.80,class:^(steam)$"
                 "opacity 0.80 0.80,class:^(steamwebhelper)$"
-                "opacity 0.80 0.80,class:^(Spotify)$"
+                "opacity 0.80 0.80,class:^(Spotify|spotify)$"
                 "opacity 0.80 0.80,title:(.*)(Spotify)(.*)$"
                 "opacity 0.80 0.80,class:^(VSCodium)$"
                 "opacity 0.80 0.80,class:^(codium-url-handler)$"
@@ -356,6 +357,9 @@ in
                 "noshadow,tag:games"
                 "noblur,tag:games"
                 "noanim,tag:games"
+
+                # Float and pin Picture-in-Picture in browsers
+                "float,title:^(Picture-in-Picture)$,class:^(zen|zen-beta|floorp|firefox)$"
 
                 "float,class:^(qt5ct)$"
                 "float,class:^(nwg-look)$"
