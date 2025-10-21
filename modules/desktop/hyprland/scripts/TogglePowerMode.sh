@@ -1,4 +1,6 @@
-#!/usr/bin/env bash
+#!/run/current-system/sw/bin/bash
+
+export SHELL=/run/current-system/sw/bin/bash
 
 MODE_FILE="$HOME/.config/hypr/power_mode"
 
