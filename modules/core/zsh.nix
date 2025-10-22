@@ -119,6 +119,7 @@
             vc = "code --disable-gpu"; # gui code editor
             nv = "nvim";
             nf = "${pkgs.microfetch}/bin/microfetch";
+            ff = "fastfetch";
             cp = "cp -iv";
             mv = "mv -iv";
             rm = "rm -vI";
