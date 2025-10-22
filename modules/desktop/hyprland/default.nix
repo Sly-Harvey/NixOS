@@ -298,42 +298,43 @@ in
                 # "workspace 6, title:(.*)(Spotify)(.*)$"
 
                 # Can use FLOAT FLOAT for active and inactive or just FLOAT
-                "opacity 0.80 0.80,class:^(kitty|alacritty|Alacritty|org.wezfurlong.wezterm)$"
-                "opacity 0.80 0.80,class:^(nvim-wrapper)$"
-                "opacity 0.90 0.90,class:^(Emacs)$"
-                "opacity 0.90 0.90,class:^(gcr-prompter)$" # keyring prompt
-                "opacity 0.90 0.90,title:^(Hyprland Polkit Agent)$" # polkit prompt
-                "opacity 1.00 1.00,class:^(firefox)$"
-                "opacity 0.90 0.90,class:^(Brave-browser)$"
-                "opacity 0.80 0.80,class:^(org.gnome.Nautilus|thunar)$"
-                "opacity 0.80 0.80,class:^(Steam)$"
-                "opacity 0.80 0.80,class:^(steam)$"
-                "opacity 0.80 0.80,class:^(steamwebhelper)$"
-                "opacity 0.80 0.80,class:^(Spotify|spotify)$"
-                "opacity 0.80 0.80,title:(.*)(Spotify)(.*)$"
-                "opacity 0.80 0.80,class:^(VSCodium)$"
-                "opacity 0.80 0.80,class:^(codium-url-handler)$"
-                "opacity 0.80 0.80,class:^(code)$"
-                "opacity 0.80 0.80,class:^(code-url-handler)$"
-                "opacity 0.80 0.80,class:^(tuiFileManager)$"
-                "opacity 0.80 0.80,class:^(org.kde.dolphin)$"
-                "opacity 0.80 0.80,class:^(org.kde.ark)$"
-                "opacity 0.80 0.80,class:^(nwg-look)$"
-                "opacity 0.80 0.80,class:^(qt5ct)$"
-                "opacity 0.80 0.80,class:^(qt6ct)$"
-                "opacity 0.80 0.80,class:^(yad)$"
+                "opacity 1.00 1.00,class:^(firefox|Brave-browser|floorp|zen|zen-beta)$"
+                "opacity 0.90 0.80,class:^(Emacs)$"
+                "opacity 0.90 0.80,class:^(gcr-prompter)$" # keyring prompt
+                "opacity 0.90 0.80,title:^(Hyprland Polkit Agent)$" # polkit prompt
+                "opacity 0.90 0.80,class:^(obsidian)$"
+                "opacity 0.90 0.80,class:^(Lutris|lutris|net.lutris.Lutris)$"
+                "opacity 0.80 0.70,class:^(kitty|alacritty|Alacritty|org.wezfurlong.wezterm)$"
+                "opacity 0.80 0.70,class:^(nvim-wrapper)$"
+                "opacity 0.80 0.70,class:^(gnome-disks)$"
+                "opacity 0.80 0.70,class:^(org.gnome.Nautilus|Thunar|thunar)$"
+                "opacity 0.80 0.70,class:^(thunar-volman-settings)$"
+                "opacity 0.80 0.70,class:^(org.gnome.FileRoller)$"
+                "opacity 0.80 0.70,class:^(io.github.ilya_zlobintsev.LACT)$"
+                "opacity 0.80 0.70,class:^(Steam|steam|steamwebhelper)$"
+                "opacity 0.80 0.70,class:^(Spotify|spotify)$"
+                "opacity 0.80 0.70,title:(.*)(Spotify)(.*)$"
+                "opacity 0.80 0.70,title:^(Kvantum Manager)$"
+                "opacity 0.80 0.70,class:^(VSCodium|codium-url-handler)$"
+                "opacity 0.80 0.70,class:^(code|code-url-handler)$"
+                "opacity 0.80 0.70,class:^(tuiFileManager)$"
+                "opacity 0.80 0.70,class:^(org.kde.dolphin)$"
+                "opacity 0.80 0.70,class:^(org.kde.ark)$"
+                "opacity 0.80 0.70,class:^(nwg-look)$"
+                "opacity 0.80 0.70,class:^(qt5ct|qt6ct)$"
+                "opacity 0.80 0.70,class:^(yad)$"
 
-                "opacity 0.90 0.90,class:^(com.github.rafostar.Clapper)$" # Clapper-Gtk
-                "opacity 0.80 0.80,class:^(com.github.tchx84.Flatseal)$" # Flatseal-Gtk
-                "opacity 0.80 0.80,class:^(hu.kramo.Cartridges)$" # Cartridges-Gtk
-                "opacity 0.80 0.80,class:^(com.obsproject.Studio)$" # Obs-Qt
-                "opacity 0.80 0.80,class:^(gnome-boxes)$" # Boxes-Gtk
-                "opacity 0.90 0.90,class:^(discord)$" # Discord-Electron
-                "opacity 0.90 0.90,class:^(WebCord)$" # WebCord-Electron
-                "opacity 0.80 0.80,class:^(app.drey.Warp)$" # Warp-Gtk
-                "opacity 0.80 0.80,class:^(net.davidotek.pupgui2)$" # ProtonUp-Qt
-                "opacity 0.80 0.80,class:^(Signal)$" # Signal-Gtk
-                "opacity 0.80 0.80,class:^(io.gitlab.theevilskeleton.Upscaler)$" # Upscaler-Gtk
+                "opacity 0.90 0.80,class:^(discord)$" # Discord-Electron
+                "opacity 0.90 0.80,class:^(WebCord)$" # WebCord-Electron
+                "opacity 0.90 0.80,class:^(com.github.rafostar.Clapper)$" # Clapper-Gtk
+                "opacity 0.80 0.70,class:^(com.github.tchx84.Flatseal)$" # Flatseal-Gtk
+                "opacity 0.80 0.70,class:^(hu.kramo.Cartridges)$" # Cartridges-Gtk
+                "opacity 0.80 0.70,class:^(com.obsproject.Studio)$" # Obs-Qt
+                "opacity 0.80 0.70,class:^(gnome-boxes)$" # Boxes-Gtk
+                "opacity 0.80 0.70,class:^(app.drey.Warp)$" # Warp-Gtk
+                "opacity 0.80 0.70,class:^(net.davidotek.pupgui2)$" # ProtonUp-Qt
+                "opacity 0.80 0.70,class:^(Signal)$" # Signal-Gtk
+                "opacity 0.80 0.70,class:^(io.gitlab.theevilskeleton.Upscaler)$" # Upscaler-Gtk
 
                 "opacity 0.80 0.70,class:^(pavucontrol)$"
                 "opacity 0.80 0.70,class:^(org.pulseaudio.pavucontrol)$"
