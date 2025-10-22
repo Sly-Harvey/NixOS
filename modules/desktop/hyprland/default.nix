@@ -307,7 +307,7 @@ in
                 "opacity 0.80 0.70,class:^(kitty|alacritty|Alacritty|org.wezfurlong.wezterm)$"
                 "opacity 0.80 0.70,class:^(nvim-wrapper)$"
                 "opacity 0.80 0.70,class:^(gnome-disks)$"
-                "opacity 0.80 0.70,class:^(org.gnome.Nautilus|Thunar|thunar)$"
+                "opacity 0.80 0.70,class:^(org.gnome.Nautilus|Thunar|thunar|pcmanfm)$"
                 "opacity 0.80 0.70,class:^(thunar-volman-settings)$"
                 "opacity 0.80 0.70,class:^(org.gnome.FileRoller)$"
                 "opacity 0.80 0.70,class:^(io.github.ilya_zlobintsev.LACT)$"
