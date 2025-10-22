@@ -52,7 +52,7 @@ in
       # - ack-filter: filter TCP ACK packets to reduce unnecessary traffic
       # - overhead: account for protocol overhead in shaping calculations
       ${pkgs.iproute2}/bin/tc qdisc add dev "$WANIF" root cake \
-        bandwidth 925Mbit diffserv4 triple-isolate nat wash ack-filter overhead 50
+        diffserv4 triple-isolate nat wash ack-filter overhead 50
 
       # Add ingress qdisc on WAN interface to redirect ingress traffic to ifb0
       ${pkgs.iproute2}/bin/tc qdisc add dev "$WANIF" handle ffff: ingress
@@ -64,7 +64,7 @@ in
       # Apply Cake queuing discipline on ifb0 interface for download shaping
       # Same options as upload shaping, but without 'nat' as it's unnecessary here
       ${pkgs.iproute2}/bin/tc qdisc add dev ifb0 root cake \
-        bandwidth 925Mbit diffserv4 triple-isolate nat wash overhead 50
+        diffserv4 triple-isolate nat wash overhead 50
     '';
   };
 
