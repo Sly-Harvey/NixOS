@@ -16,7 +16,7 @@
           x11.enable = true;
           package = pkgs.bibata-cursors;
           name = "Bibata-Modern-Classic";
-          size = 16; # 24
+          size = 24;
         };
 
         qt = {
@@ -31,6 +31,7 @@
 
         gtk = {
           enable = true;
+          gtk2.force = true;
 
           theme = {
             name = "Dracula";
@@ -54,6 +55,10 @@
           #  name = "Sans";
           #  size = 11;
           #};
+        };
+
+        home.sessionVariables = {
+          ADW_COLOR_SCHEME = "prefer-dark"; # Libadwaita
         };
 
         xdg.configFile = {

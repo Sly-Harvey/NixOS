@@ -42,6 +42,10 @@ in
           };
         };
 
+        home.sessionVariables = {
+          ADW_COLOR_SCHEME = "prefer-dark"; # Libadwaita
+        };
+
         dconf.settings = {
           "org/gnome/desktop/interface" = {
             color-scheme = "prefer-dark";

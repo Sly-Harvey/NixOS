@@ -26,6 +26,7 @@ in
         # GTK configuration
         gtk = {
           enable = true;
+          gtk2.force = true;
           theme = {
             name = baseName;
             package = pkgs.rose-pine-gtk-theme;
@@ -44,6 +45,10 @@ in
           };
         };
 
+        home.sessionVariables = {
+          ADW_COLOR_SCHEME = "prefer-dark"; # Libadwaita
+        };
+
         # Qt configuration with Kvantum
         qt = {
           enable = true;
@@ -52,7 +57,7 @@ in
         };
 
         # Kvantum configuration
-        xdg.dataFile."Kvantum/${kvantumThemeName}".source = kvantumThemeDir;
+        xdg.configFile."Kvantum/${kvantumThemeName}".source = kvantumThemeDir;
         xdg.configFile."Kvantum/kvantum.kvconfig".source =
           (pkgs.formats.ini { }).generate "kvantum.kvconfig"
             {
