@@ -256,7 +256,7 @@ in
                 ];
               };
               render = {
-                direct_scanout = 2; # 0 = off, 1 = on, 2 = auto (on with content type ‘game’)
+                direct_scanout = 0; # 0 = off, 1 = on, 2 = auto (on with content type ‘game’)
               };
               ecosystem = {
                 no_update_news = true;
@@ -344,6 +344,14 @@ in
                 "opacity 0.80 0.70,class:^(nm-connection-editor)$"
                 "opacity 0.80 0.70,class:^(org.kde.polkit-kde-authentication-agent-1)$"
 
+                # Block discord and browsers from screenshare/screenshots
+                # "noscreenshare,class:^(firefox|Brave-browser|floorp|zen|zen-beta)$"
+                # "noscreenshare,class:^(discord)$"
+
+                # Float and pin Picture-in-Picture in browsers
+                "float,title:^(Picture-in-Picture)$,class:^(zen|zen-beta|floorp|firefox)$"
+                "pin,title:^(Picture-in-Picture)$,class:^(zen|zen-beta|floorp|firefox)$"
+
                 "content game, tag:games"
                 "tag +games, content:game"
                 "tag +games, class:^(steam_app.*|steam_app_\d+)$"
@@ -358,10 +366,6 @@ in
                 "noshadow,tag:games"
                 "noblur,tag:games"
                 "noanim,tag:games"
-
-                # Float and pin Picture-in-Picture in browsers
-                "float,title:^(Picture-in-Picture)$,class:^(zen|zen-beta|floorp|firefox)$"
-                "pin,title:^(Picture-in-Picture)$,class:^(zen|zen-beta|floorp|firefox)$"
 
                 "float,class:^(qt5ct)$"
                 "float,class:^(nwg-look)$"

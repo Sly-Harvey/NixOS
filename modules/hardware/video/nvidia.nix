@@ -26,7 +26,7 @@ in
     "nvidia-drm.modeset=1"
     "nvidia_drm.fbdev=1"
 
-    # "nvidia.NVreg_RegistryDwords=RmEnableAggressiveVblank=1" # Experimental: reduce latency
+    "nvidia.NVreg_RegistryDwords=RmEnableAggressiveVblank=1" # Experimental: reduce latency
   ];
   hardware = {
     nvidia = {
