@@ -9,7 +9,6 @@
       programs.helix = {
         enable = true;
         settings = {
-          theme = "catppuccin_mocha";
           editor = {
             auto-completion = true;
             smart-tab.enable = false;
@@ -143,7 +142,7 @@
                 "nixd"
                 "nil"
               ];
-              formatter.command = "alejandra";
+              formatter.command = "nixfmt";
               auto-format = true;
             }
           ];

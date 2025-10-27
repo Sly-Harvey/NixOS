@@ -65,26 +65,10 @@ in
             browser = "${browser} --new-tab";
           };
 
-          fullscreen_delay_everything = {
-            fullscreen = "delay";
-          };
-
-          urgency_critical = {
-            background = "#1e1e2e";
-            foreground = "#cdd6f4";
-            frame_color = "#fab387";
-            timeout = "0";
-          };
-          urgency_low = {
-            background = "#1e1e2e";
-            foreground = "#cdd6f4";
-            timeout = "4";
-          };
-          urgency_normal = {
-            background = "#1e1e2e";
-            foreground = "#cdd6f4";
-            timeout = "8";
-          };
+          fullscreen_delay_everything.fullscreen = "delay";
+          urgency_critical.timeout = "0";
+          urgency_low.timeout = "4";
+          urgency_normal.timeout = "8";
         };
       };
     })

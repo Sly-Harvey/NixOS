@@ -23,8 +23,6 @@
         # configure spicetify :)
         programs.spicetify = {
           enable = true;
-          theme = spicePkgs.themes.catppuccin;
-          colorScheme = "mocha";
           # windowManagerPatch = config.programs.hyprland.enable;
           enabledExtensions = with spicePkgs.extensions; [
             adblock

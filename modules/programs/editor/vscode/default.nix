@@ -19,8 +19,10 @@
             eamodio.gitlens
             github.vscode-github-actions
             yzhang.markdown-all-in-one
-            catppuccin.catppuccin-vsc
-            catppuccin.catppuccin-vsc-icons
+
+            # catppuccin.catppuccin-vsc
+            # catppuccin.catppuccin-vsc-icons
+
             # asvetliakov.vscode-neovim
             # vscodevim.vim
             # tamasfe.even-better-toml
@@ -56,8 +58,8 @@
             "window.menuBarVisibility" = "classic";
             # "window.zoomLevel" = 0.5;
             "editor.fontSize" = 11;
-            "workbench.colorTheme" = "Catppuccin Mocha";
-            "workbench.iconTheme" = "catppuccin-mocha";
+            # "workbench.colorTheme" = "Catppuccin Mocha";
+            # "workbench.iconTheme" = "catppuccin-mocha";
             "catppuccin.accentColor" = "mauve";
             "vsicons.dontShowNewVersionMessage" = true;
             "explorer.confirmDragAndDrop" = false;
