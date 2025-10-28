@@ -7,12 +7,28 @@
           withVencord = true;
         })
       ];
+      xdg.configFile."Vencord/themes/catppuccin-mocha.css".text = ''
+        /**
+        * @name Catppuccin Mocha
+        * @author winston#0001
+        * @authorId 505490445468696576
+        * @version 0.2.0
+        * @description 🎮 Soothing pastel theme for Discord
+        * @website https://github.com/catppuccin/discord
+        * @invite r6Mdz5dpFc
+        * **/
+
+        @import url("https://catppuccin.github.io/discord/dist/catppuccin-mocha-mauve.theme.css");
+      '';
       xdg.configFile."Vencord/settings/settings.json".text = builtins.toJSON {
         notifyAboutUpdates = true;
         autoUpdate = false;
         autoUpdateNotification = false;
         useQuickCss = true;
         themeLinks = [ ];
+        enabledThemes = [
+          "stylix.theme.css"
+        ];
         enableReactDevtools = false;
         frameless = false;
         transparent = false;

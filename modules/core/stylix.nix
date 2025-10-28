@@ -21,11 +21,13 @@ in
         targets = {
           kitty.variant256Colors = true;
           qt.platform = "qtct"; # or gtk
+          cava.rainbow.enable = true;
           emacs.enable = false;
           hyprlock.enable = false;
           starship.enable = false;
-          cava.rainbow.enable = true;
+          tmux.enable = false;
           neovim.enable = false;
+          waybar.addCss = false;
           # neovide.enable = false;
           nixvim = {
             enable = false;
@@ -37,22 +39,20 @@ in
             };
           };
 
-          # nixvim.enable = false;
-          # console.enable = false;
           # zen-browser = {
-          #   enable = false;
+          #   enable = true;
           #   profileNames = [ "default" ];
           # };
           # floorp = {
-          #   enable = false;
+          #   enable = true;
+          #   profileNames = [ "default" ];
+          # };
+          # librewolf = {
+          #   enable = true;
           #   profileNames = [ "default" ];
           # };
           # firefox = {
-          #   enable = false;
-          #   profileNames = [ "default" ];
-          # };
-          # chromium = {
-          #   enable = false;
+          #   enable = true;
           #   profileNames = [ "default" ];
           # };
         };
