@@ -39,7 +39,7 @@ in
         krunner.activateWhenTypingOnDesktop = false;
         workspace = {
           clickItemTo = "select"; # select, open
-          wallpaper = "${../../themes/wallpapers/${defaultWallpaper}}"; # TODO: Test webp
+          wallpaper = "${../../wallpapers/${defaultWallpaper}}"; # TODO: Test webp
         };
         kwin = {
           effects = {
@@ -209,7 +209,7 @@ in
           passwordRequired = true;
           passwordRequiredDelay = 0;
           lockOnResume = true;
-          # wallpaper = "${../../themes/wallpapers/${defaultWallpaper}}";
+          # wallpaper = "${../../wallpapers/${defaultWallpaper}}";
         };
         session = {
           general.askForConfirmationOnLogout = false;

@@ -70,7 +70,7 @@ in
               notification = false;
             }
             {
-              command = "${./wallpaper.sh} ${../../themes/wallpapers/${defaultWallpaper}}";
+              command = "${./wallpaper.sh} ${../../wallpapers/${defaultWallpaper}}";
               always = false;
               notification = false;
             }

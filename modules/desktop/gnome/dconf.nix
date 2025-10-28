@@ -111,8 +111,8 @@ in
           "org/gnome/desktop/background" = {
             color-shading-type = "solid";
             picture-options = "zoom";
-            picture-uri = "file://${../../themes/wallpapers/${defaultWallpaper}}";
-            picture-uri-dark = "file://${../../themes/wallpapers/${defaultWallpaper}}";
+            picture-uri = "file://${../../wallpapers/${defaultWallpaper}}";
+            picture-uri-dark = "file://${../../wallpapers/${defaultWallpaper}}";
             primary-color = "#241f31";
             secondary-color = "#000000";
           };
