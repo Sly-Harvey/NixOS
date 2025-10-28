@@ -10,7 +10,6 @@
             sensitivity = 100; # Default
             autosens = 1;
           };
-          color.gradient = 1;
         };
       };
     })

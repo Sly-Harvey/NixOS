@@ -2,7 +2,7 @@
 {
   imports = [
     ./boot.nix
-    ./fonts.nix
+    ./stylix.nix
     ./hardware.nix
     ./network.nix
     ./nh.nix

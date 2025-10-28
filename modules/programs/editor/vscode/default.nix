@@ -20,7 +20,6 @@
             github.vscode-github-actions
             yzhang.markdown-all-in-one
 
-            # catppuccin.catppuccin-vsc
             # catppuccin.catppuccin-vsc-icons
 
             # asvetliakov.vscode-neovim
@@ -37,8 +36,6 @@
             # ms-dotnettools.csharp
             # ms-python.python
             # pkief.material-icon-theme
-            # equinusocio.vsc-material-theme
-            # dracula-theme.theme-dracula
           ];
           keybindings = [
             {
@@ -57,10 +54,6 @@
             "window.titleBarStyle" = "custom"; # needed otherwise vscode crashes, see https://github.com/NixOS/nixpkgs/issues/246509
             "window.menuBarVisibility" = "classic";
             # "window.zoomLevel" = 0.5;
-            "editor.fontSize" = 11;
-            # "workbench.colorTheme" = "Catppuccin Mocha";
-            # "workbench.iconTheme" = "catppuccin-mocha";
-            "catppuccin.accentColor" = "mauve";
             "vsicons.dontShowNewVersionMessage" = true;
             "explorer.confirmDragAndDrop" = false;
             "editor.fontLigatures" = true;

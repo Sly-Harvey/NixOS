@@ -8,8 +8,6 @@ let
   inherit (import ../../hosts/${host}/variables.nix) theme;
 in
 {
-  imports = [ inputs.stylix.nixosModules.stylix ];
-  stylix.enable = true;
   home-manager.sharedModules = [
     (_: {
       imports = [ inputs.stylix.homeModules.stylix ];
@@ -17,23 +15,29 @@ in
         enable = true;
         autoEnable = true;
 
-        # polarity = "dark";
+        polarity = "dark";
         base16Scheme = "${pkgs.base16-schemes}/share/themes/${theme}.yaml";
-        # base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
 
         targets = {
-          grub.enable = false;
-          neovim.enable = false;
+          kitty.variant256Colors = true;
+          qt.platform = "qtct"; # or gtk
           emacs.enable = false;
           hyprlock.enable = false;
-          rofi.enable = false;
           starship.enable = false;
-          kitty.variant256Colors = true;
-          kitty.enable = true;
-          qt.platform = "qtct"; # or gtk
+          cava.rainbow.enable = true;
+          neovim.enable = false;
+          # neovide.enable = false;
+          nixvim = {
+            enable = false;
+            plugin = "base16-nvim";
+            transparentBackground = {
+              main = true;
+              numberLine = true;
+              signColumn = true;
+            };
+          };
 
           # nixvim.enable = false;
-          # neovide.enable = false;
           # console.enable = false;
           # zen-browser = {
           #   enable = false;
@@ -62,6 +66,24 @@ in
           package = pkgs.papirus-icon-theme;
           dark = "Papirus-Dark";
           light = "Papirus-Light";
+        };
+        fonts = {
+          monospace = {
+            name = "JetBrainsMono Nerd Font";
+            package = pkgs.nerd-fonts.jetbrains-mono;
+          };
+          sansSerif = {
+            name = "Noto Sans";
+            package = pkgs.noto-fonts;
+          };
+          serif = {
+            name = "Noto Serif";
+            package = pkgs.noto-fonts;
+          };
+          emoji = {
+            name = "Noto Color Emoji";
+            package = pkgs.noto-fonts-color-emoji;
+          };
         };
       };
     })
