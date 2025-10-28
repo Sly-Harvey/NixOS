@@ -6,6 +6,7 @@
 }:
 let
   inherit (import ../../../hosts/${host}/variables.nix)
+    waybarTheme
     browser
     terminal
     tuiFileManager
@@ -17,7 +18,7 @@ in
 {
   imports = [
     ../../themes/Catppuccin # Catppuccin GTK and QT themes
-    ./programs/waybar
+    ./programs/waybar/${waybarTheme}.nix
     ./programs/wlogout
     ./programs/rofi
     ./programs/hypridle

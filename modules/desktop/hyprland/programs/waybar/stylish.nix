@@ -18,6 +18,7 @@ in
             exclusive = true;
             passthrough = false;
             gtk-layer-shell = true;
+            reload_style_on_change = true;
             ipc = true;
             fixed-center = true;
             margin-top = 0;
@@ -178,7 +179,8 @@ in
 
             "custom/distro" = {
               format = "";
-              tooltip = false;
+              tooltip = true;
+              tooltip-format = "I use NixOS, btw.";
             };
 
             "idle_inhibitor" = {
@@ -318,23 +320,10 @@ in
                 headset = "󰋎";
                 headset-muted = "󰋐";
               };
-              # "rotate":
-              # "states":
               min-length = 7;
               max-length = 7;
-              # "scroll-step":
-              on-click = "~/.config/waybar/scripts/volume.sh output mute";
-              # "on-click-middle":
-              # "on-click-right":
-              on-scroll-up = "~/.config/waybar/scripts/volume.sh output raise";
-              on-scroll-down = "~/.config/waybar/scripts/volume.sh output lower";
-              # "smooth-scrolling-threshold":
-              # "tooltip":
+              on-click = "pavucontrol -t 3";
               tooltip-format = "Output Device: {desc}";
-              # "max-volume":
-              # "ignored-sinks":
-              # "reverse-scrolling":
-              # "reverse-mouse-scrolling":
             };
 
             "pulseaudio#input" = {
@@ -344,7 +333,8 @@ in
               min-length = 7;
               max-length = 7;
               scroll-step = 1;
-              on-click = "pamixer --default-source --toggle-mute";
+              on-click = "pavucontrol -t 4";
+              # on-click = "pamixer --default-source --toggle-mute";
               tooltip-format = "Input Device: {desc}";
             };
 
@@ -565,7 +555,7 @@ in
           }
 
           #waybar {
-              background-color: @outline;
+              background-color: @main-bg;
           }
 
           #waybar > box {
@@ -677,7 +667,7 @@ in
               color: @accent;
           }
           #custom-distro {
-              padding: 0 13px 0 5px;
+              padding: 0 12px 0 4px;
               background-color: @accent;
               color: @main-bg;
           }
