@@ -16,11 +16,11 @@
   browser = "zen"; # zen, firefox, floorp
   tuiFileManager = "yazi"; # yazi, lf
   shell = "zsh"; # zsh, bash
+  games = true; # Enable/Disable gaming module
 
   # Hardware
   hostname = "NixOS";
   videoDriver = "nvidia"; # nvidia, amdgpu, intel
-  games = true;
 
   # Localization
   timezone = "Europe/London";

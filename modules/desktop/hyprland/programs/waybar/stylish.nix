@@ -73,7 +73,7 @@ in
               orientation = "horizontal";
               modules = [
                 "custom/trigger"
-                "custom/user"
+                # "custom/user"
                 "tray"
                 # "wlr/taskbar"
               ];
