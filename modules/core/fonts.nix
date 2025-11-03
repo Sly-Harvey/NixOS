@@ -9,7 +9,7 @@
 
       # Normal Fonts
       noto-fonts
-      noto-fonts-emoji
+      noto-fonts-color-emoji
     ];
     fontconfig = {
       enable = true;

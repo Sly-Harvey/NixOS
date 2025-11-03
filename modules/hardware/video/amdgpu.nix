@@ -1,10 +1,7 @@
 # This module is untested since i don't own an amd gpu!
 { pkgs, ... }:
 {
-  services.xserver = {
-    enable = true;
-    videoDrivers = [ "amdgpu" ];
-  };
+  services.xserver.videoDrivers = [ "amdgpu" ];
   environment.systemPackages = with pkgs; [ rocmPackages.amdsmi ];
   # TODO: Use this instead of hardware.graphics
   # Can't test since i have nvidia
@@ -27,7 +24,7 @@
     extraPackages = with pkgs; [
       amdvlk
       libvdpau-va-gl
-      vaapiVdpau
+      libva-vdpau-driver
     ];
     extraPackages32 = with pkgs; [ driversi686Linux.amdvlk ];
   };

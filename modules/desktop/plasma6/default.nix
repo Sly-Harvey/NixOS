@@ -17,11 +17,12 @@ in
 {
   programs.thunar.enable = lib.mkForce false;
   services = {
+    # xserver.enable = lib.mkForce true;
+    tlp.enable = lib.mkForce false; # plasma has builtin power management
     desktopManager.plasma6 = {
       enable = true;
       enableQt5Integration = true;
     };
-    tlp.enable = lib.mkForce false; # plasma has builtin power management
   };
 
   environment.plasma6.excludePackages = with pkgs.kdePackages; [

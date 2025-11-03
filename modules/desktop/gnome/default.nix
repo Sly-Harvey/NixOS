@@ -9,11 +9,6 @@
     gnome.gnome-initial-setup.enable = false;
     gnome.games.enable = false;
     tlp.enable = lib.mkForce false; # gnome has builtin power management
-    xserver = {
-      enable = true;
-      #layout = "gb";
-      #libinput = { touchpad.tapping = true; };
-    };
   };
 
   environment.gnome.excludePackages = with pkgs; [
