@@ -113,8 +113,8 @@ in
           wayland.windowManager.hyprland = {
             enable = true;
             plugins = [
-              # inputs.hyprland-plugins.packages.${pkgs.system}.hyprwinwrap
-              # inputs.hyprsysteminfo.packages.${pkgs.system}.default
+              # inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprwinwrap
+              # inputs.hyprsysteminfo.packages.${pkgs.stdenv.hostPlatform.system}.default
             ];
             systemd = {
               enable = true;
