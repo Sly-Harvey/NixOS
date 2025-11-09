@@ -39,22 +39,22 @@ in
             };
           };
 
-          # zen-browser = {
-          #   enable = true;
-          #   profileNames = [ "default" ];
-          # };
-          # floorp = {
-          #   enable = true;
-          #   profileNames = [ "default" ];
-          # };
-          # librewolf = {
-          #   enable = true;
-          #   profileNames = [ "default" ];
-          # };
-          # firefox = {
-          #   enable = true;
-          #   profileNames = [ "default" ];
-          # };
+          zen-browser = {
+            enable = true;
+            profileNames = [ "default" ];
+          };
+          floorp = {
+            enable = true;
+            profileNames = [ "default" ];
+          };
+          librewolf = {
+            enable = true;
+            profileNames = [ "default" ];
+          };
+          firefox = {
+            enable = true;
+            profileNames = [ "default" ];
+          };
         };
         cursor = {
           name = "Bibata-Modern-Classic";
