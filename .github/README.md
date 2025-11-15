@@ -119,9 +119,14 @@ The install and rebuild scripts automate the setup process, including hosts, use
    };
    ```
 
+4. Track the new host with git:
+   ```bash
+   git add hosts/Laptop
+   ```
+
 <!-- 4. Rebuild with the new hostname (see below) -->
 
-4. Rebuild with the new hostname using either `nixos-rebuild` or `nh` (see [Rebuilding](#rebuilding) below). Once rebuilt, any rebuilding method can be used, as the host name will be implicitly recognised.
+5. Rebuild with the new hostname using either `nixos-rebuild` or `nh` (see [Rebuilding](#rebuilding) below). Once rebuilt, any rebuilding method can be used, as the host name will be implicitly recognised.
 
 ### Rebuilding
 
