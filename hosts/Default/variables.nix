@@ -5,7 +5,6 @@
   desktop = "hyprland"; # hyprland, i3-gaps, gnome, plasma6
 
   # Theme & Appearance
-  theme = "catppuccin-mocha"; # https://github.com/tinted-theming/schemes
   waybarTheme = "minimal"; # stylish, minimal
   sddmTheme = "astronaut"; # astronaut, black_hole, purple_leaves, jake_the_dog, hyprland_kath
   defaultWallpaper = "kurzgesagt.webp"; # Change with SUPER + SHIFT + W
@@ -17,11 +16,11 @@
   browser = "zen"; # zen, firefox, floorp
   tuiFileManager = "yazi"; # yazi, lf
   shell = "zsh"; # zsh, bash
+  games = true; # Enable/Disable gaming module
 
   # Hardware
   hostname = "NixOS";
   videoDriver = "nvidia"; # nvidia, amdgpu, intel
-  games = true;
 
   # Localization
   timezone = "Europe/London";

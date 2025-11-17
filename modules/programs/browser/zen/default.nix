@@ -5,7 +5,7 @@
   ...
 }:
 {
-  # environment.systemPackages = with pkgs; [inputs.zen-browser.packages.${system}.default];
+  # environment.systemPackages = with pkgs; [inputs.zen-browser.packages.${stdenv.hostPlatform.system}.default];
   home-manager.sharedModules = [
     (_: {
       imports = [ inputs.zen-browser.homeModules.beta ];

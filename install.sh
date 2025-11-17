@@ -191,6 +191,17 @@ while true; do
 
   elif [[ "$host_choice" =~ ^[0-9]+$ ]] && [ "$host_choice" -ge 1 ] && [ "$host_choice" -le ${#available_hosts[@]} ]; then
     selected_host="${available_hosts[$((host_choice - 1))]}"
+    # Ask if user wants to edit variables.nix
+    read -p "Edit variables.nix for host: $selected_host? (Y/n): " edit_vars
+    if [[ ! "$edit_vars" =~ ^[nN]$ ]]; then
+      # Find available editor
+      for editor in "${EDITOR}" nano vim vi; do
+        if command -v "$editor" &>/dev/null; then
+          $editor "./hosts/$selected_host/variables.nix"
+          break
+        fi
+      done
+    fi
     break
   else
     error "Invalid choice. Please try again."
@@ -218,7 +229,9 @@ info "Building NixOS configuration for host: $selected_host"
 sudo nixos-rebuild boot --flake ".#$selected_host"
 
 if [ $? -eq 0 ]; then
+  echo
   success
 # else
+#   echo
 #   failed
 fi

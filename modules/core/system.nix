@@ -25,7 +25,7 @@ in
     };
   };
   services.xserver = {
-    enable = true;
+    enable = false;
     excludePackages = with pkgs; [ xterm ];
     exportConfiguration = true; # Make sure /etc/X11/xkb is populated so localectl works correctly
     xkb = {
@@ -68,7 +68,6 @@ in
       keep-derivations = true;
     };
     optimise.automatic = true;
-    package = pkgs.nixVersions.latest;
   };
   time.timeZone = "${timezone}";
   i18n.defaultLocale = "${locale}";
