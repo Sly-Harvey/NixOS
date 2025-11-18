@@ -14,6 +14,7 @@ in
       stylix = {
         enable = true;
         autoEnable = true;
+        overlays.enable = false;
 
         polarity = "dark";
         base16Scheme = "${pkgs.base16-schemes}/share/themes/${theme}.yaml";
@@ -26,9 +27,10 @@ in
           hyprlock.enable = false;
           starship.enable = false;
           tmux.enable = false;
-          neovim.enable = false;
           waybar.addCss = false;
-          # neovide.enable = false;
+
+          neovide.enable = false;
+          neovim.enable = false;
           nixvim = {
             enable = false;
             plugin = "base16-nvim";
