@@ -18,7 +18,6 @@ in
         settings = {
           global = {
             frame_color = "#89b4fa";
-            separator_color = "frame";
             highlight = "#89b4fa";
             rounded = "yes";
             origin = "top-right";
@@ -44,7 +43,6 @@ in
             always_run_script = true;
             corner_radius = 10;
             follow = "mouse";
-            font = "monospace";
             format = "<b>%s</b>\\n%b"; # format = "<span foreground='#f3f4f5'><b>%s %p</b></span>\n%b"
             frame_width = 1;
             offset = "15x15";

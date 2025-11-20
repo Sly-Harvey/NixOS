@@ -18,7 +18,6 @@ in
         settings = {
           global = {
             frame_color = "#89b4fa";
-            separator_color = "frame";
             highlight = "#89b4fa";
             rounded = "yes";
             origin = "top-right";
@@ -44,7 +43,6 @@ in
             always_run_script = true;
             corner_radius = 10;
             follow = "mouse";
-            font = "monospace";
             format = "<b>%s</b>\\n%b"; # format = "<span foreground='#f3f4f5'><b>%s %p</b></span>\n%b"
             frame_width = 1;
             offset = "15x15";
@@ -70,19 +68,12 @@ in
           };
 
           urgency_critical = {
-            background = "#1e1e2e";
-            foreground = "#cdd6f4";
-            frame_color = "#fab387";
             timeout = "0";
           };
           urgency_low = {
-            background = "#1e1e2e";
-            foreground = "#cdd6f4";
             timeout = "4";
           };
-          urgency_normal = {
-            background = "#1e1e2e";
-            foreground = "#cdd6f4";
+          urgency_normal = { 
             timeout = "8";
           };
         };
