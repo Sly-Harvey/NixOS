@@ -10,19 +10,19 @@
           positionX = "right";
           positionY = "top";
           cssPriority = "user";
-          control-center-margin-top = 22;
-          control-center-margin-bottom = 2;
-          control-center-margin-right = 1;
+          control-center-margin-top = 10;
+          control-center-margin-bottom = 10;
+          control-center-margin-right = 10;
           control-center-margin-left = 0;
           notification-icon-size = 64;
-          notification-body-image-height = 128;
+          notification-body-image-height = 100;
           notification-body-image-width = 200;
           timeout = 6;
           timeout-low = 3;
           timeout-critical = 0;
           fit-to-screen = false;
           control-center-width = 400;
-          control-center-height = 915;
+          control-center-height = 940;
           notification-window-width = 375;
           keyboard-shortcuts = true;
           image-visibility = "when-available";
@@ -108,7 +108,7 @@
             notifications = {
               text = "Notifications";
               clear-all-button = true;
-              button-text = "";
+              button-text = " Clear";
             };
 
             "buttons-grid" = {
@@ -236,28 +236,31 @@
           * {
             font-family: "Product Sans";
             background-clip: border-box;
-          }
-
-          /* #notifications_box { */
-          /* border: solid 4px red; */
-          /* } */
-
-          label {
-            color: @text;
+            border-radius: 8px;
           }
 
           .notification {
             box-shadow: none;
-            /* margin: 0px; */
-            /* margin: -15px -10px -15px -10px; */
+            border: 2px solid;
+            /* margin: -10px -10px -10px -10px; */
+            /* margin: 6px 0; */
             border-radius: 4px;
+            background: inherit;
+            /* background: @theme_bg_color; */
+            /* background: shade(alpha(@borders, 2.55), 0.25); */
           }
 
           .notification button {
+            background: transparent;
             border-radius: 0px;
             border: none;
             margin: 0px;
             padding: 0px;
+          }
+
+          .notification button:hover {
+            /* background: @surface0; */
+            background: @insensitive_bg_color;
           }
 
           .notification-content {
@@ -267,6 +270,18 @@
             border-radius: 0px;
           }
 
+          .close-button {
+            background: transparent;
+            color: transparent;
+          }
+
+          .notification-default-action,
+          .notification-action {
+            background: transparent;
+            border: none;
+          }
+
+
           .notification-default-action {
             border-radius: 4px;
           }
@@ -275,39 +290,51 @@
           .notification-default-action:not(:only-child) {
             border-bottom-left-radius: 0px;
             border-bottom-right-radius: 0px;
+            background: inherit;
+            margin: 6px 0;
+          }
+
+          .close-button {
+            background: transparent;
+            color: transparent;
           }
 
           .notification-action {
-            border-radius: 0px;
             padding: 2px;
-          }
-
-          /* add bottom border radius to eliminate clipping */
-          .notification-action:first-child {
-            border-bottom-left-radius: 4px;
-          }
-
-          .notification-action:last-child {
-            border-bottom-right-radius: 4px;
+            color: @text;
+            /* color: @theme_text_color; */
           }
 
           /*** Notification ***/
           /* Notification header */
           .summary {
+            color: @text;
+            /* color: @theme_text_color; */
             font-size: 14px;
+            background: transparent;
+            text-shadow: none;
+            font-size: 16px;
             padding: 0px;
           }
 
           .time {
+            color: @subtext0;
+            /* color: alpha(@theme_text_color, 0.9); */
             font-size: 12px;
+            background: transparent;
+            font-size: 16px;
             text-shadow: none;
             margin: 0px 0px 0px 0px;
             padding: 2px 0px;
           }
 
           .body {
-            font-size: 14px;
+            background: transparent;
+            font-size: 15px;
             font-weight: 500;
+            color: @subtext1;
+            /* color: alpha(@text, 0.9); */
+            /* color: alpha(@theme_text_color, 0.9); */
             text-shadow: none;
             margin: 0px 0px 0px 0px;
           }
@@ -318,13 +345,16 @@
 
           /* The "Notifications" and "Do Not Disturb" text widget */
           .top-action-title {
+            color: @text;
+            /* color: @theme_text_color; */
             text-shadow: none;
           }
 
-          /* Control center */
-
           .control-center {
+            background: alpha(@crust, .80);
             border-radius: 15px;
+            border: 0px solid @selected;
+            box-shadow: 0 0 10px 0 rgba(0,0,0,.80);
             margin: 0px;
             padding: 0px;
           }
@@ -334,9 +364,20 @@
           /* } */
 
           .control-center-list {
+            /* background: @base; */
+            background: alpha(@crust, .80);
             min-height: 5px;
+            /* border: 1px solid @surface1; */
             border-top: none;
             border-radius: 0px 0px 4px 4px;
+          }
+
+          .control-center-list-placeholder,
+          .notification-group-icon,
+          .notification-group {
+            /* opacity: 1.0; */
+            /* opacity: 0; */
+            color: alpha(@theme_text_color, 0.50);
           }
 
           .notification-group {
@@ -348,20 +389,34 @@
 
           .notification-group > box {
             all: unset;
+            background: transparent;
+            /* background: alpha(currentColor, 0.072); */
             padding: 4px;
             margin: 0px;
             /* margin: 0px -5px; */
             border: none;
             border-radius: 4px;
             box-shadow: none;
+            background: alpha(@theme_bg_color, .80);
+            border-radius: 8px;
+          }
+
+          .control-center .notification-row:focus,
+          .control-center .notification-row:hover {
+            opacity: 1;
+            border-radius: 8px;
           }
 
           .notification-row {
             outline: none;
             transition: all 1s ease;
+            background: alpha(@mantle, .80);
+            /* background: @theme_bg_color; */
+            border: 0px solid @crust;
             margin: 10px 5px 10px 5px;
             border-radius: 14px;
             /* box-shadow: 0px 0px 4px black; */
+            /* background: alpha(currentColor, 0.05); */
           }
 
           .notification-row:focus,
@@ -372,6 +427,8 @@
           .control-center-list > row,
           .control-center-list > row:focus,
           .control-center-list > row:hover {
+            background: transparent;
+            border: none;
             margin: 0px;
             padding: 5px 10px 5px 10px;
             box-shadow: none;
@@ -382,12 +439,21 @@
           }
 
 
+          /* Window behind control center and on all other monitors */
+          .blank-window {
+            background: transparent;
+          }
+
           /*** Widgets ***/
 
           /* Title widget */
           .widget-title {
             margin: 0px;
+            background: transparent;
+            /* background: @theme_bg_color; */
             border-radius: 4px 4px 0px 0px;
+            /* border: 1px solid @surface1; */
+            border-radius: 8px;
             border-bottom: none;
           }
 
@@ -401,8 +467,16 @@
             font-weight: 700;
             padding: 7px 3px;
             margin-right: 10px;
+            background: transparent;
+            color: @text;
+            /* color: @theme_text_color; */
             border: none;
+            /* border: none; */
             border-radius: 4px;
+          }
+          .widget-title > button:hover {
+            background: @base;
+            /* background: alpha(currentColor, 0.1); */
           }
 
           /* Label widget */
@@ -410,7 +484,10 @@
             margin: 0px;
             padding: 0px;
             min-height: 5px;
+            background: alpha(@mantle, .80);
+            /* background: @theme_bg_color; */
             border-radius: 0px 0px 4px 4px;
+            /* border: 1px solid @surface1; */
             border-top: none;
           }
           .widget-label > label {
@@ -420,6 +497,9 @@
 
           /* Menubar */
           .widget-menubar {
+            background: transparent;
+            /* background: @theme_bg_color; */
+            /* border: 1px solid @surface1; */
             border-radius: 4px;
             border-top: none;
             border-bottom: none;
@@ -428,8 +508,11 @@
             margin: 5px 5px 5px 5px;
             min-height: 40px;
             border-radius: 4px;
+            background: transparent;
           }
           .widget-menubar > box > box > button {
+            background: alpha(@mantle, .80);
+            /* background: alpha(currentColor, 0.05); */
             min-width: 185px;
             min-height: 50px;
             margin-right: 20px;
@@ -444,14 +527,19 @@
             box-shadow: none;
           }
           .widget-menubar button:focus:hover {
+            background: @base;
+            /* background: alpha(currentColor,0.1); */
             box-shadow: none;
           }
 
           .widget-menubar > box > revealer > box {
             margin: 5px 10px 5px 10px;
+            background: alpha(@mantle, .80);
+            /* background: alpha(currentColor, 0.05); */
             border-radius: 4px;
           }
           .widget-menubar > box > revealer > box > button {
+            background: transparent;
             min-height: 50px;
             padding: 0px;
             margin: 5px;
@@ -459,6 +547,9 @@
 
           /* Buttons grid */
           .widget-buttons-grid {
+            /* background-color: @theme_bg_color; */
+            background: transparent;
+            /* border: 1px solid @surface1; */
             border-top: none;
             border-bottom: none;
             font-size: 14px;
@@ -469,6 +560,8 @@
           }
 
           .widget-buttons-grid > flowbox > flowboxchild {
+            background: alpha(@mantle, .80);
+            /* background: alpha(currentColor, 0.05); */
             border-radius: 4px;
             min-height: 40px;
             min-width: 85px;
@@ -477,9 +570,17 @@
           }
 
           .widget-buttons-grid > flowbox > flowboxchild > button {
+            background: transparent;
             border-radius: 4px;
             margin: 0px;
+            border: none;
             box-shadow: none;
+          }
+
+
+          .widget-buttons-grid > flowbox > flowboxchild > button:hover {
+            background: alpha(@mantle, .80);
+            /* background: alpha(currentColor, 0.1); */
           }
 
           /* Mpris widget */
@@ -493,6 +594,8 @@
             margin: -5px 0px -10px 0px;
             padding: 0px;
             border-radius: 4px;
+            /* background: alpha(currentColor, 0.05); */
+            background: alpha(@mantle, .80);
           }
           .widget-mpris > box > button:nth-child(1),
           .widget-mpris > box > button:nth-child(3) {
@@ -522,16 +625,21 @@
           .widget-mpris > box > carousel > widget > box > box:nth-child(2) > button {
             border-radius: 4px;
           }
+          .widget-mpris > box > carousel > widget > box > box:nth-child(2) > button:hover {
+            background: alpha(currentColor, 0.1);
+          }
           carouselindicatordots {
             opacity: 0;
           }
 
           .widget-mpris-title {
+            color: #eeeeee;
             font-weight: bold;
             font-size: 1.25rem;
             text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
           }
           .widget-mpris-subtitle {
+            color: #eeeeee;
             font-size: 1rem;
             text-shadow: 0px 0px 3px rgba(0, 0, 0, 1);
           }
@@ -552,6 +660,10 @@
           /* Backlight and volume widgets */
           .widget-backlight,
           .widget-volume {
+            background: transparent;
+            /* background-color: @crust; */
+            /* background-color: @theme_bg_color; */
+            /* border: 1px solid @surface1; */
             border-top: none;
             border-bottom: none;
             font-size: 13px;
@@ -561,6 +673,8 @@
             padding: 0px;
           }
           .widget-volume > box {
+            background: alpha(@mantle, .80);
+            /* background: alpha(currentColor, 0.05); */
             border-radius: 4px;
             margin: 5px 10px 5px 10px;
             min-height: 50px;
@@ -574,7 +688,13 @@
             box-shadow: none;
             padding: 0px;
           }
+          .widget-volume > box > button:hover {
+            /* background: alpha(currentColor, 0.05); */
+            background: @surface0;
+          }
           .widget-volume > revealer > list {
+            background: alpha(@mantle, .80);
+            /* background: alpha(currentColor, 0.05); */
             border-radius: 4px;
             margin-top: 5px;
             padding: 0px;
@@ -582,18 +702,24 @@
           .widget-volume > revealer > list > row {
             padding-left: 10px;
             min-height: 40px;
+            background: transparent;
           }
           .widget-volume > revealer > list > row:hover {
+            background: transparent;
             box-shadow: none;
             border-radius: 4px;
           }
           .widget-backlight > scale {
+            background: alpha(@mantle, .80);
+            /* background: alpha(currentColor, 0.05); */
             border-radius: 0px 4px 4px 0px;
             margin: 5px 10px 5px 0px;
             padding: 0px 10px 0px 0px;
             min-height: 50px;
           }
           .widget-backlight > label {
+            background: @surface0;
+            /* background: alpha(currentColor, 0.05); */
             margin: 5px 0px 5px 10px;
             border-radius: 4px 0px 0px 4px;
             padding: 0px;
@@ -604,19 +730,46 @@
           /* DND widget */
           .widget-dnd {
             margin: 6px 10px;
-            padding: 0 8px;
+            padding: 0 12px;
             font-size: 1.2rem;
           }
 
           .widget-dnd > switch {
+            background: alpha(@mantle, .80);
             font-size: initial;
             border-radius: 8px;
             box-shadow: none;
             padding: 2px;
           }
 
+          .widget-dnd > switch:hover {
+            background: alpha(@mauve_lighter, .80);
+          }
+
+          .widget-dnd > switch:checked {
+            background: @mauve;
+          }
+
+          .widget-dnd > switch:checked:hover {
+            background: alpha(@mauve_lighter, .80);
+          }
+
           .widget-dnd > switch slider {
+            background: alpha(@mauve_lighter, .80);
             border-radius: 6px;
+          }
+
+          /* Toggles */
+          .toggle:checked {
+            background: @surface1;
+            /* background: @theme_selected_bg_color; */
+          }
+          /*.toggle:not(:checked) {
+            color: rgba(128, 128, 128, 0.5);
+          }*/
+          .toggle:checked:hover {
+            background: @surface2;
+            /* background: alpha(@theme_selected_bg_color, 0.75); */
           }
 
           /* Sliders */
@@ -627,6 +780,8 @@
 
           scale trough {
             border-radius: 4px;
+            background: @surface0;
+            /* background: alpha(currentColor, 0.1); */
           }
 
           scale highlight {
@@ -639,6 +794,7 @@
             margin: 0px;
             min-width: 10px;
             min-height: 10px;
+            background: transparent;
             box-shadow: none;
             padding: 0px;
           }

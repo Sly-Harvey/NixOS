@@ -2,7 +2,7 @@
   username = "zer0"; # auto-set with install.sh, live-install.sh, and rebuild scripts.
 
   # Desktop Environment
-  desktop = "hyprland"; # hyprland, i3-gaps, gnome, plasma6
+  desktop = "hyprland"; # hyprland, i3, gnome, plasma6
 
   # Theme & Appearance
   theme = "catppuccin-mocha"; # https://github.com/tinted-theming/schemes

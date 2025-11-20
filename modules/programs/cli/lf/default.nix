@@ -56,7 +56,7 @@
           };
           commands = {
             open-with-editor = ''$$EDITOR $f'';
-            dragon-out = ''%${getExe pkgs.xdragon} -a -x "$fx"'';
+            dragon-out = ''%${getExe pkgs.dragon-drop} -a -x "$fx"'';
             mkdir = ''
               ''${{
                   printf "Directory Name: "
