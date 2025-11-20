@@ -10,19 +10,19 @@
           positionX = "right";
           positionY = "top";
           cssPriority = "user";
-          control-center-margin-top = 22;
-          control-center-margin-bottom = 2;
-          control-center-margin-right = 1;
+          control-center-margin-top = 10;
+          control-center-margin-bottom = 10;
+          control-center-margin-right = 10;
           control-center-margin-left = 0;
           notification-icon-size = 64;
-          notification-body-image-height = 128;
+          notification-body-image-height = 100;
           notification-body-image-width = 200;
           timeout = 6;
           timeout-low = 3;
           timeout-critical = 0;
           fit-to-screen = false;
           control-center-width = 400;
-          control-center-height = 915;
+          control-center-height = 940;
           notification-window-width = 375;
           keyboard-shortcuts = true;
           image-visibility = "when-available";
@@ -108,7 +108,7 @@
             notifications = {
               text = "Notifications";
               clear-all-button = true;
-              button-text = "";
+              button-text = " Clear";
             };
 
             "buttons-grid" = {
@@ -236,21 +236,14 @@
           * {
             font-family: "Product Sans";
             background-clip: border-box;
-          }
-
-          /* #notifications_box { */
-          /* border: solid 4px red; */
-          /* } */
-
-          label {
-            color: @text;
+            border-radius: 8px;
           }
 
           .notification {
-            border: none;
             box-shadow: none;
-            /* margin: 0px; */
-            /* margin: -15px -10px -15px -10px; */
+            border: 2px solid;
+            /* margin: -10px -10px -10px -10px; */
+            /* margin: 6px 0; */
             border-radius: 4px;
             background: inherit;
             /* background: @theme_bg_color; */
@@ -297,22 +290,19 @@
           .notification-default-action:not(:only-child) {
             border-bottom-left-radius: 0px;
             border-bottom-right-radius: 0px;
+            background: inherit;
+            margin: 6px 0;
+          }
+
+          .close-button {
+            background: transparent;
+            color: transparent;
           }
 
           .notification-action {
-            border-radius: 0px;
             padding: 2px;
             color: @text;
             /* color: @theme_text_color; */
-          }
-
-          /* add bottom border radius to eliminate clipping */
-          .notification-action:first-child {
-            border-bottom-left-radius: 4px;
-          }
-
-          .notification-action:last-child {
-            border-bottom-right-radius: 4px;
           }
 
           /*** Notification ***/
@@ -321,6 +311,9 @@
             color: @text;
             /* color: @theme_text_color; */
             font-size: 14px;
+            background: transparent;
+            text-shadow: none;
+            font-size: 16px;
             padding: 0px;
           }
 
@@ -328,13 +321,16 @@
             color: @subtext0;
             /* color: alpha(@theme_text_color, 0.9); */
             font-size: 12px;
+            background: transparent;
+            font-size: 16px;
             text-shadow: none;
             margin: 0px 0px 0px 0px;
             padding: 2px 0px;
           }
 
           .body {
-            font-size: 14px;
+            background: transparent;
+            font-size: 15px;
             font-weight: 500;
             color: @subtext1;
             /* color: alpha(@text, 0.9); */
@@ -353,8 +349,6 @@
             /* color: @theme_text_color; */
             text-shadow: none;
           }
-
-          /* Control center */
 
           .control-center {
             background: alpha(@crust, .80);
@@ -403,6 +397,14 @@
             border: none;
             border-radius: 4px;
             box-shadow: none;
+            background: alpha(@theme_bg_color, .80);
+            border-radius: 8px;
+          }
+
+          .control-center .notification-row:focus,
+          .control-center .notification-row:hover {
+            opacity: 1;
+            border-radius: 8px;
           }
 
           .notification-row {
@@ -451,6 +453,7 @@
             /* background: @theme_bg_color; */
             border-radius: 4px 4px 0px 0px;
             /* border: 1px solid @surface1; */
+            border-radius: 8px;
             border-bottom: none;
           }
 
@@ -468,6 +471,7 @@
             color: @text;
             /* color: @theme_text_color; */
             border: none;
+            /* border: none; */
             border-radius: 4px;
           }
           .widget-title > button:hover {
@@ -726,7 +730,7 @@
           /* DND widget */
           .widget-dnd {
             margin: 6px 10px;
-            padding: 0 8px;
+            padding: 0 12px;
             font-size: 1.2rem;
           }
 

@@ -1,4 +1,4 @@
-{ pkgs, host, ... }:
+{ lib, pkgs, host, ... }:
 let
   inherit (import ../../../hosts/${host}/variables.nix) terminal browser defaultWallpaper;
 in
@@ -10,7 +10,7 @@ in
   ];
 
   services.xserver = {
-    enable = true;
+    enable = lib.mkForce true;
     autorun = false;
 
     desktopManager = {
@@ -19,7 +19,7 @@ in
 
     windowManager.i3 = {
       enable = true;
-      package = pkgs.i3-gaps;
+      package = pkgs.i3;
       extraPackages = with pkgs; [
         i3status # gives you the default i3 status bar
         i3lock # default i3 screen locker
@@ -40,7 +40,7 @@ in
       imports = [ ./picom.nix ];
       xsession.windowManager.i3 = {
         enable = true;
-        package = pkgs.i3-gaps;
+        package = pkgs.i3;
         config = {
           floating.criteria = [ { class = "^Mpv$"; } ];
           gaps.smartBorders = "on";

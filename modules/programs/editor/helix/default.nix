@@ -132,7 +132,7 @@
               procMacro.enable = true;
               cargo.buildScripts.enable = true;
               imports.preferPrelude = true;
-              serverPath = "${pkgs.ra-multiplex}/bin/ra-multiplex";
+              serverPath = "${pkgs.lspmux}/bin/lspmux";
             };
           };
 

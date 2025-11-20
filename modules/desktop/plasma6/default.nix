@@ -95,25 +95,6 @@ in
             repeatDelay = 275;
             repeatRate = 35;
           };
-          mice = [
-            {
-              acceleration = 1.0;
-              accelerationProfile = "none";
-              # naturalScroll = true;
-              name = builtins.readFile (
-                pkgs.runCommand "mousename" { }
-                  "grep -B1 -A9 'Mouse' /proc/bus/input/devices | grep 'Name' | cut -d\= -f2 | cut -d'\"' -f2 > $out"
-              );
-              vendorId = builtins.readFile (
-                pkgs.runCommand "vendor" { }
-                  "grep -B1 -A9 'Mouse' /proc/bus/input/devices | grep 'I:' | tr ' ' '\n' | grep -v 'I:' | grep -v 'Bus' | grep -v 'Version' | cut -d\= -f2 | head -n1 | tr -d '\n' > $out"
-              );
-              productId = builtins.readFile (
-                pkgs.runCommand "product" { }
-                  "grep -B1 -A9 'Mouse' /proc/bus/input/devices | grep 'I:' | tr ' ' '\n' | grep -v 'I:' | grep -v 'Bus' | grep -v 'Version' | cut -d\= -f2 | tail -n1 | tr -d '\n' > $out"
-              );
-            }
-          ];
         };
 
         panels = [
