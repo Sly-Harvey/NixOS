@@ -16,8 +16,14 @@ configuration {
 }
 
 /*****----- Global Properties -----*****/
-@import                          "shared/colors.rasi"
 @import                          "shared/fonts.rasi"
+
+/* Stylix */
+@import                          "~/.local/share/rofi/themes/custom.rasi"
+element alternate.normal {
+    background-color: @normal-background;
+    text-color:       @normal-foreground;
+}
 
 /*****----- Main Window -----*****/
 window {
@@ -34,8 +40,6 @@ window {
     padding:                     0px;
     border:                      0px solid;
     border-radius:               0px;
-    border-color:                @selected;
-    background-color:            @background;
     cursor:                      "default";
 }
 
@@ -47,8 +51,6 @@ mainbox {
     padding:                     50px;
     border:                      0px solid;
     border-radius:               0px 0px 0px 0px;
-    border-color:                @selected;
-    background-color:            transparent;
     children:                    [ "inputbar", "listview" ];
 }
 
@@ -60,9 +62,6 @@ inputbar {
     padding:                     0px;
     border:                      0px;
     border-radius:               0px;
-    border-color:                @selected;
-    background-color:            @background;
-    text-color:                  @foreground;
     children:                    [ "prompt", "entry" ];
 }
 
@@ -70,15 +69,11 @@ prompt {
     enabled:                     true;
     padding:                     15px;
     border-radius:               15px;
-    background-color:            @selected;
-    text-color:                  @background;
 }
 textbox-prompt-colon {
     enabled:                     true;
     expand:                      false;
     str:                         "::";
-    background-color:            inherit;
-    text-color:                  inherit;
 }
 entry {
     enabled:                     true;
@@ -86,11 +81,8 @@ entry {
     width:                       350px;
     padding:                     15px 20px;
     border-radius:               15px;
-    background-color:            @background-alt;
-    text-color:                  @foreground;
     cursor:                      text;
     placeholder:                 "Search...";
-    placeholder-color:           inherit;
 }
 
 /*****----- Listview -----*****/
@@ -111,16 +103,11 @@ listview {
     padding:                     0px;
     border:                      0px solid;
     border-radius:               0px;
-    border-color:                @selected;
-    background-color:            transparent;
-    text-color:                  @foreground;
     cursor:                      "default";
 }
 scrollbar {
     handle-width:                5px ;
-    handle-color:                @selected;
     border-radius:               0px;
-    background-color:            @background-alt;
 }
 
 /*****----- Elements -----*****/
@@ -131,30 +118,15 @@ element {
     padding:                     30px 10px;
     border:                      0px solid;
     border-radius:               20px;
-    border-color:                @selected;
-    background-color:            @background;
-    text-color:                  @foreground;
     orientation:                 vertical;
     cursor:                      pointer;
 }
-element normal.normal {
-    background-color:            @background;
-    text-color:                  @foreground;
-}
-element selected.normal {
-    background-color:            @background-alt;
-    text-color:                  @foreground;
-}
 element-icon {
     padding:                     0px 0px 0px 0px;
-    background-color:            transparent;
-    text-color:                  inherit;
     size:                        96px;
     cursor:                      inherit;
 }
 element-text {
-    background-color:            transparent;
-    text-color:                  inherit;
     highlight:                   inherit;
     cursor:                      inherit;
     vertical-align:              0.5;
@@ -166,13 +138,8 @@ error-message {
     padding:                     50px;
     border:                      0px solid;
     border-radius:               0px;
-    border-color:                @selected;
-    background-color:            @background;
-    text-color:                  @foreground;
 }
 textbox {
-    background-color:            @background;
-    text-color:                  @foreground;
     vertical-align:              0.5;
     horizontal-align:            0.0;
     highlight:                   none;

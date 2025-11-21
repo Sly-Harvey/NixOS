@@ -7,10 +7,9 @@
 #
 ## Available Styles
 #
-## style-1     style-2     style-3     style-4     style-5
-## style-6     style-7     style-8     style-9     style-10
+## style-3     style-4
 
-dir="$HOME/.config/rofi/custom/type-4"
+dir="$HOME/.config/rofi/launchers/type-4"
 theme='style-4'
 
 ## Run
