@@ -20,10 +20,6 @@ configuration {
 
 /* Stylix */
 @import                          "~/.local/share/rofi/themes/custom.rasi"
-element alternate.normal {
-    background-color: @normal-background;
-    text-color:       @normal-foreground;
-}
 
 /*****----- Main Window -----*****/
 window {
@@ -49,6 +45,7 @@ mainbox {
     spacing:                     20px;
     margin:                      0px;
     padding:                     50px;
+    background-color:            transparent;
     border:                      0px solid;
     border-radius:               0px 0px 0px 0px;
     children:                    [ "inputbar", "listview" ];
@@ -60,6 +57,7 @@ inputbar {
     spacing:                     20px;
     margin:                      0px;
     padding:                     0px;
+    background-color:            transparent;
     border:                      0px;
     border-radius:               0px;
     children:                    [ "prompt", "entry" ];
@@ -80,6 +78,7 @@ entry {
     expand:                      false;
     width:                       350px;
     padding:                     15px 20px;
+    background-color:            transparent;
     border-radius:               15px;
     cursor:                      text;
     placeholder:                 "Search...";
@@ -101,6 +100,7 @@ listview {
     spacing:                     0px;
     margin:                      0px;
     padding:                     0px;
+    background-color:            transparent;
     border:                      0px solid;
     border-radius:               0px;
     cursor:                      "default";
@@ -116,17 +116,26 @@ element {
     spacing:                     20px;
     margin:                      0px;
     padding:                     30px 10px;
+    background-color:            transparent;
     border:                      0px solid;
     border-radius:               20px;
     orientation:                 vertical;
     cursor:                      pointer;
 }
+element normal.normal {
+    background-color:            transparent;
+}
+element alternate.normal {
+    background-color:            transparent;
+}
 element-icon {
+    background-color:            transparent;
     padding:                     0px 0px 0px 0px;
     size:                        96px;
     cursor:                      inherit;
 }
 element-text {
+    background-color:            transparent;
     highlight:                   inherit;
     cursor:                      inherit;
     vertical-align:              0.5;

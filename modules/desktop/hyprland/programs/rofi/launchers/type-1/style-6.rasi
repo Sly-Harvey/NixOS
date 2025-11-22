@@ -24,10 +24,6 @@ configuration {
 
 /* Stylix */
 @import                          "~/.local/share/rofi/themes/custom.rasi"
-element alternate.normal {
-    background-color: @normal-background;
-    text-color:       @normal-foreground;
-}
 
 /*****----- Main Window -----*****/
 window {
@@ -44,7 +40,8 @@ window {
     enabled:                     true;
     margin:                      0px;
     padding:                     0px;
-    border:                      0px solid;
+    border:                      1px solid;
+    border-color:                @selected-active-background;
     border-radius:               10px;
     cursor:                      "default";
 }
@@ -55,6 +52,7 @@ mainbox {
     spacing:                     10px;
     margin:                      0px;
     padding:                     20px;
+    background-color:            transparent;
     border:                      0px solid;
     border-radius:               0px 0px 0px 0px;
     children:                    [ "inputbar", "mode-switcher", "message", "listview" ];
@@ -66,6 +64,7 @@ inputbar {
     spacing:                     10px;
     margin:                      0px;
     padding:                     0px;
+    background-color:            transparent;
     border:                      0px solid;
     border-radius:               0px;
     children:                    [ "textbox-prompt-colon", "entry" ];
@@ -78,12 +77,14 @@ textbox-prompt-colon {
     enabled:                     true;
     padding:                     5px 0px;
     expand:                      false;
+    background-color:            transparent;
     str:                         " ";
 }
 entry {
     enabled:                     true;
     padding:                     5px 0px;
     cursor:                      text;
+    background-color:            transparent;
     placeholder:                 "Search...";
 }
 num-filtered-rows {
@@ -119,6 +120,7 @@ listview {
     spacing:                     5px;
     margin:                      0px;
     padding:                     0px;
+    background-color:            transparent;
     border:                      0px solid;
     border-radius:               0px;
     cursor:                      "default";
@@ -138,11 +140,19 @@ element {
     border-radius:               8px;
     cursor:                      pointer;
 }
+element normal.normal {
+    background-color:            transparent;
+}
+element alternate.normal {
+    background-color:            transparent;
+}
 element-icon {
+    background-color:            transparent;
     size:                        24px;
     cursor:                      inherit;
 }
 element-text {
+    background-color:            transparent;
     highlight:                   inherit;
     cursor:                      inherit;
     vertical-align:              0.5;
@@ -156,6 +166,7 @@ mode-switcher{
     spacing:                     10px;
     margin:                      0px;
     padding:                     0px;
+    background-color:            transparent;
     border:                      0px solid;
     border-radius:               0px;
 }

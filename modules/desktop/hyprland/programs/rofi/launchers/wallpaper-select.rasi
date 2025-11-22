@@ -39,6 +39,7 @@ mainbox {
     spacing:                     10px;
     margin:                      0px;
     padding:                     15px;
+    background-color:            transparent;
     border:                      0px solid;
     border-radius:               0px 0px 0px 0px;
     children:                    [ "inputbar", "listview" ];
@@ -48,6 +49,7 @@ mainbox {
 inputbar {
     enabled:                     true;
     padding:                     10px 0px;
+    background-color:            transparent;
     children:                    [ "textbox-prompt-colon", "entry" ];
 }
 
@@ -57,11 +59,13 @@ prompt {
 textbox-prompt-colon {
     enabled:                     true;
     expand:                      false;
+    background-color:            transparent;
     str:                         " ";
 }
 entry {
     enabled:                     true;
     cursor:                      text;
+    background-color:            transparent;
     placeholder:                 "Search Wallpapers...";
 }
 
@@ -82,6 +86,7 @@ listview {
     spacing:                     0px;
     margin:                      0px;
     padding:                     0px;
+    background-color:            transparent;
     border:                      0px solid;
     border-radius:               0px;
     cursor:                      "default";
@@ -97,17 +102,28 @@ element {
     spacing:                     0px;
     margin:                      0px;
     padding:                     -20px 0px -20px 0px;
+    background-color:            transparent;
     border:                      0px solid;
     border-radius:               12px;
     cursor:                      pointer;
     orientation:                 vertical;
 }
 
+element normal.normal {
+    background-color:            transparent;
+}
+
+element alternate.normal {
+    background-color:            transparent;
+}
+
 element-icon {
+    background-color:            transparent;
     size:                        160px;
     cursor:                      inherit;
 }
 element-text {
+    background-color:            transparent;
     enabled:                     false;
     highlight:                   inherit;
     cursor:                      inherit;

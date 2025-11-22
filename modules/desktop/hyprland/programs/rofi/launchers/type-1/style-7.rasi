@@ -24,10 +24,6 @@ configuration {
 
 /* Stylix */
 @import                          "~/.local/share/rofi/themes/custom.rasi"
-element alternate.normal {
-    background-color: @normal-background;
-    text-color:       @normal-foreground;
-}
 
 /*****----- Main Window -----*****/
 window {
@@ -55,6 +51,7 @@ mainbox {
     spacing:                     0px;
     margin:                      0px;
     padding:                     20px;
+    background-color:            transparent;
     border:                      0px solid;
     border-radius:               0px 0px 0px 0px;
     children:                    [ "inputbar", "message", "mode-switcher", "listview" ];
@@ -84,6 +81,7 @@ entry {
     enabled:                     true;
     padding:                     5px 0px;
     cursor:                      text;
+    background-color:            transparent;
     placeholder:                 "Search...";
 }
 num-filtered-rows {
@@ -119,7 +117,9 @@ listview {
     spacing:                     5px;
     margin:                      0px;
     padding:                     10px;
+    background-color:            transparent;
     border:                      0px 2px 2px 2px ;
+    border-color:                @selected-active-background;
     border-radius:               0px 0px 10px 10px;
     cursor:                      "default";
 }
@@ -134,15 +134,24 @@ element {
     spacing:                     10px;
     margin:                      0px;
     padding:                     6px;
+    background-color:            transparent;
     border:                      0px solid;
     border-radius:               6px;
     cursor:                      pointer;
 }
+element normal.normal {
+    background-color:            transparent;
+}
+element alternate.normal {
+    background-color:            transparent;
+}
 element-icon {
+    background-color:            transparent;
     size:                        24px;
     cursor:                      inherit;
 }
 element-text {
+    background-color:            transparent;
     highlight:                   inherit;
     cursor:                      inherit;
     vertical-align:              0.5;
@@ -162,6 +171,7 @@ mode-switcher{
 button {
     padding:                     10px;
     border:                      0px 0px 2px 0px ;
+    border-color:                @selected-active-background;
     border-radius:               10px 10px 0px 0px;
     cursor:                      pointer;
 }

@@ -18,6 +18,7 @@ in
 
         polarity = "dark";
         base16Scheme = "${pkgs.base16-schemes}/share/themes/${theme}.yaml";
+        opacity.popups = 0.80;
 
         targets = {
           kitty.variant256Colors = true;
