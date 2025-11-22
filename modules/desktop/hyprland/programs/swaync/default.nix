@@ -234,98 +234,45 @@
           @define-color mauve_lighter #caa6f7;
 
           * {
-            font-family: "Product Sans";
-            background-clip: border-box;
+            font-family: "JetBrainsMono NFM SemiBold", monospace;
             border-radius: 8px;
           }
 
           .notification {
-            box-shadow: none;
-            border: 2px solid;
-            /* margin: -10px -10px -10px -10px; */
-            /* margin: 6px 0; */
-            border-radius: 4px;
-            background: inherit;
-            /* background: @theme_bg_color; */
-            /* background: shade(alpha(@borders, 2.55), 0.25); */
-          }
-
-          .notification button {
-            background: transparent;
-            border-radius: 0px;
-            border: none;
-            margin: 0px;
-            padding: 0px;
-          }
-
-          .notification button:hover {
-            /* background: @surface0; */
-            background: @insensitive_bg_color;
-          }
-
-          .notification-content {
-            min-height: 64px;
-            margin: 10px;
-            padding: 0px;
-            border-radius: 0px;
-          }
-
-          .close-button {
-            background: transparent;
-            color: transparent;
-          }
-
-          .notification-default-action,
-          .notification-action {
-            background: transparent;
-            border: none;
-          }
-
-
-          .notification-default-action {
-            border-radius: 4px;
-          }
-
-          /* When alternative actions are visible */
-          .notification-default-action:not(:only-child) {
-            border-bottom-left-radius: 0px;
-            border-bottom-right-radius: 0px;
-            background: inherit;
+            background: @theme_bg_color;
+            border: 1px solid @theme_selected_bg_color;
+            border-radius: 8px;
             margin: 6px 0;
           }
 
+          .notification-action {
+            border: 2px solid;
+            border-top: none;
+          }
+
           .close-button {
             background: transparent;
             color: transparent;
-          }
-
-          .notification-action {
-            padding: 2px;
-            color: @text;
-            /* color: @theme_text_color; */
           }
 
           /*** Notification ***/
           /* Notification header */
           .summary {
-            color: @text;
-            /* color: @theme_text_color; */
-            font-size: 14px;
+            color: @theme_text_color;
+            font-size: 16px;
             background: transparent;
             text-shadow: none;
             font-size: 16px;
-            padding: 0px;
           }
 
           .time {
             color: @subtext0;
             /* color: alpha(@theme_text_color, 0.9); */
-            font-size: 12px;
+            font-size: 16px;
             background: transparent;
             font-size: 16px;
             text-shadow: none;
-            margin: 0px 0px 0px 0px;
-            padding: 2px 0px;
+            margin-right: 18px;
           }
 
           .body {
@@ -333,72 +280,21 @@
             font-size: 15px;
             font-weight: 500;
             color: @subtext1;
-            /* color: alpha(@text, 0.9); */
             /* color: alpha(@theme_text_color, 0.9); */
             text-shadow: none;
-            margin: 0px 0px 0px 0px;
-          }
-
-          .body-image {
-            border-radius: 4px;
           }
 
           /* The "Notifications" and "Do Not Disturb" text widget */
           .top-action-title {
-            color: @text;
+            color: @theme_text_color;
             /* color: @theme_text_color; */
             text-shadow: none;
           }
 
           .control-center {
-            background: alpha(@crust, .80);
-            border-radius: 15px;
-            border: 0px solid @selected;
-            box-shadow: 0 0 10px 0 rgba(0,0,0,.80);
-            margin: 0px;
-            padding: 0px;
-          }
-
-          /* .right.overlay-indicator { */
-          /* border: solid 5px red; */
-          /* } */
-
-          .control-center-list {
-            /* background: @base; */
-            background: alpha(@crust, .80);
-            min-height: 5px;
-            /* border: 1px solid @surface1; */
-            border-top: none;
-            border-radius: 0px 0px 4px 4px;
-          }
-
-          .control-center-list-placeholder,
-          .notification-group-icon,
-          .notification-group {
-            /* opacity: 1.0; */
-            /* opacity: 0; */
-            color: alpha(@theme_text_color, 0.50);
-          }
-
-          .notification-group {
-            /* unset the annoying focus thingie */
-            opacity: 1.0;
-            box-shadow: none;
-            /* selectable: no; */
-          }
-
-          .notification-group > box {
-            all: unset;
-            background: transparent;
-            /* background: alpha(currentColor, 0.072); */
-            padding: 4px;
-            margin: 0px;
-            /* margin: 0px -5px; */
-            border: none;
-            border-radius: 4px;
-            box-shadow: none;
             background: alpha(@theme_bg_color, .80);
             border-radius: 8px;
+            border: 1px solid @theme_selected_bg_color;
           }
 
           .control-center .notification-row:focus,
@@ -409,39 +305,16 @@
 
           .notification-row {
             outline: none;
-            transition: all 1s ease;
-            background: alpha(@mantle, .80);
-            /* background: @theme_bg_color; */
-            border: 0px solid @crust;
-            margin: 10px 5px 10px 5px;
-            border-radius: 14px;
-            /* box-shadow: 0px 0px 4px black; */
-            /* background: alpha(currentColor, 0.05); */
-          }
-
-          .notification-row:focus,
-          .notification-row:hover {
-            box-shadow: none;
-          }
-
-          .control-center-list > row,
-          .control-center-list > row:focus,
-          .control-center-list > row:hover {
+            margin: 0;
+            padding: 0;
             background: transparent;
             border: none;
-            margin: 0px;
-            padding: 5px 10px 5px 10px;
-            box-shadow: none;
+            /* background: alpha(@mantle, .80); */
           }
 
-          .control-center-list > row:last-child {
-            padding: 5px 10px 5px 10px;
-          }
-
-
-          /* Window behind control center and on all other monitors */
-          .blank-window {
+          .notification-group {
             background: transparent;
+            border: none;
           }
 
           /*** Widgets ***/
@@ -468,7 +341,7 @@
             padding: 7px 3px;
             margin-right: 10px;
             background: transparent;
-            color: @text;
+            color: @theme_text_color;
             /* color: @theme_text_color; */
             border: none;
             /* border: none; */
@@ -484,7 +357,7 @@
             margin: 0px;
             padding: 0px;
             min-height: 5px;
-            background: alpha(@mantle, .80);
+            background: alpha(@theme_bg_color, .80);
             /* background: @theme_bg_color; */
             border-radius: 0px 0px 4px 4px;
             /* border: 1px solid @surface1; */
@@ -511,11 +384,11 @@
             background: transparent;
           }
           .widget-menubar > box > box > button {
-            background: alpha(@mantle, .80);
+            background: alpha(@theme_bg_color, .80);
             /* background: alpha(currentColor, 0.05); */
             min-width: 185px;
             min-height: 50px;
-            margin-right: 20px;
+            margin-right: 25px;
             font-size: 14px;
             padding: 5px;
           }
@@ -523,18 +396,15 @@
             margin-right: 0px;
             padding-top: 5px;
           }
-          .widget-menubar button:focus {
-            box-shadow: none;
-          }
-          .widget-menubar button:focus:hover {
-            background: @base;
+          .widget-menubar button:hover {
+            background: @theme_selected_bg_color;
             /* background: alpha(currentColor,0.1); */
             box-shadow: none;
           }
 
           .widget-menubar > box > revealer > box {
             margin: 5px 10px 5px 10px;
-            background: alpha(@mantle, .80);
+            background: alpha(@theme_bg_color, .80);
             /* background: alpha(currentColor, 0.05); */
             border-radius: 4px;
           }
@@ -560,7 +430,7 @@
           }
 
           .widget-buttons-grid > flowbox > flowboxchild {
-            background: alpha(@mantle, .80);
+            background: @theme_bg_color;
             /* background: alpha(currentColor, 0.05); */
             border-radius: 4px;
             min-height: 40px;
@@ -579,91 +449,31 @@
 
 
           .widget-buttons-grid > flowbox > flowboxchild > button:hover {
-            background: alpha(@mantle, .80);
+            background: @theme_selected_bg_color;
             /* background: alpha(currentColor, 0.1); */
           }
 
           /* Mpris widget */
           .widget-mpris {
             padding: 8px;
+            border-radius: 8px;
             padding-bottom: 15px;
             margin-bottom: 0px;
           }
-          .widget-mpris > box {
-            padding: 0px;
-            margin: -5px 0px -10px 0px;
-            padding: 0px;
-            border-radius: 4px;
-            /* background: alpha(currentColor, 0.05); */
-            background: alpha(@mantle, .80);
-          }
-          .widget-mpris > box > button:nth-child(1),
-          .widget-mpris > box > button:nth-child(3) {
-            margin-bottom: 0px;
-          }
-          .widget-mpris > box > button:nth-child(1) {
-            margin-left: -25px;
-            margin-right: -25px;
-            opacity: 0;
-          }
-          .widget-mpris > box > button:nth-child(3) {
-            margin-left: -25px;
-            margin-right: -25px;
-            opacity: 0;
-          }
-
-          .widget-mpris-album-art {
-            all: unset;
-          }
-
-          /* Player button box */
-          .widget-mpris > box > carousel > widget > box > box:nth-child(2) {
-            margin: 5px 0px -5px 90px;
-          }
-
-          /* Player buttons */
-          .widget-mpris > box > carousel > widget > box > box:nth-child(2) > button {
-            border-radius: 4px;
-          }
-          .widget-mpris > box > carousel > widget > box > box:nth-child(2) > button:hover {
-            background: alpha(currentColor, 0.1);
-          }
-          carouselindicatordots {
-            opacity: 0;
-          }
-
-          .widget-mpris-title {
-            color: #eeeeee;
-            font-weight: bold;
-            font-size: 1.25rem;
-            text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
-          }
-          .widget-mpris-subtitle {
-            color: #eeeeee;
-            font-size: 1rem;
-            text-shadow: 0px 0px 3px rgba(0, 0, 0, 1);
-          }
-
-          .widget-mpris-player {
-            border-radius: 0px;
-            margin: 0px;
-          }
-          .widget-mpris-player > box > image {
-            margin: 0px 0px -48px 0px;
-          }
-
-          .notification-group > box.vertical {
-            /* border: solid 5px red; */
-            margin-top: 3px;
+          .widget-mpris > box > button,
+          .widget-mpris-player,
+          .widget-mpris-album-art, {
+            box-shadow: none;
+            margin: 10px 0 0 0;
+            padding: 5px 10px;
+            border-radius: 8px;
           }
 
           /* Backlight and volume widgets */
           .widget-backlight,
           .widget-volume {
             background: transparent;
-            /* background-color: @crust; */
             /* background-color: @theme_bg_color; */
-            /* border: 1px solid @surface1; */
             border-top: none;
             border-bottom: none;
             font-size: 13px;
@@ -673,7 +483,7 @@
             padding: 0px;
           }
           .widget-volume > box {
-            background: alpha(@mantle, .80);
+            background: alpha(@theme_bg_color, .80);
             /* background: alpha(currentColor, 0.05); */
             border-radius: 4px;
             margin: 5px 10px 5px 10px;
@@ -693,7 +503,7 @@
             background: @surface0;
           }
           .widget-volume > revealer > list {
-            background: alpha(@mantle, .80);
+            background: alpha(@theme_bg_color, .80);
             /* background: alpha(currentColor, 0.05); */
             border-radius: 4px;
             margin-top: 5px;
@@ -710,7 +520,7 @@
             border-radius: 4px;
           }
           .widget-backlight > scale {
-            background: alpha(@mantle, .80);
+            background: alpha(@theme_bg_color, .80);
             /* background: alpha(currentColor, 0.05); */
             border-radius: 0px 4px 4px 0px;
             margin: 5px 10px 5px 0px;
@@ -735,7 +545,7 @@
           }
 
           .widget-dnd > switch {
-            background: alpha(@mantle, .80);
+            background: alpha(@theme_bg_color, .80);
             font-size: initial;
             border-radius: 8px;
             box-shadow: none;
@@ -743,19 +553,19 @@
           }
 
           .widget-dnd > switch:hover {
-            background: alpha(@mauve_lighter, .80);
+            background: alpha(@theme_selected_bg_color, .80);
           }
 
           .widget-dnd > switch:checked {
-            background: @mauve;
+            background: @theme_fg_color;
           }
 
           .widget-dnd > switch:checked:hover {
-            background: alpha(@mauve_lighter, .80);
+            background: alpha(@theme_fg_color, .80);
           }
 
           .widget-dnd > switch slider {
-            background: alpha(@mauve_lighter, .80);
+            background: alpha(@theme_selected_bg_color, .80);
             border-radius: 6px;
           }
 
@@ -772,37 +582,33 @@
             /* background: alpha(@theme_selected_bg_color, 0.75); */
           }
 
-          /* Sliders */
-          scale {
-            padding: 0px;
-            margin: 0px 10px 0px 10px;
-          }
-
           scale trough {
             border-radius: 4px;
             background: @surface0;
             /* background: alpha(currentColor, 0.1); */
           }
 
-          scale highlight {
-            border-radius: 5px;
-            min-height: 10px;
-            margin-right: 0px;
-          }
-
           scale slider {
-            margin: 0px;
-            min-width: 10px;
-            min-height: 10px;
-            background: transparent;
-            box-shadow: none;
-            padding: 0px;
+            background: @theme_fg_color;
           }
           scale slider:hover {
           }
 
-          .right.overlay-indicator {
+          /* Hide scrollbars */
+          scrollbar,
+          scrollbar * {
             all: unset;
+            min-width: 0px;
+            min-height: 0px;
+          }
+
+          scrollbar slider {
+            background: transparent;
+          }
+
+          scrollbar.vertical,
+          scrollbar.horizontal {
+            background: transparent;
           }
         '';
       };
