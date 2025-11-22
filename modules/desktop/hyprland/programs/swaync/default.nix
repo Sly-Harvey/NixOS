@@ -239,10 +239,10 @@
           }
 
           .notification {
-            border: 2px solid;
+            background: @theme_bg_color;
+            border: 1px solid @theme_selected_bg_color;
             border-radius: 8px;
             margin: 6px 0;
-            background: @theme_bg_color;
           }
 
           .notification-action {
@@ -272,7 +272,7 @@
             background: transparent;
             font-size: 16px;
             text-shadow: none;
-            margin: 0px 0px 0px 0px;
+            margin-right: 18px;
           }
 
           .body {
@@ -294,7 +294,7 @@
           .control-center {
             background: alpha(@theme_bg_color, .80);
             border-radius: 8px;
-            border: 2px solid;
+            border: 1px solid @theme_selected_bg_color;
           }
 
           .control-center .notification-row:focus,
@@ -307,8 +307,14 @@
             outline: none;
             margin: 0;
             padding: 0;
+            background: transparent;
+            border: none;
             /* background: alpha(@mantle, .80); */
-            /* background: @theme_bg_color; */
+          }
+
+          .notification-group {
+            background: transparent;
+            border: none;
           }
 
           /*** Widgets ***/
@@ -382,7 +388,7 @@
             /* background: alpha(currentColor, 0.05); */
             min-width: 185px;
             min-height: 50px;
-            margin-right: 20px;
+            margin-right: 25px;
             font-size: 14px;
             padding: 5px;
           }
@@ -390,10 +396,7 @@
             margin-right: 0px;
             padding-top: 5px;
           }
-          .widget-menubar button:focus {
-            box-shadow: none;
-          }
-          .widget-menubar button:focus:hover {
+          .widget-menubar button:hover {
             background: @theme_selected_bg_color;
             /* background: alpha(currentColor,0.1); */
             box-shadow: none;
@@ -589,6 +592,23 @@
             background: @theme_fg_color;
           }
           scale slider:hover {
+          }
+
+          /* Hide scrollbars */
+          scrollbar,
+          scrollbar * {
+            all: unset;
+            min-width: 0px;
+            min-height: 0px;
+          }
+
+          scrollbar slider {
+            background: transparent;
+          }
+
+          scrollbar.vertical,
+          scrollbar.horizontal {
+            background: transparent;
           }
         '';
       };
