@@ -194,6 +194,7 @@
         userFilters = lib.concatMapStrings (x: x + "\n") [
           "twitch.tv##+js(twitch-videoad)"
           "||1337x.vpnonly.site"
+          "||snowvan.xyz^"
         ];
         userSettings = rec {
           uiTheme = "dark";
