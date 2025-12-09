@@ -5,10 +5,9 @@
   desktop = "hyprland"; # hyprland, i3, gnome, plasma6
 
   # Theme & Appearance
-  theme = "catppuccin-mocha"; # https://github.com/tinted-theming/schemes
   waybarTheme = "minimal"; # stylish, minimal
   sddmTheme = "astronaut"; # astronaut, black_hole, purple_leaves, jake_the_dog, hyprland_kath
-  defaultWallpaper = "kurzgesagt.webp"; # Change with SUPER + SHIFT + W
+  defaultWallpaper = "train-sideview.webp"; # Change with SUPER + SHIFT + W
   hyprlockWallpaper = "train-sideview.webp";
 
   # Default Applications

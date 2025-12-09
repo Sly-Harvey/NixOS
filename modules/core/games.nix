@@ -18,12 +18,13 @@
   environment.systemPackages = with pkgs; [
     lutris
     heroic
-    # bottles
+    bottles
     # ryujinx
     # prismlauncher
 
     steam-run
     wineWowPackages.staging
+    gamescope
   ];
   programs = {
     gamemode.enable = true;
@@ -31,15 +32,27 @@
       enable = true;
       remotePlay.openFirewall = true;
       dedicatedServer.openFirewall = true;
-      gamescopeSession.enable = true;
       extraCompatPackages = [ pkgs.proton-ge-bin ];
+      gamescopeSession = {
+        enable = true;
+        args = [
+          "--rt"
+          "--expose-wayland"
+          # "--immediate-flips" # Tearing and low input lag
+          # "--adaptive-sync"  # G-Sync/FreeSync
+        ];
+      };
     };
     gamescope = {
       enable = true;
       capSysNice = true;
+      package = pkgs.gamescope;
       args = [
         "--rt"
         "--expose-wayland"
+
+        # experimental
+        # "--immediate-flips"
       ];
     };
   };
