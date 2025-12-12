@@ -414,7 +414,7 @@ in
           }
 
           tooltip {
-            background: #1e1e2e;
+            background: @theme_base_color;
             border-radius: 8px;
           }
 
