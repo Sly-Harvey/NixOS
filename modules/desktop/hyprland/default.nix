@@ -168,7 +168,6 @@ in
                   "${./scripts/batterynotify.sh}" # battery notification
                   # "${./scripts/autowaybar.sh}" # uncomment packages at the top
                   "polkit-agent-helper-1"
-                  "pamixer --set-volume 50"
                 ];
               input = {
                 kb_layout = "${kbdLayout},ru";
