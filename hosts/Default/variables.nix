@@ -1,5 +1,5 @@
 {
-  username = "zer0"; # auto-set with install.sh, live-install.sh, and rebuild scripts.
+  username = "railgun"; # auto-set with install.sh, live-install.sh, and rebuild scripts.
 
   # Desktop Environment
   desktop = "hyprland"; # hyprland, i3, gnome, plasma6
