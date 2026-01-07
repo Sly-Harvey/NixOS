@@ -2,7 +2,7 @@
 
 {
   services.xserver = {
-    enable = true;
+    # enable = true;  # Already enabled in display manager
     videoDrivers = [ "amdgpu" ];
   };
   environment.systemPackages = with pkgs; [ rocmPackages.amdsmi ];
