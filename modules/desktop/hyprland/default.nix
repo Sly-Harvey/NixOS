@@ -317,6 +317,7 @@ in
                 "opacity 0.80 0.70,title:^(Kvantum Manager)$"
                 "opacity 0.80 0.70,class:^(VSCodium|codium-url-handler)$"
                 "opacity 0.80 0.70,class:^(code|code-url-handler)$"
+                "opacity 0.80 0.70,class:^(protonvpn-app)$"
                 "opacity 0.80 0.70,class:^(tuiFileManager)$"
                 "opacity 0.80 0.70,class:^(org.kde.dolphin)$"
                 "opacity 0.80 0.70,class:^(org.kde.ark)$"
