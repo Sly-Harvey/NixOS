@@ -36,14 +36,15 @@ in
   nix = {
     # Nix Package Manager Settings
     settings = {
+      builders-use-substitutes = true;
       download-buffer-size = 200000000;
       auto-optimise-store = true; # May make rebuilds longer but less size
       substituters = [
-        "https://cache.nixos.org/"
-        "https://nix-community.cachix.org/"
-        "https://chaotic-nyx.cachix.org/"
+        "https://cache.nixos.org" # Can add ?priority=10 and the end
+        "https://nix-community.cachix.org"
+        "https://chaotic-nyx.cachix.org"
         "https://cachix.cachix.org"
-        "https://nix-gaming.cachix.org/"
+        "https://nix-gaming.cachix.org"
         # "https://nixpkgs-wayland.cachix.org"
         # "https://devenv.cachix.org"
       ];
