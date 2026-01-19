@@ -47,7 +47,7 @@
           port = 5335;
           access-control = [
             "127.0.0.1 allow"
-            "192.168.1.0/24 allow"
+            "192.168.0.0/24 allow"
           ];
           # Based on recommended settings in https://docs.pi-hole.net/guides/dns/unbound/#configure-unbound
           harden-glue = true;

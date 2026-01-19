@@ -1,4 +1,5 @@
 { host, pkgs, ... }:
+
 let
   inherit (import ../../hosts/${host}/variables.nix) hostname;
 in
@@ -6,70 +7,83 @@ in
   networking = {
     hostName = "${hostname}";
     networkmanager.enable = true;
-    # wireless.enable = true; # Enables wireless support via wpa_supplicant.
-    # proxy = {
-    #   default = "http://user:password@proxy:port/";
-    #   noProxy = "127.0.0.1,localhost,internal.domain";
-    # };
 
     firewall = {
       enable = true;
-      allowedTCPPorts = [
-        22 # SSH (Secure Shell) - remote access
-        80 # HTTP - web traffic
-        443 # HTTPS - encrypted web traffic
-        59010 # Custom application port
-        59011 # Custom application port
-        8080 # Alternative HTTP/web server port
-      ];
-      allowedUDPPorts = [
-        59010 # Custom application port
-        59011 # Custom application port
-      ];
+      allowedTCPPorts = [ ];
+      allowedUDPPorts = [ ];
     };
-    localCommands = ''
-      WANIF="eno1"
-
-      # Exit early if the specified network interface does not exist
-      ${pkgs.iproute2}/bin/ip link show "$WANIF" > /dev/null 2>&1 || exit 0
-
-      # Remove any existing qdiscs on WAN interface and ifb0 to avoid conflicts
-      ${pkgs.iproute2}/bin/tc qdisc del dev "$WANIF" root || true
-      ${pkgs.iproute2}/bin/tc qdisc del dev ifb0 root || true
-
-      # Create the ifb0 interface if it does not exist (used for ingress traffic shaping)
-      ${pkgs.iproute2}/bin/ip link show ifb0 > /dev/null 2>&1 || \
-        ${pkgs.iproute2}/bin/ip link add name ifb0 type ifb
-      ${pkgs.iproute2}/bin/ip link set dev ifb0 up
-
-      # Apply Cake queuing discipline on the WAN interface for upload shaping
-      # Options:
-      # - bandwidth: set maximum upload bandwidth limit
-      # - diffserv4: enable DiffServ for QoS marking support
-      # - triple-isolate: isolate flows between local, ingress, and egress
-      # - nat: improve NAT handling for better fairness
-      # - wash: normalize DSCP markings
-      # - ack-filter: filter TCP ACK packets to reduce unnecessary traffic
-      # - overhead: account for protocol overhead in shaping calculations
-      ${pkgs.iproute2}/bin/tc qdisc add dev "$WANIF" root cake \
-        diffserv4 triple-isolate nat wash ack-filter overhead 50
-
-      # Add ingress qdisc on WAN interface to redirect ingress traffic to ifb0
-      ${pkgs.iproute2}/bin/tc qdisc add dev "$WANIF" handle ffff: ingress
-
-      # Redirect all incoming IP traffic from WAN interface to ifb0 for download shaping
-      ${pkgs.iproute2}/bin/tc filter add dev "$WANIF" parent ffff: protocol ip u32 match u32 0 0 \
-        flowid 1:1 action mirred egress redirect dev ifb0
-
-      # Apply Cake queuing discipline on ifb0 interface for download shaping
-      # Same options as upload shaping, but without 'nat' as it's unnecessary here
-      ${pkgs.iproute2}/bin/tc qdisc add dev ifb0 root cake \
-        diffserv4 triple-isolate nat wash overhead 50
-    '';
   };
 
-  environment.systemPackages = with pkgs; [
-    networkmanagerapplet
-    iproute2
-  ];
+  boot = {
+    kernelModules = [ "tcp_bbr" ];
+    kernel.sysctl = {
+      # TCP hardening
+      "kernel.sysrq" = 0;
+      "net.ipv4.conf.default.rp_filter" = 1;
+      "net.ipv4.conf.all.rp_filter" = 1;
+      "net.ipv4.conf.default.send_redirects" = 0;
+      "net.ipv4.conf.default.accept_redirects" = 0;
+      "net.ipv4.conf.all.secure_redirects" = 0;
+      "net.ipv4.conf.default.secure_redirects" = 0;
+      "net.ipv6.conf.all.accept_redirects" = 0;
+      "net.ipv6.conf.default.accept_redirects" = 0;
+      "net.ipv4.tcp_syncookies" = 1;
+      "net.ipv4.tcp_rfc1337" = 1;
+
+      # BBR + ECN optimization (Kernel 6.x)
+      "net.ipv4.tcp_congestion_control" = "bbr";
+      "net.ipv4.tcp_ecn" = 1;
+      "net.ipv4.tcp_ecn_fallback" = 1;
+
+      # TCP ultra low latency
+      "net.ipv4.tcp_fastopen" = 3;
+      "net.ipv4.tcp_fin_timeout" = 30;
+      "net.ipv4.tcp_window_scaling" = 1;
+      "net.ipv4.tcp_mtu_probing" = 1;
+      "net.ipv4.tcp_slow_start_after_idle" = 0;
+      "net.ipv4.tcp_notsent_lowat" = 16384;
+
+      # BBR pacing (Kernel 6.x)
+      "net.ipv4.tcp_pacing_ss_ratio" = 200;
+      "net.ipv4.tcp_pacing_ca_ratio" = 120;
+
+      # Buffer optimization (1Gbps Optimized)
+      "net.ipv4.tcp_rmem" = "4096 131072 67108864";
+      "net.ipv4.tcp_wmem" = "4096 65536 67108864";
+      "net.core.wmem_max" = 67108864;
+      "net.core.rmem_max" = 67108864;
+      "net.core.wmem_default" = 1048576;
+      "net.core.rmem_default" = 1048576;
+
+      # Queue management
+      "net.core.default_qdisc" = "fq";
+      "net.core.netdev_max_backlog" = 16384;
+      "net.core.somaxconn" = 2048;
+
+      # Netdev budget
+      "net.core.netdev_budget" = 600;
+      "net.core.netdev_budget_usecs" = 8000;
+
+      # Kernel Security Hardening
+      "kernel.kptr_restrict" = 2;
+      "kernel.dmesg_restrict" = 1;
+      "kernel.printk" = "3 3 3 3";
+      "kernel.unprivileged_bpf_disabled" = 1;
+      "kernel.yama.ptrace_scope" = 1;
+
+      # BPF JIT compiler (performance boost & hardening)
+      "net.core.bpf_jit_enable" = 1;
+      "net.core.bpf_jit_harden" = 2;
+      "net.core.bpf_jit_kallsyms" = 1;
+
+      # IPv6
+      "net.ipv6.conf.all.accept_ra" = 1;
+    };
+  };
+
+  systemd.services.NetworkManager-wait-online.enable = false;
+  systemd.network.wait-online.enable = false;
+
+  environment.systemPackages = with pkgs; [ networkmanagerapplet ];
 }
