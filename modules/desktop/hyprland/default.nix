@@ -26,11 +26,6 @@ in
     # ./programs/dunst
   ];
 
-  nix.settings = {
-    substituters = [ "https://hyprland.cachix.org" ];
-    trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
-  };
-
   systemd.user.services.hyprpolkitagent = {
     description = "Hyprpolkitagent - Polkit authentication agent";
     wantedBy = [ "graphical-session.target" ];
@@ -48,6 +43,7 @@ in
 
   programs.hyprland = {
     enable = true;
+    package = pkgs.stable.hyprland;
     # withUWSM = true;
   };
 
@@ -77,8 +73,7 @@ in
             };
           };
 
-          home.packages = with pkgs; [
-            swww
+          home.packages = with pkgs.stable; [
             hyprpicker
             cliphist
             wf-recorder
@@ -91,7 +86,6 @@ in
             pamixer
             pavucontrol
             playerctl
-            waybar
             wtype
             wl-clipboard
             xdotool
@@ -111,6 +105,7 @@ in
           #test later systemd.user.targets.hyprland-session.Unit.Wants = [ "xdg-desktop-autostart.target" ];
           wayland.windowManager.hyprland = {
             enable = true;
+            package = pkgs.stable.hyprland;
             plugins = [
               # inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprwinwrap
               # inputs.hyprsysteminfo.packages.${pkgs.stdenv.hostPlatform.system}.default
@@ -308,6 +303,7 @@ in
                 "opacity 0.80 0.70,title:^(Kvantum Manager)$"
                 "opacity 0.80 0.70,class:^(VSCodium|codium-url-handler)$"
                 "opacity 0.80 0.70,class:^(code|code-url-handler)$"
+                "opacity 0.80 0.70,class:^(protonvpn-app)$"
                 "opacity 0.80 0.70,class:^(tuiFileManager)$"
                 "opacity 0.80 0.70,class:^(org.kde.dolphin)$"
                 "opacity 0.80 0.70,class:^(org.kde.ark)$"
@@ -494,13 +490,16 @@ in
                   "$mainMod, k, movefocus, u"
                   "$mainMod, j, movefocus, d"
 
-                  # Go to workspace 6 and 7 with mouse side buttons
+                  # Go to workspace 5, 6 and 7 with mouse side buttons
                   "$mainMod, mouse:276, workspace, 5"
                   "$mainMod, mouse:275, workspace, 6"
+                  "$mainMod ALT, mouse:275, workspace, 7"
                   "$mainMod SHIFT, mouse:276, movetoworkspace, 5"
                   "$mainMod SHIFT, mouse:275, movetoworkspace, 6"
+                  "$mainMod SHIFT ALT, mouse:275, movetoworkspace, 7"
                   "$mainMod CTRL, mouse:276, movetoworkspacesilent, 5"
                   "$mainMod CTRL, mouse:275, movetoworkspacesilent, 6"
+                  "$mainMod CTRL ALT, mouse:275, movetoworkspacesilent, 7"
 
                   # Rebuild NixOS with a KeyBind
                   "$mainMod, U, exec, $term -e rebuild"

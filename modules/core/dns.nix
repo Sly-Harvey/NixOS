@@ -13,13 +13,17 @@
   # Disable systemd dns resolver
   services.resolved = {
     enable = false;
-    domains = [ "~." ];
-    fallbackDns = [ ]; # Empty to prevent bypass
-    dnsovertls = "true";
+    settings = {
+      Resolve = {
+        Domains = [ "~." ];
+        FallbackDNS = [ ]; # Empty to prevent bypass
+        DNSOverTLS = "true";
 
-    # github.com/systemd/systemd/issues/10579
-    # dnssec = "allow-downgrade";
-    dnssec = "false";
+        # github.com/systemd/systemd/issues/10579
+        # dnssec = "allow-downgrade";
+        DNSSEC = "false";
+      };
+    };
   };
   systemd.services = {
     unbound.stopIfChanged = false;
