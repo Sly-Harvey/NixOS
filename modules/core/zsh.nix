@@ -1,4 +1,8 @@
-{ self, pkgs, ... }:
+{
+  self,
+  pkgs,
+  ...
+}:
 {
   home-manager.sharedModules = [
     (
@@ -6,34 +10,46 @@
       {
         programs.zsh = {
           enable = true;
-          autosuggestion.enable = true;
-          syntaxHighlighting.enable = true;
-          enableCompletion = true;
+          autosuggestion.enable = false; # Loaded lazily via zsh-defer
+          syntaxHighlighting.enable = false; # Loaded lazily via zsh-defer
+          enableCompletion = false; # Loaded lazily via zsh-defer
           history.size = 100000;
           history.path = "\${XDG_DATA_HOME}/zsh/history";
           dotDir = "${config.xdg.configHome}/zsh";
-          oh-my-zsh = {
-            enable = true;
-            plugins = [
-              "git"
-              "gitignore"
-              "z"
-            ];
-          };
+          plugins = [
+            {
+              name = "nix-zsh-completions";
+              src = pkgs.nix-zsh-completions;
+            }
+          ];
           initContent = ''
-            # Starship Prompt
-            if command -v starship &>/dev/null; then
-              eval "$(starship init zsh)"
-            fi
+            fpath=(${pkgs.nix-zsh-completions}/share/zsh/site-functions $fpath)
 
-            # Direnv Hook
-            if command -v direnv &>/dev/null; then
-              eval "$(direnv hook zsh)"
-            fi
+            # Source zsh-defer first, then use it for lazy loading
+            source ${pkgs.zsh-defer}/share/zsh-defer/zsh-defer.plugin.zsh
+
+            # Lazy load heavy components with zsh-defer for faster startup
+            zsh-defer -c 'autoload -Uz compinit && compinit -C'
+            zsh-defer -c 'source ${pkgs.zsh-syntax-highlighting}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh'
+            zsh-defer -c 'source ${pkgs.zsh-autosuggestions}/share/zsh-autosuggestions/zsh-autosuggestions.zsh'
+            zsh-defer -c 'source ${pkgs.zsh-fzf-tab}/share/fzf-tab/fzf-tab.plugin.zsh'
+            zsh-defer -c 'source ${pkgs.zsh-history-substring-search}/share/zsh-history-substring-search/zsh-history-substring-search.zsh; bindkey "^[[A" history-substring-search-up; bindkey "^[[B" history-substring-search-down'
+            zsh-defer -c 'eval "$(direnv hook zsh)"' 2>/dev/null
+            zsh-defer -c 'eval "$(zoxide init zsh)"' 2>/dev/null
+
+            # Sudo widget (double ESC to prepend sudo - replaces oh-my-zsh sudo plugin)
+            sudo-command-line() {
+              [[ -z $BUFFER ]] && zle up-history
+              if [[ $BUFFER == sudo\ * ]]; then
+                LBUFFER="''${LBUFFER#sudo }"
+              else
+                LBUFFER="sudo $LBUFFER"
+              fi
+            }
+            zle -N sudo-command-line
+            bindkey '\e\e' sudo-command-line
 
             # Key Bindings
-            # bindkey -s ^t "tmux-sessionizer\n"
-            # bindkey '^f' "cd $(${pkgs.fd}/bin/fd . /mnt/work /mnt/work/Projects/ /run/current-system ~/ --max-depth 1 | fzf)\n"
             bindkey '^a' beginning-of-line
             bindkey '^e' end-of-line
 
@@ -53,6 +69,25 @@
             setopt hist_verify
             setopt inc_append_history
             setopt share_history
+
+            # Lazy load completion styles (depends on compinit)
+            zsh-defer -c '
+              zstyle ":completion:*" menu select
+              zstyle ":completion:*" list-colors "''${(s.:.)LS_COLORS}"
+              zstyle ":completion:*" verbose yes
+              zstyle ":completion:*:descriptions" format "%F{yellow}-- %d --%f"
+              zstyle ":completion:*:messages" format "%F{purple}-- %d --%f"
+              zstyle ":completion:*:warnings" format "%F{red}-- no matches found --%f"
+              zstyle ":completion:*" group-name ""
+              zstyle ":completion:*:*:-command-:*:*" group-order aliases builtins functions commands
+              zstyle ":completion:*" matcher-list "m:{a-zA-Z}={A-Za-z}" "r:|[._-]=* r:|=*" "l:|=* r:|=*"
+              zstyle ":completion:*" extra-verbose yes
+              zstyle ":completion:*" use-cache on
+              zstyle ":completion:*" cache-path "$XDG_CACHE_HOME/zsh/.zcompcache"
+              zstyle ":completion:*" file-list all
+              zstyle ":completion:*:options" description yes
+              zstyle ":completion:*:options" auto-description "%d"
+            '
           '';
           envExtra = ''
             # Defaults
@@ -144,16 +179,6 @@
             projects = "cd /mnt/work/Projects/";
             proj = "cd /mnt/work/Projects/";
             dev = "cd /mnt/work/Projects/";
-            # dev = "cd /mnt/work/dev/";
-            # nixdir = "cd /mnt/work/dev/nix/";
-            # cppdir = "cd /mnt/work/dev/C++/";
-            # zigdir = "cd /mnt/work/dev/Zig/";
-            # csdir = "cd /mnt/work/dev/C#/";
-            # rustdir = "cd /mnt/work/dev/Rust/";
-            # pydir = "cd /mnt/work/dev/Python/";
-            # javadir = "cd /mnt/work/dev/Java/";
-            # luadir = "cd /mnt/work/dev/lua/";
-            # webdir = "cd /mnt/work/dev/Website/";
           };
         };
       }
