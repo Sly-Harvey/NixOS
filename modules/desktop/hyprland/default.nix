@@ -27,11 +27,6 @@ in
     # ./programs/dunst
   ];
 
-  nix.settings = {
-    substituters = [ "https://hyprland.cachix.org" ];
-    trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
-  };
-
   systemd.user.services.hyprpolkitagent = {
     description = "Hyprpolkitagent - Polkit authentication agent";
     wantedBy = [ "graphical-session.target" ];
@@ -49,6 +44,7 @@ in
 
   programs.hyprland = {
     enable = true;
+    package = pkgs.stable.hyprland;
     # withUWSM = true;
   };
 
@@ -78,8 +74,7 @@ in
             };
           };
 
-          home.packages = with pkgs; [
-            swww
+          home.packages = with pkgs.stable; [
             hyprpicker
             cliphist
             wf-recorder
@@ -92,7 +87,6 @@ in
             pamixer
             pavucontrol
             playerctl
-            waybar
             wtype
             wl-clipboard
             xdotool
@@ -112,6 +106,7 @@ in
           #test later systemd.user.targets.hyprland-session.Unit.Wants = [ "xdg-desktop-autostart.target" ];
           wayland.windowManager.hyprland = {
             enable = true;
+            package = pkgs.stable.hyprland;
             plugins = [
               # inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprwinwrap
               # inputs.hyprsysteminfo.packages.${pkgs.stdenv.hostPlatform.system}.default
