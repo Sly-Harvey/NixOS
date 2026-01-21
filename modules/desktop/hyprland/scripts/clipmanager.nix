@@ -1,0 +1,51 @@
+{ pkgs, ... }:
+pkgs.writeShellScriptBin "clipmanager" ''
+  tmp_dir="/tmp/cliphist_rofi_previews"
+
+  trap 'rm -rf "$tmp_dir"' EXIT
+
+  mkdir -p "$tmp_dir"
+
+  read -r -d "" gawk_prog <<EOF
+  /^[0-9]+\s<meta http-equiv=/ { next }
+  match(\$0, /^([0-9]+)\s(\[\[\s)?binary.*(jpg|jpeg|png|bmp)/, grp) {
+      system("${pkgs.cliphist}/bin/cliphist decode " grp[1] " > " tmp_dir "/" grp[1] "." grp[3])
+      print \$0"\0icon\x1f"tmp_dir"/"grp[1]"."grp[3]
+      next
+  }
+  1
+  EOF
+
+  while true; do
+    result=$(
+      ${pkgs.rofi}/bin/rofi -dmenu \
+        -kb-custom-1 "Control-Delete" \
+        -kb-custom-2 "Alt-Delete" \
+        -theme "$HOME/.config/rofi/launchers/type-1/style-6.rasi" \
+        < <(${pkgs.cliphist}/bin/cliphist list | ${pkgs.gawk}/bin/gawk -v tmp_dir="$tmp_dir" "$gawk_prog")
+    )
+
+    case "$?" in
+    1)
+      exit
+      ;;
+    0)
+      case "$result" in
+      "")
+        continue
+        ;;
+      *)
+        ${pkgs.cliphist}/bin/cliphist decode <<<"$result" | ${pkgs.wl-clipboard}/bin/wl-copy
+        exit
+        ;;
+      esac
+      ;;
+    10)
+      ${pkgs.cliphist}/bin/cliphist delete <<<"$result"
+      ;;
+    11)
+      ${pkgs.cliphist}/bin/cliphist wipe
+      ;;
+    esac
+  done
+''

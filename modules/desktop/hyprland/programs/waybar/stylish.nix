@@ -1,7 +1,7 @@
 { host, pkgs, ... }:
 let
   inherit (import ../../../../../hosts/${host}/variables.nix) clock24h terminal;
-
+  gpuinfo = pkgs.callPackage ../../scripts/gpuinfo.nix { };
 in
 {
   home-manager.sharedModules = [
@@ -322,7 +322,7 @@ in
               };
               min-length = 7;
               max-length = 7;
-              on-click = "pavucontrol -t 3";
+              on-click = "${pkgs.pavucontrol}/bin/pavucontrol -t 3";
               tooltip-format = "Output Device: {desc}";
             };
 
@@ -333,8 +333,8 @@ in
               min-length = 7;
               max-length = 7;
               scroll-step = 1;
-              on-click = "pavucontrol -t 4";
-              # on-click = "pamixer --default-source --toggle-mute";
+              on-click = "${pkgs.pavucontrol}/bin/pavucontrol -t 4";
+              # on-click = "${pkgs.pamixer}/bin/pamixer --default-source --toggle-mute";
               tooltip-format = "Input Device: {desc}";
             };
 
@@ -364,7 +364,7 @@ in
                 headset = "󰋎";
                 headset-muted = "󰋐";
               };
-              on-click = "pavucontrol -t 3";
+              on-click = "${pkgs.pavucontrol}/bin/pavucontrol -t 3";
               on-scroll-up = "wpctl set-volume @DEFAULT_SINK@ 1%+";
               on-scroll-down = "wpctl set-volume @DEFAULT_SINK@ 1%-";
               tooltip-format = "{icon} {node_name} // {volume}%";
@@ -382,7 +382,7 @@ in
               min-length = 7;
               max-length = 7;
               scroll-step = 1;
-              on-click = "pamixer --default-source --toggle-mute";
+              on-click = "${pkgs.pamixer}/bin/pamixer --default-source --toggle-mute";
               node-type = "Audio/Source";
             };
             "tray" = {
@@ -537,10 +537,10 @@ in
             "custom/gpuinfo" = {
               min-length = 7;
               max-length = 7;
-              exec = "${../../scripts/gpuinfo.sh}";
+              exec = "${gpuinfo}/bin/gpuinfo";
               return-type = "json";
               format = "{0}";
-              on-click = "${../../scripts/gpuinfo.sh} --toggle";
+              on-click = "${gpuinfo}/bin/gpuinfo --toggle";
               interval = 10;
               tooltip = true;
             };

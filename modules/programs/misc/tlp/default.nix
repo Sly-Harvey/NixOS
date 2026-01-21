@@ -9,10 +9,11 @@
       CPU_ENERGY_PERF_POLICY_ON_BAT = "balance_power"; # power, balance_power
       CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
 
-      CPU_MIN_PERF_ON_AC = 0;
       CPU_MAX_PERF_ON_AC = 100;
-      CPU_MIN_PERF_ON_BAT = 0;
-      CPU_MAX_PERF_ON_BAT = 60;
+      # CPU_MAX_PERF_ON_BAT = 60;
+
+      # CPU_MIN_PERF_ON_AC = 0;
+      # CPU_MIN_PERF_ON_BAT = 0;
 
       # Protect battery
       START_CHARGE_THRESH_BAT0 = 82;

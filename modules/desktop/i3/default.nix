@@ -1,10 +1,14 @@
 { lib, pkgs, host, ... }:
 let
+  inherit (lib) getExe getExe';
   inherit (import ../../../hosts/${host}/variables.nix) terminal browser defaultWallpaper;
+  monitors = pkgs.callPackage ./scripts/monitors.nix { };
+  wallpaper = pkgs.callPackage ./scripts/wallpaper.nix { };
 in
 {
   imports = [
     ../hyprland/programs/rofi
+    ./polybar
     ./dunst.nix
   ];
 
@@ -55,7 +59,7 @@ in
           bars = [ ];
           startup = [
             {
-              command = "${./monitors.sh}";
+              command = "${getExe monitors}";
               always = true;
               notification = false;
             }
@@ -65,12 +69,12 @@ in
               notification = false;
             }
             {
-              command = "~/.config/polybar/scripts/polybar.sh";
+              command = "sleep 1.5 && polybar &";
               always = true;
               notification = false;
             }
             {
-              command = "${./wallpaper.sh} ${../../wallpapers/${defaultWallpaper}}";
+              command = "${getExe wallpaper} ${../../themes/wallpapers/${defaultWallpaper}}";
               always = false;
               notification = false;
             }
@@ -155,7 +159,6 @@ in
           };
         };
       };
-      xdg.configFile."polybar".source = ./polybar;
     })
   ];
 }
