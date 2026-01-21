@@ -1,6 +1,9 @@
 { host, pkgs, ... }:
 let
   inherit (import ../../../../../hosts/${host}/variables.nix) clock24h;
+  gpuinfo = pkgs.callPackage ../../scripts/gpuinfo.nix { };
+  keyboardswitch = pkgs.callPackage ../../scripts/keyboardswitch.nix { };
+  waybarcava = pkgs.callPackage ../../scripts/waybarcava.nix { };
 in
 {
   home-manager.sharedModules = [
@@ -76,7 +79,7 @@ in
               on-scroll-down = "busctl --user -- call rs.wl-gammarelay / rs.wl.gammarelay UpdateTemperature n -100";
             };
             "custom/cava_mviz" = {
-              exec = "${../../scripts/WaybarCava.sh}";
+              exec = "${waybarcava}/bin/waybarcava";
               format = "{}";
             };
             "cava" = {
@@ -97,13 +100,13 @@ in
               # "noise_reduction" = 0.77;
               sleep_timer = 5;
               bar_delimiter = 0;
-              on-click = "playerctl play-pause";
+              on-click = "${pkgs.playerctl}/bin/playerctl play-pause";
             };
             "custom/gpuinfo" = {
-              exec = "${../../scripts/gpuinfo.sh}";
+              exec = "${gpuinfo}/bin/gpuinfo";
               return-type = "json";
               format = "{0}";
-              on-click = "${../../scripts/gpuinfo.sh} --toggle";
+              on-click = "${gpuinfo}/bin/gpuinfo --toggle";
               interval = 5; # once every 5 seconds
               tooltip = true;
               max-length = 1000;
@@ -149,7 +152,7 @@ in
             };
             "hyprland/language" = {
               format = "{short}"; # can use {short} and {variant}
-              on-click = "${../../scripts/keyboardswitch.sh}";
+              on-click = "${keyboardswitch}/bin/keyboardswitch";
             };
             "hyprland/workspaces" = {
               disable-scroll = true;
@@ -295,7 +298,7 @@ in
             "pulseaudio" = {
               format = "{icon} {volume}";
               format-muted = " ";
-              on-click = "pavucontrol -t 3";
+              on-click = "${pkgs.pavucontrol}/bin/pavucontrol -t 3";
               tooltip-format = "{icon} {desc} // {volume}%";
               scroll-step = 4;
               format-icons = {
@@ -317,7 +320,7 @@ in
               format = "{format_source}";
               format-source = " {volume}%";
               format-source-muted = "";
-              on-click = "pavucontrol -t 4";
+              on-click = "${pkgs.pavucontrol}/bin/pavucontrol -t 4";
               tooltip-format = "{format_source} {source_desc} // {source_volume}%";
               scroll-step = 5;
             };

@@ -1,4 +1,8 @@
 { pkgs, ... }:
+let
+  gamemode = pkgs.callPackage ../../scripts/gamemode.nix { };
+  togglepowermode = pkgs.callPackage ../../scripts/togglepowermode.nix { };
+in
 {
   #  use later
   home-manager.sharedModules = [
@@ -55,11 +59,11 @@
                 actions = [
                   {
                     label = "Whole screen";
-                    command = "sh -c 'swaync-client -cp; sleep 1; grimblast copysave output \"/tmp/screenshot.png\"; swappy -f \"/tmp/screenshot.png\"'";
+                    command = "sh -c 'swaync-client -cp; sleep 1; ${pkgs.stable.grimblast}/bin/grimblast copysave output \"/tmp/screenshot.png\"; ${pkgs.swappy}/bin/swappy -f \"/tmp/screenshot.png\"'";
                   }
                   {
                     label = "Whole window / Select region";
-                    command = "sh -c 'swaync-client -cp; grimblast copysave area \"/tmp/screenshot.png\"; swappy -f \"/tmp/screenshot.png\"'";
+                    command = "sh -c 'swaync-client -cp; ${pkgs.stable.grimblast}/bin/grimblast copysave area \"/tmp/screenshot.png\"; ${pkgs.swappy}/bin/swappy -f \"/tmp/screenshot.png\"'";
                   }
                 ];
               };
@@ -116,14 +120,14 @@
                 {
                   label = "󰝟";
                   type = "toggle";
-                  command = "pamixer -t";
-                  update-command = "sh -c 'pamixer --get-mute | grep -q true && echo true || echo false'";
+                  command = "${pkgs.pamixer}/bin/pamixer -t";
+                  update-command = "sh -c '${pkgs.pamixer}/bin/pamixer --get-mute | grep -q true && echo true || echo false'";
                 }
                 {
                   label = "󰍭";
                   type = "toggle";
-                  command = "pamixer --default-source -t";
-                  update-command = "sh -c 'pamixer --get-mute --default-source | grep true && echo true || echo false'";
+                  command = "${pkgs.pamixer}/bin/pamixer --default-source -t";
+                  update-command = "sh -c '${pkgs.pamixer}/bin/pamixer --get-mute --default-source | grep true && echo true || echo false'";
                 }
 
                 {
@@ -143,7 +147,7 @@
                 {
                   label = "🎮";
                   type = "toggle";
-                  command = "${../../../hyprland/scripts/gamemode.sh}";
+                  command = "${gamemode}/bin/gamemode";
                   update-command = "hyprctl getoption animations:enabled | grep -q 'int: 1' && echo false || echo true";
                 }
 
@@ -165,7 +169,7 @@
                   label = "";
                   type = "toggle";
 
-                  command = "${../../../hyprland/scripts/TogglePowerMode.sh}";
+                  command = "${togglepowermode}/bin/togglepowermode";
                   update-command = "test -f \"$HOME/.config/hypr/power_mode\" && grep -q \"^powersave$\" \"$HOME/.config/hypr/power_mode\" && echo true || echo false";
                 }
               ];
