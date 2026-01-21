@@ -44,8 +44,8 @@ in
     # ./programs/dunst
   ];
 
-  # For clipboard
   environment.systemPackages = with pkgs; [
+    swappy
     cliphist
     wl-clipboard
   ];
