@@ -3,6 +3,7 @@ target
 result
 result-*
 output-*
+dev-shells/*/flake.lock
 
 .vscode
 *.log
