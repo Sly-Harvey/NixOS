@@ -1,7 +1,5 @@
-#!/usr/bin/env bash
 { pkgs, ... }:
 pkgs.writeShellScriptBin "gpu_temp" ''
-
   if command -v nvidia-smi &>/dev/null; then
     TEMP=$(nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader,nounits)
     echo "GPU $TEMP°C"
