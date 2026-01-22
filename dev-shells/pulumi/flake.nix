@@ -1,10 +1,11 @@
 {
   description = "A Nix-flake-based Pulumi development environment";
 
-  inputs.nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1";
+  inputs.nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1"; # unstable Nixpkgs
 
   outputs =
-    inputs:
+    { self, ... }@inputs:
+
     let
       supportedSystems = [
         "x86_64-linux"
@@ -25,7 +26,7 @@
       devShells = forEachSupportedSystem (
         { pkgs }:
         {
-          default = pkgs.mkShell {
+          default = pkgs.mkShellNoCC {
             packages = with pkgs; [
               # Pulumi plus:
               # pulumi-watch
@@ -38,7 +39,7 @@
               python311
 
               # Go SDK
-              go_1_23
+              go
 
               # Node.js SDK
               nodejs

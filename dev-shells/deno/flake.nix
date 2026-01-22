@@ -1,5 +1,5 @@
 {
-  description = "A Nix-flake-based Swi-prolog development environment";
+  description = "A Nix-flake-based Deno development environment";
 
   inputs.nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1"; # unstable Nixpkgs
 
@@ -27,7 +27,7 @@
         { pkgs }:
         {
           default = pkgs.mkShellNoCC {
-            packages = with pkgs; [ swi-prolog ];
+            packages = with pkgs; [ deno ];
           };
         }
       );

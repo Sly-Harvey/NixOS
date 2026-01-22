@@ -1,10 +1,11 @@
 {
   description = "A Nix-flake-based Elixir development environment";
 
-  inputs.nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1";
+  inputs.nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1"; # unstable Nixpkgs
 
   outputs =
-    inputs:
+    { self, ... }@inputs:
+
     let
       supportedSystems = [
         "x86_64-linux"
@@ -66,7 +67,7 @@
       devShells = forEachSupportedSystem (
         { pkgs }:
         {
-          default = pkgs.mkShell {
+          default = pkgs.mkShellNoCC {
             packages =
               with pkgs;
               [
@@ -95,8 +96,6 @@
                   with pkgs;
                   [
                     terminal-notifier
-                    darwin.apple_sdk.frameworks.CoreFoundation
-                    darwin.apple_sdk.frameworks.CoreServices
                   ]
                 );
           };

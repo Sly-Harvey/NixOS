@@ -1,10 +1,10 @@
 {
   description = "A Nix-flake-based Cue development environment";
 
-  inputs.nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1";
+  inputs.nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1"; # unstable Nixpkgs
 
   outputs =
-    inputs:
+    { self, ... }@inputs:
 
     let
       supportedSystems = [
@@ -26,7 +26,7 @@
       devShells = forEachSupportedSystem (
         { pkgs }:
         {
-          default = pkgs.mkShell {
+          default = pkgs.mkShellNoCC {
             packages = with pkgs; [ cue ];
           };
         }

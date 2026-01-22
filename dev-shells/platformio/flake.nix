@@ -1,10 +1,11 @@
 {
   description = "A Nix-flake-based PlatformIO development environment";
 
-  inputs.nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1";
+  inputs.nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1"; # unstable Nixpkgs
 
   outputs =
-    inputs:
+    { self, ... }@inputs:
+
     let
       supportedSystems = [
         "x86_64-linux"
@@ -25,7 +26,7 @@
       devShells = forEachSupportedSystem (
         { pkgs }:
         {
-          default = pkgs.mkShell {
+          default = pkgs.mkShellNoCC {
             packages =
               with pkgs;
               [
@@ -41,7 +42,7 @@
                 vcpkg
                 vcpkg-tool
               ]
-              ++ pkgs.lib.optionals (system != "aarch64-darwin") [ gdb ];
+              ++ pkgs.lib.optionals (stdenv.hostPlatform.system != "aarch64-darwin") [ gdb ];
 
             shellHook = ''
               export PLATFORMIO_CORE_DIR=$PWD/.platformio

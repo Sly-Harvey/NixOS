@@ -2,11 +2,12 @@
   description = "An empty flake template that you can adapt to your own environment";
 
   # Flake inputs
-  inputs.nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1";
+  inputs.nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1"; # unstable Nixpkgs
 
   # Flake outputs
   outputs =
-    inputs:
+    { self, ... }@inputs:
+
     let
       # The systems supported for this flake
       supportedSystems = [
@@ -30,7 +31,7 @@
       devShells = forEachSupportedSystem (
         { pkgs }:
         {
-          default = pkgs.mkShell {
+          default = pkgs.mkShellNoCC {
             # The Nix packages provided in the environment
             # Add any you need here
             packages = with pkgs; [ ];

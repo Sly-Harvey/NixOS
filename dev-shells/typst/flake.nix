@@ -1,5 +1,5 @@
 {
-  description = "A Nix-flake-based Swi-prolog development environment";
+  description = "A Nix-flake-based Typst development environment";
 
   inputs.nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1"; # unstable Nixpkgs
 
@@ -18,7 +18,9 @@
         inputs.nixpkgs.lib.genAttrs supportedSystems (
           system:
           f {
-            pkgs = import inputs.nixpkgs { inherit system; };
+            pkgs = import inputs.nixpkgs {
+              inherit system;
+            };
           }
         );
     in
@@ -27,7 +29,16 @@
         { pkgs }:
         {
           default = pkgs.mkShellNoCC {
-            packages = with pkgs; [ swi-prolog ];
+            packages =
+              with pkgs;
+              [
+                typst
+                typstyle
+                tinymist
+              ]
+              ++ (with typstPackages; [
+                # Typst packages
+              ]);
           };
         }
       );

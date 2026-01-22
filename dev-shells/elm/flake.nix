@@ -1,10 +1,11 @@
 {
   description = "A Nix-flake-based Elm development environment";
 
-  inputs.nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1";
+  inputs.nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1"; # unstable Nixpkgs
 
   outputs =
-    inputs:
+    { self, ... }@inputs:
+
     let
       supportedSystems = [
         "x86_64-linux"
@@ -25,8 +26,13 @@
       devShells = forEachSupportedSystem (
         { pkgs }:
         {
-          default = pkgs.mkShell {
-            packages = (with pkgs.elmPackages; [ elm ]) ++ (with pkgs; [ elm2nix ]);
+          default = pkgs.mkShellNoCC {
+            packages =
+              with pkgs;
+              [
+                elm2nix
+              ]
+              ++ (with elmPackages; [ elm ]);
           };
         }
       );
