@@ -71,7 +71,7 @@ in
       keep-derivations = true;
     };
     optimise.automatic = true;
-    package = pkgs.stable.nix;
+    package = pkgs.nix;
   };
   time.timeZone = "${timezone}";
   i18n.defaultLocale = "${locale}";

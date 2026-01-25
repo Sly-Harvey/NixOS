@@ -59,11 +59,11 @@ in
                 actions = [
                   {
                     label = "Whole screen";
-                    command = "sh -c 'swaync-client -cp; sleep 1; ${pkgs.stable.grimblast}/bin/grimblast copysave output \"/tmp/screenshot.png\"; ${pkgs.swappy}/bin/swappy -f \"/tmp/screenshot.png\"'";
+                    command = "sh -c 'swaync-client -cp; sleep 1; ${pkgs.grimblast}/bin/grimblast copysave output \"/tmp/screenshot.png\"; ${pkgs.swappy}/bin/swappy -f \"/tmp/screenshot.png\"'";
                   }
                   {
                     label = "Whole window / Select region";
-                    command = "sh -c 'swaync-client -cp; ${pkgs.stable.grimblast}/bin/grimblast copysave area \"/tmp/screenshot.png\"; ${pkgs.swappy}/bin/swappy -f \"/tmp/screenshot.png\"'";
+                    command = "sh -c 'swaync-client -cp; ${pkgs.grimblast}/bin/grimblast copysave area \"/tmp/screenshot.png\"; ${pkgs.swappy}/bin/swappy -f \"/tmp/screenshot.png\"'";
                   }
                 ];
               };

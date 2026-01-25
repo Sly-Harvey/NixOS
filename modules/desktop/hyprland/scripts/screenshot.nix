@@ -29,10 +29,10 @@ pkgs.writeShellScriptBin "screenshot" ''
   EOF
 
     case "$1" in
-      screen) ${pkgs.stable.grimblast}/bin/grimblast save screen - | ${pkgs.swappy}/bin/swappy -f - ;;
-      area)   ${pkgs.stable.grimblast}/bin/grimblast save area - | ${pkgs.swappy}/bin/swappy -f - ;;
-      freeze) ${pkgs.stable.grimblast}/bin/grimblast --freeze save area - | ${pkgs.swappy}/bin/swappy -f - ;;
-      output) ${pkgs.stable.grimblast}/bin/grimblast save output - | ${pkgs.swappy}/bin/swappy -f - ;;
+      screen) ${pkgs.grimblast}/bin/grimblast save screen - | ${pkgs.swappy}/bin/swappy -f - ;;
+      area)   ${pkgs.grimblast}/bin/grimblast save area - | ${pkgs.swappy}/bin/swappy -f - ;;
+      freeze) ${pkgs.grimblast}/bin/grimblast --freeze save area - | ${pkgs.swappy}/bin/swappy -f - ;;
+      output) ${pkgs.grimblast}/bin/grimblast save output - | ${pkgs.swappy}/bin/swappy -f - ;;
     esac
 
     if [ -f "''${save_dir}/''${save_file}" ]; then
