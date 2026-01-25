@@ -19,7 +19,7 @@
   games = true; # Enable/Disable gaming module
 
   # Hardware
-  hostname = "NixOS";
+  hostname = "Singularity";
   videoDriver = "nvidia"; # nvidia, amdgpu, intel
 
   # Localization
