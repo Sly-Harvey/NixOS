@@ -147,32 +147,47 @@
       in
       {
         home.packages = with pkgs; [
-          youtube-music
+          pear-desktop
           curl
+
+          # Replace "pear-desktop" with "youtube-music"
+          (writeShellScriptBin "youtube-music" ''
+            exec pear-desktop "$@"
+          '')
         ];
 
-        xdg.configFile."YouTube Music/config.json".text = builtins.toJSON ytMusicConfig;
-
-        # Fetch the theme
-        home.activation.fetchYoutubeTheme = lib.mkAfter ''
-          if ! [ -f "$HOME/.config/YouTube Music/themes/catppuccin-mocha.css" ]; then
+        home.activation.setupYoutubeMusic = lib.mkAfter ''
+          THEME_DIR="$HOME/.config/YouTube Music/themes"
+          THEME_FILE="$THEME_DIR/catppuccin-mocha.css"
+          mkdir -p "$THEME_DIR"
+          if ! [ -f "$THEME_FILE" ]; then
+            echo "YouTube Music theme not found. Downloading..."
             export PATH=${pkgs.curl}/bin:$PATH
-            THEME_DIR="$HOME/.config/YouTube Music/themes"
-            THEME_FILE="$THEME_DIR/catppuccin-mocha.css"
             mkdir -p "$THEME_DIR"
             curl -sSfL "https://raw.githubusercontent.com/catppuccin/youtubemusic/main/src/macchiato.css" -o "$THEME_FILE"
           fi
+
+          CONFIG_DIR="$HOME/.config/YouTube Music"
+          CONFIG_FILE="$CONFIG_DIR/config.json"
+          mkdir -p "$CONFIG_DIR"
+
+          if ! [ -f "$CONFIG_FILE" ]; then
+            echo "YouTube Music config.json not found. Creating initial config..."
+            mkdir -p "$CONFIG_DIR"
+            echo '${builtins.toJSON ytMusicConfig}' > "$CONFIG_FILE"
+          fi
         '';
 
-        # make the config writable (may cause home-manager conflicts)
-        # home.activation.makeYoutubeMusicConfigWritable = lib.mkAfter ''
-        #   config_path="$HOME/.config/YouTube Music/config.json"
-        #   default_config="${config.xdg.configFile."YouTube Music/config.json".source}"
-        #   if [ -L "$config_path" ]; then
-        #     rm "$config_path"
-        #     cp "$default_config" "$config_path"
-        #   fi
-        # '';
+        # Replace "pear-desktop" with "Youtube Music" in rofi
+        xdg.desktopEntries = {
+          "com.github.th_ch.youtube_music" = {
+            name = "Youtube Music";
+            type = "Application";
+            exec = "pear-desktop %u";
+            icon = "pear-desktop";
+            categories = [ "AudioVideo" ];
+          };
+        };
       }
     )
   ];
