@@ -212,7 +212,7 @@ in
               "blur on, match:namespace swaync-control-center"
               "blur on, match:namespace swaync-notification-window"
               "ignore_alpha 0.7, match:namespace swaync-control-center"
-              # "ignore_alpha 0.8, match:namespace swaync-notification-window"
+              "ignore_alpha 0.8, match:namespace swaync-notification-window"
               # "dim_around on, match:namespace swaync-control-center"
             ];
             animations = {
