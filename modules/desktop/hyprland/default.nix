@@ -7,6 +7,7 @@
 let
   inherit (lib) getExe getExe';
   inherit (import ../../../hosts/${host}/variables.nix)
+    bar
     waybarTheme
     browser
     terminal
@@ -35,16 +36,20 @@ in
 {
   imports = [
     ../../themes/Catppuccin # Catppuccin GTK and QT themes
-    ./programs/waybar/${waybarTheme}.nix
     ./programs/wlogout
     ./programs/rofi
     ./programs/hypridle
     ./programs/hyprlock
-    ./programs/swaync
+  ]
+  ++ lib.optional (bar == "hyprpanel") ./programs/hyprpanel
+  ++ lib.optionals (bar == "waybar") [
     # ./programs/dunst
+    ./programs/swaync
+    ./programs/waybar/${waybarTheme}.nix
   ];
 
   environment.systemPackages = with pkgs; [
+    pavucontrol
     swappy
     cliphist
     wl-clipboard
@@ -148,7 +153,7 @@ in
               #"[workspace special silent] ${terminal}"
 
               "${lib.getExe wallpaper}"
-              "waybar"
+              "${bar}"
               "swaync"
               "nm-applet --indicator"
               # "wl-clipboard-history -t"
@@ -156,7 +161,6 @@ in
               "${getExe' pkgs.wl-clipboard "wl-paste"} --type image --watch cliphist store" # clipboard store image data
               "rm '$XDG_CACHE_HOME/cliphist/db'" # Clear clipboard
               "${getExe batterynotify}" # battery notification
-              # "${getExe autowaybar}"
               "polkit-agent-helper-1"
             ];
             input = {
@@ -206,9 +210,31 @@ in
               "col.border_locked_inactive" = "rgba(b4befecc) rgba(6c7086cc) 45deg";
             };
             layerrule = [
+              # Rofi
               "blur on, match:namespace rofi"
               "ignore_alpha 0.7, match:namespace rofi"
 
+              # Hyprpanel Menus
+              "blur on, match:namespace ^bar-.*$"
+              "blur on, match:namespace notifications-window"
+              "blur on, match:namespace mediamenu"
+              "blur on, match:namespace notificationsmenu"
+              "blur on, match:namespace calendarmenu"
+              "blur on, match:namespace audiomenu"
+              "blur on, match:namespace networkmenu"
+              "blur on, match:namespace energymenu"
+              "blur on, match:namespace dashboardmenu"
+              "ignore_alpha 0.7, match:namespace ^bar-.*$"
+              "ignore_alpha 0.7, match:namespace notifications-window"
+              "ignore_alpha 0.7, match:namespace mediamenu"
+              "ignore_alpha 0.7, match:namespace notificationsmenu"
+              "ignore_alpha 0.7, match:namespace calendarmenu"
+              "ignore_alpha 0.7, match:namespace audiomenu"
+              "ignore_alpha 0.7, match:namespace networkmenu"
+              "ignore_alpha 0.7, match:namespace energymenu"
+              "ignore_alpha 0.7, match:namespace dashboardmenu"
+
+              # Swaync
               "blur on, match:namespace swaync-control-center"
               "blur on, match:namespace swaync-notification-window"
               "ignore_alpha 0.7, match:namespace swaync-control-center"
@@ -393,7 +419,7 @@ in
               "ALT, return, fullscreen" # toggle the window on focus to fullscreen
               "$mainMod ALT, L, exec, hyprlock" # lock screen
               "$mainMod, backspace, exec, pkill -x wlogout || wlogout -b 4" # logout menu
-              "$CONTROL, ESCAPE, exec, pkill waybar || waybar" # toggle waybar
+              "$CONTROL, ESCAPE, exec, pkill waybar || pkill hyprpanel || ${bar}" # toggle bar
               "$mainMod CTRL, mouse_down, exec, ${getExe zoom} in" # zoom in
               "$mainMod CTRL, mouse_up, exec, ${getExe zoom} out" # zoom out
 
