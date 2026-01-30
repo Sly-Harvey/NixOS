@@ -21,6 +21,7 @@
   # Hardware
   hostname = "Singularity";
   videoDriver = "nvidia"; # nvidia, amdgpu, intel
+  bluetoothSupport = false; # Whether your motherboard supports bluetooth
 
   # Localization
   timezone = "Europe/London";
