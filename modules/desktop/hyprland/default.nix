@@ -323,6 +323,7 @@ in
               "opacity 0.80 0.70, match:class ^(nwg-look)$"
               "opacity 0.80 0.70, match:class ^(qt5ct|qt6ct)$"
               "opacity 0.80 0.70, match:class ^(yad)$"
+              "opacity 0.80 0.70, match:class ^(gjs)$"
 
               "opacity 0.90 0.80, match:class ^(discord)$"
               "opacity 0.90 0.80, match:class ^(WebCord)$"

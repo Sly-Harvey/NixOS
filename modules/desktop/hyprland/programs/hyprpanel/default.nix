@@ -61,6 +61,13 @@ in
               rightClick = "launcher drun";
               autoDetectIcon = true;
             };
+            windowtitle.title_map = [
+              [
+                "gjs"
+                ""
+                "Hyprpanel Settings"
+              ]
+            ];
             network = {
               label = true;
               showWifiInfo = true;
@@ -70,6 +77,7 @@ in
             volume.rightClick = "pavucontrol";
             media = {
               format = "{title}";
+              show_active_only = true;
               # format = "{artist: - }{title}";
               rightClick = "${pkgs.playerctl}/bin/playerctl play-pause";
               truncation_size = 25; # Default: 30
@@ -100,7 +108,8 @@ in
                   "cava"
                 ];
                 middle = [
-                  "media"
+                  "windowtitle"
+                  # "media"
                 ];
                 right =
                   [ ]
