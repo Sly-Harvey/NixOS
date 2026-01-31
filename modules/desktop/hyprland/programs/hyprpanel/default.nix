@@ -45,12 +45,14 @@ in
             };
 
             # Opacities
-            /* bar.buttons.opacity = 100;
-            bar.buttons.background_hover_opacity = 100;
-            bar.opacity = 80;
-            bar.menus.opacity = 80;
-            bar.buttons.background_opacity = 80;
-            notification.opacity = 80; */
+            /*
+              bar.buttons.opacity = 100;
+              bar.buttons.background_hover_opacity = 100;
+              bar.opacity = 80;
+              bar.menus.opacity = 80;
+              bar.buttons.background_opacity = 80;
+              notification.opacity = 80;
+            */
           };
           bar = {
             autoHide = "fullscreen"; # fullscreen, never
@@ -73,7 +75,7 @@ in
               truncation_size = 25; # Default: 30
             };
             clock = {
-              showIcon = true;
+              showIcon = false;
               showTime = true;
               format = "%a %d %b  %R";
             };
@@ -97,7 +99,9 @@ in
                   "workspaces"
                   "cava"
                 ];
-                middle = [ "media" ];
+                middle = [
+                  "media"
+                ];
                 right =
                   [ ]
                   ++ lib.optionals (bluetoothSupport == true) [
@@ -106,6 +110,7 @@ in
                     "bluetooth"
                     "battery"
                     "systray"
+                    "hypridle"
                     "clock"
                     "notifications"
                   ]
@@ -114,6 +119,7 @@ in
                     "network"
                     "battery"
                     "systray"
+                    "hypridle"
                     "clock"
                     "notifications"
                   ];
@@ -123,8 +129,12 @@ in
               cava.leftClick = "${pkgs.playerctl}/bin/playerctl play-pause";
               hyprsunset.temperature = "4000k";
               hypridle = {
-                offIcon = "󰒳";
-                onIcon = "󰒲";
+                onIcon = "󰥔";
+                offIcon = "";
+
+                label = false;
+                onLabel = "On";
+                offLabel = "Off";
               };
             };
           };
