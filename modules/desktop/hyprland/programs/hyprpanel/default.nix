@@ -141,7 +141,7 @@ in
                 onIcon = "󰥔";
                 offIcon = "";
 
-                label = false;
+                label = true;
                 onLabel = "On";
                 offLabel = "Off";
               };
