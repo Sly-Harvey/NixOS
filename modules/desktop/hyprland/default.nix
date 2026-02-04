@@ -303,6 +303,8 @@ in
               "opacity 0.90 0.80, match:class ^(gcr-prompter)$"
               "opacity 0.90 0.80, match:title ^(Hyprland Polkit Agent)$"
               "opacity 0.90 0.80, match:class ^(obsidian)$"
+              "opacity 0.90 0.80, match:class ^(proton.vpn.app.gtk)$"
+              "opacity 0.90 0.80, match:class ^(heroic)$"
               "opacity 0.90 0.80, match:class ^(Lutris|lutris|net.lutris.Lutris)$"
 
               "opacity 0.80 0.70, match:class ^(kitty|alacritty|Alacritty|org.wezfurlong.wezterm)$"
@@ -361,6 +363,11 @@ in
               "no_shadow on, match:tag games"
               "no_blur on, match:tag games"
               "no_anim on, match:tag games"
+
+              "opacity 0.80 0.70, match:class ^(microfetch)$"
+              "float on, match:class ^(microfetch)$"
+              "center on, match:class ^(microfetch)$"
+              "size 802 261, match:class ^(microfetch)$"
 
               "float on, match:class ^(qt5ct)$"
               "float on, match:class ^(nwg-look)$"
@@ -433,6 +440,7 @@ in
               "$mainMod SHIFT, S, exec, spotify"
               "$mainMod SHIFT, Y, exec, youtube-music"
               "$CONTROL ALT, DELETE, exec, $term -e '${getExe pkgs.btop}'" # System Monitor
+              "$CONTROL ALT, M, exec, $term --class \"microfetch\" --hold -e microfetch" # System Monitor
               "$mainMod CTRL, C, exec, ${getExe pkgs.hyprpicker} --autocopy --format=hex" # Colour Picker
 
               "$mainMod, A, exec, launcher drun" # launch desktop applications
