@@ -86,7 +86,7 @@ create_new_host() {
 
   # Update hostname in the new host's variables.nix if it exists
   if [ -f "./hosts/$new_name/variables.nix" ]; then
-    sed -i -e "s/hostname = \".*\"/hostname = \"$new_name\"/" "./hosts/$new_name/variables.nix"
+    sed -i -e "s/hostname = .*;/hostname = \"$new_name\";/" "./hosts/$new_name/variables.nix"
   fi
 
   echo "Host '$new_name' created successfully."
@@ -118,6 +118,34 @@ add_host_to_flake() {
 
   info "Host '$host_name' added to flake.nix"
   return 0
+}
+
+# Select GPU Drivers
+choose_drivers() {
+  local host="$1"
+
+  info "Choose GPU Drivers:"
+  echo "1) nvidia"
+  echo "2) amdgpu"
+  echo "3) intel"
+  while true; do
+    read -p "Enter choice (1, 2 or 3): " driver_choice
+    case $driver_choice in
+    1)
+      sed -i -e "s/videoDriver = .*;/videoDriver = \"nvidia\";/" "./hosts/$host/variables.nix"
+      break
+      ;;
+    2)
+      sed -i -e "s/videoDriver = .*;/videoDriver = \"amdgpu\";/" "./hosts/$host/variables.nix"
+      break
+      ;;
+    3)
+      sed -i -e "s/videoDriver = .*;/videoDriver = \"intel\";/" "./hosts/$host/variables.nix"
+      break
+      ;;
+    *) error "Invalid choice. Enter 1, 2, or 3." ;;
+    esac
+  done
 }
 
 # Find available text editors
@@ -274,28 +302,10 @@ while true; do
 done
 
 # GPU Drivers selection
-info "Choose GPU Drivers:"
-echo "1) nvidia"
-echo "2) amdgpu"
-echo "3) intel"
-while true; do
-  read -p "Enter choice (1, 2 or 3): " driver_choice
-  case $driver_choice in
-  1)
-    sed -i -e "s/videoDriver = \".*\"/videoDriver = \"nvidia\"/" "./hosts/$selected_host/variables.nix"
-    break
-    ;;
-  2)
-    sed -i -e "s/videoDriver = \".*\"/videoDriver = \"amdgpu\"/" "./hosts/$selected_host/variables.nix"
-    break
-    ;;
-  3)
-    sed -i -e "s/videoDriver = \".*\"/videoDriver = \"intel\"/" "./hosts/$selected_host/variables.nix"
-    break
-    ;;
-  *) error "Invalid choice. Enter 1, 2, or 3." ;;
-  esac
-done
+choose_drivers $selected_host
+
+# Update username in variables.nix
+sed -i -e "s/username = .*;/username = \"$username\";/" "./hosts/$selected_host/variables.nix"
 
 # Editor selection for customizing variables.nix
 default_editor=$(check_editors)
@@ -908,8 +918,6 @@ nixos-generate-config --root /mnt --show-hardware-config >"./hosts/$selected_hos
 }
 echo "Hardware configuration generated."
 
-# Update username in variables.nix
-sed -i -e "s/username = \".*\"/username = \"$username\"/" "./hosts/$selected_host/variables.nix"
 git add * 2>/dev/null || true
 
 # Copy flake to /etc/nixos

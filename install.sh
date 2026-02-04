@@ -50,6 +50,45 @@ error() {
 
 currentUser=$(logname)
 
+choose_drivers() {
+  local host="$1"
+
+  info "Choose GPU Drivers:"
+  echo "1) nvidia"
+  echo "2) amdgpu"
+  echo "3) intel"
+  while true; do
+    read -p "Enter choice (1, 2 or 3): " driver_choice
+    case $driver_choice in
+    1)
+      sed -i -e "s/videoDriver = .*;/videoDriver = \"nvidia\";/" "./hosts/$host/variables.nix"
+      break
+      ;;
+    2)
+      sed -i -e "s/videoDriver = .*;/videoDriver = \"amdgpu\";/" "./hosts/$host/variables.nix"
+      break
+      ;;
+    3)
+      sed -i -e "s/videoDriver = .*;/videoDriver = \"intel\";/" "./hosts/$host/variables.nix"
+      break
+      ;;
+    *) error "Invalid choice. Enter 1, 2, or 3." ;;
+    esac
+  done
+}
+
+open_variables() {
+  local selected_host="$1"
+
+  # Find available editor and open
+  for editor in "${EDITOR}" nano vim vi; do
+    if command -v "$editor" &>/dev/null; then
+      $editor "./hosts/$selected_host/variables.nix"
+      break
+    fi
+  done
+}
+
 list_hosts() {
   local hosts=()
   for host_dir in ./hosts/*/; do
@@ -91,7 +130,7 @@ create_new_host() {
 
   # Update hostname in the new host's variables.nix if it exists
   if [ -f "./hosts/$new_name/variables.nix" ]; then
-    sed -i -e "s/hostname = \".*\"/hostname = \"$new_name\"/" "./hosts/$new_name/variables.nix"
+    sed -i -e "s/hostname = .*;/hostname = \"$new_name\";/" "./hosts/$new_name/variables.nix"
   fi
 
   echo "Host '$new_name' created successfully."
@@ -171,18 +210,6 @@ while true; do
 
         # Add host to flake.nix
         add_host_to_flake "$selected_host"
-
-        # Ask if user wants to edit variables.nix
-        read -p "Edit variables.nix for the new host? (Y/n): " edit_vars
-        if [[ ! "$edit_vars" =~ ^[nN]$ ]]; then
-          # Find available editor
-          for editor in "${EDITOR}" nano vim vi; do
-            if command -v "$editor" &>/dev/null; then
-              $editor "./hosts/$selected_host/variables.nix"
-              break
-            fi
-          done
-        fi
         break
       fi
     else
@@ -191,17 +218,6 @@ while true; do
 
   elif [[ "$host_choice" =~ ^[0-9]+$ ]] && [ "$host_choice" -ge 1 ] && [ "$host_choice" -le ${#available_hosts[@]} ]; then
     selected_host="${available_hosts[$((host_choice - 1))]}"
-    # Ask if user wants to edit variables.nix
-    read -p "Edit variables.nix for host: $selected_host? (Y/n): " edit_vars
-    if [[ ! "$edit_vars" =~ ^[nN]$ ]]; then
-      # Find available editor
-      for editor in "${EDITOR}" nano vim vi; do
-        if command -v "$editor" &>/dev/null; then
-          $editor "./hosts/$selected_host/variables.nix"
-          break
-        fi
-      done
-    fi
     break
   else
     error "Invalid choice. Please try again."
@@ -210,8 +226,17 @@ done
 
 info "Using host: $selected_host"
 
-# replace username variable in variables.nix with $USER
-sudo sed -i -e "s/username = \".*\"/username = \"$currentUser\"/" "./hosts/$selected_host/variables.nix"
+# Select GPU Drivers
+choose_drivers $selected_host
+
+# Replace username variable in variables.nix with $USER
+sed -i -e "s/username = .*;/username = \"$currentUser\";/" "./hosts/$selected_host/variables.nix"
+
+# Ask if user wants to edit variables.nix
+read -p "Edit variables.nix for host: $selected_host? (Y/n): " edit_vars
+if [[ ! "$edit_vars" =~ ^[nN]$ ]]; then
+  open_variables $selected_host
+fi
 
 # Generate Hardware Configuration
 info "Generating hardware configuration..."
