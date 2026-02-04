@@ -15,13 +15,13 @@
 
   fileSystems."/" =
     { device = "/dev/mapper/luks-root";
-      fsType = "btrfs";
+      fsType = "ext4";
     };
 
-  boot.initrd.luks.devices."luks-root".device = "/dev/disk/by-uuid/51599b70-883d-4b22-9f1e-f1b07a910c75";
+  boot.initrd.luks.devices."luks-root".device = "/dev/disk/by-uuid/727f9fe9-e2cb-40ca-a949-8dacd6a1e971";
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/CAF5-8104";
+    { device = "/dev/disk/by-uuid/236A-FF9E";
       fsType = "vfat";
       options = [ "fmask=0022" "dmask=0022" ];
     };
