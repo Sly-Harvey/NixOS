@@ -105,5 +105,5 @@ in
       # allowUnfreePredicate = _: true;
     };
   };
-  system.stateVersion = "23.11"; # Do not change!
+  system.stateVersion = "26.05"; # Do not change!
 }
