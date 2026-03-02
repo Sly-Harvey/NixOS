@@ -364,6 +364,49 @@
         "type": "github"
       }
     },
+    "noctalia": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "noctalia-qs": [
+          "noctalia-qs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1772358785,
+        "narHash": "sha256-QcH5oVvT0PRtOPr2xQeLA8NvhAguAuBHnUfDAvlwUeI=",
+        "owner": "noctalia-dev",
+        "repo": "noctalia-shell",
+        "rev": "300d12dade5cedadcf7868b9b6f1ad10502b1886",
+        "type": "github"
+      },
+      "original": {
+        "owner": "noctalia-dev",
+        "repo": "noctalia-shell",
+        "type": "github"
+      }
+    },
+    "noctalia-qs": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1772227064,
+        "narHash": "sha256-f821ZSoGpa/aXrWq0gPpea9qBnX8KDyavGKkptz2Mog=",
+        "owner": "noctalia-dev",
+        "repo": "noctalia-qs",
+        "rev": "0741d27d2f7db567270f139c5d1684614ecf9863",
+        "type": "github"
+      },
+      "original": {
+        "owner": "noctalia-dev",
+        "repo": "noctalia-qs",
+        "type": "github"
+      }
+    },
     "nur": {
       "inputs": {
         "flake-parts": "flake-parts_3",
@@ -457,6 +500,8 @@
         "nixpkgs": "nixpkgs",
         "nixpkgs-stable": "nixpkgs-stable",
         "nixvim": "nixvim",
+        "noctalia": "noctalia",
+        "noctalia-qs": "noctalia-qs",
         "nur": "nur",
         "nvchad4nix": "nvchad4nix",
         "plasma-manager": "plasma-manager",

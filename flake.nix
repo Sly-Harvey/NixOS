@@ -17,6 +17,15 @@
       url = "github:marienz/nix-doom-emacs-unstraightened";
       inputs.nixpkgs.follows = ""; # Doesn't use nixpkgs
     };
+    noctalia = {
+      url = "github:noctalia-dev/noctalia-shell";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.noctalia-qs.follows = "noctalia-qs";
+    };
+    noctalia-qs = {
+      url = "github:noctalia-dev/noctalia-qs";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     doom-config = {
       url = "github:Sly-Harvey/doom";
       flake = false;
