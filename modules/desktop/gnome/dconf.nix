@@ -111,8 +111,8 @@ in
           "org/gnome/desktop/background" = {
             color-shading-type = "solid";
             picture-options = "zoom";
-            picture-uri = "file://${../../themes/wallpapers/${defaultWallpaper}}";
-            picture-uri-dark = "file://${../../themes/wallpapers/${defaultWallpaper}}";
+            picture-uri = "file://${../../wallpapers/${defaultWallpaper}}";
+            picture-uri-dark = "file://${../../wallpapers/${defaultWallpaper}}";
             primary-color = "#241f31";
             secondary-color = "#000000";
           };
@@ -146,19 +146,13 @@ in
           };
 
           "org/gnome/desktop/interface" = {
-            accent-color = "blue";
             clock-show-date = true;
             clock-show-seconds = true;
             clock-show-weekday = true;
-            color-scheme = "prefer-dark";
-            cursor-size = 24;
-            cursor-theme = "Bibata-Modern-Classic";
             enable-animations = true;
             enable-hot-corners = false;
             font-antialiasing = "grayscale";
             font-hinting = "slight";
-            gtk-theme = "catppuccin-mocha-mauve-compact";
-            icon-theme = "Papirus-Dark";
             # show-battery-percentage = true;
           };
 

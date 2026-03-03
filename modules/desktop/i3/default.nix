@@ -7,7 +7,6 @@ let
 in
 {
   imports = [
-    ../../themes/Catppuccin
     ../hyprland/programs/rofi
     ./polybar
     ./dunst.nix
@@ -54,29 +53,6 @@ in
             inner = 4;
             outer = 4;
           };
-          colors = {
-            focused = {
-              border = "#A4B9EF";
-              background = "#A4B9EF";
-              text = "#A4B9EF";
-              indicator = "#A4B9EF";
-              childBorder = "#A4B9EF";
-            };
-            unfocused = {
-              border = "#1F1F31";
-              background = "#1F1F31";
-              text = "#1F1F31";
-              indicator = "#1F1F31";
-              childBorder = "#1F1F31";
-            };
-            focusedInactive = {
-              border = "#1F1F31";
-              background = "#1F1F31";
-              text = "#1F1F31";
-              indicator = "#1F1F31";
-              childBorder = "#1F1F31";
-            };
-          };
           keybindings = import ./keybindings.nix {
             inherit pkgs terminal browser;
           };
@@ -98,7 +74,7 @@ in
               notification = false;
             }
             {
-              command = "${getExe wallpaper} ${../../themes/wallpapers/${defaultWallpaper}}";
+              command = "${getExe wallpaper} ${../../wallpapers/${defaultWallpaper}}";
               always = false;
               notification = false;
             }

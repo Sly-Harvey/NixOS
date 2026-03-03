@@ -16,7 +16,7 @@ in
             {
               monitor = "";
               color = "rgb(36, 39, 58)";
-              path = "${../../../../themes/wallpapers/${hyprlockWallpaper}}";
+              path = "${../../../../wallpapers/${hyprlockWallpaper}}";
 
               new_optimizations = true;
               blur_size = 3;

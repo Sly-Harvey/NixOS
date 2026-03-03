@@ -31,14 +31,6 @@ in
     plasma-browser-integration
   ];
 
-  environment.systemPackages = with pkgs; [
-    (catppuccin-kde.override {
-      flavour = [ "mocha" ];
-      accents = [ "mauve" ];
-    })
-    bibata-cursors
-  ];
-
   home-manager.sharedModules = [
     (_: {
       imports = [ inputs.plasma-manager.homeModules.plasma-manager ];
@@ -48,15 +40,7 @@ in
         krunner.activateWhenTypingOnDesktop = false;
         workspace = {
           clickItemTo = "select"; # select, open
-          lookAndFeel = "Catppuccin-Mocha-Mauve"; # Global Theme
-          colorScheme =  "CatppuccinMochaMauve";
-          theme = "default"; # Plasma Style
-          cursor = {
-            size = 24;
-            theme = "Bibata-Modern-Classic";
-          };
-          # iconTheme = "";
-          wallpaper = "${../../themes/wallpapers/${defaultWallpaper}}"; # TODO: Test webp
+          wallpaper = "${../../wallpapers/${defaultWallpaper}}"; # TODO: Test webp
         };
         kwin = {
           effects = {
@@ -207,7 +191,7 @@ in
           passwordRequired = true;
           passwordRequiredDelay = 0;
           lockOnResume = true;
-          # wallpaper = "${../../themes/wallpapers/${defaultWallpaper}}";
+          # wallpaper = "${../../wallpapers/${defaultWallpaper}}";
         };
         session = {
           general.askForConfirmationOnLogout = false;

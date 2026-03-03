@@ -27,7 +27,8 @@
         useQuickCss = true;
         themeLinks = [ ];
         enabledThemes = [
-          "catppuccin-mocha.css"
+          # "catppuccin-mocha.css"
+          "stylix.theme.css"
         ];
         enableReactDevtools = false;
         frameless = false;

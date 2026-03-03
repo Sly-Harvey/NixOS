@@ -422,7 +422,7 @@ in
           }
 
           tooltip label {
-            color: #cad3f5;
+            color: @theme_fg_color;
             margin-right: 5px;
             margin-left: 5px;
           }
@@ -430,7 +430,7 @@ in
           /* This section can be use if you want to separate waybar modules */
           .modules-left {
           	background: @theme_base_color;
-           	border: 1px solid @blue;
+           	border: 1px solid @theme_selected_bg_color;
           	padding-right: 15px;
           	padding-left: 2px;
           	border-radius: 10px;
@@ -444,7 +444,7 @@ in
           }
           .modules-right {
           	background: @theme_base_color;
-           	border: 1px solid @blue;
+           	border: 1px solid @theme_selected_bg_color;
           	padding-right: 15px;
           	padding-left: 15px;
           	border-radius: 10px;

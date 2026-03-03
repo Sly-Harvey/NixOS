@@ -8,7 +8,6 @@
           size = 12.0;
           name = "monospace";
         };
-        themeFile = "Catppuccin-Mocha";
         settings = {
           # shell = "${getExe pkgs.tmux}";
           # cursor_trail = 3; # Fancy cursor movements (especially in nixvim)
@@ -30,10 +29,6 @@
           inactive_tab_font_style = "normal";
           tab_bar_style = "powerline";
           tab_powerline_style = "round";
-          active_tab_foreground = "#1e1e2e";
-          active_tab_background = "#cba6f7";
-          inactive_tab_foreground = "#bac2de";
-          inactive_tab_background = "#313244";
         };
         # shellIntegration.mode = "no-sudo";
         keybindings = {
