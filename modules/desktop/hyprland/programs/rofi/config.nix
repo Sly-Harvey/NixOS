@@ -92,8 +92,8 @@
   kb-accept-custom-alt = "Control+Shift+Return";
   kb-accept-alt = "Shift+Return";
   kb-delete-entry = "Shift+Delete";
-  kb-mode-next = "Shift+Right,Control+Tab";
-  kb-mode-previous = "Shift+Left,Control+ISO_Left_Tab";
+  kb-mode-next = "Shift+Right,Control+Tab,Alt+l";
+  kb-mode-previous = "Shift+Left,Control+ISO_Left_Tab,Alt+h";
   kb-mode-complete = "";
   kb-row-left = "Control+Page_Up,Control+h";
   kb-row-right = "Control+Page_Down,Control+l";

@@ -20,33 +20,13 @@ configuration {
 }
 
 /*****----- Global Properties -----*****/
-@import                          "shared/colors.rasi"
 @import                          "shared/fonts.rasi"
 
-* {
-    border-colour:               rgba(122, 162, 247, 80%);
-    handle-colour:               rgba(122, 162, 247, 80%);
-    background-colour:           rgba(30, 29, 47, 80%);
-    foreground-colour:           #D9E0EEFF;
-    alternate-background:        rgba(40, 40, 57, 80%);
-    normal-background:           rgba(30, 29, 47, 80%);
-    normal-foreground:           #D9E0EEFF;
-    urgent-background:           rgba(242, 143, 173, 80%);
-    urgent-foreground:           rgba(30, 29, 47, 80%);
-    active-background:           rgba(171, 233, 179, 80%);
-    active-foreground:           rgba(30, 29, 47, 80%);
-    selected-normal-background:  rgba(122, 162, 247, 80%);
-    selected-normal-foreground:  rgba(30, 29, 47, 80%);
-    selected-urgent-background:  rgba(171, 233, 179, 80%);
-    selected-urgent-foreground:  rgba(30, 29, 47, 80%);
-    selected-active-background:  rgba(242, 143, 173, 80%);
-    selected-active-foreground:  rgba(30, 29, 47, 80%);
-    alternate-normal-background: rgba(30, 29, 47, 80%);
-    alternate-normal-foreground: #D9E0EEFF;
-    alternate-urgent-background: rgba(242, 143, 173, 80%);
-    alternate-urgent-foreground: rgba(30, 29, 47, 80%);
-    alternate-active-background: rgba(171, 233, 179, 80%);
-    alternate-active-foreground: rgba(30, 29, 47, 80%);
+/* Stylix */
+@import                          "~/.local/share/rofi/themes/custom.rasi"
+element alternate.normal {
+    background-color: @normal-background;
+    text-color:       @normal-foreground;
 }
 
 /*****----- Main Window -----*****/
@@ -64,11 +44,10 @@ window {
     enabled:                     true;
     margin:                      0px;
     padding:                     0px;
-    border:                      0px solid;
+    border:                      1px solid;
+    border-color:                @selected-active-background;
     border-radius:               15px;
-    border-color:                @border-colour;
     cursor:                      "default";
-    background-color:            @background-colour;
 }
 
 /*****----- Main Box -----*****/
@@ -77,10 +56,9 @@ mainbox {
     spacing:                     10px;
     margin:                      0px;
     padding:                     30px;
+    background-color:            transparent;
     border:                      0px solid;
     border-radius:               0px 0px 0px 0px;
-    border-color:                @border-colour;
-    background-color:            transparent;
     children:                    [ "inputbar", "listview" ];
 }
 
@@ -90,33 +68,26 @@ inputbar {
     spacing:                     10px;
     margin:                      0px;
     padding:                     0px 0px 10px 10px;
+    background-color:            transparent;
     border:                      0px;
     border-radius:               0px;
-    border-color:                @border-colour;
-    background-color:            transparent;
-    text-color:                  @foreground-colour;
     children:                    [ "textbox-prompt-colon", "entry" ];
 }
 
 prompt {
     enabled:                     true;
-    background-color:            inherit;
-    text-color:                  inherit;
 }
 textbox-prompt-colon {
     enabled:                     true;
     expand:                      false;
+    background-color:            transparent;
     str:                         " ";
-    background-color:            inherit;
-    text-color:                  inherit;
 }
 entry {
     enabled:                     true;
-    background-color:            transparent;
-    text-color:                  inherit;
     cursor:                      text;
-    placeholder:                 "Search Emojis...";
-    placeholder-color:           inherit;
+    background-color:            transparent;
+    placeholder:                 "Search...";
 }
 
 /*****----- Listview -----*****/
@@ -135,18 +106,14 @@ listview {
     spacing:                     0px;
     margin:                      0px;
     padding:                     0px;
+    background-color:            transparent;
     border:                      0px solid;
     border-radius:               0px;
-    border-color:                @border-colour;
-    background-color:            transparent;
-    text-color:                  @foreground-colour;
     cursor:                      "default";
 }
 scrollbar {
     handle-width:                5px ;
-    handle-color:                @handle-colour;
     border-radius:               0px;
-    background-color:            @alternate-background;
 }
 
 /*****----- Elements -----*****/
@@ -155,58 +122,24 @@ element {
     spacing:                     10px;
     margin:                      0px;
     padding:                     5px;
+    background-color:            transparent;
     border:                      0px solid;
     border-radius:               12px;
-    border-color:                @border-colour;
-    background-color:            transparent;
-    text-color:                  @foreground-colour;
     cursor:                      pointer;
 }
 element normal.normal {
     background-color:            transparent;
-    text-color:                  var(normal-foreground);
-}
-element normal.urgent {
-    background-color:            transparent;
-    text-color:                  var(urgent-foreground);
-}
-element normal.active {
-    background-color:            transparent;
-    text-color:                  var(active-foreground);
-}
-element selected.normal {
-    background-color:            var(alternate-background);
-    text-color:                  var(foreground-colour);
-}
-element selected.urgent {
-    background-color:            var(selected-urgent-background);
-    text-color:                  var(selected-urgent-foreground);
-}
-element selected.active {
-    background-color:            var(selected-active-background);
-    text-color:                  var(selected-active-foreground);
 }
 element alternate.normal {
     background-color:            transparent;
-    text-color:                  var(alternate-normal-foreground);
-}
-element alternate.urgent {
-    background-color:            transparent;
-    text-color:                  var(alternate-urgent-foreground);
-}
-element alternate.active {
-    background-color:            transparent;
-    text-color:                  var(alternate-active-foreground);
 }
 element-icon {
     background-color:            transparent;
-    text-color:                  inherit;
     size:                        24px;
     cursor:                      inherit;
 }
 element-text {
     background-color:            transparent;
-    text-color:                  inherit;
     highlight:                   inherit;
     cursor:                      inherit;
     vertical-align:              0.5;
@@ -221,22 +154,12 @@ mode-switcher{
     padding:                     0px;
     border:                      0px solid;
     border-radius:               0px;
-    border-color:                @border-colour;
-    background-color:            transparent;
-    text-color:                  @foreground-colour;
 }
 button {
     padding:                     10px;
     border:                      0px solid;
     border-radius:               0px;
-    border-color:                @border-colour;
-    background-color:            @alternate-background;
-    text-color:                  inherit;
     cursor:                      pointer;
-}
-button selected {
-    background-color:            var(selected-normal-background);
-    text-color:                  var(selected-normal-foreground);
 }
 
 /*****----- Message -----*****/
@@ -246,21 +169,14 @@ message {
     padding:                     0px;
     border:                      0px solid;
     border-radius:               0px 0px 0px 0px;
-    border-color:                @border-colour;
-    background-color:            transparent;
-    text-color:                  @foreground-colour;
 }
 textbox {
     padding:                     10px;
     border:                      0px solid;
     border-radius:               0px;
-    border-color:                @border-colour;
-    background-color:            @alternate-background;
-    text-color:                  @foreground-colour;
     vertical-align:              0.5;
     horizontal-align:            0.0;
     highlight:                   none;
-    placeholder-color:           @foreground-colour;
     blink:                       true;
     markup:                      true;
 }
@@ -268,7 +184,4 @@ error-message {
     padding:                     10px;
     border:                      0px solid;
     border-radius:               0px;
-    border-color:                @border-colour;
-    background-color:            @background-colour;
-    text-color:                  @foreground-colour;
 }
