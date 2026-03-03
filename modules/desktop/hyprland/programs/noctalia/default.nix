@@ -178,11 +178,11 @@ in
               ];
             };
           };
-          colorSchemes = {
-            useWallpaperColors = false;
-            predefinedScheme = "Catppuccin";
-            darkMode = true;
-          };
+          # colorSchemes = {
+          #   useWallpaperColors = false;
+          #   predefinedScheme = "Catppuccin";
+          #   darkMode = true;
+          # };
           general = {
             avatarImage = "${./profile-picture.jpg}";
             radiusRatio = 0.2;
@@ -207,7 +207,7 @@ in
           };
           wallpaper = {
             enabled = false;
-            directory = "${../../../../themes/wallpapers}";
+            directory = "${../../../../wallpapers}";
             setWallpaperOnAllMonitors = true;
           };
           appLauncher = {
