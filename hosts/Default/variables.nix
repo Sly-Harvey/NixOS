@@ -2,11 +2,11 @@
   username = "railgun"; # auto-set with install.sh, live-install.sh, and rebuild scripts.
 
   # Desktop Environment
-  desktop = "hyprland"; # hyprland, i3, gnome, plasma6
+  desktop = "hyprland"; # hyprland, gnome, i3, plasma6
 
   # Theme & Appearance
   theme = "catppuccin-mocha"; # https://github.com/tinted-theming/schemes/tree/spec-0.11/base16 
-  bar = "hyprpanel"; # waybar, hyprpanel, noctalia
+  bar = "waybar"; # waybar, hyprpanel, noctalia
   waybarTheme = "minimal"; # stylish, minimal
   sddmTheme = "astronaut"; # astronaut, black_hole, purple_leaves, jake_the_dog, hyprland_kath
   defaultWallpaper = "galaxy.webp"; # Change with SUPER + SHIFT + W (Hyprland)

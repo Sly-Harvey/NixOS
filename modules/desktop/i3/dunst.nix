@@ -11,10 +11,6 @@ in
     (_: {
       services.dunst = {
         enable = true;
-        iconTheme = {
-          name = "Papirus-Dark";
-          package = pkgs.papirus-icon-theme;
-        };
         settings = {
           global = {
             frame_color = "#89b4fa";
