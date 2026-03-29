@@ -3,7 +3,7 @@
   environment.systemPackages = with pkgs; [
     obsidian
     ludusavi # For game saves
-    protonvpn-gui # VPN
+    proton-vpn # VPN
     github-desktop
     # pokego # Overlayed
   ];
