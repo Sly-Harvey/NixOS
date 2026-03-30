@@ -191,7 +191,7 @@ in
               "col.active_border" = "rgba(ca9ee6ff) rgba(f2d5cfff) 45deg";
               "col.inactive_border" = "rgba(b4befecc) rgba(6c7086cc) 45deg";
               resize_on_border = true;
-              layout = "dwindle"; # dwindle or master
+              layout = "dwindle"; # dwindle, master, scrolling, monocle
               # allow_tearing = true; # Allow tearing for games (use immediate window rules for specific games or all titles)
             };
             decoration = {
@@ -508,6 +508,10 @@ in
               "$mainMod, l, movefocus, r"
               "$mainMod, k, movefocus, u"
               "$mainMod, j, movefocus, d"
+
+              # Switch scrolling columns
+              "$mainMod, period, layoutmsg, move +col"
+              "$mainMod, comma, layoutmsg, move -col"
 
               # Go to workspace 5, 6 and 7 with mouse side buttons
               "$mainMod, mouse:276, workspace, 5"
