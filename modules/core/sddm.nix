@@ -37,7 +37,7 @@ in
   services.displayManager = {
     sddm = {
       enable = true;
-      wayland.enable = false;
+      wayland.enable = true;
       enableHidpi = true;
       autoNumlock = true;
       package = lib.mkForce pkgs.kdePackages.sddm;
