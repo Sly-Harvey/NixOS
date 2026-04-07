@@ -10,10 +10,6 @@ in
     (_: {
       programs.waybar = {
         enable = true;
-        systemd = {
-          enable = false;
-          target = "graphical-session.target";
-        };
         settings = {
           mainBar = {
             layer = "top";
@@ -155,7 +151,6 @@ in
               on-click = "${keyboardswitch}/bin/keyboardswitch";
             };
             "hyprland/workspaces" = {
-              disable-scroll = true;
               all-outputs = true;
               active-only = false;
               on-click = "activate";
@@ -176,18 +171,13 @@ in
             };
 
             "hyprland/window" = {
-              format = "  {}";
+              format = "{}";
               separate-outputs = true;
               rewrite = {
-                "harvey@hyprland =(.*)" = "$1 ";
-                "(.*) — Mozilla Firefox" = "$1 󰈹";
-                "(.*)Mozilla Firefox" = " Firefox 󰈹";
-                "(.*) - Visual Studio Code" = "$1 󰨞";
-                "(.*)Visual Studio Code" = "Code 󰨞";
-                "(.*) — Dolphin" = "$1 󰉋";
-                "(.*)Spotify" = "Spotify 󰓇";
-                "(.*)Spotify Premium" = "Spotify 󰓇";
-                "(.*)Steam" = "Steam 󰓓";
+                "" = "Desktop";
+                "kitty" = "Terminal";
+                "zsh" = "Terminal";
+                "~" = "Terminal";
               };
               max-length = 1000;
             };
