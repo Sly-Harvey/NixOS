@@ -3,6 +3,10 @@ rec {
     path = ./empty;
     description = "Empty development environment";
   };
+  bevy = {
+    path = ./bevy;
+    description = "Bevy development environment";
+  };
   bun = {
     path = ./bun;
     description = "Bun development environment";
