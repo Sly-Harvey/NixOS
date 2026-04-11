@@ -301,8 +301,6 @@ in
               mfact = 0.5;
             };
             windowrule = [
-              "tile on, match:title (.*)(Godot)(.*)$"
-
               "opacity 1.00 1.00, match:class ^(firefox|Brave-browser|floorp|zen|zen-beta)$"
               "opacity 0.90 0.80, match:class ^(Emacs)$"
               "opacity 0.90 0.80, match:class ^(gcr-prompter)$"
@@ -368,6 +366,11 @@ in
               "no_shadow on, match:tag games"
               "no_blur on, match:tag games"
               "no_anim on, match:tag games"
+
+              # Godot
+              "tile on, match:initial_title ^(Godot)$, match:initial_class ^(Godot)$"
+              "float on, match:title ^((.*)(DEBUG)), match:class ^(Godot)$"
+              "float on, match:initial_title ^(.*)(DEBUG)(.*)$, match:class ^(Godot)$"
 
               "opacity 0.80 0.70, match:class ^(microfetch)$"
               "float on, match:class ^(microfetch)$"
