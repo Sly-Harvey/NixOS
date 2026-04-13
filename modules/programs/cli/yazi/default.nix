@@ -33,12 +33,37 @@
         keymap = {
           mgr.prepend_keymap = [
             {
+              on = "q";
+              run = "close";
+            }
+            {
               on = [ "e" ];
               run = "open";
             }
             {
               on = [ "d" ];
               run = "remove --force";
+            }
+            {
+              on = [
+                "g"
+                "D"
+              ];
+              run = "cd ~/Documents";
+            }
+            {
+              on = [
+                "g"
+                "p"
+              ];
+              run = "cd /mnt/work/Projects";
+            }
+            {
+              on = [
+                "g"
+                "P"
+              ];
+              run = "cd /mnt/games/Windows/Pirate";
             }
           ];
         };

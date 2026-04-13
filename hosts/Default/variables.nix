@@ -22,7 +22,7 @@
   # Hardware
   hostname = "Singularity";
   videoDriver = "nvidia"; # nvidia, amdgpu, intel
-  nvidiaChannel = "legacy_580"; # latest, stable, beta, legacy_xxx
+  nvidiaChannel = "legacy_580"; # stable, latest, beta, legacy_xxx
   bluetoothSupport = false; # Whether your motherboard supports bluetooth
 
   # Localization
