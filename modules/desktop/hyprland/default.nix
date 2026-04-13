@@ -11,7 +11,7 @@ let
     waybarTheme
     browser
     terminal
-    tuiFileManager
+    fileManager
     kbdLayout
     kbdVariant
     defaultWallpaper
@@ -22,6 +22,7 @@ let
   autoclicker = pkgs.callPackage ./scripts/autoclicker.nix { };
   batterynotify = pkgs.callPackage ./scripts/batterynotify.nix { };
   clipmanager = pkgs.callPackage ./scripts/clipmanager.nix { };
+  fileManagerScript = pkgs.callPackage ./scripts/file-manager.nix { inherit terminal; };
   gamemode = pkgs.callPackage ./scripts/gamemode.nix { };
   keyboardswitch = pkgs.callPackage ./scripts/keyboardswitch.nix { };
   keybinds-yad = pkgs.callPackage ./scripts/keybinds-yad.nix { };
@@ -127,7 +128,6 @@ in
             "$mainMod" = "SUPER";
             "$term" = "${getExe pkgs.${terminal}}";
             "$editor" = "code --disable-gpu";
-            "$fileManager" = "$term --class \"tuiFileManager\" -e ${tuiFileManager}";
             "$browser" = browser;
 
             env = [
@@ -322,7 +322,7 @@ in
               "opacity 0.80 0.70, match:title ^(Kvantum Manager)$"
               "opacity 0.80 0.70, match:class ^(VSCodium|codium-url-handler)$"
               "opacity 0.80 0.70, match:class ^(code|code-url-handler)$"
-              "opacity 0.80 0.70, match:class ^(tuiFileManager)$"
+              "opacity 0.80 0.70, match:class ^(fileManager)$"
               "opacity 0.80 0.70, match:class ^(org.kde.dolphin)$"
               "opacity 0.80 0.70, match:class ^(org.kde.ark)$"
               "opacity 0.80 0.70, match:class ^(nwg-look)$"
@@ -349,6 +349,7 @@ in
               "opacity 0.80 0.70, match:class ^(nm-applet)$"
               "opacity 0.80 0.70, match:class ^(nm-connection-editor)$"
               "opacity 0.80 0.70, match:class ^(org.kde.polkit-kde-authentication-agent-1)$"
+              "opacity 0.80 0.70, match:class ^(xdg-desktop-portal-gtk|xdg-desktop-portal-kde)$"
 
               "float on, match:title ^(Picture-in-Picture)$, match:class ^(zen|zen-beta|floorp|firefox)$"
               "pin on, match:title ^(Picture-in-Picture)$, match:class ^(zen|zen-beta|floorp|firefox)$"
@@ -442,7 +443,7 @@ in
               # Applications/Programs
               "$mainMod, Return, exec, $term"
               "$mainMod, T, exec, $term"
-              "$mainMod, E, exec, $fileManager"
+              "$mainMod, E, exec, ${getExe fileManagerScript} ${fileManager}"
               "$mainMod, C, exec, $editor"
               "$mainMod, F, exec, $browser"
               "$mainMod SHIFT, S, exec, spotify"
