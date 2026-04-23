@@ -5,7 +5,7 @@
     rtkit.enable = true;
     polkit.enable = true;
     apparmor = {
-      enable = true;
+      enable = false;
       killUnconfinedConfinables = true;
       packages = [ pkgs.apparmor-profiles ];
     };
