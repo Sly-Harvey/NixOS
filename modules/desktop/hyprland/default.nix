@@ -8,7 +8,6 @@ let
   inherit (lib) getExe getExe';
   inherit (import ../../../hosts/${host}/variables.nix)
     bar
-    waybarTheme
     browser
     terminal
     fileManager
@@ -37,22 +36,13 @@ in
 {
   imports = [
     ../../themes/Catppuccin # Catppuccin GTK and QT themes
+    ./programs/${bar}
     ./programs/wlogout
     ./programs/rofi
     ./programs/hypridle
     ./programs/hyprlock
   ]
-  ++ lib.optional (bar == "hyprpanel") ./programs/hyprpanel
-  ++ lib.optionals (bar == "noctalia") [
-    # ./programs/dunst
-    ./programs/swaync
-    ./programs/noctalia
-  ]
-  ++ lib.optionals (bar == "waybar") [
-    # ./programs/dunst
-    ./programs/swaync
-    ./programs/waybar/${waybarTheme}.nix
-  ];
+  ++ lib.optional (bar != "hyprpanel") ./programs/swaync;
 
   environment.systemPackages = with pkgs; [
     pavucontrol
@@ -436,7 +426,7 @@ in
               "ALT, return, fullscreen" # toggle the window on focus to fullscreen
               "$mainMod ALT, L, exec, hyprlock" # lock screen
               "$mainMod, backspace, exec, pkill -x wlogout || wlogout -b 4" # logout menu
-              "$CONTROL, ESCAPE, exec, pkill waybar || pkill hyprpanel || ${bar}" # toggle bar
+              "$CONTROL, ESCAPE, exec, pkill \"waybar|hyprpanel|noctalia-shell|caelestia-shell|.quickshell\" || ${bar}" # toggle bar
               "$mainMod CTRL, mouse_down, exec, ${getExe zoom} in" # zoom in
               "$mainMod CTRL, mouse_up, exec, ${getExe zoom} out" # zoom out
 
