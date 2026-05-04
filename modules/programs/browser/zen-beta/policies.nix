@@ -73,7 +73,7 @@
     ExtensionRecommendations = false;
     SkipOnboarding = true;
   };
-  ExtensionSettings = (import ../extensions.nix { inherit inputs pkgs lib; }).extensionSettings;
+  ExtensionSettings = import ../extensions.nix { inherit lib; };
   "3rdparty".Extensions = {
     "addon@darkreader.org" = {
       enabled = true;

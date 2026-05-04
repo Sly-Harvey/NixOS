@@ -1,3 +1,4 @@
+{ lib, ... }:
 let
   lock-false = {
     Value = false;
@@ -7,7 +8,7 @@ let
     Value = true;
     Status = "locked";
   };
-  extensions = import ../extensions.nix { inherit inputs pkgs lib; };
+  extensions = import ../extensions.nix { inherit lib; };
 in
 {
   "zen.view.use-single-toolbar" = false;

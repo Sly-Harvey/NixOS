@@ -1,9 +1,7 @@
 
-{ inputs, pkgs, lib }:
-let
-  extensions = inputs.firefox-addons.packages.${pkgs.stdenv.hostPlatform.system};
-in {
-  navbar = [
+{ lib, ... }:
+{
+  nav-bar = [
     #"_c4b582ec-4343-438c-bda2-2f691c16c262_-browser-action"
     "firemonkey_eros_man-browser-action"
     "ublock0_raymondhill_net-browser-action"
@@ -13,10 +11,10 @@ in {
     # "_aecec67f-0d10-4fa7-b7c7-609a2db280cf_-browser-action"
   ];
 
-  extensionSettings = with extensions; {
+  extensionSettings = {
     "*" = {
       blocked_install_message = "Addon is not added in the nix config";
-      installation_mode = "blocked";o
+      installation_mode = "blocked";
     };
 
     "{446900e4-71c2-419f-a6a7-df9c091e268b}" = {
@@ -25,46 +23,54 @@ in {
       installation_mode = "force_installed";
       install_url = "https://addons.mozilla.org/firefox/downloads/file/4749958/bitwarden_password_manager-2026.3.0.xpi";
     };
+
     "uBlock0@raymondhill.net" = {
       private_browsing = true;
       default_area = "navbar";
       installation_mode = "force_installed";
       install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
     };
+
     "firemonkey@eros.man" = {
       private_browsing = true;
       default_area = "navbar";
       installation_mode = "force_installed";
       install_url = "https://addons.mozilla.org/firefox/downloads/latest/firemonkey/latest.xpi";
     };
+
     "{c4b582ec-4343-438c-bda2-2f691c16c262}" = {
       private_browsing = true;
       default_area = "navbar";
       installation_mode = "force_installed";
       install_url = "https://addons.mozilla.org/firefox/downloads/latest/600-sound-volume/latest.xpi";
     };
+
     "addon@darkreader.org" = {
       private_browsing = true;
       # default_area = "navbar";
       installation_mode = "force_installed";
       install_url = "https://addons.mozilla.org/firefox/downloads/latest/darkreader/latest.xpi";
     };
+
     "sponsorBlocker@ajay.app" = {
       private_browsing = true;
       default_area = "menupanel";
       installation_mode = "force_installed";
       install_url = "https://addons.mozilla.org/firefox/downloads/latest/sponsorblock/latest.xpi";
     };
+
     "{762f9885-5a13-4abd-9c77-433dcd38b8fd}" = {
       private_browsing = true;
       installation_mode = "force_installed";
       install_url = "https://addons.mozilla.org/firefox/downloads/latest/return-youtube-dislikes/latest.xpi";
     };
+
     "frankerfacez@frankerfacez.com" = {
       private_browsing = true;
       installation_mode = "force_installed";
       install_url = "https://addons.mozilla.org/firefox/downloads/latest/frankerfacez/latest.xpi";
     };
+
     # View Xpi Id's in Firefox Extension Store
     "queryamoid@kaply.com" = {
       private_browsing = true;
@@ -73,10 +79,8 @@ in {
     };
   };
 
-
-
   "3rdparty".Extensions = {
-    ${extensions.ublock-origin.addonId} = {
+    "uBlock0@raymondhill.net" = {
       advancedSettings = [
         [
           "userResourcesLocation"
@@ -146,4 +150,5 @@ in {
         ];
       };
     };
-};}
+  };
+}
