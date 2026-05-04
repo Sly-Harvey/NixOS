@@ -1,4 +1,5 @@
 {
+  lib,
   self,
   inputs,
   host,
@@ -13,6 +14,7 @@ let
     kbdVariant
     locale
     timezone
+    capslockRemap
     ;
 in
 {
@@ -106,4 +108,9 @@ in
     };
   };
   system.stateVersion = "26.05"; # Do not change!
-}
+} // lib.optionalAttrs capslockRemap {
+    services.udev.extraHwdb = ''
+      evdev:atkbd:*
+        KEYBOARD_KEY_3a=esc
+    '';
+  }
