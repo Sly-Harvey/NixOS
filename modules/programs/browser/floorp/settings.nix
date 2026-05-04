@@ -7,6 +7,8 @@ let
     Value = true;
     Status = "locked";
   };
+
+  extensions = import ../extensions.nix { inherit inputs pkgs lib; };
 in
 {
   # Floorp
@@ -220,14 +222,6 @@ in
     newElementCount = 7;
     placements = {
       widget-overflow-fixed-list = [ ];
-      unified-extensions-area = [
-        # "extension_one-tab_com-browser-action"
-        "ublock0_raymondhill_net-browser-action"
-        "firemonkey_eros_man-browser-action"
-        "addon_darkreader_org-browser-action"
-        "queryamoid_kaply_com-browser-action"
-        # "_aecec67f-0d10-4fa7-b7c7-609a2db280cf_-browser-action"
-      ];
       nav-bar = [
         "back-button"
         "forward-button"
@@ -236,16 +230,7 @@ in
         # "developer-button"
         "downloads-button"
         "unified-extensions-button"
-
-        # Extensions
-        "extension_one-tab_com-browser-action"
-        "ublock0_raymondhill_net-browser-action"
-        "firemonkey_eros_man-browser-action"
-        "_c4b582ec-4343-438c-bda2-2f691c16c262_-browser-action"
-        # "addon_darkreader_org-browser-action"
-        # "queryamoid_kaply_com-browser-action"
-        # "_aecec67f-0d10-4fa7-b7c7-609a2db280cf_-browser-action"
-      ];
+      ] ++ extensions.nav-bar;
       toolbar-menubar = [ "menubar-items" ];
       TabsToolbar = [
         "firefox-view-button"

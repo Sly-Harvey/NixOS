@@ -73,58 +73,7 @@
     ExtensionRecommendations = false;
     SkipOnboarding = true;
   };
-  ExtensionSettings = {
-    "*" = {
-      blocked_install_message = "Addon is not added in the nix config";
-      installation_mode = "blocked";
-    };
-    "uBlock0@raymondhill.net" = {
-      private_browsing = true;
-      default_area = "navbar";
-      installation_mode = "force_installed";
-      install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
-    };
-    "firemonkey@eros.man" = {
-      private_browsing = true;
-      default_area = "navbar";
-      installation_mode = "force_installed";
-      install_url = "https://addons.mozilla.org/firefox/downloads/latest/firemonkey/latest.xpi";
-    };
-    "{c4b582ec-4343-438c-bda2-2f691c16c262}" = {
-      private_browsing = true;
-      default_area = "navbar";
-      installation_mode = "force_installed";
-      install_url = "https://addons.mozilla.org/firefox/downloads/latest/600-sound-volume/latest.xpi";
-    };
-    "addon@darkreader.org" = {
-      private_browsing = true;
-      # default_area = "navbar";
-      installation_mode = "force_installed";
-      install_url = "https://addons.mozilla.org/firefox/downloads/latest/darkreader/latest.xpi";
-    };
-    "sponsorBlocker@ajay.app" = {
-      private_browsing = true;
-      default_area = "menupanel";
-      installation_mode = "force_installed";
-      install_url = "https://addons.mozilla.org/firefox/downloads/latest/sponsorblock/latest.xpi";
-    };
-    "{762f9885-5a13-4abd-9c77-433dcd38b8fd}" = {
-      private_browsing = true;
-      installation_mode = "force_installed";
-      install_url = "https://addons.mozilla.org/firefox/downloads/latest/return-youtube-dislikes/latest.xpi";
-    };
-    "frankerfacez@frankerfacez.com" = {
-      private_browsing = true;
-      installation_mode = "force_installed";
-      install_url = "https://addons.mozilla.org/firefox/downloads/latest/frankerfacez/latest.xpi";
-    };
-    # View Xpi Id's in Firefox Extension Store
-    "queryamoid@kaply.com" = {
-      private_browsing = true;
-      installation_mode = "force_installed";
-      install_url = "https://github.com/mkaply/queryamoid/releases/download/v0.2/query_amo_addon_id-0.2-fx.xpi";
-    };
-  };
+  ExtensionSettings = (import ../extensions.nix { inherit inputs pkgs lib; }).extensionSettings;
   "3rdparty".Extensions = {
     "addon@darkreader.org" = {
       enabled = true;
