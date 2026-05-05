@@ -32,5 +32,5 @@
   kbdLayout = "gb";
   kbdVariant = "extd";
   consoleKeymap = "uk";
-  capslockRemap = false; # Wether to remap caps lock as ESC, do not forget to run `udevadm control --reload` and `udevadm trigger`
+  capslockAsESC = true;
 }

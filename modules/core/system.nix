@@ -14,7 +14,7 @@ let
     kbdVariant
     locale
     timezone
-    capslockRemap
+    capslockAsESC
     ;
 in
 {
@@ -33,12 +33,16 @@ in
     xkb = {
       layout = "${kbdLayout}";
       variant = "${kbdVariant}";
+      options = "caps:swapescape";
     };
   };
   nix = {
     # Nix Package Manager Settings
     settings = {
-      trusted-users = [ "root" "@wheel" ]; # Required by Cachix to be used as non-root user
+      trusted-users = [
+        "root"
+        "@wheel"
+      ]; # Required by Cachix to be used as non-root user
       accept-flake-config = true;
       builders-use-substitutes = true;
       download-buffer-size = 200000000;
@@ -108,9 +112,15 @@ in
     };
   };
   system.stateVersion = "26.05"; # Do not change!
-} // lib.optionalAttrs capslockRemap {
-    services.udev.extraHwdb = ''
-      evdev:atkbd:*
-        KEYBOARD_KEY_3a=esc
-    '';
-  }
+}
+// lib.optionalAttrs capslockAsESC {
+  services.udev.extraHwdb = ''
+    evdev:atkbd:*
+      KEYBOARD_KEY_3a=esc
+      KEYBOARD_KEY_01=capslock
+
+    evdev:input:b*v*p*e*:
+      KEYBOARD_KEY_3a=esc
+      KEYBOARD_KEY_01=capslock
+  '';
+}
