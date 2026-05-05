@@ -32,4 +32,5 @@
   kbdLayout = "gb";
   kbdVariant = "extd";
   consoleKeymap = "uk";
+  capslockAsESC = true;
 }
