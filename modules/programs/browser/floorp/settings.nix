@@ -223,6 +223,7 @@ in
     newElementCount = 7;
     placements = {
       widget-overflow-fixed-list = [ ];
+      unified-extensions-area = extensions.unified-extensions-area;
       nav-bar = [
         "back-button"
         "forward-button"

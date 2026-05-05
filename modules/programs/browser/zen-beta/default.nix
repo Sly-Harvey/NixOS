@@ -23,7 +23,7 @@
             name = "default"; # name as listed in about:profiles
             isDefault = true; # can be omitted; true if profile ID is 0
             settings = import ./settings.nix { inherit lib; };
-            bookmarks = import ./bookmarks.nix;
+            bookmarks = import ../bookmarks.nix;
             search = import ./search.nix { inherit pkgs; };
             userChrome = builtins.readFile ./userChrome.css;
             userContent = builtins.readFile ./userContent.css;
