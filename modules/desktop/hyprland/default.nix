@@ -107,6 +107,7 @@ in
         wayland.windowManager.hyprland = {
           enable = true;
           package = pkgs.hyprland;
+          configType = "hyprlang";
           plugins = [
             # inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprwinwrap
             # inputs.hyprsysteminfo.packages.${pkgs.stdenv.hostPlatform.system}.default
