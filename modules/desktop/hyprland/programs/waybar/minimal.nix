@@ -355,7 +355,7 @@ in
           };
         };
         style = ''
-                    * {
+          * {
             font-family: "monospace";
             font-size: 15px;
             margin: 0px;
