@@ -1,7 +1,7 @@
 { lib, ... }:
 {
   nav-bar = [
-    "_c4b582ec-4343-438c-bda2-2f691c16c262_-browser-action"
+    "_8454caa8-cebc-4486-8b23-9771f187ed6c_-browser-action"
     "firemonkey_eros_man-browser-action"
     "ublock0_raymondhill_net-browser-action"
     # "addon_darkreader_org-browser-action"
@@ -34,11 +34,11 @@
       installation_mode = "force_installed";
       install_url = "https://addons.mozilla.org/firefox/downloads/latest/firemonkey/latest.xpi";
     };
-    "{c4b582ec-4343-438c-bda2-2f691c16c262}" = {
+    "{8454caa8-cebc-4486-8b23-9771f187ed6c}" = {
       private_browsing = true;
       default_area = "navbar";
       installation_mode = "force_installed";
-      install_url = "https://addons.mozilla.org/firefox/downloads/latest/600-sound-volume/latest.xpi";
+      install_url = "https://addons.mozilla.org/firefox/downloads/latest/600-sound-volume-privacy/latest.xpi";
     };
     "addon@darkreader.org" = {
       private_browsing = true;
