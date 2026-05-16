@@ -1,6 +1,7 @@
 { lib, ... }:
 {
   nav-bar = [
+    "extension_one-tab_com-browser-action"
     "_8454caa8-cebc-4486-8b23-9771f187ed6c_-browser-action"
     "firemonkey_eros_man-browser-action"
     "ublock0_raymondhill_net-browser-action"
@@ -39,6 +40,12 @@
       default_area = "navbar";
       installation_mode = "force_installed";
       install_url = "https://addons.mozilla.org/firefox/downloads/latest/600-sound-volume-privacy/latest.xpi";
+    };
+    "extension@one-tab.com" = {
+      private_browsing = true;
+      default_area = "navbar";
+      installation_mode = "force_installed";
+      install_url = "https://addons.mozilla.org/firefox/downloads/latest/onetab/latest.xpi";
     };
     "addon@darkreader.org" = {
       private_browsing = true;
