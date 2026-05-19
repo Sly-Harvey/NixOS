@@ -5,7 +5,11 @@
   ...
 }:
 let
-  inherit (import ../../../../../hosts/${host}/variables.nix) clock24h bluetoothSupport batterySupport;
+  inherit (import ../../../../../hosts/${host}/variables.nix)
+    clock24h
+    bluetoothSupport
+    batterySupport
+    ;
 in
 {
   environment.systemPackages = with pkgs; [
@@ -20,6 +24,9 @@ in
 
   home-manager.sharedModules = [
     (_: {
+      # home.shellAliases = {
+      #   wayle-shell = "wayle shell";
+      # };
       services.wayle = {
         enable = true;
         settings = {
@@ -28,16 +35,16 @@ in
             theme-provider = "wayle";
             rounding = "sm";
             palette = {
-              bg = "#241f2b";
-              surface = "#312d3d";
-              elevated = "#312d3d";
-              fg = "#e0dce4";
-              fg-muted = "#a8988f";
-              primary = "#a11bae";
-              red = "#fa1d42";
-              yellow = "#eeeb5f";
-              green = "#d9ff3b";
-              blue = "#0091cb";
+              bg = "#11111b";
+              surface = "#181825";
+              elevated = "#1e1e2e";
+              fg = "#cdd6f4";
+              fg-muted = "#bac2de";
+              primary = "#b4befe";
+              red = "#f38ba8";
+              yellow = "#f9e2af";
+              green = "#a6e3a1";
+              blue = "#74c7ec";
             };
           };
 
@@ -45,7 +52,7 @@ in
           bar = {
             location = "top";
             background-opacity = 100;
-            rounding = "sm";
+            rounding = "no";
             border-location = "none";
             padding = 0.35;
             padding-ends = 0.5;
@@ -64,10 +71,16 @@ in
                 center = [
                   "window-title"
                 ];
-                right =
-                  [ "volume" "network" "systray" "idle-inhibit" "clock" "notifications" ]
-                  ++ lib.optionals (bluetoothSupport == true) [ "bluetooth" ]
-                  ++ lib.optionals (batterySupport == true) [ "battery" ];
+                right = [
+                  "volume"
+                  "network"
+                  "systray"
+                  "idle-inhibit"
+                  "clock"
+                  "notifications"
+                ]
+                ++ lib.optionals (bluetoothSupport == true) [ "bluetooth" ]
+                ++ lib.optionals (batterySupport == true) [ "battery" ];
               }
             ];
           };
@@ -119,7 +132,7 @@ in
             };
 
             # System tray
-            systray = {};
+            systray = { };
 
             # Idle inhibit (hypridle toggle)
             idle-inhibit = {
@@ -132,7 +145,8 @@ in
 
             # Clock (24h format matching hyprpanel)
             clock = {
-              format = "%a %d %b  %R";
+              # format = "%a %d %b  %R";
+              format = if clock24h == true then "%a %d %b %R" else "%a %d %b %I:%M %p";
               icon-show = false;
               label-show = true;
             };

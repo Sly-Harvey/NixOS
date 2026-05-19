@@ -57,7 +57,7 @@ hl.bind(mainMod .. " + ALT + L", hl.dsp.exec_cmd("hyprlock")) -- lock screen
 hl.bind(mainMod .. " + backspace", hl.dsp.exec_cmd("pkill -x wlogout || wlogout -b 4")) -- logout menu
 hl.bind(
 	"CONTROL + ESCAPE",
-	hl.dsp.exec_cmd('pkill "waybar|hyprpanel|noctalia-shell|caelestia-shell|.quickshell" || ' .. bar)
+	hl.dsp.exec_cmd('pkill "waybar|hyprpanel|wayle|noctalia-shell|caelestia-shell|.quickshell" || ' .. bar)
 ) -- toggle bar
 hl.bind(mainMod .. " + CTRL + mouse_down", hl.dsp.exec_cmd(zoom .. " in")) -- zoom in
 hl.bind(mainMod .. " + CTRL + mouse_up", hl.dsp.exec_cmd(zoom .. " out")) -- zoom out

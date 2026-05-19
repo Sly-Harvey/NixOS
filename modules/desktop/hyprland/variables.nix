@@ -58,7 +58,7 @@ in
 
             mainMod = "SUPER"
             launcher = "${getExe launcher}"
-            bar = "${bar}"
+            bar = "${if bar == "wayle" then "wayle shell" else bar}"
             term = "${terminal}"
             editor = "code --disable-gpu"
             browser = "${browser}"
