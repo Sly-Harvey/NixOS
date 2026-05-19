@@ -20,7 +20,7 @@ in
     ./programs/hypridle
     ./programs/hyprlock
   ]
-  ++ optional (bar != "hyprpanel") ./programs/swaync;
+  ++ optional (bar != "hyprpanel" && bar != "wayle") ./programs/swaync;
 
   environment.systemPackages = with pkgs; [
     pavucontrol
