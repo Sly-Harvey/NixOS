@@ -99,13 +99,13 @@ in
               on-click = "${pkgs.playerctl}/bin/playerctl play-pause";
             };
             "custom/gpuinfo" = {
-              exec = "${gpuinfo}/bin/gpuinfo";
+              exec = "${gpuinfo}/bin/gpuinfo --tired";
               return-type = "json";
-              format = "{0}";
+              format = "{text}";
               on-click = "${gpuinfo}/bin/gpuinfo --toggle";
               interval = 5; # once every 5 seconds
               tooltip = true;
-              max-length = 1000;
+              max-length = 80;
             };
             "custom/icon" = {
               # format = " ";
