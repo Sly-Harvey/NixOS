@@ -8,7 +8,7 @@
 }:
 let
   inherit (lib) optional;
-  inherit (import ../../../hosts/${host}/variables.nix) bar;
+  inherit (import ../../../hosts/${host}/variables.nix) bar wallpaperPicker;
 in
 {
   imports = [
@@ -20,7 +20,8 @@ in
     ./programs/hypridle
     ./programs/hyprlock
   ]
-  ++ optional (bar != "hyprpanel" && bar != "wayle") ./programs/swaync;
+  ++ optional (bar != "hyprpanel" && bar != "wayle") ./programs/swaync
+  ++ optional (wallpaperPicker == "skwd-wall") ./programs/skwd-wall;
 
   environment.systemPackages = with pkgs; [
     pavucontrol

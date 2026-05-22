@@ -72,6 +72,10 @@
       url = "github:nix-community/nix4nvchad";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    skwd-wall = {
+      url = "github:liixini/skwd-wall";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =

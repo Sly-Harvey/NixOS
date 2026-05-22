@@ -77,7 +77,12 @@ hl.bind(mainMod .. " + CTRL + C", hl.dsp.exec_cmd("hyprpicker --autocopy --forma
 -- Window manager
 hl.bind(mainMod .. " + A", hl.dsp.exec_cmd(launcher .. " drun")) -- launch desktop applications
 hl.bind(mainMod .. " + SPACE", hl.dsp.exec_cmd(launcher .. " drun")) -- launch desktop applications
-hl.bind(mainMod .. " + SHIFT + W", hl.dsp.exec_cmd(launcher .. " wallpaper")) -- launch wallpaper switcher
+-- Wallpaper picker: rofi or skwd-wall based on wallpaperPicker variable
+if wallpaperPicker == "rofi" then
+  hl.bind(mainMod .. " + SHIFT + W", hl.dsp.exec_cmd(launcher .. " wallpaper")) -- launch wallpaper switcher (rofi)
+else
+  hl.bind(mainMod .. " + SHIFT + W", hl.dsp.exec_cmd("skwd wall toggle")) -- launch wallpaper switcher (skwd-wall)
+end
 hl.bind(mainMod .. " + Z", hl.dsp.exec_cmd(launcher .. " emoji")) -- launch emoji picker
 hl.bind(mainMod .. " + SHIFT + T", hl.dsp.exec_cmd(launcher .. " tmux")) -- launch tmux sessions
 hl.bind(mainMod .. " + G", hl.dsp.exec_cmd(launcher .. " games")) -- game launcher

@@ -27,6 +27,9 @@ hl.on("hyprland.start", function()
 	hl.exec_cmd("rm '$XDG_CACHE_HOME/cliphist/db'")
 	hl.exec_cmd(batterynotify)
 	hl.exec_cmd("polkit-agent-helper-1")
+	if wallpaperPicker == "skwd-wall" then
+		hl.exec_cmd("skwd-daemon")
+	end
 end)
 
 hl.config({

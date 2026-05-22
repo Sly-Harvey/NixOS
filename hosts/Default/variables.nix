@@ -10,6 +10,7 @@
   sddmTheme = "astronaut"; # astronaut, black_hole, purple_leaves, jake_the_dog, hyprland_kath
   defaultWallpaper = "galaxy.webp"; # Change with SUPER + SHIFT + W (Hyprland)
   hyprlockWallpaper = "galaxy.webp";
+  wallpaperPicker = "rofi"; # rofi, skwd-wall
 
   # Default Applications
   terminal = "kitty"; # kitty, alacritty

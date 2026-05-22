@@ -8,6 +8,7 @@ let
   inherit (lib) getExe;
   inherit (import ../../../hosts/${host}/variables.nix)
     bar
+    wallpaperPicker
     browser
     terminal
     fileManager
@@ -66,6 +67,7 @@ in
             capslockAsESC = ${lib.boolToString capslockAsESC}
             kbdLayout = "${kbdLayout}"
             kbdVariant = "${kbdVariant}"
+            wallpaperPicker = "${wallpaperPicker}"
           '';
         };
       }
