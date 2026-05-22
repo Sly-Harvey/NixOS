@@ -27,5 +27,11 @@ in
       withOpenASAR = true;
       enableAutoscroll = true;
     };
+
+    # Skipping tests while upstream sorts it out, revert once
+    # Hydra consistently builds openldap green.
+    openldap = prev.openldap.overrideAttrs {
+      doCheck = !prev.stdenv.hostPlatform.isi686;
+    };
   };
 }
