@@ -1,8 +1,10 @@
-{ pkgs, ... }:
+{ inputs, pkgs, ... }:
 let
   wallpaperDir = "${../../../../themes/wallpapers}";
 in
 {
+  imports = [ inputs.skwd-wall.nixosModules.default ];
+  programs.skwd-wall.enable = true;
   home-manager.sharedModules = [
     (_: {
       # comment to disable matugen theming

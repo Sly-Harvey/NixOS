@@ -774,6 +774,37 @@
         "type": "github"
       }
     },
+    "nixpkgs_5": {
+      "locked": {
+        "lastModified": 1768127708,
+        "narHash": "sha256-1Sm77VfZh3mU0F5OqKABNLWxOuDeHIlcFjsXeeiPazs=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "ffbc9f8cbaacfb331b6017d5a5abb21a492c9a38",
+        "type": "github"
+      },
+      "original": {
+        "id": "nixpkgs",
+        "ref": "nixos-unstable",
+        "type": "indirect"
+      }
+    },
+    "nixpkgs_6": {
+      "locked": {
+        "lastModified": 1779357205,
+        "narHash": "sha256-cCO8aTqss5x9Ky8GWkpY0Hy5fyTZEbtifSUV8QjSzic=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "f83fc3c307e74bc5fd5adb7eb6b8b13ffd2a36e1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixvim": {
       "inputs": {
         "flake-parts": "flake-parts",
@@ -986,6 +1017,24 @@
         "url": "https://git.outfoxxed.me/outfoxxed/quickshell"
       }
     },
+    "quickshell_2": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_5"
+      },
+      "locked": {
+        "lastModified": 1779430452,
+        "narHash": "sha256-zTslhsxLqUlRTML506iougTGzyR38Fzhzn7t4KDEuuE=",
+        "owner": "quickshell-mirror",
+        "repo": "quickshell",
+        "rev": "4b4fca3224ab977dc515ac0bb78d00b3dfa71e00",
+        "type": "github"
+      },
+      "original": {
+        "owner": "quickshell-mirror",
+        "repo": "quickshell",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "betterfox": "betterfox",
@@ -1005,9 +1054,50 @@
         "nur": "nur",
         "nvchad4nix": "nvchad4nix",
         "plasma-manager": "plasma-manager",
+        "skwd-wall": "skwd-wall",
         "spicetify-nix": "spicetify-nix",
         "thunderbird-catppuccin": "thunderbird-catppuccin",
         "zen-browser": "zen-browser"
+      }
+    },
+    "skwd-daemon": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_6"
+      },
+      "locked": {
+        "lastModified": 1779106984,
+        "narHash": "sha256-OnkNK3szDMj+c3jVOodNPBW8Par7+xHhyuDS4YRN9kA=",
+        "owner": "liixini",
+        "repo": "skwd-daemon",
+        "rev": "1d40fc756944f7aa90be6fdf36d87bc0228a7a14",
+        "type": "github"
+      },
+      "original": {
+        "owner": "liixini",
+        "repo": "skwd-daemon",
+        "type": "github"
+      }
+    },
+    "skwd-wall": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "quickshell": "quickshell_2",
+        "skwd-daemon": "skwd-daemon"
+      },
+      "locked": {
+        "lastModified": 1779352230,
+        "narHash": "sha256-3mGuD7BkqCRld84t626lo9ojRoaGnP1egLgS+0kpw/g=",
+        "owner": "liixini",
+        "repo": "skwd-wall",
+        "rev": "010da1e690835138636123ee805bd798bb63d45d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "liixini",
+        "repo": "skwd-wall",
+        "type": "github"
       }
     },
     "spicetify-nix": {
