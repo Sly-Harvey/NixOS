@@ -20,6 +20,7 @@ hl.env("NIXPKGS_ALLOW_UNFREE", "1")
 hl.on("hyprland.start", function()
 	hl.exec_cmd(wallpaper)
 	hl.exec_cmd(bar)
+	hl.exec_cmd("hypridle")
 	hl.exec_cmd("swaync")
 	hl.exec_cmd("nm-applet --indicator")
 	hl.exec_cmd("wl-paste --type text --watch cliphist store") -- clipboard store text data

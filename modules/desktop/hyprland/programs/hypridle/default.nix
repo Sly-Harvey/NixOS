@@ -1,5 +1,6 @@
-{ ... }:
+{ pkgs, ... }:
 {
+  environment.systemPackages = with pkgs; [ hypridle ];
   home-manager.sharedModules = [
     (_: {
       services.hypridle = {
