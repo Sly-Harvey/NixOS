@@ -13,6 +13,15 @@ let
 
     @import url("https://catppuccin.github.io/discord/dist/catppuccin-mocha-mauve.theme.css");
   '';
+  vesktopConfig = builtins.toJSON {
+    discordBranch = "stable";
+    minimizeToTray = true;
+    arRPC = true;
+    splashColor = "rgb(205, 214, 244)";
+    splashBackground = "rgb(17, 17, 27)";
+    enableSplashScreen = false;
+    splashTheming = true;
+  };
   discordConfig = builtins.toJSON {
     notifyAboutUpdates = true;
     autoUpdate = true;
@@ -265,8 +274,32 @@ in
       xdg.configFile."Vencord/settings/settings.json".text = discordConfig;
       xdg.configFile."Vencord/themes/catppuccin-mocha.css".text = discordTheme;
 
+      xdg.configFile."vesktop/settings.json".text = vesktopConfig;
       xdg.configFile."vesktop/settings/settings.json".text = discordConfig;
       xdg.configFile."vesktop/themes/catppuccin-mocha.css".text = discordTheme;
+
+      # Rename "vesktop" to "Discord" and change the icon
+      xdg.desktopEntries = {
+        "vesktop" = {
+          type = "Application";
+          name = "Discord";
+          genericName = "All-in-one cross-platform voice and text chat for gamers";
+          exec = "vesktop %U";
+          icon = "discord";
+          mimeType = [ "x-scheme-handler/discord" ];
+          categories = [
+            "Network"
+            "InstantMessaging"
+            "Chat"
+          ];
+          terminal = false;
+          settings = {
+            TryExec = "vesktop"; # Only show in launcher if It's installed.
+            Keywords = "discord;vencord;electron;chat";
+            StartupWMClass = "Vesktop";
+          };
+        };
+      };
     })
   ];
 }
