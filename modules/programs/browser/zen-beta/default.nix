@@ -27,6 +27,12 @@
             search = import ./search.nix { inherit pkgs; };
             userChrome = builtins.readFile ./userChrome.css;
             userContent = builtins.readFile ./userContent.css;
+            mods = [
+              "d8b79d4a-6cba-4495-9ff6-d6d30b0e94fe" # Better Active Tabs
+              "f7c71d9a-bce2-420f-ae44-a64bd92975ab" # Better Unloaded Tabs
+              "e122b5d9-d385-4bf8-9971-e137809097d0" # No Top Sites
+              "253a3a74-0cc4-47b7-8b82-996a64f030d5" # Floating History
+            ];
             extraConfig = ''
               ${builtins.readFile "${inputs.betterfox}/Fastfox.js"}
               ${builtins.readFile "${inputs.betterfox}/Peskyfox.js"}
