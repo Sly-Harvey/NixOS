@@ -16,6 +16,8 @@ hl.env("QT_AUTO_SCREEN_SCALE_FACTOR", "1")
 hl.env("QT_ENABLE_HIGHDPI_SCALING", "1")
 hl.env("WLR_RENDERER_ALLOW_SOFTWARE", "1")
 hl.env("NIXPKGS_ALLOW_UNFREE", "1")
+hl.env("XCURSOR_THEME", "Bibata-Modern-Classic")
+hl.env("XCURSOR_SIZE", "24")
 
 hl.on("hyprland.start", function()
 	hl.exec_cmd(wallpaper)
