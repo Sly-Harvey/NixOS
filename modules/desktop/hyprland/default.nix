@@ -22,7 +22,11 @@ in
   ]
   ++ optional (bar != "hyprpanel" && bar != "wayle") ./programs/swaync;
 
+  # Dependencies
   environment.systemPackages = with pkgs; [
+    hyprshutdown
+    hyprsunset
+    hyprpicker
     pavucontrol
     swappy
     cliphist
@@ -30,9 +34,7 @@ in
     brightnessctl
     playerctl
     pamixer
-    hyprsunset
     btop
-    hyprpicker
   ];
 
   systemd.user.services.hyprpolkitagent = {
