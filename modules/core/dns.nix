@@ -103,23 +103,14 @@
               url = url;
             })
             [
-              "https://adguardteam.github.io/HostlistsRegistry/assets/filter_9.txt"
-              "https://adguardteam.github.io/HostlistsRegistry/assets/filter_11.txt"
-              "https://easylist.to/easylist/easylist.txt" # Base filter
-              "https://easylist.to/easylist/easyprivacy.txt" # Privacy protection
-              "https://osint.digitalside.it/Threat-Intel/lists/latestdomains.txt" # Malware domains
-              "https://raw.githubusercontent.com/Spam404/lists/master/main-blacklist.txt" # Scam protection                                                                                      "https://raw.githubusercontent.com/hoshsadiq/adblock-nocoin-list/master/nocoin.txt"  # Cryptominers
+              # Main Lists
+              "https://cdn.jsdelivr.net/gh/hagezi/dns-blocklists@latest/adblock/ultimate.txt"
+              "https://big.oisd.nl"
+              "https://adguardteam.github.io/AdGuardSDNSFilter/Filters/filter.txt"
 
-              # My Lists
-              # "https://cdn.jsdelivr.net/gh/hagezi/dns-blocklists@latest/adblock/pro.txt" # Large
-              "https://raw.githubusercontent.com/yokoffing/filterlists/refs/heads/main/privacy_essentials.txt"
-              "https://raw.githubusercontent.com/DandelionSprout/adfilt/refs/heads/master/LegitimateURLShortener.txt"
-              "https://raw.githubusercontent.com/yokoffing/filterlists/refs/heads/main/annoyance_list.txt"
+              # Optional
+              "https://secure.fanboy.co.nz/fanboy-annoyance.txt"
               "https://raw.githubusercontent.com/DandelionSprout/adfilt/refs/heads/master/BrowseWebsitesWithoutLoggingIn.txt"
-              "https://raw.githubusercontent.com/hagezi/dns-blocklists/refs/heads/main/adblock/spam-tlds-ublock.txt"
-              "https://raw.githubusercontent.com/iam-py-test/my_filters_001/refs/heads/main/antitypo.txt"
-              # "https://raw.githubusercontent.com/iam-py-test/my_filters_001/refs/heads/main/antimalware.txt"
-              # "https://raw.githubusercontent.com/DandelionSprout/adfilt/refs/heads/master/Dandelion%20Sprout's%20Anti-Malware%20List.txt"
             ];
       };
     };
