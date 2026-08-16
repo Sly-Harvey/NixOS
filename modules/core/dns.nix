@@ -83,7 +83,17 @@
         http = {
           address = "127.0.0.1:3005";
         };
+        querylog = {
+          enabled = true;
+          size_memory = 1000;
+          interval = "6h";
+        };
+        statistics = {
+          enabled = true;
+          interval = "1d";
+        };
         dns = {
+          anonymize_client_ip = true;
           bind_host = "0.0.0.0";
           bind_port = 53;
           upstream_dns = [ "127.0.0.1:5335" ];
