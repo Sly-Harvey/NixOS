@@ -55,10 +55,10 @@ in
   "toolkit.scrollbox.horizontalScrollDistance" = 6;
   "toolkit.scrollbox.verticalScrollDistance" = 2;
 
-  # Commented because we are using adguard + cloudflare dns in modules/core/dns.nix
-  # "network.trr.mode" = 3; # 2 if your havng DNS problems
-  # "network.trr.custom_uri" = "https://dns.quad9.net/dns-query";
-  # "network.trr.uri" = "https://dns.quad9.net/dns-query";
+  # default mode because we are using adguard + unbound dns in modules/core/dns.nix
+  "network.trr.mode" = 0; # 0 = "Default", 3 = "Custom", 5 = "Off"
+  "network.trr.custom_uri" = "https://dns.quad9.net/dns-query";
+  "network.trr.uri" = "https://dns.quad9.net/dns-query";
 
   # Remove trackers
   "privacy.purge_trackers.enabled" = lock-true;
