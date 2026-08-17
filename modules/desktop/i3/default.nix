@@ -7,7 +7,7 @@ let
 in
 {
   imports = [
-    ../../themes/Catppuccin
+    ../../themes/catppuccin
     ../hyprland/programs/rofi
     ./polybar
     ./dunst.nix

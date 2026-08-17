@@ -12,7 +12,7 @@ let
 in
 {
   imports = [
-    ../../themes/Catppuccin # Catppuccin GTK and QT themes
+    ../../themes/catppuccin # Catppuccin GTK and QT themes
     ./variables.nix
     ./programs/${bar}
     ./programs/wlogout
