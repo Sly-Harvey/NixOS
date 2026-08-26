@@ -20,7 +20,7 @@ in
     ./programs/hypridle
     ./programs/hyprlock
   ]
-  ++ optional (bar != "hyprpanel" && bar != "wayle") ./programs/swaync;
+  ++ optional (bar != "wayle" && bar != "hyprpanel") ./programs/swaync;
 
   # Dependencies
   environment.systemPackages = with pkgs; [

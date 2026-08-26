@@ -5,7 +5,7 @@
   desktop = "hyprland"; # hyprland, i3, gnome, plasma6
 
   # Theme & Appearance
-  bar = "waybar"; # waybar, wayle, hyprpanel, noctalia-shell, caelestia-shell
+  bar = "waybar"; # waybar, wayle, noctalia-shell, caelestia-shell
   waybarTheme = "minimal"; # stylish, minimal
   sddmTheme = "astronaut"; # astronaut, black_hole, purple_leaves, jake_the_dog, hyprland_kath
   defaultWallpaper = "evening-sky.webp"; # Change with SUPER + SHIFT + W (Hyprland)
