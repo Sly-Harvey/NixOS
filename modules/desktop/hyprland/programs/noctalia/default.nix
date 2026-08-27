@@ -6,7 +6,7 @@
   ...
 }:
 let
-  inherit (import ../../../../../hosts/${host}/variables.nix) timezone clock24h bluetoothSupport;
+  inherit (import ../../../../../hosts/${host}/variables.nix) timezone clock24h bluetoothSupport batterySupport;
 in
 {
   # Optional Dependencies
@@ -176,7 +176,7 @@ in
               };
               screen-off = {
                 action = "screen_off";
-                enabled = true;
+                enabled = batterySupport;
                 timeout = 660.0;
               };
             };
