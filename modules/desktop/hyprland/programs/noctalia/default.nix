@@ -320,7 +320,7 @@ in
             screenshot.directory = "~/Pictures/Screenshots";
             setup_wizard_enabled = false;
             clipboard_enabled = true;
-            mpris.blacklist = [ ];
+            mpris.blacklist = [ "firefox" ];
           };
           theme = {
             builtin = "Catppuccin";
