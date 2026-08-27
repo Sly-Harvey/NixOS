@@ -6,7 +6,7 @@
   ...
 }:
 let
-  inherit (import ../../../../../hosts/${host}/variables.nix) clock24h bluetoothSupport;
+  inherit (import ../../../../../hosts/${host}/variables.nix) timezone clock24h bluetoothSupport;
 in
 {
   # Optional Dependencies
@@ -57,6 +57,7 @@ in
               "clock"
             ];
             end = [
+              "weather"
               "group:g1"
               "tray"
               "keyboard_layout"
@@ -75,7 +76,7 @@ in
             capsule_group = {
               accordion = false;
               accordion_direction = "end";
-              enabled = true;
+              enabled = false;
               fill = "surface_variant";
               id = "g1";
               members = [
@@ -182,7 +183,7 @@ in
             };
           };
           location = {
-            address = "London, United Kingdom";
+            address = timezone;
             auto_locate = false;
           };
           lockscreen = {
@@ -232,12 +233,12 @@ in
             screenshot.directory = "~/Pictures/Screenshots";
             setup_wizard_enabled = false;
             clipboard_enabled = true;
-            mpris.blacklist = [];
+            mpris.blacklist = [ ];
           };
           theme = {
             builtin = "Catppuccin";
             community_palette = "Catppuccin Macchiato Mauve";
-            mode = "auto";
+            mode = "dark";
             source = "community";
             templates = {
               enable_builtin_templates = false;
@@ -279,7 +280,6 @@ in
               icon_color = "tertiary";
               scale = 1.5;
             };
-            cpu.visualization = "none";
             keyboard_layout.enabled = false;
             launcher.enabled = false;
             media = {
@@ -288,7 +288,21 @@ in
               hide_when_no_media = true;
             };
             network.show_label = false;
-            ram.visualization = "none";
+            ram = {
+              stat = "ram_used";
+              type = "sysmon";
+              visualization = "none";
+            };
+            cpu = {
+              stat = "cpu_usage";
+              type = "sysmon";
+              visualization = "none";
+            };
+            temp = {
+              stat = "gpu_temp";
+              type = "sysmon";
+              visualization = "none";
+            };
             session = {
               icon_color = "#ED8796";
               scale = 1.5;
@@ -299,15 +313,17 @@ in
               glyph = "cpu";
               visualization = "none";
             };
-            temp = {
-              stat = "gpu_temp";
-              visualization = "none";
-            };
             tray = {
               drawer = true;
               hide_passive = false;
             };
             wallpaper.enabled = false;
+            weather = {
+              enabled = true;
+              effects = true;
+              refresh_minutes = 30;
+              unit = "metric";
+            };
             workspaces = {
               capsule = true;
               style = "minimal";
