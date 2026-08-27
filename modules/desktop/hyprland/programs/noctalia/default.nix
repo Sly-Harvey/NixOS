@@ -58,7 +58,6 @@ in
             ];
             end = [
               "weather"
-              "group:g1"
               "tray"
               "keyboard_layout"
               "clipboard"
@@ -204,22 +203,110 @@ in
               major_interval = 4;
               visible = true;
             };
-            widget = {
-              lockscreen-widget-0000000000000001 = {
-                box_height = 0.0;
-                box_width = 0.0;
-                cx = 960.0;
-                cy = 540.0;
-                placement_height = 1080.0;
-                placement_width = 1920.0;
-                enabled = true;
-                rotation = 0.0;
-                type = "fancy_audio_visualizer";
-                settings = {
-                  background = false;
+            widget =
+              let
+                forDisplays =
+                  displays: conf:
+                  builtins.listToAttrs (
+                    lib.flatten (
+                      map (
+                        w:
+                        (map (d: {
+                          name = "${w.name}@${d}";
+                          value = w.value // {
+                            output = d;
+                          };
+                        }) displays)
+                      ) (lib.attrsToList conf)
+                    )
+                  );
+              in
+              let
+                displays =
+                  (map (n: "DP-${toString n}") (lib.range 1 4))
+                  ++ (map (n: "eDP-${toString n}") (lib.range 1 4))
+                  ++ (map (n: "HDMI-A-${toString n}") (lib.range 1 4))
+                  ++ (map (n: "DVI-D-${toString n}") (lib.range 1 4))
+                  ++ (map (n: "DVI-I-${toString n}") (lib.range 1 4))
+                  ++ (map (n: "VGA-${toString n}") (lib.range 1 4));
+              in
+              forDisplays displays {
+                lockscreen-login-box = {
+                  enabled = true;
+                  box_height = 196.0;
+                  box_width = 810.0;
+                  cx = 960.0;
+                  cy = 898.0;
+                  placement_height = 1080.0;
+                  placement_width = 1920.0;
+                  rotation = 0.0;
+                  type = "login_box";
+                  settings = {
+                    background_color = "surface_variant";
+                    background_opacity = 0.88;
+                    background_radius = 12.0;
+                    center_password_text = false;
+                    input_opacity = 1.0;
+                    input_radius = 6.0;
+                    layout = "regular";
+                    show_caps_lock = true;
+                    show_keyboard_layout = true;
+                    show_login_button = true;
+                    show_media = true;
+                    show_session_buttons = false;
+                    show_unlock_hint = true;
+                    show_weather = true;
+                  };
+                };
+                lockscreen-widget-fancy-audio-visualizer = {
+                  enabled = true;
+                  box_height = 0.0;
+                  box_width = 0.0;
+                  cx = 960.0;
+                  cy = 540.0;
+                  placement_height = 1080.0;
+                  placement_width = 1920.0;
+                  rotation = 0.0;
+                  type = "fancy_audio_visualizer";
+                  settings = {
+                    background = false;
+                    background_color = "surface";
+                    background_opacity = 0.80000000000000004;
+                    background_padding = 10;
+                    background_radius = 12;
+                    bar_width = 0.59999999999999998;
+                    bloom_intensity = 0.5;
+                    fade_when_idle = true;
+                    inner_diameter = 0.69999999999999996;
+                    primary_color = "primary";
+                    ring_opacity = 0.80000000000000004;
+                    rotation_speed = 0.5;
+                    secondary_color = "secondary";
+                    sensitivity = 1.5;
+                    visualization_mode = "bars_rings";
+                    wave_thickness = 1.0;
+                  };
+                };
+                lockscreen-widget-clock = {
+                  box_height = 80.0;
+                  box_width = 448.0;
+                  cx = 960.0;
+                  cy = 196.0;
+                  enabled = false;
+                  placement_height = 1080.0;
+                  placement_width = 1920.0;
+                  rotation = 0.0;
+                  type = "clock";
+                  settings = {
+                    background = false;
+                    clock_style = "digital";
+                    color = "secondary";
+                    font_family = "";
+                    format = "{:%a %d %b %R}";
+                    shadow = false;
+                  };
                 };
               };
-            };
           };
           notification = {
             filter_order = [ ];
