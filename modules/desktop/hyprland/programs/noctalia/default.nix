@@ -230,6 +230,9 @@ in
           shell = {
             avatar_path = "${./profile-picture.jpg}";
             screenshot.directory = "~/Pictures/Screenshots";
+            setup_wizard_enabled = false;
+            clipboard_enabled = true;
+            mpris.blacklist = [];
           };
           theme = {
             builtin = "Catppuccin";
