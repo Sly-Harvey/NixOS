@@ -103,6 +103,7 @@
           interval = "1d";
         };
         dns = {
+          ratelimit = 1000;
           enable_dnssec = true;
           anonymize_client_ip = true;
           bind_host = "0.0.0.0";
