@@ -21,7 +21,7 @@ in
     ./programs/hyprlock
   ]
   ++ optional (
-    bar != "noctalia" && bar != "caelestia" && bar != "wayle" && bar != "hyprpanel"
+    bar == "waybar"
   ) ./programs/swaync;
 
   # Dependencies
