@@ -53,11 +53,11 @@ hl.bind(mainMod .. " + delete", hl.dsp.exec_cmd("hyprshutdown")) -- kill hyperla
 hl.bind(mainMod .. " + W", hl.dsp.window.float({ action = "toggle" })) -- toggle the window on focus to float
 hl.bind(mainMod .. " + SHIFT + G", hl.dsp.group.toggle()) -- toggle the window on focus to group
 hl.bind("ALT + return", hl.dsp.window.fullscreen()) -- toggle the window on focus to fullscreen
-hl.bind(mainMod .. " + ALT + L", hl.dsp.exec_cmd("hyprlock")) -- lock screen
-hl.bind(mainMod .. " + backspace", hl.dsp.exec_cmd("pkill -x wlogout || wlogout -b 4")) -- logout menu
+hl.bind(mainMod .. " + ALT + L", hl.dsp.exec_cmd("noctalia msg session lock || hyprlock")) -- lock screen
+hl.bind(mainMod .. " + backspace", hl.dsp.exec_cmd("noctalia msg panel-toggle session || pkill -x wlogout || wlogout -b 4")) -- logout menu
 hl.bind(
 	"CONTROL + ESCAPE",
-	hl.dsp.exec_cmd('pkill "waybar|hyprpanel|wayle|noctalia-shell|caelestia-shell|.quickshell" || ' .. bar)
+	hl.dsp.exec_cmd('pkill "waybar|hyprpanel|wayle|noctalia|caelestia-shell|.quickshell" || ' .. bar)
 ) -- toggle bar
 hl.bind(mainMod .. " + CTRL + mouse_down", hl.dsp.exec_cmd(zoom .. " in")) -- zoom in
 hl.bind(mainMod .. " + CTRL + mouse_up", hl.dsp.exec_cmd(zoom .. " out")) -- zoom out

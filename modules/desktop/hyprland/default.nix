@@ -20,7 +20,9 @@ in
     ./programs/hypridle
     ./programs/hyprlock
   ]
-  ++ optional (bar != "wayle" && bar != "hyprpanel") ./programs/swaync;
+  ++ optional (
+    bar != "noctalia" && bar != "caelestia" && bar != "wayle" && bar != "hyprpanel"
+  ) ./programs/swaync;
 
   # Dependencies
   environment.systemPackages = with pkgs; [
@@ -55,7 +57,8 @@ in
   programs.hyprland = {
     enable = true;
     package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
-    portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+    portalPackage =
+      inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
     # withUWSM = true;
   };
 

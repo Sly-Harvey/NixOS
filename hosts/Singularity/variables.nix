@@ -5,7 +5,7 @@
   desktop = "hyprland"; # hyprland, i3, gnome, plasma6
 
   # Theme & Appearance
-  bar = "waybar"; # waybar, wayle, noctalia-shell, caelestia-shell
+  bar = "noctalia"; # waybar, wayle, noctalia, caelestia
   waybarTheme = "minimal"; # stylish, minimal
   sddmTheme = "astronaut"; # astronaut, black_hole, purple_leaves, jake_the_dog, hyprland_kath
   defaultWallpaper = "evening-sky.webp"; # Change with SUPER + SHIFT + W (Hyprland)
@@ -15,7 +15,7 @@
   terminal = "kitty"; # kitty, alacritty, wezterm
   editor = "nixvim"; # nixvim, vscode, helix, doom-emacs, nvchad, neovim
   browser = "zen-beta"; # zen-beta, firefox, floorp
-  fileManager = "yazi"; # yazi, lf, thunar
+  fileManager = "thunar"; # yazi, lf, thunar
   shell = "zsh"; # bash, zsh
   games = true; # Enable/Disable gaming module
 
