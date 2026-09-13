@@ -14,8 +14,8 @@
           url = "https://www.twitch.tv";
         }
         {
-          name = "Netflix";
-          url = "https://www.netflix.com";
+          name = "Fmhy";
+          url = "https://fmhy.net/linux-macos";
         }
         {
           name = "Github";
