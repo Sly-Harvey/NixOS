@@ -408,6 +408,7 @@ in
             weather = {
               enabled = true;
               effects = true;
+              show_condition = false;
               refresh_minutes = 30;
               unit = "metric";
             };
