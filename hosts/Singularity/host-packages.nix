@@ -6,6 +6,7 @@
     godot
     proton-vpn
     github-desktop
+    antigravity-cli
     # pokego # Overlayed
 
     # All-in-one front-end for emulators 
