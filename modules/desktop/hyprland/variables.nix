@@ -60,7 +60,7 @@ in
             launcher = "${getExe launcher}"
             bar = "${if bar == "wayle" then "wayle shell" else bar}"
             term = "${terminal}"
-            editor = "code --disable-gpu"
+            editor = "zeditor"
             browser = "${browser}"
             fileManager = "${fileManager}"
             capslockAsESC = ${lib.boolToString capslockAsESC}
