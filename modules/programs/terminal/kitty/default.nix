@@ -12,9 +12,10 @@
         settings = {
           # shell = "${getExe pkgs.tmux}";
 
-          # cursor_trail = 3; # Fancy cursor movements (especially in nixvim)
-          # cursor_trail_decay = "0.08 0.3"; # Animation speed
-          # cursor_trail_start_threshold = "4";
+          cursor_trail = 3; # Fancy cursor movements
+          cursor_trail_decay = "0.10 0.32"; # Animation speed
+          # cursor_trail_decay = "0.10 0.4"; # Animation speed
+          cursor_trail_start_threshold = "2";
 
           remember_window_size = "no"; # Bad on tiling window managers
           resize_in_steps = "yes";
