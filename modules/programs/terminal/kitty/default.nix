@@ -11,9 +11,13 @@
         themeFile = "Catppuccin-Mocha";
         settings = {
           # shell = "${getExe pkgs.tmux}";
+
           # cursor_trail = 3; # Fancy cursor movements (especially in nixvim)
           # cursor_trail_decay = "0.08 0.3"; # Animation speed
           # cursor_trail_start_threshold = "4";
+
+          remember_window_size = "no"; # Bad on tiling window managers
+          resize_in_steps = "yes";
           strip_trailing_spaces = "smart";
           macos_option_as_alt = "yes";
           macos_quit_when_last_window_closed = true;
@@ -23,6 +27,7 @@
           enable_audio_bell = false;
           mouse_hide_wait = 60;
           update_check_interval = 0;
+          # placement_strategy = "top-left";
 
           ## Tabs
           tab_title_template = "{index}";
