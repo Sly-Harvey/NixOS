@@ -1,6 +1,8 @@
+{ terminal, lib, pkgs, ... }:
 {
   # ---------- General setting ----------
   modi = "drun,run,filebrowser,window";
+  terminal = "${lib.getExe pkgs.${terminal}}";
   case-sensitive = false;
   cycle = true;
   filter = "";
@@ -62,7 +64,7 @@
   display-filebrowser = "Files";
 
   # ---------- Misc setting ----------
-  terminal = "rofi-sensible-terminal";
+  # terminal = "rofi-sensible-terminal";
   sort = false;
   threads = 0;
   click-to-exit = true;
