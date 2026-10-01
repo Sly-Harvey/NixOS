@@ -9,7 +9,6 @@ let
   inherit (import ../../../../../hosts/${host}/variables.nix)
     timezone
     clock24h
-    bluetoothSupport
     batterySupport
     ;
 in
@@ -350,7 +349,7 @@ in
                     clock_style = "digital";
                     color = "secondary";
                     font_family = "";
-                    format = "{:%a %d %b %R}";
+                    format = if clock24h == true then "{:%a %d %b %R}" else "{:%a %b %d %I:%M %p}";
                     shadow = false;
                   };
                 };
@@ -408,7 +407,7 @@ in
             clock = {
               anchor = true;
               color = "secondary";
-              format = "{:%a %d %b %R}";
+              format = if clock24h == true then "{:%a %d %b %R}" else "{:%a %b %d %I:%M %p}";
             };
             control-center = {
               glyph = "lambda";

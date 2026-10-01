@@ -191,8 +191,8 @@ in
             };
 
             "clock" = {
-              format = if clock24h == true then "{:%a %d %b %R}" else "{:%a %d %b %I:%M %p}";
-              format-alt = if clock24h == true then "{:%a %d %b %I:%M %p}" else "{:%a %d %b %R}";
+              format = if clock24h == true then "{:%a %d %b %R}" else "{:%a %b %d %I:%M %p}";
+              format-alt = if clock24h == true then "{:%a %b %d %I:%M %p}" else "{:%a %d %b %R}";
               # format = "{:%a %d %b %R}";
               # format = "{:%R 󰃭 %d·%m·%y}"; # Inverted
               # format-alt = "{:%I:%M %p}";

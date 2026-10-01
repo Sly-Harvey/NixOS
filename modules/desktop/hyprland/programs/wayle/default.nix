@@ -146,7 +146,7 @@ in
             # Clock (24h format matching hyprpanel)
             clock = {
               # format = "%a %d %b  %R";
-              format = if clock24h == true then "%a %d %b %R" else "%a %d %b %I:%M %p";
+              format = if clock24h == true then "%a %d %b %R" else "%a %b %d %I:%M %p";
               icon-show = false;
               label-show = true;
             };
