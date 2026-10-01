@@ -13,7 +13,6 @@
       supportedSystems = [
         "x86_64-linux" # 64-bit Intel/AMD Linux
         "aarch64-linux" # 64-bit ARM Linux
-        "x86_64-darwin" # 64-bit Intel macOS
         "aarch64-darwin" # 64-bit ARM macOS
       ];
 
@@ -23,26 +22,29 @@
         inputs.nixpkgs.lib.genAttrs supportedSystems (
           system:
           f {
+            inherit system;
             pkgs = import inputs.nixpkgs { inherit system; };
           }
         );
     in
     {
       devShells = forEachSupportedSystem (
-        { pkgs }:
+        { pkgs, system }:
         {
           default = pkgs.mkShellNoCC {
             # The Nix packages provided in the environment
             # Add any you need here
-            packages = with pkgs; [ ];
+            packages = with pkgs; [ self.formatter.${system} ];
 
             # Set any environment variables for your dev shell
             env = { };
 
             # Add any shell logic you want executed any time the environment is activated
-            shellHook = '''';
+            shellHook = "";
           };
         }
       );
+
+      formatter = forEachSupportedSystem ({ pkgs, ... }: pkgs.nixfmt);
     };
 }

@@ -7,17 +7,20 @@
     { self, ... }@inputs:
 
     let
+      inherit (inputs.nixpkgs) lib;
+
       supportedSystems = [
         "x86_64-linux"
         "aarch64-linux"
-        "x86_64-darwin"
         "aarch64-darwin"
       ];
+
       forEachSupportedSystem =
         f:
-        inputs.nixpkgs.lib.genAttrs supportedSystems (
+        lib.genAttrs supportedSystems (
           system:
           f {
+            inherit system;
             pkgs = import inputs.nixpkgs { inherit system; };
           }
         );
@@ -40,14 +43,14 @@
     in
     {
       devShells = forEachSupportedSystem (
-        { pkgs }:
+        { pkgs, system }:
         let
           concatMajorMinor =
             v:
-            pkgs.lib.pipe v [
-              pkgs.lib.versions.splitVersion
-              (pkgs.lib.sublist 0 2)
-              pkgs.lib.concatStrings
+            lib.pipe v [
+              lib.versions.splitVersion
+              (lib.sublist 0 2)
+              lib.concatStrings
             ];
 
           python = pkgs."python${concatMajorMinor version}";
@@ -72,23 +75,27 @@
               venvVersionWarn
             '';
 
-            packages = with python.pkgs; [
-              venvShellHook
-              pip
+            packages =
+              (with python.pkgs; [
+                venvShellHook
+                pip
 
-              # Add whatever else you'd like here.
-              # pkgs.basedpyright
+                # Add whatever else you'd like here.
+                # pkgs.basedpyright
 
-              # pkgs.black
-              # or
-              # python.pkgs.black
+                # pkgs.black
+                # or
+                # python.pkgs.black
 
-              # pkgs.ruff
-              # or
-              # python.pkgs.ruff
-            ];
+                # pkgs.ruff
+                # or
+                # python.pkgs.ruff
+              ])
+              ++ [ self.formatter.${system} ];
           };
         }
       );
+
+      formatter = forEachSupportedSystem ({ pkgs, ... }: pkgs.nixfmt);
     };
 }

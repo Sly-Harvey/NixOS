@@ -10,7 +10,6 @@
       supportedSystems = [
         "x86_64-linux"
         "aarch64-linux"
-        "x86_64-darwin"
         "aarch64-darwin"
       ];
       forEachSupportedSystem =
@@ -18,22 +17,26 @@
         inputs.nixpkgs.lib.genAttrs supportedSystems (
           system:
           f {
+            inherit system;
             pkgs = import inputs.nixpkgs { inherit system; };
           }
         );
     in
     {
       devShells = forEachSupportedSystem (
-        { pkgs }:
+        { pkgs, system }:
         {
           default = pkgs.mkShellNoCC {
             packages = with pkgs; [
               cabal-install
               ghc
               haskell-language-server
+              self.formatter.${system}
             ];
           };
         }
       );
+
+      formatter = forEachSupportedSystem ({ pkgs, ... }: pkgs.nixfmt);
     };
 }

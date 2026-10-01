@@ -16,7 +16,6 @@
       supportedSystems = [
         "x86_64-linux"
         "aarch64-linux"
-        "x86_64-darwin"
         "aarch64-darwin"
       ];
       forEachSupportedSystem =
@@ -24,6 +23,7 @@
         inputs.nixpkgs.lib.genAttrs supportedSystems (
           system:
           f {
+            inherit system;
             pkgs = import inputs.nixpkgs {
               inherit system;
               overlays = [
@@ -50,7 +50,7 @@
       };
 
       devShells = forEachSupportedSystem (
-        { pkgs }:
+        { pkgs, system }:
         {
           default = pkgs.mkShell {
             packages = with pkgs; [
@@ -61,6 +61,7 @@
               cargo-edit
               cargo-watch
               rust-analyzer
+              self.formatter.${system}
             ];
 
             env = {
@@ -70,5 +71,7 @@
           };
         }
       );
+
+      formatter = forEachSupportedSystem ({ pkgs, ... }: pkgs.nixfmt);
     };
 }

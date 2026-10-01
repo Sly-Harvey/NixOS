@@ -10,7 +10,6 @@
       supportedSystems = [
         "x86_64-linux"
         "aarch64-linux"
-        "x86_64-darwin"
         "aarch64-darwin"
       ];
       forEachSupportedSystem =
@@ -18,6 +17,7 @@
         inputs.nixpkgs.lib.genAttrs supportedSystems (
           system:
           f {
+            inherit system;
             pkgs = import inputs.nixpkgs {
               inherit system;
               overlays = [ inputs.self.overlays.default ];
@@ -33,16 +33,19 @@
       };
 
       devShells = forEachSupportedSystem (
-        { pkgs }:
+        { pkgs, system }:
         {
           default = pkgs.mkShellNoCC {
             packages = with pkgs; [
               rEnv
               pandoc
               texlive.combined.scheme-full
+              self.formatter.${system}
             ];
           };
         }
       );
+
+      formatter = forEachSupportedSystem ({ pkgs, ... }: pkgs.nixfmt);
     };
 }
