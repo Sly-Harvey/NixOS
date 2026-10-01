@@ -309,6 +309,13 @@ hl.window_rule({
 })
 
 hl.window_rule({
+	match = { class = "^(rebuild)$" },
+	opacity = "0.80 0.70",
+	float = true,
+	center = true,
+	size = "880 540",
+})
+hl.window_rule({
 	match = { class = "^(microfetch)$" },
 	opacity = "0.80 0.70",
 	float = true,

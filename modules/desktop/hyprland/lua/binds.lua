@@ -140,7 +140,7 @@ hl.bind(mainMod .. " + CTRL + mouse:275", hl.dsp.window.move({ workspace = "6", 
 hl.bind(mainMod .. " + CTRL + ALT + mouse:275", hl.dsp.window.move({ workspace = "7", follow = false }))
 
 -- Rebuild NixOS with a KeyBind
-hl.bind(mainMod .. " + U", hl.dsp.exec_cmd(term .. " -e rebuild"))
+hl.bind(mainMod .. " + U", hl.dsp.exec_cmd(term .. " --class \"rebuild\" -e rebuild"))
 
 -- Scroll through existing workspaces with mainMod + scroll
 hl.bind(mainMod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
