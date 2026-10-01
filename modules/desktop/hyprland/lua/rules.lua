@@ -316,11 +316,11 @@ hl.window_rule({
 	size = "880 540",
 })
 hl.window_rule({
-	match = { class = "^(microfetch)$" },
+	match = { class = "^(fetch)$" },
 	opacity = "0.80 0.70",
 	float = true,
 	center = true,
-	size = "802 261",
+	size = "980 340",
 })
 hl.window_rule({
 	match = { class = "^(eog)$" },
