@@ -115,52 +115,86 @@ in
               }
             ];
           };
-          desktop_widgets = {
-            enabled = false;
-            widget_order = [
-              "desktop-widget-0000000000000001"
-              "desktop-widget-0000000000000002"
-            ];
-            grid = {
-              cell_size = 16;
-              major_interval = 4;
-              visible = true;
-            };
-            widget = {
-              desktop-widget-0000000000000001 = {
-                box_height = 160.0;
-                box_width = 1920.0;
-                cx = 960.0;
-                cy = 988.0;
-                output = "DP-1";
-                placement_height = 1080.0;
-                placement_width = 1920.0;
-                rotation = 0.0;
-                type = "audio_visualizer";
-                settings = {
-                  background = false;
-                  bands = 72;
-                  centered = false;
-                  color_2 = "primary";
-                  show_when_idle = false;
+          desktop_widgets =
+            let
+              displays =
+                (map (n: "DP-${toString n}") (lib.range 1 4))
+                ++ (map (n: "eDP-${toString n}") (lib.range 1 4))
+                ++ (map (n: "HDMI-A-${toString n}") (lib.range 1 4))
+                ++ (map (n: "DVI-D-${toString n}") (lib.range 1 4))
+                ++ (map (n: "DVI-I-${toString n}") (lib.range 1 4))
+                ++ (map (n: "VGA-${toString n}") (lib.range 1 4));
+
+              originalWidgets = {
+                desktop-widget-fancy-audio-visualizer = {
+                  enabled = true;
+                  box_height = 0.0;
+                  box_width = 0.0;
+                  cx = 960.0;
+                  cy = 540.0;
+                  placement_height = 1080.0;
+                  placement_width = 1920.0;
+                  rotation = 0.0;
+                  type = "fancy_audio_visualizer";
+                  settings = {
+                    background = false;
+                  };
                 };
+                # desktop-widget-audio-visualizer = {
+                #   enabled = true;
+                #   box_height = 160.0;
+                #   box_width = 1920.0;
+                #   cx = 960.0;
+                #   cy = 988.0;
+                #   placement_height = 1080.0;
+                #   placement_width = 1920.0;
+                #   rotation = 0.0;
+                #   type = "audio_visualizer";
+                #   settings = {
+                #     background = false;
+                #     bands = 72;
+                #     centered = false;
+                #     color_2 = "primary";
+                #     show_when_idle = false;
+                #   };
+                # };
+                # desktop-widget-media-player = {
+                #   enabled = true;
+                #   box_height = 0.0;
+                #   box_width = 0.0;
+                #   cx = 960.0;
+                #   cy = 162.0;
+                #   placement_height = 1080.0;
+                #   placement_width = 1920.0;
+                #   rotation = 0.0;
+                #   type = "media_player";
+                #   settings.hide_when_no_media = true;
+                # };
               };
-              desktop-widget-0000000000000002 = {
-                box_height = 0.0;
-                box_width = 0.0;
-                cx = 960.0;
-                cy = 540.0;
-                output = "DP-1";
-                placement_height = 1080.0;
-                placement_width = 1920.0;
-                rotation = 0.0;
-                type = "fancy_audio_visualizer";
-                settings = {
-                  background = false;
-                };
+
+              generatedWidgets = builtins.listToAttrs (
+                lib.concatMap (
+                  widgetName:
+                  map (display: {
+                    name = "${widgetName}@${display}";
+                    value = originalWidgets.${widgetName} // {
+                      output = display;
+                    };
+                  }) displays
+                ) (builtins.attrNames originalWidgets)
+              );
+            in
+            {
+              enabled = false;
+              widget_order = builtins.attrNames generatedWidgets;
+              widget = generatedWidgets;
+
+              grid = {
+                cell_size = 16;
+                major_interval = 4;
+                visible = true;
               };
             };
-          };
           dock.size = 34;
           idle = {
             behavior_order = [
