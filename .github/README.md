@@ -26,6 +26,9 @@
             <img src="https://img.shields.io/static/v1.svg?style=for-the-badge&label=License&message=MIT&colorA=313244&colorB=F5A97F&logo=unlicense&logoColor=F5A97F&"/>
          </a>
       </div>
+      <div align="center">
+        <a href="https://ko-fi.com/Q5Q41CX0Z3"><img src="https://ko-fi.com/img/githubbutton_sm.svg" /></a>
+      </div>
       <br>
    </div>
 </h1>
