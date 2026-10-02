@@ -365,6 +365,7 @@ in
           shell = {
             avatar_path = "${./profile-picture.jpg}";
             screenshot.directory = "~/Pictures/Screenshots";
+            settings_expand_all_groups = true;
             setup_wizard_enabled = false;
             clipboard_enabled = true;
             mpris.blacklist = [ "firefox" ];
