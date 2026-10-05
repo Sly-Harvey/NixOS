@@ -369,6 +369,58 @@ in
             setup_wizard_enabled = false;
             clipboard_enabled = true;
             mpris.blacklist = [ "firefox" ];
+            session.actions = [
+              {
+                action = "lock";
+                command = "";
+                countdown_seconds = 0.0;
+                enabled = true;
+                glyph = "";
+                label = "";
+                shortcut = "l";
+                variant = "default";
+              }
+              {
+                action = "logout";
+                command = "";
+                countdown_seconds = 0.0;
+                enabled = true;
+                glyph = "";
+                label = "";
+                shortcut = "e";
+                variant = "default";
+              }
+              {
+                action = "lock_and_suspend";
+                command = "";
+                countdown_seconds = 0.0;
+                enabled = true;
+                glyph = "";
+                label = "";
+                shortcut = "u";
+                variant = "default";
+              }
+              {
+                action = "reboot";
+                command = "";
+                countdown_seconds = 0.0;
+                enabled = true;
+                glyph = "";
+                label = "";
+                shortcut = "r";
+                variant = "default";
+              }
+              {
+                action = "shutdown";
+                command = "";
+                countdown_seconds = 0.0;
+                enabled = true;
+                glyph = "";
+                label = "";
+                shortcut = "s";
+                variant = "destructive";
+              }
+            ];
           };
           theme = {
             builtin = "Catppuccin";
