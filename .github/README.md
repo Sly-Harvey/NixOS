@@ -172,7 +172,7 @@ Initialize a project from a template:
 nix flake init -t ~/NixOS#<TEMPLATE_NAME>
 ```
 
-Create a new project directory:
+Or create a new project directory:
 
 ```bash
 nix flake new -t ~/NixOS#<TEMPLATE_NAME> <PROJECT_NAME>
@@ -187,7 +187,7 @@ cd <PROJECT_NAME>
 nix develop
 ```
 
-If you're using direnv, the shell activates automatically.
+If you're using direnv, `direnv allow` can be used to activate the shell automatically when entering the directory.
 
 ## Credits/Inspiration
 
