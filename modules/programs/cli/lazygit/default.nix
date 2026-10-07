@@ -21,17 +21,52 @@ in
       programs.lazygit = {
         enable = true;
         settings = {
-          gui = fromYAML (
-            pkgs.fetchFromGitHub {
-              owner = "catppuccin";
-              repo = "lazygit";
-              rev = "d3c95a67ea3f778f7705d8ef814f87ac5213436d";
-              sha256 = "01vhir6243k9wfvlgadv7wsc2s9yb92l67piqsl1dm6kwlhshr3g";
-            }
-            + "/themes/mocha/blue.yml"
-          );
-          # gui = fromYAML (
-          #   pkgs.catppuccin + "/lazygit/themes/blue.yml"
+          gui = {
+            mouseEvents = false;
+
+            # Catppuccin Mocha with Blue Accent
+            theme = {
+              authorColors = {
+                "*" = "#b4befe";
+              };
+              activeBorderColor = [
+                "#89b4fa"
+                "bold"
+              ];
+              inactiveBorderColor = [
+                "#a6adc8"
+              ];
+              optionsTextColor = [
+                "#89b4fa"
+              ];
+              selectedLineBgColor = [
+                "#313244"
+              ];
+              cherryPickedCommitBgColor = [
+                "#45475a"
+              ];
+              cherryPickedCommitFgColor = [
+                "#89b4fa"
+              ];
+              unstagedChangesColor = [
+                "#f38ba8"
+              ];
+              defaultFgColor = [
+                "#cdd6f4"
+              ];
+              searchingActiveBorderColor = [
+                "#f9e2af"
+              ];
+            };
+          };
+          # gui.theme = fromYAML (
+          #   pkgs.fetchFromGitHub {
+          #     owner = "catppuccin";
+          #     repo = "lazygit";
+          #     rev = "c24895902ec2a3cb62b4557f6ecd8e0afeed95d5";
+          #     hash = "sha256-4eJEOEfwLBc4EoQ32TpuhXS3QDvQ8FtT7EgpotEKV7o=";
+          #   }
+          #   + "/themes/mocha/blue.yml"
           # );
           git = {
             overrideGpg = true;
