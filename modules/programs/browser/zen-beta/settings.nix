@@ -18,6 +18,7 @@ in
   "zen.view.compact.hide-tabbar" = true;
   "zen.watermark.enabled" = false;
   "zen.welcome-screen.seen" = true;
+  "zen.view.show-newtab-button-top" = false;
 
   # appearance & ui
   "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
