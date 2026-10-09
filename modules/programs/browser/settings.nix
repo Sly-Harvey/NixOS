@@ -8,7 +8,7 @@ let
     Value = true;
     Status = "locked";
   };
-  extensions = import ../extensions.nix { inherit lib; };
+  extensions = import ./extensions.nix { inherit lib; };
 in
 {
   # appearance & ui
@@ -20,13 +20,15 @@ in
   "browser.tabs.delayHidingAudioPlayingIconMS" = 0;
   "browser.tabs.inTitlebar" = 0;
   "browser.tabs.firefox-view" = lock-false;
-  "browser.toolbars.bookmarks.visibility" = "newtab"; # always, never, newtab
+  "browser.toolbars.bookmarks.visibility" = "always"; # always, never, newtab
   "browser.newtab.url" = "about:blank";
   "browser.newtabpage.introShown" = lock-true;
   "browser.newtabpage.pinned" = false;
   "browser.newtabpage.enhanced" = lock-false;
+  "browser.tabs.firefox-view-next" = lock-false;
   "browser.protections_panel.infoMessage.seen" = lock-true;
   "trailhead.firstrun.didSeeAboutWelcome" = lock-true;
+  "browser.firefox-view.feature-tour" = "{\"screen\":\"\",\"complete\":true}";
   "browser.aboutwelcome.enabled" = lock-false;
   "browser.aboutConfig.showWarning" = lock-false;
 
@@ -52,7 +54,7 @@ in
   "network.trr.mode" = 0;
   "network.trr.custom_uri" = "https://dns.quad9.net/dns-query";
   "network.trr.uri" = "https://dns.quad9.net/dns-query";
-  "network.file.disable_unc_paths" = lock-true;
+  "network.file.disable_unc_paths" = true;
   "network.gio.supported-protocols" = "";
   "network.proxy.socks_remote_dns" = lock-true;
 
@@ -77,6 +79,7 @@ in
   "privacy.donottrackheader.value" = 1;
   "privacy.query_stripping.enabled" = lock-true;
   "privacy.query_stripping.enabled.pbmode" = lock-true;
+  "browser.sessionstore.privacy_level" = 0;
   "browser.contentblocking.category" = {
     Value = "strict";
     Status = "locked";
@@ -86,24 +89,24 @@ in
   "privacy.antitracking.isolateContentScriptResources" = lock-true;
 
   # shutdown & sanitizing
-  "privacy.sanitize.sanitizeOnShutdown" = lock-true;
-  "privacy.clearOnShutdown.cache" = lock-true;
-  "privacy.clearOnShutdown.cookies" = lock-true;
-  "privacy.clearOnShutdown.downloads" = lock-true;
-  "privacy.clearOnShutdown.formdata" = lock-true;
-  "privacy.clearOnShutdown.history" = lock-true;
-  "privacy.clearOnShutdown.offlineApps" = lock-true;
-  "privacy.clearOnShutdown.sessions" = lock-true;
-  "privacy.clearOnShutdown.siteSettings" = lock-true;
-  "privacy.clearOnShutdown_v2.cache" = lock-true;
-  # "privacy.clearOnShutdown_v2.cookies" = lock-true;
-  "privacy.clearOnShutdown_v2.downloads" = lock-true;
-  "privacy.clearOnShutdown_v2.formdata" = lock-true;
-  "privacy.clearOnShutdown_v2.history" = lock-true;
-  # "privacy.clearOnShutdown_v2.browsingHistoryAndDownloads" = lock-true;
-  "privacy.clearOnShutdown_v2.offlineApps" = lock-true;
-  "privacy.clearOnShutdown_v2.sessions" = lock-true;
-  "privacy.clearOnShutdown_v2.siteSettings" = lock-true;
+  "privacy.sanitize.sanitizeOnShutdown" = false;
+  "privacy.clearOnShutdown.cache" = true;
+  "privacy.clearOnShutdown.cookies" = false;
+  "privacy.clearOnShutdown.downloads" = true;
+  "privacy.clearOnShutdown.formdata" = true;
+  "privacy.clearOnShutdown.history" = true;
+  "privacy.clearOnShutdown.offlineApps" = false;
+  "privacy.clearOnShutdown.sessions" = false;
+  "privacy.clearOnShutdown.siteSettings" = true;
+  "privacy.clearOnShutdown_v2.cache" = true;
+  "privacy.clearOnShutdown_v2.cookies" = false;
+  "privacy.clearOnShutdown_v2.downloads" = true;
+  "privacy.clearOnShutdown_v2.formdata" = true;
+  "privacy.clearOnShutdown_v2.history" = true;
+  "privacy.clearOnShutdown_v2.browsingHistoryAndDownloads" = true;
+  "privacy.clearOnShutdown_v2.offlineApps" = false;
+  "privacy.clearOnShutdown_v2.sessions" = false;
+  "privacy.clearOnShutdown_v2.siteSettings" = true;
 
   # telemetry
   "toolkit.telemetry.enabled" = lock-false;
@@ -137,6 +140,7 @@ in
   "captivedetect.canonicalURL" = "";
   "network.captive-portal-service.enabled" = lock-false;
   "network.connectivity-service.enabled" = lock-false;
+  "geo.enabled" = lock-false;
   "geo.provider.use_geoclue" = lock-false;
   "extensions.webcompat-reporter.enabled" = lock-false;
   "browser.uitour.enabled" = lock-false;
@@ -158,12 +162,17 @@ in
   "dom.security.https_only_mode" = lock-true;
   "dom.security.https_only_mode_ever_enabled" = lock-true;
   "dom.security.https_only_mode_send_http_background_request" = lock-false;
+  "dom.security.https_only_mode_pbm" = lock-true;
+  "dom.security.https_only_mode_error_page_user_suggestions" = lock-true;
   "browser.xul.error_pages.expert_bad_cert" = lock-true;
   "network.auth.subresource-http-auth-allow" = 1;
   "network.IDN_show_punycode" = lock-true;
   "pdfjs.disabled" = false;
   "pdfjs.enableScripting" = lock-false;
   "dom.disable_window_move_resize" = lock-true;
+  "dom.event.clipboardevents.enabled" = lock-false;
+  "dom.event.contextmenu.enabled" = lock-false;
+  "dom.battery.enabled" = lock-false;
   "security.dialog_enable_delay" = 1000;
   "permissions.manager.defaultsUrl" = "";
   "security.csp.reporting.enabled" = lock-false;
@@ -172,6 +181,7 @@ in
   "devtools.debugger.remote-enabled" = lock-false;
 
   # search & urlbar
+  "browser.search.separatePrivateDefault" = true;
   "browser.search.suggest.enabled" = lock-false;
   "browser.search.suggest.enabled.private" = lock-false;
   "browser.search.update" = false;
@@ -220,6 +230,7 @@ in
   "browser.privatebrowsing.forceMediaMemoryCache" = lock-true;
   "media.peerconnection.ice.proxy_only_if_behind_proxy" = lock-true;
   "media.peerconnection.ice.default_address_only" = lock-true;
+  "media.navigator.enabled" = lock-false;
   "plugin.state.flash" = 0;
   "plugins.enumerable_names" = "";
 
@@ -244,7 +255,7 @@ in
   "browser.newtabpage.activity-stream.enabled" = lock-false;
   "browser.newtabpage.activity-stream.section.highlights.includePocket" = lock-false;
   "browser.newtabpage.activity-stream.feeds.section.topstories" = lock-false;
-  "browser.newtabpage.activity-stream.feeds.topsites" = lock-false;
+  "browser.newtabpage.activity-stream.feeds.topsites" = false;
   "browser.newtabpage.activity-stream.feeds.snippets" = false;
   "browser.newtabpage.activity-stream.showSponsored" = lock-false;
   "browser.newtabpage.activity-stream.showSponsoredTopSites" = lock-false;
@@ -253,7 +264,7 @@ in
 
   # extensions
   "extensions.enabledScopes" = {
-    Value = 5;
+    Value = 5; # 5 = Profile + Application, 15 = All Scopes
     Status = "locked";
   };
   "extensions.autoDisableScopes" = {
@@ -273,7 +284,7 @@ in
   "extensions.getAddons.showPane" = lock-false;
   "extensions.getAddons.cache.enabled" = lock-false;
   "extensions.htmlaboutaddons.recommendations.enabled" = lock-false;
-  "extensions.extensions.activeThemeID" = "firefox-compact-dark@mozilla.org";
+  # "extensions.activeThemeID" = "{8446b178-c865-4f5c-8ccc-1d7887811ae3}"; # firefox-compact-dark@mozilla.org
   "extensions.ui.sitepermission.hidden" = lock-true;
   "extensions.ui.locale.hidden" = lock-true;
   "extensions.webcompat.enable_picture_in_picture_overrides" = true;
