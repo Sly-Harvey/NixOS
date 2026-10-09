@@ -7,17 +7,20 @@
     { self, ... }@inputs:
 
     let
+      inherit (inputs.nixpkgs) lib;
+
       supportedSystems = [
         "x86_64-linux"
         "aarch64-linux"
-        "x86_64-darwin"
         "aarch64-darwin"
       ];
+
       forEachSupportedSystem =
         f:
-        inputs.nixpkgs.lib.genAttrs supportedSystems (
+        lib.genAttrs supportedSystems (
           system:
           f {
+            inherit system;
             pkgs = import inputs.nixpkgs {
               inherit system;
               overlays = [ inputs.self.overlays.default ];
@@ -26,46 +29,49 @@
         );
     in
     {
-      overlays.default = final: prev: rec {
-        # documentation
-        # https://nixos.org/manual/nixpkgs/stable/#sec-beam
+      overlays.default =
+        final: prev:
+        let
+          # documentation
+          # https://nixos.org/manual/nixpkgs/stable/#sec-beam
 
-        # ==== ERLANG ====
+          # ==== ERLANG ====
 
-        # use whatever version is currently defined in nixpkgs
-        # erlang = pkgs.beam.interpreters.erlang;
+          # use whatever version is currently defined in nixpkgs
+          # erlang = pkgs.beam.interpreters.erlang;
 
-        # use latest version of Erlang 27
-        erlang = final.beam.interpreters.erlang_27;
+          # use latest version of Erlang 28
+          erlang = final.beam.interpreters.erlang_28;
 
-        # specify exact version of Erlang OTP
-        # erlang = pkgs.beam.interpreters.erlang.override {
-        #   version = "26.2.2";
-        #   sha256 = "sha256-7S+mC4pDcbXyhW2r5y8+VcX9JQXq5iEUJZiFmgVMPZ0=";
-        # }
+          # specify exact version of Erlang OTP
+          # erlang = pkgs.beam.interpreters.erlang.override {
+          #   version = "26.2.2";
+          #   sha256 = "sha256-7S+mC4pDcbXyhW2r5y8+VcX9JQXq5iEUJZiFmgVMPZ0=";
+          # }
 
-        # ==== BEAM packages ====
+          # ==== BEAM packages ====
 
-        # all BEAM packages will be compile with your preferred erlang version
-        pkgs-beam = final.beam.packagesWith erlang;
+          # all BEAM packages will be compile with your preferred erlang version
+          pkgs-beam = final.beam.packagesWith erlang;
+        in
+        {
+          # ==== Elixir ====
 
-        # ==== Elixir ====
+          # use whatever version is currently defined in nixpkgs
+          # elixir = pkgs-beam.elixir;
 
-        # use whatever version is currently defined in nixpkgs
-        # elixir = pkgs-beam.elixir;
+          # use latest version of Elixir 1.19
+          elixir = pkgs-beam.elixir_1_19;
 
-        # use latest version of Elixir 1.17
-        elixir = pkgs-beam.elixir_1_17;
-
-        # specify exact version of Elixir
-        # elixir = pkgs-beam.elixir.override {
-        #   version = "1.17.1";
-        #   sha256 = "sha256-a7A+426uuo3bUjggkglY1lqHmSbZNpjPaFpQUXYtW9k=";
-        # };
-      };
+          # specify exact version of Elixir
+          # elixir = pkgs-beam.elixir.override {
+          #   version = "1.17.1";
+          #   sha256 = "sha256-a7A+426uuo3bUjggkglY1lqHmSbZNpjPaFpQUXYtW9k=";
+          # };
+        };
 
       devShells = forEachSupportedSystem (
-        { pkgs }:
+        { pkgs, system }:
         {
           default = pkgs.mkShellNoCC {
             packages =
@@ -78,7 +84,9 @@
                 git
 
                 # probably needed for your Phoenix assets
-                nodejs_20
+                nodejs_latest
+
+                self.formatter.${system}
               ]
               ++
                 # Linux only
@@ -101,5 +109,7 @@
           };
         }
       );
+
+      formatter = forEachSupportedSystem ({ pkgs, ... }: pkgs.nixfmt);
     };
 }

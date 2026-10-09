@@ -3,20 +3,25 @@
   imports = [
     ./boot.nix
     ./stylix.nix
+    ./bash.nix
+    ./zsh.nix
+    ./starship.nix
+    ./fonts.nix
     ./hardware.nix
     ./network.nix
+    ./dns.nix
     ./nh.nix
     ./packages.nix
     ./printing.nix
     ./sddm.nix
     ./security.nix
-    ./dns.nix
     ./services.nix
-    # ./games.nix
-    # ./dlna.nix
-    ./syncthing.nix
     ./system.nix
     ./users.nix
+    # ./syncthing.nix
+    # ./jellyfin.nix
+    # ./dlna.nix
+    # ./games.nix
     # ./flatpak.nix
     # ./virtualisation.nix
   ];

@@ -28,7 +28,6 @@ let
     (import ./tmux-sessionizer.nix scriptArgs)
     (import ./extract.nix scriptArgs)
     (import ./driverinfo.nix scriptArgs)
-    (import ./underwatt.nix scriptArgs)
     # Add new scripts here as you create them
   ];
 in

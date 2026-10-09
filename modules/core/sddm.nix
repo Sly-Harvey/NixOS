@@ -11,8 +11,9 @@ let
     themeConfig =
       if lib.hasSuffix "black_hole" sddmTheme then
         {
-          ScreenPadding = "";
+          HaveFormBackground = "false";
           FormPosition = "center"; # left, center, right
+          ScreenPadding = ""; # Default: 5
         }
       else if lib.hasSuffix "astronaut" sddmTheme then
         {
@@ -27,11 +28,11 @@ let
         { };
   };
   sddmDependencies = [
-        sddm-astronaut
-        pkgs.kdePackages.qtsvg # Sddm Dependency
-        pkgs.kdePackages.qtmultimedia # Sddm Dependency
-        pkgs.kdePackages.qtvirtualkeyboard # Sddm Dependency
-      ];
+    sddm-astronaut
+    pkgs.kdePackages.qtsvg # Sddm Dependency
+    pkgs.kdePackages.qtmultimedia # Sddm Dependency
+    pkgs.kdePackages.qtvirtualkeyboard # Sddm Dependency
+  ];
 in
 {
   services.displayManager = {

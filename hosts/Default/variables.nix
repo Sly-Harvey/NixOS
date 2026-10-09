@@ -6,24 +6,26 @@
 
   # Theme & Appearance
   theme = "catppuccin-mocha"; # https://github.com/tinted-theming/schemes/tree/spec-0.11/base16 
-  bar = "waybar"; # waybar, hyprpanel, noctalia
+  bar = "waybar"; # waybar, noctalia, wayle
   waybarTheme = "minimal"; # stylish, minimal
-  sddmTheme = "astronaut"; # astronaut, black_hole, purple_leaves, jake_the_dog, hyprland_kath
-  defaultWallpaper = "galaxy.webp"; # Change with SUPER + SHIFT + W (Hyprland)
-  hyprlockWallpaper = "galaxy.webp";
+  sddmTheme = "jake_the_dog"; # astronaut, black_hole, purple_leaves, jake_the_dog, hyprland_kath
+  defaultWallpaper = "evening-sky.webp"; # Change with SUPER + SHIFT + W (Hyprland)
+  hyprlockWallpaper = "kurzgesagt-galaxies.webp";
 
   # Default Applications
-  terminal = "kitty"; # kitty, alacritty
-  editor = "nixvim"; # nixvim, vscode, helix, doom-emacs, nvchad, neovim
-  browser = "zen-beta"; # zen-beta, firefox, floorp
-  tuiFileManager = "yazi"; # yazi, lf
-  shell = "zsh"; # zsh, bash
-  games = true; # Enable/Disable gaming module
+  terminal = "kitty"; # kitty, alacritty, wezterm
+  editor = "nixvim"; # nixvim, zed, vscode, helix, doom-emacs, nvchad, neovim
+  browser = "librewolf"; # librewolf, zen-beta, firefox, floorp
+  fileManager = "thunar"; # yazi, lf, thunar
+  shell = "zsh"; # bash, zsh
+  games = false; # Enable/Disable gaming module
 
   # Hardware
-  hostname = "Singularity";
+  hostname = "nixos";
   videoDriver = "nvidia"; # nvidia, amdgpu, intel
+  nvidiaChannel = "legacy_580"; # stable, latest, beta, legacy_xxx
   bluetoothSupport = false; # Whether your motherboard supports bluetooth
+  batterySupport = false; # Whether device has a battery (laptop)
 
   # Localization
   timezone = "Europe/London";
@@ -32,4 +34,5 @@
   kbdLayout = "gb";
   kbdVariant = "extd";
   consoleKeymap = "uk";
+  capslockAsESC = false;
 }

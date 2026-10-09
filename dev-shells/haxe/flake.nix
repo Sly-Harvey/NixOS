@@ -10,7 +10,6 @@
       supportedSystems = [
         "x86_64-linux"
         "aarch64-linux"
-        "x86_64-darwin"
         "aarch64-darwin"
       ];
       forEachSupportedSystem =
@@ -18,28 +17,24 @@
         inputs.nixpkgs.lib.genAttrs supportedSystems (
           system:
           f {
+            inherit system;
             pkgs = import inputs.nixpkgs { inherit system; };
           }
         );
     in
     {
       devShells = forEachSupportedSystem (
-        { pkgs }:
+        { pkgs, system }:
         {
           default = pkgs.mkShellNoCC {
-            # WARN: As of 2025-12-28:
-            #       `haxe_4_0` is explicitly used because
-            #       `haxe` is an alias for `haxe_4_3`,
-            #       which requires `mbedtls_2`, which has
-            #       been marked as insecure. The build
-            #       expression for Haxe has not been
-            #       updated to handle this yet, so it fails
-            #       to build. This can be changed in the
-            #       future or by the user, such as through
-            #       an override.
-            packages = with pkgs; [ haxe_4_0 ];
+            packages = with pkgs; [
+              haxe
+              self.formatter.${system}
+            ];
           };
         }
       );
+
+      formatter = forEachSupportedSystem ({ pkgs, ... }: pkgs.nixfmt);
     };
 }

@@ -1,0 +1,1 @@
+require("recycle-bin"):setup()

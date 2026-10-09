@@ -1,409 +1,385 @@
 { pkgs, ... }:
+
 pkgs.writeShellScriptBin "gpuinfo" ''
-  gpuinfo_file="/tmp/$UID-gpuinfo"
+    set -u
 
-  AQ_DRM_DEVICES="''${AQ_DRM_DEVICES:-WLR_DRM_DEVICES}"
+    export PATH="${pkgs.coreutils}/bin:${pkgs.gnugrep}/bin:${pkgs.gawk}/bin:${pkgs.gnused}/bin:${pkgs.pciutils}/bin:${pkgs.jq}/bin:${pkgs.util-linux}/bin:${pkgs.lm_sensors}/bin:${pkgs.findutils}/bin:$PATH"
 
-  tired=false
-  if [[ " $* " =~ " --tired " ]]; then
-    if ! ${pkgs.gnugrep}/bin/grep -q "tired" "''${gpuinfo_file}"; then
-      echo "tired=true" >>"''${gpuinfo_file}"
-      echo "set tired flag"
-    else
-      echo "already set tired flag"
-    fi
-    echo "Nvidia GPU will not be queried if it is in suspend mode"
-    echo "run --reset to reset the flag"
-    exit 0
-  fi
+    state_dir="''${XDG_RUNTIME_DIR:-/run/user/$UID}/gpuinfo"
+    state_file="$state_dir/state"
+    lock_file="$state_dir/lock"
 
-  if [[ " $* " =~ " --emoji " ]]; then
-    if ! ${pkgs.gnugrep}/bin/grep -q "GPUINFO_EMOJI" "''${gpuinfo_file}"; then
-      echo "export GPUINFO_EMOJI=1" >>"''${gpuinfo_file}"
-      echo "set emoji flag"
-    else
-      echo "already set emoji flag"
-    fi
-    echo "run --reset to reset the flag"
-    exit 0
-  fi
+    mkdir -p "$state_dir"
+    chmod 700 "$state_dir" 2>/dev/null || true
 
-  if [[ ! " $* " =~ " --startup " ]]; then
-    gpuinfo_file="''${gpuinfo_file}$2"
-  fi
-
-  detect() {
-    card=$(echo "''${AQ_DRM_DEVICES}" | ${pkgs.coreutils}/bin/cut -d':' -f1 | ${pkgs.coreutils}/bin/cut -d'/' -f4)
-    slot_number=$(${pkgs.coreutils}/bin/ls -l /dev/dri/by-path/ | ${pkgs.gnugrep}/bin/grep "''${card}" | ${pkgs.gawk}/bin/awk -F'pci-0000:|-card' '{print $2}')
-    vendor_id=$(${pkgs.pciutils}/bin/lspci -nn -s "''${slot_number}")
-    declare -A vendors=(["10de"]="nvidia" ["8086"]="intel" ["1002"]="amd")
-    for vendor in "''${!vendors[@]}"; do
-      if [[ ''${vendor_id} == *"''${vendor}"* ]]; then
-        initGPU="''${vendors[''${vendor}]}"
-        break
-      fi
-    done
-    if [[ -n ''${initGPU} ]]; then
-      $0 --use "''${initGPU}" --startup
-    fi
-  }
-
-  query() {
-    GPUINFO_NVIDIA_ENABLE=0 GPUINFO_AMD_ENABLE=0 GPUINFO_INTEL_ENABLE=0
-    touch "''${gpuinfo_file}"
-
-    if ${pkgs.kmod}/bin/lsmod | ${pkgs.gnugrep}/bin/grep -q 'nouveau'; then
-      echo "GPUINFO_NVIDIA_GPU=\"Linux\"" >>"''${gpuinfo_file}"
-      echo "GPUINFO_NVIDIA_ENABLE=1 # Using nouveau an open-source nvidia driver" >>"''${gpuinfo_file}"
-    elif command -v nvidia-smi &>/dev/null; then
-      GPUINFO_NVIDIA_GPU=$(nvidia-smi --query-gpu=gpu_name --format=csv,noheader,nounits | ${pkgs.coreutils}/bin/head -n 1)
-      if [[ -n "''${GPUINFO_NVIDIA_GPU}" ]]; then
-        if [[ "''${GPUINFO_NVIDIA_GPU}" == *"NVIDIA-SMI has failed"* ]]; then
-          echo "GPUINFO_NVIDIA_ENABLE=0 # NVIDIA-SMI has failed" >>"''${gpuinfo_file}"
-        else
-          NVIDIA_ADDR=$(${pkgs.pciutils}/bin/lspci | ${pkgs.gnugrep}/bin/grep -Ei "VGA|3D" | ${pkgs.gnugrep}/bin/grep -i "''${GPUINFO_NVIDIA_GPU/NVIDIA /}" | ${pkgs.coreutils}/bin/cut -d' ' -f1)
-          {
-            echo "NVIDIA_ADDR=\"''${NVIDIA_ADDR}\""
-            echo "GPUINFO_NVIDIA_GPU=\"''${GPUINFO_NVIDIA_GPU/NVIDIA /}\""
-            echo "GPUINFO_NVIDIA_ENABLE=1"
-          } >>"''${gpuinfo_file}"
-        fi
-      fi
-    fi
-
-    if ${pkgs.pciutils}/bin/lspci -nn | ${pkgs.gnugrep}/bin/grep -E "(VGA|3D)" | ${pkgs.gnugrep}/bin/grep -iq "1002"; then
-      GPUINFO_AMD_GPU="$(${pkgs.pciutils}/bin/lspci -nn | ${pkgs.gnugrep}/bin/grep -Ei "VGA|3D" | ${pkgs.gnugrep}/bin/grep -m 1 "1002" | ${pkgs.gawk}/bin/awk -F'Advanced Micro Devices, Inc. ' '{gsub(/ *\[[^\]]*\]/,""); gsub(/ *\([^)]*\)/,""); print $2}')"
-      AMD_ADDR=$(${pkgs.pciutils}/bin/lspci | ${pkgs.gnugrep}/bin/grep -Ei "VGA|3D" | ${pkgs.gnugrep}/bin/grep -i "''${GPUINFO_AMD_GPU}" | ${pkgs.coreutils}/bin/cut -d' ' -f1)
-      {
-        echo "AMD_ADDR=\"''${AMD_ADDR}\""
-        echo "GPUINFO_AMD_ENABLE=1"
-        echo "GPUINFO_AMD_GPU=\"''${GPUINFO_AMD_GPU}\""
-      } >>"''${gpuinfo_file}"
-    fi
-
-    if ${pkgs.pciutils}/bin/lspci -nn | ${pkgs.gnugrep}/bin/grep -E "(VGA|3D)" | ${pkgs.gnugrep}/bin/grep -iq "8086"; then
-      GPUINFO_INTEL_GPU="$(${pkgs.pciutils}/bin/lspci -nn | ${pkgs.gnugrep}/bin/grep -Ei "VGA|3D" | ${pkgs.gnugrep}/bin/grep -m 1 "8086" | ${pkgs.gawk}/bin/awk -F'Intel Corporation ' '{gsub(/ *\[[^\]]*\]/,""); gsub(/ *\([^)]*\)/,""); print $2}')"
-      INTEL_ADDR=$(${pkgs.pciutils}/bin/lspci | ${pkgs.gnugrep}/bin/grep -Ei "VGA|3D" | ${pkgs.gnugrep}/bin/grep -i "''${GPUINFO_INTEL_GPU}" | ${pkgs.coreutils}/bin/cut -d' ' -f1)
-      {
-        echo "INTEL_ADDR=\"''${INTEL_ADDR}\""
-        echo "GPUINFO_INTEL_ENABLE=1"
-        echo "GPUINFO_INTEL_GPU=\"''${GPUINFO_INTEL_GPU}\""
-      } >>"''${gpuinfo_file}"
-    fi
-
-    if ! ${pkgs.gnugrep}/bin/grep -q "GPUINFO_PRIORITY=" "''${gpuinfo_file}" && [[ -n "''${AQ_DRM_DEVICES}" ]]; then
-      trap detect EXIT
-    fi
-  }
-
-  toggle() {
-    if [[ -n "$1" ]]; then
-      NEXT_PRIORITY="GPUINFO_''${1^^}_ENABLE"
-      if ! ${pkgs.gnugrep}/bin/grep -q "''${NEXT_PRIORITY}=1" "''${gpuinfo_file}"; then
-        echo Error: "''${NEXT_PRIORITY}" not found in "''${gpuinfo_file}"
-      fi
-    else
-      if ! ${pkgs.gnugrep}/bin/grep -q "GPUINFO_AVAILABLE=" "''${gpuinfo_file}"; then
-        GPUINFO_AVAILABLE=$(${pkgs.gnugrep}/bin/grep "_ENABLE=1" "''${gpuinfo_file}" | ${pkgs.coreutils}/bin/cut -d '=' -f 1 | ${pkgs.coreutils}/bin/tr '\n' ' ' | ${pkgs.coreutils}/bin/tr -d '#')
-        echo "" >>"''${gpuinfo_file}"
-        echo "GPUINFO_AVAILABLE=\"''${GPUINFO_AVAILABLE[*]}\"" >>"''${gpuinfo_file}"
-      fi
-
-      if ! ${pkgs.gnugrep}/bin/grep -q "GPUINFO_PRIORITY=" "''${gpuinfo_file}"; then
-        GPUINFO_AVAILABLE=$(${pkgs.gnugrep}/bin/grep "GPUINFO_AVAILABLE=" "''${gpuinfo_file}" | ${pkgs.coreutils}/bin/cut -d'=' -f 2)
-        initGPU=$(echo "''${GPUINFO_AVAILABLE}" | ${pkgs.coreutils}/bin/cut -d ' ' -f 1)
-        echo "GPUINFO_PRIORITY=''${initGPU}" >>"''${gpuinfo_file}"
-      fi
-      mapfile -t anchor < <(${pkgs.gnugrep}/bin/grep "_ENABLE=1" "''${gpuinfo_file}" | ${pkgs.coreutils}/bin/cut -d '=' -f 1)
-      GPUINFO_PRIORITY=$(${pkgs.gnugrep}/bin/grep "GPUINFO_PRIORITY=" "''${gpuinfo_file}" | ${pkgs.coreutils}/bin/cut -d'=' -f 2)
-      for index in "''${!anchor[@]}"; do
-        if [[ "''${anchor[''${index}]}" = "''${GPUINFO_PRIORITY}" ]]; then
-          current_index=''${index}
-        fi
-      done
-      next_index=$(((current_index + 1) % ''${#anchor[@]}))
-      NEXT_PRIORITY=''${anchor[''${next_index}]#\#}
-    fi
-
-    ${pkgs.gnused}/bin/sed -i 's/^\(GPUINFO_NVIDIA_ENABLE=1\|GPUINFO_AMD_ENABLE=1\|GPUINFO_INTEL_ENABLE=1\)/#\1/' "''${gpuinfo_file}"
-    ${pkgs.gnused}/bin/sed -i "s/^#''${NEXT_PRIORITY}/''${NEXT_PRIORITY}/" "''${gpuinfo_file}"
-    ${pkgs.gnused}/bin/sed -i "s/GPUINFO_PRIORITY=''${GPUINFO_PRIORITY}/GPUINFO_PRIORITY=''${NEXT_PRIORITY}/" "''${gpuinfo_file}"
-  }
-
-  map_floor() {
-    IFS=', ' read -r -a pairs <<<"$1"
-    if [[ ''${pairs[-1]} != *":"* ]]; then
-      def_val="''${pairs[-1]}"
-      unset 'pairs[''${#pairs[@]}-1]'
-    fi
-    for pair in "''${pairs[@]}"; do
-      IFS=':' read -r key value <<<"$pair"
-      num="''${2%%.*}"
-      if [[ "$num" =~ ^-?[0-9]+$ && "$key" =~ ^-?[0-9]+$ ]]; then
-        if ((num > key)); then
-          echo "$value"
-          return
-        fi
-      elif [[ -n "$num" && -n "$key" && "$num" > "$key" ]]; then
-        echo "$value"
-        return
-      fi
-    done
-    [ -n "$def_val" ] && echo $def_val || echo " "
-  }
-
-  get_temp_color() {
-    local temp=$1
-    declare -A temp_colors=(
-      [90]="#8b0000"
-      [85]="#ad1f2f"
-      [80]="#d22f2f"
-      [75]="#ff471a"
-      [70]="#ff6347"
-      [65]="#ff8c00"
-      [60]="#ffa500"
-      [45]=""
-      [40]="#add8e6"
-      [35]="#87ceeb"
-      [30]="#4682b4"
-      [25]="#4169e1"
-      [20]="#0000ff"
-      [0]="#00008b"
-    )
-
-    for threshold in $(echo "''${!temp_colors[@]}" | ${pkgs.coreutils}/bin/tr ' ' '\n' | ${pkgs.coreutils}/bin/sort -nr); do
-      if ((temp >= threshold)); then
-        color=''${temp_colors[$threshold]}
-        if [[ -n $color ]]; then
-          echo "<span color='$color'><b>''${temp}°C</b></span>"
-        else
-          echo "''${temp}°C"
-        fi
-        return
-      fi
-    done
-  }
-
-  generate_json() {
-    if [[ $GPUINFO_EMOJI -ne 1 ]]; then
-      temp_lv="85:, 65:, 45:☁, ❄"
-    else
-      temp_lv="85:🌋, 65:🔥, 45:☁️, ❄️"
-    fi
-    util_lv="90:, 60:󰓅, 30:󰾅, 󰾆"
-
-    icons="$(map_floor "$util_lv" "$utilization")$(map_floor "$temp_lv" "''${temperature}")"
-    speedo=''${icons:0:1}
-    thermo=''${icons:1:1}
-    emoji=''${icons:2}
-    temp_color=$(get_temp_color "''${temperature}")
-
-    local json="{\"text\":\"''${thermo} ''${temperature}°C\", \"tooltip\":\"''${emoji} ''${primary_gpu}\n''${thermo} Temperature: ''${temp_color}"
-
-    declare -A tooltip_parts
-    if [[ -n "''${utilization}" ]]; then tooltip_parts["\n$speedo Utilization: "]="''${utilization}%"; fi
-    if [[ -n "''${current_clock_speed}" ]] && [[ -n "''${max_clock_speed}" ]]; then tooltip_parts["\n Clock Speed: "]="''${current_clock_speed}/''${max_clock_speed} MHz"; fi
-    if [[ -n "''${core_clock}" ]]; then tooltip_parts["\n Clock Speed: "]="''${core_clock} MHz"; fi
-    if [[ -n "''${power_usage}" ]]; then
-      if [[ -n "''${power_limit}" ]]; then
-        tooltip_parts["\n󱪉 Power Usage: "]="''${power_usage}/''${power_limit} W"
-      else
-        tooltip_parts["\n󱪉 Power Usage: "]="''${power_usage} W"
-      fi
-    fi
-    if [[ -n "''${power_discharge}" ]] && [[ "''${power_discharge}" != "0" ]]; then tooltip_parts["\n Power Discharge: "]="''${power_discharge} W"; fi
-    if [[ -n "''${fan_speed}" ]]; then tooltip_parts["\n Fan Speed: "]="''${fan_speed} RPM"; fi
-
-    for key in "''${!tooltip_parts[@]}"; do
-      local value="''${tooltip_parts[''${key}]}"
-      if [[ -n "''${value}" && "''${value}" =~ [a-zA-Z0-9] ]]; then
-        json+="''${key}''${value}"
-      fi
-    done
-    json="''${json}\"}"
-    echo "''${json}"
-  }
-
-  general_query() {
-    filter=""
-    sensors_data=$(${pkgs.lm_sensors}/bin/sensors 2>/dev/null)
-    temperature=$(echo "''${sensors_data}" | ''${filter} ${pkgs.gnugrep}/bin/grep -m 1 -E "(edge|Package id.*|junction|hotspot)" | ${pkgs.gawk}/bin/awk -F ':' '{print int($2)}')
-    fan_speed=$(echo "''${sensors_data}" | ''${filter} ${pkgs.gnugrep}/bin/grep -m 1 -E "fan[1-9]" | ${pkgs.gawk}/bin/awk -F ':' '{print int($2)}')
-
-    for file in /sys/class/power_supply/BAT*/power_now; do
-      [[ -f "''${file}" ]] && power_discharge=$(${pkgs.gawk}/bin/awk '{print $1*10^-6 ""}' "''${file}") && break
-    done
-    [[ -z "''${power_discharge}" ]] && for file in /sys/class/power_supply/BAT*/current_now; do
-      [[ -e "''${file}" ]] && power_discharge=$(${pkgs.gawk}/bin/awk -v current="$(cat "''${file}")" -v voltage="$(cat "''${file/current_now/voltage_now}")" 'BEGIN {print (current * voltage) / 10^12 ""}') && break
-    done
-
-    get_utilization() {
-      statFile=$(${pkgs.coreutils}/bin/head -1 /proc/stat)
-      if [[ -z "$GPUINFO_PREV_STAT" ]]; then
-        GPUINFO_PREV_STAT=$(${pkgs.gawk}/bin/awk '{print $2+$3+$4+$6+$7+$8 }' <<<"$statFile")
-        echo "GPUINFO_PREV_STAT=\"$GPUINFO_PREV_STAT\"" >>"''${gpuinfo_file}"
-      fi
-      if [[ -z "$GPUINFO_PREV_IDLE" ]]; then
-        GPUINFO_PREV_IDLE=$(${pkgs.gawk}/bin/awk '{print $5 }' <<<"$statFile")
-        echo "GPUINFO_PREV_IDLE=\"$GPUINFO_PREV_IDLE\"" >>"''${gpuinfo_file}"
-      fi
-      currStat=$(${pkgs.gawk}/bin/awk '{print $2+$3+$4+$6+$7+$8 }' <<<"$statFile")
-      currIdle=$(${pkgs.gawk}/bin/awk '{print $5 }' <<<"$statFile")
-      diffStat=$((currStat - GPUINFO_PREV_STAT))
-      diffIdle=$((currIdle - GPUINFO_PREV_IDLE))
-
-      GPUINFO_PREV_STAT=$currStat
-      GPUINFO_PREV_IDLE=$currIdle
-
-      ${pkgs.gnused}/bin/sed -i -e "/^GPUINFO_PREV_STAT=/c\GPUINFO_PREV_STAT=\"$currStat\"" -e "/^GPUINFO_PREV_IDLE=/c\GPUINFO_PREV_IDLE=\"$currIdle\"" "$gpuinfo_file" || {
-        echo "GPUINFO_PREV_STAT=\"$currStat\"" >>"$gpuinfo_file"
-        echo "GPUINFO_PREV_IDLE=\"$currIdle\"" >>"$gpuinfo_file"
-      }
-
-      ${pkgs.gawk}/bin/awk -v stat="$diffStat" -v idle="$diffIdle" 'BEGIN {printf "%.1f", (stat/(stat+idle))*100}'
+    exec 9>"$lock_file"
+    flock -w 1 9 || {
+      printf '{"text":"GPU …","tooltip":"gpuinfo is already running"}\n'
+      exit 0
     }
 
-    utilization=$(get_utilization)
-    current_clock_speed=$(${pkgs.gawk}/bin/awk '{sum += $1; n++} END {if (n > 0) print sum / n / 1000 ""}' /sys/devices/system/cpu/cpufreq/policy*/scaling_cur_freq)
-    max_clock_speed=$(${pkgs.gawk}/bin/awk '{print $1/1000}' /sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_max_freq)
-  }
+    tired=0
+    for arg in "$@"; do
+      case "$arg" in
+        --tired) tired=1 ;;
+      esac
+    done
 
-  intel_GPU() {
-    primary_gpu="Intel ''${GPUINFO_INTEL_GPU}"
-    general_query
-  }
+    timeout_cmd() {
+      timeout 2s "$@" 2>/dev/null
+    }
 
-  nvidia_GPU() {
-    primary_gpu="NVIDIA ''${GPUINFO_NVIDIA_GPU}"
-    if [[ "''${GPUINFO_NVIDIA_GPU}" == "Linux" ]]; then
+    has_gpu() {
+      case "$1" in
+        nvidia)
+          lspci -nn | grep -Ei 'VGA|3D' | grep -iq '10de'
+          ;;
+        amd)
+          lspci -nn | grep -Ei 'VGA|3D' | grep -iq '1002'
+          ;;
+        intel)
+          lspci -nn | grep -Ei 'VGA|3D' | grep -iq '8086'
+          ;;
+      esac
+    }
+
+    available_gpus() {
+      gpus=""
+      has_gpu nvidia && gpus="$gpus nvidia"
+      has_gpu amd && gpus="$gpus amd"
+      has_gpu intel && gpus="$gpus intel"
+      echo "$gpus" | awk '{$1=$1; print}'
+    }
+
+    get_state_value() {
+      key="$1"
+      grep -E "^$key=" "$state_file" 2>/dev/null | tail -n1 | cut -d= -f2-
+    }
+
+    set_state_value() {
+      key="$1"
+      value="$2"
+
+      tmp="$state_file.tmp.''$$"
+      touch "$state_file"
+
+      grep -v -E "^$key=" "$state_file" > "$tmp" 2>/dev/null || true
+      printf '%s=%s\n' "$key" "$value" >> "$tmp"
+      mv "$tmp" "$state_file"
+    }
+
+    json() {
+      text="$1"
+      tooltip="$2"
+      class="''${3:-}"
+
+      jq -cn \
+        --arg text "$text" \
+        --arg tooltip "$tooltip" \
+        --arg class "$class" \
+        '{text:$text, tooltip:$tooltip, class:$class}'
+    }
+
+    first_available_gpu() {
+      available_gpus | awk '{print $1}'
+    }
+
+    current_gpu() {
+      priority="$(get_state_value priority || true)"
+
+      if [ -n "$priority" ] && has_gpu "$priority"; then
+        echo "$priority"
+      else
+        first="$(first_available_gpu)"
+        [ -n "$first" ] && set_state_value priority "$first"
+        echo "$first"
+      fi
+    }
+
+    toggle_gpu() {
+      available="$(available_gpus)"
+      current="$(current_gpu)"
+
+      if [ -z "$available" ]; then
+        json "GPU ?" "No supported GPU found" "error"
+        exit 0
+      fi
+
+      next=""
+      found_current=0
+
+      for gpu in $available; do
+        if [ "$found_current" = 1 ]; then
+          next="$gpu"
+          break
+        fi
+
+        if [ "$gpu" = "$current" ]; then
+          found_current=1
+        fi
+      done
+
+      if [ -z "$next" ]; then
+        next="$(echo "$available" | awk '{print $1}')"
+      fi
+
+      set_state_value priority "$next"
+      json "GPU: $next" "Selected GPU: $next"
+      exit 0
+    }
+
+    reset_state() {
+      rm -f "$state_file"
+      first="$(first_available_gpu)"
+      [ -n "$first" ] && set_state_value priority "$first"
+      json "GPU reset" "gpuinfo state reset"
+      exit 0
+    }
+
+    general_query() {
+      sensors_data="$(sensors 2>/dev/null || true)"
+
+      temperature="$(
+        printf '%s\n' "$sensors_data" |
+          grep -m 1 -E '(edge|Package id.*|junction|hotspot|Tctl)' |
+          awk -F ':' '{gsub(/[^0-9.+-]/, "", $2); print int($2)}'
+      )"
+
+      utilization="$(
+        awk '
+          /cpu / {
+            idle=$5
+            total=0
+            for (i=2; i<=NF; i++) total += $i
+            if (total > 0) print int((1 - idle / total) * 100)
+          }
+        ' /proc/stat
+      )"
+
+      [ -z "$temperature" ] && temperature="?"
+      [ -z "$utilization" ] && utilization="?"
+
+      primary_gpu="System sensors"
+    }
+
+    nvidia_query() {
+      primary_gpu="NVIDIA GPU"
+
+      if [ "$tired" = "1" ]; then
+        nvidia_addr="$(lspci | grep -Ei 'VGA|3D' | grep -i nvidia | awk '{print $1}' | head -n1)"
+        if [ -n "$nvidia_addr" ] && [ -r "/sys/bus/pci/devices/0000:$nvidia_addr/power/runtime_status" ]; then
+          runtime_status="$(cat "/sys/bus/pci/devices/0000:$nvidia_addr/power/runtime_status" 2>/dev/null || true)"
+          if printf '%s' "$runtime_status" | grep -qi 'suspend'; then
+            json "󰤂" "NVIDIA GPU is suspended" "suspended"
+            exit 0
+          fi
+        fi
+      fi
+
+      if command -v nvidia-smi >/dev/null 2>&1; then
+        gpu_info="$(
+          timeout_cmd nvidia-smi \
+            --query-gpu=name,temperature.gpu,utilization.gpu,clocks.current.graphics,clocks.max.graphics,power.draw,power.limit \
+            --format=csv,noheader,nounits |
+            head -n1
+        )"
+
+        if [ -n "$gpu_info" ]; then
+          name="$(printf '%s\n' "$gpu_info" | awk -F, '{gsub(/^ +| +$/, "", $1); print $1}')"
+          temperature="$(printf '%s\n' "$gpu_info" | awk -F, '{gsub(/^ +| +$/, "", $2); print $2}')"
+          utilization="$(printf '%s\n' "$gpu_info" | awk -F, '{gsub(/^ +| +$/, "", $3); print $3}')"
+          current_clock_speed="$(printf '%s\n' "$gpu_info" | awk -F, '{gsub(/^ +| +$/, "", $4); print $4}')"
+          max_clock_speed="$(printf '%s\n' "$gpu_info" | awk -F, '{gsub(/^ +| +$/, "", $5); print $5}')"
+          power_usage="$(printf '%s\n' "$gpu_info" | awk -F, '{gsub(/^ +| +$/, "", $6); print $6}')"
+          power_limit="$(printf '%s\n' "$gpu_info" | awk -F, '{gsub(/^ +| +$/, "", $7); print $7}')"
+
+          primary_gpu="NVIDIA ''${name#NVIDIA }"
+          return
+        fi
+      fi
+
       general_query
-      return
-    fi
-    if ''${tired}; then
-      is_suspend="$(cat /sys/bus/pci/devices/0000:"''${NVIDIA_ADDR}"/power/runtime_status)"
-      if [[ ''${is_suspend} == *"suspend"* ]]; then
-        printf '{"text":"󰤂", "tooltip":"%s ⏾ Suspended mode"}' "''${primary_gpu}"
-        exit
-      fi
-    fi
-    gpu_info=$(nvidia-smi --query-gpu=temperature.gpu,utilization.gpu,clocks.current.graphics,clocks.max.graphics,power.draw,power.limit --format=csv,noheader,nounits)
-    IFS=',' read -ra gpu_data <<<"''${gpu_info}"
-    temperature="''${gpu_data[0]// /}"
-    utilization="''${gpu_data[1]// /}"
-    current_clock_speed="''${gpu_data[2]// /}"
-    max_clock_speed="''${gpu_data[3]// /}"
-    power_usage="''${gpu_data[4]// /}"
-    power_limit="''${gpu_data[5]// /}"
-  }
+      primary_gpu="NVIDIA GPU / fallback sensors"
+    }
 
-  amd_GPU() {
-    primary_gpu="AMD ''${GPUINFO_AMD_GPU}"
+    amd_query() {
+      primary_gpu="AMD GPU"
 
-    if command -v amd-smi >/dev/null 2>&1 && command -v ${pkgs.jq}/bin/jq >/dev/null 2>&1; then
-      local amd_output=$(amd-smi metric -t --json 2>/dev/null)
-      if [ -n "$amd_output" ]; then
-        temperature=$(echo "$amd_output" | ${pkgs.jq}/bin/jq -r '.gpu_0.temperature.hotspot_temp // .gpu_0.temperature.edge_temp // (to_entries[] | select(.key | startswith("gpu_")) | .value.temperature.hotspot_temp // .value.temperature.edge_temp) // empty' 2>/dev/null | ${pkgs.coreutils}/bin/head -n1)
-        temperature=$(echo "$temperature" | ${pkgs.coreutils}/bin/cut -d'.' -f1 2>/dev/null)
-        utilization=$(echo "$amd_output" | ${pkgs.jq}/bin/jq -r '.gpu_0.utilization.gfx_activity // (to_entries[] | select(.key | startswith("gpu_")) | .value.utilization.gfx_activity) // empty' 2>/dev/null | ${pkgs.coreutils}/bin/head -n1)
-        core_clock=$(echo "$amd_output" | ${pkgs.jq}/bin/jq -r '.gpu_0.clock.gfx_clock // (to_entries[] | select(.key | startswith("gpu_")) | .value.clock.gfx_clock) // empty' 2>/dev/null | ${pkgs.coreutils}/bin/head -n1)
-        power_usage=$(echo "$amd_output" | ${pkgs.jq}/bin/jq -r '.gpu_0.power.socket_power // .gpu_0.power.total_power // (to_entries[] | select(.key | startswith("gpu_")) | .value.power.socket_power // .value.power.total_power) // empty' 2>/dev/null | ${pkgs.coreutils}/bin/head -n1)
-      fi
-    fi
+      for device in /sys/class/drm/card*/device; do
+        [ -L "$device/driver" ] || continue
+        driver="$(basename "$(readlink -f "$device/driver")" 2>/dev/null || true)"
 
-    if [ -n "$temperature" ] && [ "$temperature" != "N/A" ]; then
-      for card in /sys/class/drm/card*/device; do
-        if [ -L "$card/driver" ] && ${pkgs.coreutils}/bin/basename "$(${pkgs.coreutils}/bin/readlink -f "$card/driver")" 2>/dev/null | ${pkgs.gnugrep}/bin/grep -qi "amdgpu"; then
-          [ -z "$utilization" ] && [ -f "''${card}/gpu_busy_percent" ] && utilization=$(cat "''${card}/gpu_busy_percent" 2>/dev/null)
-          [ -z "$core_clock" ] && [ -f "''${card}/pp_dpm_sclk" ] && core_clock=$(cat "''${card}/pp_dpm_sclk" 2>/dev/null | ${pkgs.gnugrep}/bin/grep '\*' | ${pkgs.gnugrep}/bin/grep -o '[0-9]\+' | ${pkgs.coreutils}/bin/head -n1)
+        if [ "$driver" = "amdgpu" ]; then
+          if [ -f "$device/gpu_busy_percent" ]; then
+            utilization="$(cat "$device/gpu_busy_percent" 2>/dev/null || true)"
+          fi
+
+          hwmon="$(find "$device/hwmon" -mindepth 1 -maxdepth 1 -type d 2>/dev/null | head -n1 || true)"
+
+          if [ -n "$hwmon" ]; then
+            # Prefer edge temperature if labels exist, otherwise use the first readable temp input.
+            for label in "$hwmon"/temp*_label; do
+              [ -f "$label" ] || continue
+
+              label_value="$(cat "$label" 2>/dev/null || true)"
+              case "$label_value" in
+                edge|junction|hotspot)
+                  input="''${label%_label}_input"
+                  if [ -f "$input" ]; then
+                    raw="$(cat "$input" 2>/dev/null || true)"
+                    if [ -n "$raw" ]; then
+                      temperature="$((raw / 1000))"
+                      break
+                    fi
+                  fi
+                  ;;
+              esac
+            done
+
+            if [ -z "''${temperature:-}" ]; then
+              for input in "$hwmon"/temp*_input; do
+                [ -f "$input" ] || continue
+                raw="$(cat "$input" 2>/dev/null || true)"
+                if [ -n "$raw" ]; then
+                  temperature="$((raw / 1000))"
+                  break
+                fi
+              done
+            fi
+
+            for power_input in "$hwmon"/power*_average "$hwmon"/power*_input; do
+              [ -f "$power_input" ] || continue
+              raw_power="$(cat "$power_input" 2>/dev/null || true)"
+              if [ -n "$raw_power" ]; then
+                power_usage="$((raw_power / 1000000))"
+                break
+              fi
+            done
+          fi
+
+          if [ -f "$device/pp_dpm_sclk" ]; then
+            core_clock="$(
+              grep '\*' "$device/pp_dpm_sclk" 2>/dev/null |
+              grep -o '[0-9]\+' |
+              head -n1
+            )"
+          fi
+
           break
         fi
       done
-    else
+
+      # Fallbacks, but do not overwrite AMD values that were already found.
+      if [ -z "''${temperature:-}" ]; then
+        sensors_data="$(sensors 2>/dev/null || true)"
+        temperature="$(
+          printf '%s\n' "$sensors_data" |
+          grep -m 1 -E '(edge|junction|hotspot|Tctl)' |
+          awk -F ':' '{gsub(/[^0-9.+-]/, "", $2); print int($2)}'
+        )"
+      fi
+
+      [ -z "''${temperature:-}" ] && temperature="?"
+      [ -z "''${utilization:-}" ] && utilization="?"
+    }
+
+    intel_query() {
+      primary_gpu="Intel GPU"
       general_query
-    fi
-  }
+    }
 
-  if [[ ! -f "''${gpuinfo_file}" ]]; then
-    query
-    echo -e "Initialized Variable:\n$(cat "''${gpuinfo_file}")\n\nReboot or '$0 --reset' to RESET Variables"
-  fi
-  source "''${gpuinfo_file}"
+    make_output() {
+      temp="''${temperature:-?}"
+      util="''${utilization:-?}"
 
-  case "$1" in
-  "--toggle" | "-t")
-    toggle
-    echo -e "Sensor: ''${NEXT_PRIORITY} GPU" | ${pkgs.gnused}/bin/sed 's/_ENABLE//g'
-    exit
-    ;;
-  "--use" | "-u")
-    toggle "$2"
-    ;;
-  "--reset" | "-rf")
-    rm -fr "''${gpuinfo_file}"*
-    query
-    echo -e "Initialized Variable:\n$(cat "''${gpuinfo_file}" || true)\n\nReboot or '$0 --reset' to RESET Variables"
-    exit
-    ;;
-  "--stat")
-    case "$2" in
-    "amd")
-      if [[ "''${GPUINFO_AMD_ENABLE}" -eq 1 ]]; then
-        echo "GPUINFO_AMD_ENABLE: ''${GPUINFO_AMD_ENABLE}"
-        exit 0
+      if [ "$temp" = "?" ]; then
+        icon="󰍛"
+        class="unknown"
+      elif [ "$temp" -ge 85 ] 2>/dev/null; then
+        icon=""
+        class="critical"
+      elif [ "$temp" -ge 70 ] 2>/dev/null; then
+        icon=""
+        class="warning"
+      else
+        icon=""
+        class="normal"
       fi
-      ;;
-    "intel")
-      if [[ "''${GPUINFO_INTEL_ENABLE}" -eq 1 ]]; then
-        echo "GPUINFO_INTEL_ENABLE: ''${GPUINFO_INTEL_ENABLE}"
-        exit 0
+
+      text="$icon ''${temp}°C"
+
+      tooltip="$primary_gpu"
+      tooltip="$tooltip
+  Temperature: ''${temp}°C"
+
+      if [ -n "''${utilization:-}" ]; then
+        tooltip="$tooltip
+  Utilization: ''${util}%"
       fi
-      ;;
-    "nvidia")
-      if [[ "''${GPUINFO_NVIDIA_ENABLE}" -eq 1 ]]; then
-        echo "GPUINFO_NVIDIA_ENABLE: ''${GPUINFO_NVIDIA_ENABLE}"
-        exit 0
+
+      if [ -n "''${current_clock_speed:-}" ] && [ -n "''${max_clock_speed:-}" ]; then
+        tooltip="$tooltip
+  Clock: ''${current_clock_speed}/''${max_clock_speed} MHz"
+      elif [ -n "''${core_clock:-}" ]; then
+        tooltip="$tooltip
+  Clock: ''${core_clock} MHz"
       fi
-      ;;
-    *)
-      echo "Error: Invalid argument for --stat. Use amd, intel, or nvidia."
-      exit 1
-      ;;
+
+      if [ -n "''${power_usage:-}" ]; then
+        if [ -n "''${power_limit:-}" ]; then
+          tooltip="$tooltip
+  Power: ''${power_usage}/''${power_limit} W"
+        else
+          tooltip="$tooltip
+  Power: ''${power_usage} W"
+        fi
+      fi
+
+      json "$text" "$tooltip" "$class"
+    }
+
+    case "''${1:-}" in
+      --toggle|-t)
+        toggle_gpu
+        ;;
+      --reset|-rf)
+        reset_state
+        ;;
+      --use|-u)
+        requested="''${2:-}"
+        if [ -z "$requested" ]; then
+          json "GPU ?" "Missing GPU name for --use" "error"
+          exit 0
+        fi
+
+        if has_gpu "$requested"; then
+          set_state_value priority "$requested"
+          json "GPU: $requested" "Selected GPU: $requested"
+        else
+          json "GPU ?" "GPU '$requested' was not found" "error"
+        fi
+        exit 0
+        ;;
     esac
-    echo "GPU not enabled."
-    exit 1
-    ;;
-  *"-"*)
-    GPUINFO_AVAILABLE=''${GPUINFO_AVAILABLE//GPUINFO_/}
-    cat <<EOF
-  Available GPU: ''${GPUINFO_AVAILABLE//_ENABLE/}
-[options]
---toggle         * Toggle available GPU
---use [GPU]      * Only call the specified GPU (Useful for adding specific GPU on waybar)
---reset          *  Remove & restart all query
 
-[flags]
---tired            * Adding this option will not query nvidia-smi if gpu is in suspend mode
---startup          * Useful if you want a certain GPU to be set at startup
---emoji            * Use Emoji instead of Glyphs
+    selected="$(current_gpu)"
 
-* If $USER declared env = AQ_DRM_DEVICES on hyprland then use this as the primary GPU
-EOF
-    exit
-    ;;
-  esac
+    case "$selected" in
+      nvidia)
+        nvidia_query
+        ;;
+      amd)
+        amd_query
+        ;;
+      intel)
+        intel_query
+        ;;
+      *)
+        primary_gpu="No supported GPU detected"
+        temperature="?"
+        utilization="?"
+        ;;
+    esac
 
-  GPUINFO_NVIDIA_ENABLE=''${GPUINFO_NVIDIA_ENABLE:-0} GPUINFO_INTEL_ENABLE=''${GPUINFO_INTEL_ENABLE:-0} GPUINFO_AMD_ENABLE=''${GPUINFO_AMD_ENABLE:-0}
-
-  if [[ "''${GPUINFO_NVIDIA_ENABLE}" -eq 1 ]]; then
-    nvidia_GPU
-  elif [[ "''${GPUINFO_AMD_ENABLE}" -eq 1 ]]; then
-    amd_GPU
-  elif [[ "''${GPUINFO_INTEL_ENABLE}" -eq 1 ]]; then
-    intel_GPU
-  else
-    primary_gpu="initialising..."
-    general_query
-  fi
-
-  generate_json
+    make_output
 ''

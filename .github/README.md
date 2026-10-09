@@ -26,6 +26,9 @@
             <img src="https://img.shields.io/static/v1.svg?style=for-the-badge&label=License&message=MIT&colorA=313244&colorB=F5A97F&logo=unlicense&logoColor=F5A97F&"/>
          </a>
       </div>
+      <div align="center">
+        <a href="https://ko-fi.com/Q5Q41CX0Z3"><img src="https://ko-fi.com/img/githubbutton_sm.svg" /></a>
+      </div>
       <br>
    </div>
 </h1>
@@ -126,7 +129,7 @@ The install and rebuild scripts automate the setup process, including hosts, use
 
 <!-- 4. Rebuild with the new hostname (see below) -->
 
-5. Rebuild with the new hostname using either `nixos-rebuild` or `nh` (see [Rebuilding](#rebuilding) below). Once rebuilt, any rebuilding method can be used, as the host name will be implicitly recognised.
+5. Rebuild with the new hostname using either `nixos-rebuild` or `nh` (see [Rebuilding](#rebuilding) below). Once rebuilt, you can use either the shortcut or `rebuild` command, as the host name will be implicitly recognised.
 
 ### Rebuilding
 
@@ -169,7 +172,7 @@ Initialize a project from a template:
 nix flake init -t ~/NixOS#<TEMPLATE_NAME>
 ```
 
-Create a new project directory:
+Or create a new project directory:
 
 ```bash
 nix flake new -t ~/NixOS#<TEMPLATE_NAME> <PROJECT_NAME>
@@ -184,7 +187,7 @@ cd <PROJECT_NAME>
 nix develop
 ```
 
-If you're using direnv, the shell activates automatically.
+If you're using direnv, `direnv allow` can be used to activate the shell automatically when entering the directory.
 
 ## Credits/Inspiration
 

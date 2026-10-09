@@ -10,16 +10,12 @@ in
     (_: {
       programs.waybar = {
         enable = true;
-        systemd = {
-          enable = false;
-          target = "graphical-session.target";
-        };
         settings = {
           mainBar = {
             layer = "top";
             position = "top";
-            mode = "dock"; # Fixes fullscreen issues
-            height = 32; # 35
+            mode = "dock";
+            height = 36;
             exclusive = true;
             passthrough = false;
             gtk-layer-shell = true;
@@ -103,13 +99,13 @@ in
               on-click = "${pkgs.playerctl}/bin/playerctl play-pause";
             };
             "custom/gpuinfo" = {
-              exec = "${gpuinfo}/bin/gpuinfo";
+              exec = "${gpuinfo}/bin/gpuinfo --tired";
               return-type = "json";
-              format = "{0}";
+              format = "{text}";
               on-click = "${gpuinfo}/bin/gpuinfo --toggle";
               interval = 5; # once every 5 seconds
               tooltip = true;
-              max-length = 1000;
+              max-length = 80;
             };
             "custom/icon" = {
               # format = " ";
@@ -155,7 +151,6 @@ in
               on-click = "${keyboardswitch}/bin/keyboardswitch";
             };
             "hyprland/workspaces" = {
-              disable-scroll = true;
               all-outputs = true;
               active-only = false;
               on-click = "activate";
@@ -176,18 +171,13 @@ in
             };
 
             "hyprland/window" = {
-              format = "  {}";
+              format = "{}";
               separate-outputs = true;
               rewrite = {
-                "harvey@hyprland =(.*)" = "$1 ";
-                "(.*) — Mozilla Firefox" = "$1 󰈹";
-                "(.*)Mozilla Firefox" = " Firefox 󰈹";
-                "(.*) - Visual Studio Code" = "$1 󰨞";
-                "(.*)Visual Studio Code" = "Code 󰨞";
-                "(.*) — Dolphin" = "$1 󰉋";
-                "(.*)Spotify" = "Spotify 󰓇";
-                "(.*)Spotify Premium" = "Spotify 󰓇";
-                "(.*)Steam" = "Steam 󰓓";
+                "" = "Desktop";
+                "kitty" = "Terminal";
+                "zsh" = "Terminal";
+                "~" = "Terminal";
               };
               max-length = 1000;
             };
@@ -201,8 +191,8 @@ in
             };
 
             "clock" = {
-              format = if clock24h == true then "{:%a %d %b %R}" else "{:%a %d %b %I:%M %p}";
-              format-alt = if clock24h == true then "{:%a %d %b %I:%M %p}" else "{:%a %d %b %R}";
+              format = if clock24h == true then "{:%a %d %b %R}" else "{:%a %b %d %I:%M %p}";
+              format-alt = if clock24h == true then "{:%a %b %d %I:%M %p}" else "{:%a %d %b %R}";
               # format = "{:%a %d %b %R}";
               # format = "{:%R 󰃭 %d·%m·%y}"; # Inverted
               # format-alt = "{:%I:%M %p}";
@@ -326,8 +316,8 @@ in
             };
 
             "tray" = {
-              icon-size = 12;
-              spacing = 5;
+              icon-size = 14; # 12
+              spacing = 6; # 5
             };
 
             "battery" = {
@@ -367,7 +357,7 @@ in
         style = ''
           * {
             font-family: "monospace";
-            font-size: 14px;
+            font-size: 15px;
             margin: 0px;
             padding: 0px;
           }
@@ -407,9 +397,7 @@ in
             transition-property: background-color;
             transition-duration: 0.5s;
             background: transparent;
-            /*border: 2px solid @overlay0;*/
-            /*background: @theme_base_color;*/
-            border-radius: 10px;
+            border-radius: 11px;
           }
 
           window#waybar.hidden {
@@ -418,7 +406,7 @@ in
 
           tooltip {
             background: @theme_base_color;
-            border-radius: 8px;
+            border-radius: 9px;
           }
 
           tooltip label {
@@ -436,11 +424,11 @@ in
           	border-radius: 10px;
           }
           .modules-center {
-          	background: @theme_base_color;
-            border: 0.5px solid @overlay0;
-          	padding-right: 5px;
-          	padding-left: 5px;
-          	border-radius: 10px;
+            background: @theme_base_color;
+            border: 1px solid @overlay0;
+            padding-right: 6px;
+            padding-left: 6px;
+            border-radius: 11px;
           }
           .modules-right {
           	background: @theme_base_color;
@@ -495,10 +483,10 @@ in
           #custom-weather.showyIcyDay,
           #custom-weather.snowyIcyNight,
           #custom-weather.sunnyDay {
-          	padding-top: 3px;
-          	padding-bottom: 3px;
-          	padding-right: 5px;
-          	padding-left: 5px;
+            padding-top: 3px;
+            padding-bottom: 3px;
+            padding-right: 6px;
+            padding-left: 6px;
           }
 
           #idle_inhibitor {
@@ -534,23 +522,21 @@ in
           #custom-updates {
             color: @blue
           }
-
           #custom-notification {
             color: #dfdfdf;
-            padding: 0px 5px;
+            padding: 0px 6px;
             border-radius: 5px;
           }
 
           #language {
             color: @blue
           }
-
           #clock {
             color: @yellow;
           }
 
           #custom-icon {
-            font-size: 15px;
+            font-size: 16px;
             color: #cba6f7;
           }
 
@@ -591,69 +577,69 @@ in
           }
 
           #workspaces button {
-              box-shadow: none;
-          	text-shadow: none;
-              padding: 0px;
-              border-radius: 9px;
-              padding-left: 4px;
-              padding-right: 4px;
-              animation: gradient_f 20s ease-in infinite;
-              transition: all 0.5s cubic-bezier(.55,-0.68,.48,1.682);
+            box-shadow: none;
+            text-shadow: none;
+            padding: 0px;
+            border-radius: 10px;
+            padding-left: 5px;
+            padding-right: 5px;
+            animation: gradient_f 20s ease-in infinite;
+            transition: all 0.5s cubic-bezier(.55,-0.68,.48,1.682);
           }
 
           #workspaces button:hover {
-          	border-radius: 10px;
-          	color: @overlay0;
-          	background-color: @surface0;
-           	padding-left: 2px;
-              padding-right: 2px;
-              animation: gradient_f 20s ease-in infinite;
-              transition: all 0.3s cubic-bezier(.55,-0.68,.48,1.682);
+            border-radius: 11px;
+            color: @overlay0;
+            background-color: @surface0;
+            padding-left: 3px;
+            padding-right: 3px;
+            animation: gradient_f 20s ease-in infinite;
+            transition: all 0.3s cubic-bezier(.55,-0.68,.48,1.682);
           }
 
           #workspaces button.persistent {
-          	color: @surface1;
-          	border-radius: 10px;
+            color: @surface1;
+            border-radius: 11px;
           }
 
           #workspaces button.active {
-          	color: @peach;
-            	border-radius: 10px;
-              padding-left: 8px;
-              padding-right: 8px;
-              animation: gradient_f 20s ease-in infinite;
-              transition: all 0.3s cubic-bezier(.55,-0.68,.48,1.682);
+            color: @peach;
+            border-radius: 11px;
+            padding-left: 9px;
+            padding-right: 9px;
+            animation: gradient_f 20s ease-in infinite;
+            transition: all 0.3s cubic-bezier(.55,-0.68,.48,1.682);
           }
 
           #workspaces button.urgent {
-          	color: @red;
-           	border-radius: 0px;
+            color: @red;
+            border-radius: 0px;
           }
 
           #taskbar button.active {
-              padding-left: 8px;
-              padding-right: 8px;
-              animation: gradient_f 20s ease-in infinite;
-              transition: all 0.3s cubic-bezier(.55,-0.68,.48,1.682);
+            padding-left: 9px;
+            padding-right: 9px;
+            animation: gradient_f 20s ease-in infinite;
+            transition: all 0.3s cubic-bezier(.55,-0.68,.48,1.682);
           }
 
           #taskbar button:hover {
-              padding-left: 2px;
-              padding-right: 2px;
-              animation: gradient_f 20s ease-in infinite;
-              transition: all 0.3s cubic-bezier(.55,-0.68,.48,1.682);
+            padding-left: 3px;
+            padding-right: 3px;
+            animation: gradient_f 20s ease-in infinite;
+            transition: all 0.3s cubic-bezier(.55,-0.68,.48,1.682);
           }
 
           #custom-cava_mviz {
-          	color: @pink;
+            color: @pink;
           }
 
           #cava {
-          	color: @pink;
+            color: @pink;
           }
 
           #mpris {
-          	color: @pink;
+            color: @pink;
           }
 
           #custom-menu {
@@ -707,44 +693,45 @@ in
             background-color: @surface0;
             color: @text;
           }
+
           #pulseaudio-slider slider {
-          	min-width: 0px;
-          	min-height: 0px;
-          	opacity: 0;
-          	background-image: none;
-          	border: none;
-          	box-shadow: none;
+            min-width: 0px;
+            min-height: 0px;
+            opacity: 0;
+            background-image: none;
+            border: none;
+            box-shadow: none;
           }
 
           #pulseaudio-slider trough {
-          	min-width: 80px;
-          	min-height: 5px;
-          	border-radius: 5px;
+            min-width: 90px;
+            min-height: 6px;
+            border-radius: 6px;
           }
 
           #pulseaudio-slider highlight {
-          	min-height: 10px;
-          	border-radius: 5px;
+            min-height: 11px;
+            border-radius: 6px;
           }
 
           #backlight-slider slider {
-          	min-width: 0px;
-          	min-height: 0px;
-          	opacity: 0;
-          	background-image: none;
-          	border: none;
-          	box-shadow: none;
+            min-width: 0px;
+            min-height: 0px;
+            opacity: 0;
+            background-image: none;
+            border: none;
+            box-shadow: none;
           }
 
           #backlight-slider trough {
-          	min-width: 80px;
-          	min-height: 10px;
-          	border-radius: 5px;
+            min-width: 90px;
+            min-height: 11px;
+            border-radius: 6px;
           }
 
           #backlight-slider highlight {
-          	min-width: 10px;
-          	border-radius: 5px;
+            min-width: 11px;
+            border-radius: 6px;
           }
         '';
       };

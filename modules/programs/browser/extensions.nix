@@ -1,77 +1,25 @@
 { lib, ... }:
 {
-  AllowFileSelectionDialogs = true;
-  AppAutoUpdate = false;
-  AutofillAddressEnabled = false;
-  AutofillCreditCardEnabled = false;
-  #AutoLaunchProtocolsFromOrigins = { };
-  BackgroundAppUpdate = false;
-  BlockAboutAddons = false;
-  BlockAboutConfig = false;
-  BlockAboutProfiles = false;
-  BlockAboutSupport = false;
-  #Containers = { };
-  DisableAppUpdate = true;
-  DisableFirefoxAccounts = true;
-  DisableFirefoxScreenshots = true;
-  DisableFirefoxStudies = true;
-  DisableFormHistory = true;
-  DisableMasterPasswordCreation = true;
-  DisablePocket = true;
-  DisablePrivateBrowsing = false;
-  DisableProfileImport = false;
-  DisableProfileRefresh = false;
-  DisableSafeMode = false;
-  DisableTelemetry = true;
-  DNSOverHTTPS = {
-    Enabled = true;
-  };
-  EnableTrackingProtection = {
-    Value = true;
-    Locked = true;
-    Cryptomining = true;
-    Fingerprinting = true;
-  };
-  EncryptedMediaExtensions = {
-    Enabled = true;
-  };
-  ExtensionUpdate = true;
-  FirefoxHome = {
-    Search = false;
-    TopSites = false;
-    SponsoredTopSites = false;
-    Highlights = false;
-    Pocket = false;
-    SponsoredPocket = false;
-    Snippets = false;
-    Locked = false;
-  };
-  HardwareAcceleration = true;
-  ManualAppUpdateOnly = true;
-  NoDefaultBookmarks = false;
-  OfferToSaveLogins = false;
-  PasswordManagerEnabled = false;
-  PictureInPicture = {
-    Enabled = true;
-  };
-  PopupBlocking = {
-    Allow = [ ];
-    Default = true;
-  };
-  Preferences = {
-    "browser.tabs.warnOnClose" = {
-      Value = false;
-    };
-  };
-  PromptForDownloadLocation = true;
-  SearchSuggestEnabled = false;
-  ShowHomeButton = false;
-  StartDownloadsInTempDirectory = false;
-  UserMessaging = {
-    ExtensionRecommendations = false;
-    SkipOnboarding = true;
-  };
-  ExtensionSettings = {
+  nav-bar = [
+    "extension_one-tab_com-browser-action"
+    "clipper_obsidian_md-browser-action"
+    "_8454caa8-cebc-4486-8b23-9771f187ed6c_-browser-action"
+    "firemonkey_eros_man-browser-action"
+    "ublock0_raymondhill_net-browser-action"
+    # "addon_darkreader_org-browser-action"
+    # "queryamoid_kaply_com-browser-action"
+    # "_aecec67f-0d10-4fa7-b7c7-609a2db280cf_-browser-action"
+  ];
+
+  unified-extensions-area = [
+    "ublock0_raymondhill_net-browser-action"
+    "firemonkey_eros_man-browser-action"
+    "addon_darkreader_org-browser-action"
+    "queryamoid_kaply_com-browser-action"
+    # "_aecec67f-0d10-4fa7-b7c7-609a2db280cf_-browser-action"
+  ];
+
+  extensionSettings = {
     "*" = {
       blocked_install_message = "Addon is not added in the nix config";
       installation_mode = "blocked";
@@ -88,17 +36,23 @@
       installation_mode = "force_installed";
       install_url = "https://addons.mozilla.org/firefox/downloads/latest/firemonkey/latest.xpi";
     };
+    "clipper@obsidian.md" = {
+      private_browsing = false;
+      default_area = "navbar";
+      installation_mode = "force_installed";
+      install_url = "https://addons.mozilla.org/firefox/downloads/latest/web-clipper-obsidian/latest.xpi";
+    };
+    "{8454caa8-cebc-4486-8b23-9771f187ed6c}" = {
+      private_browsing = true;
+      default_area = "navbar";
+      installation_mode = "force_installed";
+      install_url = "https://addons.mozilla.org/firefox/downloads/latest/600-sound-volume-privacy/latest.xpi";
+    };
     "extension@one-tab.com" = {
       private_browsing = false;
       default_area = "navbar";
       installation_mode = "force_installed";
       install_url = "https://addons.mozilla.org/firefox/downloads/latest/onetab/latest.xpi";
-    };
-    "{c4b582ec-4343-438c-bda2-2f691c16c262}" = {
-      private_browsing = true;
-      default_area = "navbar";
-      installation_mode = "force_installed";
-      install_url = "https://addons.mozilla.org/firefox/downloads/latest/600-sound-volume/latest.xpi";
     };
     "addon@darkreader.org" = {
       private_browsing = true;
@@ -122,12 +76,6 @@
       installation_mode = "force_installed";
       install_url = "https://addons.mozilla.org/firefox/downloads/latest/frankerfacez/latest.xpi";
     };
-    # Catppuccin theme
-    "{8446b178-c865-4f5c-8ccc-1d7887811ae3}" = {
-      private_browsing = true;
-      installation_mode = "force_installed";
-      install_url = "https://addons.mozilla.org/firefox/downloads/latest/catppuccin-mocha-lavender-git/latest.xpi";
-    };
     # View Xpi Id's in Firefox Extension Store
     "queryamoid@kaply.com" = {
       private_browsing = true;
@@ -135,52 +83,8 @@
       install_url = "https://github.com/mkaply/queryamoid/releases/download/v0.2/query_amo_addon_id-0.2-fx.xpi";
     };
   };
-  "3rdparty".Extensions = {
-    "addon@darkreader.org" = {
-      enabled = true;
-      automation = {
-        enabled = true;
-        behavior = "OnOff";
-        mode = "system";
-      };
-      detectDarkTheme = true;
-      enabledByDefault = true;
-      changeBrowserTheme = false;
-      enableForProtectedPages = true;
-      fetchNews = true;
-      syncSitesFixes = true;
-      previewNewDesign = true;
-      # previewNewestDesign = true; # TODO: test
 
-      # Catppuccin mocha theme
-      /*
-        theme = {
-          mode = 1;
-          brightness = 100;
-          contrast = 100;
-          grayscale = 0;
-          sepia = 0;
-          useFont = false;
-          fontFamily = "Open Sans";
-          textStroke = 0;
-          engine = "dynamicTheme";
-          stylesheet = "";
-          darkSchemeBackgroundColor = "#1e1e2e";
-          darkSchemeTextColor = "#cdd6f4";
-          lightSchemeBackgroundColor = "#eff1f5";
-          lightSchemeTextColor = "#4c4f69";
-          scrollbarColor = "";
-          selectionColor = "#585b70"; # For the light scheme: #acb0be
-          styleSystemControls = true;
-          lightColorScheme = "Default";
-          darkColorScheme = "Default";
-          immediateModify = false;
-        };
-      */
-
-      # enabledFor = [];
-      # disabledFor = [];
-    };
+  extensionConfig = {
     "uBlock0@raymondhill.net" = {
       advancedSettings = [
         [
@@ -198,7 +102,7 @@
           uiTheme = "dark";
           uiAccentCustom = true;
           uiAccentCustom0 = "#CA9EE6";
-          cloudStorageEnabled = lib.mkForce false; # Security liability?
+          cloudStorageEnabled = lib.mkForce false;
           advancedUserEnabled = true;
           userFiltersTrusted = true;
           importedLists = [
@@ -272,6 +176,51 @@
           "user-filters"
         ];
       };
+    };
+    "addon@darkreader.org" = {
+      enabled = true;
+      automation = {
+        enabled = true;
+        behavior = "OnOff";
+        mode = "system";
+      };
+      detectDarkTheme = true;
+      enabledByDefault = true;
+      changeBrowserTheme = false;
+      enableForProtectedPages = true;
+      fetchNews = true;
+      syncSitesFixes = true;
+      previewNewDesign = true;
+      # previewNewestDesign = true; # TODO: test
+
+      # Catppuccin mocha theme
+      /*
+        theme = {
+          mode = 1;
+          brightness = 100;
+          contrast = 100;
+          grayscale = 0;
+          sepia = 0;
+          useFont = false;
+          fontFamily = "Open Sans";
+          textStroke = 0;
+          engine = "dynamicTheme";
+          stylesheet = "";
+          darkSchemeBackgroundColor = "#1e1e2e";
+          darkSchemeTextColor = "#cdd6f4";
+          lightSchemeBackgroundColor = "#eff1f5";
+          lightSchemeTextColor = "#4c4f69";
+          scrollbarColor = "";
+          selectionColor = "#585b70"; # For the light scheme: #acb0be
+          styleSystemControls = true;
+          lightColorScheme = "Default";
+          darkColorScheme = "Default";
+          immediateModify = false;
+        };
+      */
+
+      # enabledFor = [];
+      # disabledFor = [];
     };
   };
 }

@@ -10,7 +10,6 @@
       supportedSystems = [
         "x86_64-linux"
         "aarch64-linux"
-        "x86_64-darwin"
         "aarch64-darwin"
       ];
       forEachSupportedSystem =
@@ -18,13 +17,14 @@
         inputs.nixpkgs.lib.genAttrs supportedSystems (
           system:
           f {
+            inherit system;
             pkgs = import inputs.nixpkgs { inherit system; };
           }
         );
     in
     {
       devShells = forEachSupportedSystem (
-        { pkgs }:
+        { pkgs, system }:
         {
           default =
             pkgs.mkShell.override
@@ -39,17 +39,19 @@
                     clang-tools
                     cmake
                     codespell
-                    conan
                     cppcheck
                     doxygen
                     gtest
                     lcov
                     vcpkg
                     vcpkg-tool
+                    self.formatter.${system}
                   ]
-                  ++ (if stdenv.hostPlatform.system == "aarch64-darwin" then [ ] else [ gdb ]);
+                  ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [ gdb ];
               };
         }
       );
+
+      formatter = forEachSupportedSystem ({ pkgs, ... }: pkgs.nixfmt);
     };
 }

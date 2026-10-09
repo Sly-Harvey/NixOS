@@ -3,6 +3,7 @@ let
   inherit (import ../../hosts/${host}/variables.nix) hostname bluetoothSupport;
 in
 {
+  programs.solaar.enable = true;
   hardware = {
     sane = {
       enable = true;
@@ -10,7 +11,6 @@ in
       disabledDefaultBackends = [ "escl" ];
     };
     logitech.wireless.enable = false;
-    logitech.wireless.enableGraphical = false;
     graphics.enable = true;
     enableRedistributableFirmware = true;
     keyboard.qmk.enable = true;

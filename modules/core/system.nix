@@ -1,4 +1,5 @@
 {
+  lib,
   self,
   inputs,
   host,
@@ -13,6 +14,7 @@ let
     kbdVariant
     locale
     timezone
+    capslockAsESC
     ;
 in
 {
@@ -25,18 +27,22 @@ in
     };
   };
   services.xserver = {
-    enable = false;
+    enable = true;
     excludePackages = with pkgs; [ xterm ];
     exportConfiguration = true; # Make sure /etc/X11/xkb is populated so localectl works correctly
     xkb = {
       layout = "${kbdLayout}";
       variant = "${kbdVariant}";
+      options = "caps:swapescape";
     };
   };
   nix = {
     # Nix Package Manager Settings
     settings = {
-      trusted-users = [ "root" "@wheel" ]; # Required by Cachix to be used as non-root user
+      trusted-users = [
+        "root"
+        "@wheel"
+      ]; # Required by Cachix to be used as non-root user
       accept-flake-config = true;
       builders-use-substitutes = true;
       download-buffer-size = 200000000;
@@ -45,18 +51,18 @@ in
         "https://cache.nixos.org/"
         "https://nix-community.cachix.org/"
         "https://hyprland.cachix.org/"
+        "https://noctalia.cachix.org"
         # "https://nix-gaming.cachix.org"
         # "https://chaotic-nyx.cachix.org"
-        # "https://nixpkgs-wayland.cachix.org"
         # "https://devenv.cachix.org"
       ];
       trusted-public-keys = [
         "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
         "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+        "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
         # "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
         # "chaotic-nyx.cachix.org-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8="
-        # "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
         # "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
       ];
       experimental-features = [
@@ -106,4 +112,15 @@ in
     };
   };
   system.stateVersion = "26.05"; # Do not change!
+}
+// lib.optionalAttrs capslockAsESC {
+  services.udev.extraHwdb = ''
+    evdev:atkbd:*
+      KEYBOARD_KEY_3a=esc
+      KEYBOARD_KEY_01=capslock
+
+    evdev:input:b*v*p*e*:
+      KEYBOARD_KEY_3a=esc
+      KEYBOARD_KEY_01=capslock
+  '';
 }

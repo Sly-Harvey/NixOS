@@ -59,7 +59,6 @@ select-network() {
 connect-to-network() {
 	printf 'Connecting...\n'
 
-  nmcli --ask device wifi connect "$bssid"
 	if nmcli --ask device wifi connect "$bssid"; then
     return
     # notify-send "Wi-Fi" -e -t 2500 -u low "Successfully connected" -i "package-install"

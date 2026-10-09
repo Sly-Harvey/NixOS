@@ -7,12 +7,11 @@
     { self, ... }@inputs:
 
     let
-      goVersion = 24; # Change this to update the whole stack
+      goVersion = 25; # Change this to update the whole stack
 
       supportedSystems = [
         "x86_64-linux"
         "aarch64-linux"
-        "x86_64-darwin"
         "aarch64-darwin"
       ];
       forEachSupportedSystem =
@@ -20,6 +19,7 @@
         inputs.nixpkgs.lib.genAttrs supportedSystems (
           system:
           f {
+            inherit system;
             pkgs = import inputs.nixpkgs {
               inherit system;
               overlays = [ inputs.self.overlays.default ];
@@ -33,7 +33,7 @@
       };
 
       devShells = forEachSupportedSystem (
-        { pkgs }:
+        { pkgs, system }:
         {
           default = pkgs.mkShellNoCC {
             packages = with pkgs; [
@@ -45,9 +45,13 @@
 
               # https://github.com/golangci/golangci-lint
               golangci-lint
+
+              self.formatter.${system}
             ];
           };
         }
       );
+
+      formatter = forEachSupportedSystem ({ pkgs, ... }: pkgs.nixfmt);
     };
 }
