@@ -1,6 +1,6 @@
 { lib, ... }:
 let
-  extensions = import ../extensions.nix { inherit lib; };
+  extensions = import ./extensions.nix { inherit lib; };
 in
 {
   AllowFileSelectionDialogs = true;
@@ -56,7 +56,7 @@ in
   NoDefaultBookmarks = false;
   NewTabPage = false;
   Homepage = {
-    URL = "about:home";
+    URL = "about:newtab";
     StatPage = "previous-session";
     Locked = true;
   };
