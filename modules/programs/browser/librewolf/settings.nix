@@ -285,7 +285,7 @@ in
   "ui.key.accelKey" = 17;
   "intl.locale.requested" = "en-GB,en-US";
   "browser.startup.page" = 3;
-  "browser.startup.homepage" = "";
+  "browser.startup.homepage" = "chrome://browser/content/blanktab.html";
   "browser.startup.homepage_override.mstone" = "ignore";
   "browser.bookmarks.defaultLocation" = "toolbar";
   "browser.bookmarks.restore_default_bookmarks" = false;

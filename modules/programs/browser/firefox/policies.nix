@@ -54,6 +54,12 @@ in
   HardwareAcceleration = true;
   ManualAppUpdateOnly = true;
   NoDefaultBookmarks = false;
+  NewTabPage = false;
+  Homepage = {
+    URL = "about:newtab";
+    StatPage = "previous-session";
+    Locked = true;
+  };
   OfferToSaveLogins = false;
   PasswordManagerEnabled = false;
   PictureInPicture = {

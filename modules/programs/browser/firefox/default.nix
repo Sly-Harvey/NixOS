@@ -25,6 +25,18 @@
             search = import ./search.nix { inherit pkgs; };
             # userChrome = builtins.readFile ./userChrome.css;
             # userContent = builtins.readFile ./userContent.css;
+            userContent = ''
+                /* @-moz-document url("about:newtab"), url("about:home"), url("about:privatebrowsing") { */
+                @-moz-document url("about:newtab"), url("about:home") {
+                body,
+                #root {
+                  min-height: 100vh !important;
+                  background:
+                    linear-gradient(rgba(6, 10, 16, 0.18), rgba(6, 10, 16, 0.38)),
+                    url("file://${../../../themes/wallpapers/storm.jpg}") center / cover no-repeat fixed !important;
+                }
+              }
+            '';
             extraConfig = ''
               ${builtins.readFile "${inputs.betterfox}/Fastfox.js"}
               ${builtins.readFile "${inputs.betterfox}/Peskyfox.js"}
