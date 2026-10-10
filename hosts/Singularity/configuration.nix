@@ -10,10 +10,10 @@ in
     # Core Modules (Don't change unless you know what you're doing)
     ../../modules/scripts
     ../../modules/core/boot.nix
+    ../../modules/core/stylix.nix
     ../../modules/core/bash.nix
     ../../modules/core/zsh.nix
     ../../modules/core/starship.nix
-    ../../modules/core/fonts.nix
     ../../modules/core/hardware.nix
     ../../modules/core/network.nix
     ../../modules/core/dns.nix

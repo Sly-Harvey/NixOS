@@ -6,11 +6,11 @@ in
   imports = [
     # Core Modules (Don't change unless you know what you're doing)
     ./scripts
+    ./core/stylix.nix
     ./core/boot.nix
     ./core/bash.nix
     ./core/zsh.nix
     ./core/starship.nix
-    ./core/fonts.nix
     ./core/hardware.nix
     ./core/network.nix
     ./core/nh.nix

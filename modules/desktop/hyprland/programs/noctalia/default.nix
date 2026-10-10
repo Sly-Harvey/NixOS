@@ -33,7 +33,7 @@ in
           bar.default = {
             enabled = true;
             auto_hide = false;
-            background_opacity = 1.0;
+            # background_opacity = 1.0;
             thickness = 38;
             border = "outline";
             border_width = 0.5;
@@ -224,7 +224,7 @@ in
             auto_locate = false;
           };
           lockscreen = {
-            wallpaper = "${../../../../themes/wallpapers/quasar.webp}";
+            wallpaper = "${../../../../wallpapers/quasar.webp}";
             allow_empty_password = false;
             blur_intensity = 0.5;
             blurred_desktop = false;
@@ -422,21 +422,21 @@ in
               }
             ];
           };
-          theme = {
-            builtin = "Catppuccin";
-            community_palette = "Catppuccin Macchiato Mauve";
-            mode = "dark";
-            source = "community";
-            templates = {
-              enable_builtin_templates = false;
-              enable_community_templates = false;
-            };
-          };
+          # theme = {
+          #   builtin = "Catppuccin";
+          #   community_palette = "Catppuccin Macchiato Mauve";
+          #   mode = "dark";
+          #   source = "community";
+          #   templates = {
+          #     enable_builtin_templates = false;
+          #     enable_community_templates = false;
+          #   };
+          # };
           wallpaper = {
             enabled = false;
-            directory = "${../../../../themes/wallpapers}";
-            directory_dark = "${../../../../themes/wallpapers}";
-            directory_light = "${../../../../themes/wallpapers}";
+            directory = "${../../../../wallpapers}";
+            directory_dark = "${../../../../wallpapers}";
+            directory_light = "${../../../../wallpapers}";
             transition = [
               "disc"
               "fade"

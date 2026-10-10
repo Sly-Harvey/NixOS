@@ -32,7 +32,7 @@
                   min-height: 100vh !important;
                   background:
                     linear-gradient(rgba(6, 10, 16, 0.18), rgba(6, 10, 16, 0.38)),
-                    url("file://${../../../themes/wallpapers/storm.jpg}") center / cover no-repeat fixed !important;
+                    url("file://${../../../wallpapers/storm.jpg}") center / cover no-repeat fixed !important;
                 }
               }
             '';
