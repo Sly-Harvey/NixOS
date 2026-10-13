@@ -1,8 +1,11 @@
 { ... }:
 {
-  networking.firewall = {
-    allowedTCPPorts = [ 53 ];
-    allowedUDPPorts = [ 53 ];
+  networking = {
+    nameservers = [ "127.0.0.1" ]; # Explicitly configure system DNS
+    firewall = {
+      allowedTCPPorts = [ 53 ];
+      allowedUDPPorts = [ 53 ];
+    };
   };
   # Disable systemd dns resolver
   services.resolved = {
