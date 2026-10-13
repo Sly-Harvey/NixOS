@@ -85,8 +85,6 @@
     };
     adguardhome = {
       enable = true;
-      host = "0.0.0.0";
-      port = 3005;
       mutableSettings = true;
       openFirewall = true;
       settings = {
