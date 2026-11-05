@@ -35,7 +35,7 @@ in
             auto_hide = false;
             background_opacity = 1.0;
             thickness = 38;
-            border = "outline";
+            border = "outline_variant";
             border_width = 0.5;
             font_weight = 500;
             reserve_space = true;
@@ -80,7 +80,7 @@ in
               accordion = false;
               accordion_direction = "end";
               enabled = false;
-              fill = "surface_variant";
+              fill = "surface_container";
               id = "g1";
               members = [
                 "temp"
