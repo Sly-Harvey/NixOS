@@ -17,7 +17,7 @@
     loader = {
       efi.canTouchEfiVariables = true;
       efi.efiSysMountPoint = "/boot";
-      timeout = null; # Display bootloader indefinitely until user selects OS
+      timeout = 5; # null == no timeout
       grub = {
         enable = true;
         device = "nodev";
